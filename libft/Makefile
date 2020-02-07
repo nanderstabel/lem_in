@@ -6,9 +6,12 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/01/28 13:12:07 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/05 14:15:53 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/07 20:19:50 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
+
+include ./ft_printf/ft_printf_obj_files
+include ft_libft_obj_files
 
 # Usage
 # make		# compile all binarys to a archive file
@@ -20,14 +23,8 @@ SHELL = /bin/sh
 
 NAME = libft.a
 
-LIBFT_OBJ_FILE_NAMES := ft_libft_obj_files.txt
-
-LIBFT_OBJ_FILES := $(shell cat $(LIBFT_OBJ_FILE_NAMES))
-
-FT_PRINTF_OBJ_FILE_NAMES := ./ft_printf/ft_printf_obj_files.txt
-
-FT_PRINTF_OBJ_FILES := $(addprefix ./ft_printf, $(shell cat \
-$(FT_PRINTF_OBJ_FILE_NAMES)))
+FT_PRINTF_OBJECT_FILES := $(addprefix ./ft_printf/srcs/, \
+$(FT_PRINTF_OBJ_FILES))
 
 INCL_DIR = includes/
 
@@ -37,20 +34,20 @@ CFLAGS = -Wall -Wextra -Werror -I
 
 all: $(NAME)
 
-$(NAME): $(LIBFT_OBJ_FILES) $(FT_PRINTF_OBJ_FILES)
+$(NAME): $(LIBFT_OBJ_FILES) $(FT_PRINTF_OBJECT_FILES)
 	@ar rcs $@ $^
 	@echo $(NAME) "compiled."
 
 %.o: %.c $(HEADER_FILES)
-	$(CC) -c $(CFLAGS)$(INCL_DIR) -o $@ $<
+	@$(CC) -c $(CFLAGS)$(INCL_DIR) -o $@ $<
 
 norm:
 	@echo "----libft files:----"
-	@norminette $(LIBFT_OBJ_FILES:%.o=%.c) $(FT_PRINTF_OBJ_FILES:%.o=%.c) \
+	@norminette $(LIBFT_OBJ_FILES:%.o=%.c) $(FT_PRINTF_OBJECT_FILES:%.o=%.c) \
 	$(INCL_DIR)
 	
 clean:
-	@rm -f $(LIBFT_OBJ_FILES) $(FT_PRINTF_OBJ_FILES)
+	@rm -f $(LIBFT_OBJ_FILES) $(FT_PRINTF_OBJECT_FILES)
 	@echo "libft clean succes."
 
 fclean: clean

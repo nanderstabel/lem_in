@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 09:43:44 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/07 14:25:33 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/07 18:38:55 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 
 # include <criterion/criterion.h>
 # include <stdio.h>
-# include "../includes/lem_in.h"
+# include "lem_in.h"
 
 #endif

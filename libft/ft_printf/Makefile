@@ -6,9 +6,11 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/05/21 10:58:41 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/05 14:14:41 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/07 20:21:56 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
+
+include ft_printf_obj_files
 
 # Usage
 # make		# compile all binarys to a archive file
@@ -20,9 +22,7 @@ SHELL = /bin/sh
 
 NAME = ft_printf.a
 
-FT_PRINTF_OBJ_FILE_NAMES := ft_printf_obj_files.txt
-
-OBJ_FILES := $(addprefix ., $(shell cat $(FT_PRINTF_OBJ_FILE_NAMES)))
+OBJ_FILES := $(addprefix ./srcs/, $(FT_PRINTF_OBJ_FILES))
 
 INCL_DIR = includes/
 
@@ -37,7 +37,7 @@ $(NAME): $(OBJ_FILES)
 	@echo $(NAME) "compiled."
 
 %.o: %.c $(HEADER_FILES)
-	$(CC) -c $(CFLAGS)$(INCL_DIR) -o $@ $<
+	@$(CC) -c $(CFLAGS)$(INCL_DIR) -o $@ $<
 
 clean:
 	@rm -f $(OBJ_FILES)
