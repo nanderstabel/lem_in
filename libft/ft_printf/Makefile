@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/05/21 10:58:41 by mgross         #+#    #+#                 #
-#    Updated: 2020/01/21 10:33:51 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/05 14:14:41 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SHELL = /bin/sh
 
 NAME = ft_printf.a
 
-FT_PRINTF_OBJ_FILE_NAMES := ft_printf_obj_file_names.txt
+FT_PRINTF_OBJ_FILE_NAMES := ft_printf_obj_files.txt
 
 OBJ_FILES := $(addprefix ., $(shell cat $(FT_PRINTF_OBJ_FILE_NAMES)))
 

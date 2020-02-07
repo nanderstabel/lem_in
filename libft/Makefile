@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/01/28 13:12:07 by mgross         #+#    #+#                 #
-#    Updated: 2020/01/28 16:45:19 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/05 14:15:53 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,11 @@ SHELL = /bin/sh
 
 NAME = libft.a
 
-LIBFT_OBJ_FILE_NAMES := ft_libft_obj_file_names.txt
+LIBFT_OBJ_FILE_NAMES := ft_libft_obj_files.txt
 
 LIBFT_OBJ_FILES := $(shell cat $(LIBFT_OBJ_FILE_NAMES))
 
-FT_PRINTF_OBJ_FILE_NAMES := ./ft_printf/ft_printf_obj_file_names.txt
+FT_PRINTF_OBJ_FILE_NAMES := ./ft_printf/ft_printf_obj_files.txt
 
 FT_PRINTF_OBJ_FILES := $(addprefix ./ft_printf, $(shell cat \
 $(FT_PRINTF_OBJ_FILE_NAMES)))
