@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/06 08:47:04 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/07 19:33:45 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/11 10:58:06 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ include ../obj_files
 
 NAME = unit_test
 
-PROJECT_OBJ_FILES := $(filter-out ../srcs/lem_in.o,$(addprefix ../srcs/, $(PROJECT_OBJ_FILES)))
+PROJECT_OBJ_FILES := $(filter-out ../srcs/main.o,$(addprefix ../srcs/, $(PROJECT_OBJ_FILES)))
 
 ALL_TEST_OBJ_FILES := $(addprefix ./srcs/, $(ALL_TESTS))
 

@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/08 10:14:38 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/07 20:28:05 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/11 11:15:17 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,17 +15,6 @@ include ./libft/ft_libft_obj_files
 include ./libft/ft_printf/ft_printf_obj_files
 -include ./bonus/obj_files
 -include ./tests/test_obj_files
-
-# Usage
-# make		# compile all binarys to a archive file
-# bonus		# compile project with bonus
-# multi		# run make with multible processes
-# norm		# runs the norm on all .c files
-# tests		# make unit test
-# run_test	# run unit test
-# clean		# removes all object files
-# fclean	# runs clean & removes $(NAME)
-# re		# runs fclean & make 
 
 #### Start of project specific section. ####
 
@@ -83,7 +72,7 @@ bonus:
 multi:
 	@$(MAKE) -j$(MAX_PARALLEL) all
 
-tests:
+test:
 	@$(MAKE) $(TYPE) -C tests/
 
 run_test:
@@ -95,7 +84,8 @@ norm:
 	@make norm -C ./libft
 
 clean:
-	@rm -f $(REG_OBJ_FILES) $(REG_BONUS_FILES) $(LIBFT_OBJ_FILES) $(addprefix ./tests/srcs/, $(ALL_TESTS))
+	@rm -f $(REG_OBJ_FILES) $(REG_BONUS_FILES) $(LIBFT_OBJ_FILES) $(addprefix \
+	./tests/srcs/, $(ALL_TESTS))
 	@echo "clean succes."
 
 fclean: clean
