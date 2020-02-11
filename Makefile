@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/08 10:14:38 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/11 11:15:17 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/11 11:39:47 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ DEPS = -I$(INC_DIR) -I$(LIBFT_INC_DIR)
 
 MAX_PARALLEL = 6
 
-TYPE = 
+R = 
 
 ifdef WITH_BONUS
 ifeq (, $(shell cat $(REG_BONUS_FILE_TXT)))
