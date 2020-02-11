@@ -1,6 +1,7 @@
 # No executables
 *
 !*.*
+!*obj_files
 !*/
 
 # Prerequisites
