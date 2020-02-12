@@ -16,7 +16,7 @@ before_script:
     - make test
     - env
 script:
-    - make run_test
+    - ./tests/unit_test
 after_success:
     # - make gcov
     # - bash <(curl -s https://codecov.io/bash) -X gcov
