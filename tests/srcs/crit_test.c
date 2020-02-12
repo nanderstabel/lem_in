@@ -15,7 +15,7 @@ Test(test2, hello2)
 	cr_assert_str_eq(hello(), "Hello Worl7d");
 }
 
-Test(input_val, empty_file)
-{
+// Test(input_val, empty_file)
+// {
 
-}
+// }
