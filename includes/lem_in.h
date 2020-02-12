@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/12 13:27:59 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/12 13:49:35 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ int								validating_input(void *pointer);
 int								printing_output(void *pointer);
 int								uninstalling_machine(void *pointer);
 int								ending_program(void *pointer);
-
+int		hello2(int num);
+char	*hello(void);
 #endif
