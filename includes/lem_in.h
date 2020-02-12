@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/06 09:45:12 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/11 17:30:57 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,37 @@
 # define LEM_IN_H
 
 # include "libft.h"
-# include <stdio.h>
 
-char	*hello(void);
-int		hello2(int num);
+typedef enum
+{
+	idle,
+	install_machine,
+	receive_input,
+	validate_input,
+	print_output,
+	deinstall_machine
+}	t_state;
+
+typedef int						(*t_event)(void *);
+
+typedef struct					s_machine
+{
+	t_state						state;
+	t_state						*transition[2];
+	t_event						*event;
+}								t_machine;
+
+int								receiving_input(void *pointer);
+int								validating_input(void *pointer);
+// int								storing_rooms(void *pointer);
+// int								storing_links(void *pointer);
+// int								doing_bfs(void *pointer);
+// int								doing_dfs(void *pointer);
+// int								augmenting_paths(void *pointer);
+// int								moving_ants(void *pointer);
+// int								formatting_output(void *pointer);
+int								printing_output(void *pointer);
+int								uninstalling_machine(void *pointer);
+int								ending_program(void *pointer);
 
 #endif
