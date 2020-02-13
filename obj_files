@@ -1,1 +1,12 @@
-PROJECT_OBJ_FILES := hello_world.o main.o
+PROJECT_OBJ_FILES :=	main.o					\
+						augmenting_paths.o		\
+						finding_error.o			\
+						finding_paths.o			\
+						labeling_graph.o		\
+						moving_ants.o			\
+						printing_error.o		\
+						setting_flags.o			\
+						storing_links.o			\
+						storing_rooms.o			\
+						uninstalling_machine.o	\
+						validating_input.o
