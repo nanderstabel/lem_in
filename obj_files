@@ -5,7 +5,7 @@ PROJECT_OBJ_FILES :=	main.o					\
 						labeling_graph.o		\
 						moving_ants.o			\
 						printing_error.o		\
-						setting_flags.o			\
+						setting_options.o		\
 						storing_links.o			\
 						storing_rooms.o			\
 						uninstalling_machine.o	\

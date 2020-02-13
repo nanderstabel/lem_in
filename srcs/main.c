@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 17:31:03 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/13 16:24:46 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/13 19:44:20 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void			malloc_transition_table(t_machine **machine)
 {
 	t_state		proxy;
 
-	proxy = install_machine;
+	proxy = 0;
 	(*machine)->transition_table = \
-		(t_state **)malloc(sizeof(t_state *) * idle);
-	while (proxy < idle)
+		(t_state **)malloc(sizeof(t_state *) * (*machine)->size);
+	while (proxy < (*machine)->size)
 	{
 		(*machine)->transition_table[proxy] = \
 			(t_state *)malloc(sizeof(t_state) * 2);
@@ -36,9 +36,9 @@ void			malloc_transition_table(t_machine **machine)
 void			fill_transition_table(t_machine **machine)
 {
 	(*machine)->transition_table[install_machine][FAIL] = idle;
-	(*machine)->transition_table[install_machine][SUCCESS] = set_flags;
-	(*machine)->transition_table[set_flags][FAIL] = find_error;
-	(*machine)->transition_table[set_flags][SUCCESS] = validate_input;
+	(*machine)->transition_table[install_machine][SUCCESS] = set_options;
+	(*machine)->transition_table[set_options][FAIL] = find_error;
+	(*machine)->transition_table[set_options][SUCCESS] = validate_input;
 	(*machine)->transition_table[validate_input][FAIL] = find_error;
 	(*machine)->transition_table[validate_input][SUCCESS] = store_rooms;
 	(*machine)->transition_table[store_rooms][FAIL] = find_error;
@@ -76,13 +76,13 @@ void			install_transitions(t_machine **machine)
 void			malloc_event_table(t_machine **machine)
 {
 	(*machine)->event = \
-		(t_event *)malloc(sizeof(t_event) * idle);
+		(t_event *)malloc(sizeof(t_event) * (*machine)->size);
 }
 
 void			fill_event_table(t_machine **machine)
 {
 	(*machine)->event[install_machine] = NULL;
-	(*machine)->event[set_flags] = setting_flags;
+	(*machine)->event[set_options] = setting_options;
 	(*machine)->event[validate_input] = validating_input;
 	(*machine)->event[store_rooms] = storing_rooms;
 	(*machine)->event[store_links] = storing_links;
@@ -107,10 +107,11 @@ void			install_events(t_machine **machine)
 ** installed.
 */
 
-void			install(t_machine **machine)
+void			install(t_machine **machine, t_state size)
 {
 	*machine = (t_machine *)malloc(sizeof(t_machine));
-	(*machine)->current_state = install_machine;
+	(*machine)->current_state = 0;
+	(*machine)->size = size;
 	install_transitions(machine);
 	install_events(machine);
 	(*machine)->transition = SUCCESS;
@@ -156,9 +157,8 @@ int				main(int argc, char **argv)
 	t_machine	*machine;
 	t_project	*lem_in;
 
-	ft_printf("size: %i\n", sizeof(t_state));
-	install(&machine);
-	lem_in = (t_project *)malloc(sizeof(lem_in));
+	install(&machine, idle);
+	lem_in = (t_project *)ft_memalloc(sizeof(t_project));
 	lem_in->argc = argc;
 	lem_in->argv = argv;
 	while (SUCCESS)

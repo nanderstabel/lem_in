@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/13 16:27:48 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/13 19:19:45 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 ** All the possible t_states of the machine.
 */
 
-typedef enum
+enum
 {
 	install_machine,
-	set_flags,
+	set_options,
 	validate_input,
 	store_rooms,
 	store_links,
@@ -34,7 +34,9 @@ typedef enum
 	print_output,
 	uninstall_machine,
 	idle
-}	t_state;
+}	e_state;
+
+typedef short t_state;
 
 /*
 ** Pseudo-boolean type.
@@ -65,6 +67,7 @@ typedef t_bool					(*t_event)(t_project *);
 
 typedef struct					s_machine
 {
+	t_state						size;
 	t_state						current_state;
 	t_bool						transition;
 	t_state						**transition_table;
@@ -76,7 +79,7 @@ typedef struct					s_machine
 ** value.
 */
 
-t_bool							setting_flags(t_project *lem_in);
+t_bool							setting_options(t_project *lem_in);
 t_bool							validating_input(t_project *lem_in);
 t_bool							storing_rooms(t_project *lem_in);
 t_bool							storing_links(t_project *lem_in);
