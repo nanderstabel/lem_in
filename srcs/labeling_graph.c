@@ -6,17 +6,15 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:56:49 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/13 15:11:22 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/13 16:13:16 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_bool								labeling_graph(void *pointer)
+t_bool								labeling_graph(t_project *lem_in)
 {
-	t_machine	*machine;
-
-	machine = (t_machine *)pointer;
+	lem_in = NULL;
 	ft_printf("Currently: %s\n", __func__);
 	return (SUCCESS);
 }

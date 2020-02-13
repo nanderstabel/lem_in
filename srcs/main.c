@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 17:31:03 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/13 15:03:54 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/13 16:24:46 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,9 +136,9 @@ void			update_current_state(t_machine *machine)
 ** transition ('FAIL' or 'SUCCES').
 */
 
-void			execute_event(t_machine *machine)
+void			execute_event(t_machine *machine, t_project *lem_in)
 {
-	machine->transition = machine->event[machine->current_state](machine);
+	machine->transition = machine->event[machine->current_state](lem_in);
 }
 
 /*
@@ -154,16 +154,19 @@ void			execute_event(t_machine *machine)
 int				main(int argc, char **argv)
 {
 	t_machine	*machine;
+	t_project	*lem_in;
 
+	ft_printf("size: %i\n", sizeof(t_state));
 	install(&machine);
-	machine->argc = argc;
-	machine->argv = argv;
+	lem_in = (t_project *)malloc(sizeof(lem_in));
+	lem_in->argc = argc;
+	lem_in->argv = argv;
 	while (SUCCESS)
 	{
 		update_current_state(machine);
 		if (machine->current_state == idle)
 			break ;
-		execute_event(machine);
+		execute_event(machine, lem_in);
 	}
 	free(machine);
 	machine = NULL;
