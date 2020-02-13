@@ -1,5 +1,1 @@
-TEST1 := crit_test.o
-
-TEST2 := crit_test2.o
-
-ALL_TESTS := $(TEST1) $(TEST2)
+ALL_TESTS := 

@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/08 10:14:38 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/11 11:39:47 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/13 15:53:56 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,6 @@ DEPS = -I$(INC_DIR) -I$(LIBFT_INC_DIR)
 
 MAX_PARALLEL = 6
 
-R = 
-
 ifdef WITH_BONUS
 ifeq (, $(shell cat $(REG_BONUS_FILE_TXT)))
 $(error "Path to bonus obj_files.txt not specified.")
@@ -73,10 +71,10 @@ multi:
 	@$(MAKE) -j$(MAX_PARALLEL) all
 
 test:
-	@$(MAKE) $(TYPE) -C tests/
+	@$(MAKE) -C tests/
 
 run_test:
-	@./tests/unit_test
+	@$(MAKE) run -C tests/
 	
 norm:
 	@echo "----project files----"
@@ -97,5 +95,5 @@ re:
 	@$(MAKE) fclean
 	@$(MAKE) all
 
-.PHONY: all bonus multi libft norm clean fclean re tests run_test
+.PHONY: all bonus multi libft norm clean fclean re test run_test
  
