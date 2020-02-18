@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-t_bool								setting_options(t_project *lem_in)
+t_bool								setting_options(void *lem_in)
 {
 	lem_in = NULL;
 	ft_printf("Currently: %s\n", __func__);
