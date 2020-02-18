@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/18 14:18:53 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/18 16:10:27 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct					s_project
 {
 	int							argc;
 	char						**argv;
+	char						**input_str;
 }								t_project;
 
 /*
@@ -63,5 +64,6 @@ t_bool							moving_ants(void *lem_in);
 t_bool							finding_error(void *lem_in);
 t_bool							printing_output(void *lem_in);
 t_bool							uninstalling_machine(void *lem_in);
+t_bool							check_num_ants(char *line_to_check);
 
 #endif

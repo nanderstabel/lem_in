@@ -1,1 +1,1 @@
-ALL_TESTS := 
+ALL_TESTS := input_validation.o
