@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/01/28 13:12:07 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/07 20:19:50 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/18 14:17:53 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ $(FT_PRINTF_OBJ_FILES))
 
 INCL_DIR = includes/
 
-HEADER_FILES = $(INCL_DIR)libft.h $(INCL_DIR)ft_printf.h
+HEADER_FILES = $(INCL_DIR)libft.h $(INCL_DIR)ft_printf.h $(INCL_DIR)machine.h
 
 CFLAGS = -Wall -Wextra -Werror -I
 

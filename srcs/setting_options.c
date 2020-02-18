@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   setting_flags.c                                    :+:    :+:            */
+/*   setting_options.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-t_bool								setting_flags(t_project *lem_in)
+t_bool								setting_options(void *lem_in)
 {
 	lem_in = NULL;
 	ft_printf("Currently: %s\n", __func__);

@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/08 10:14:38 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/13 15:53:56 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/18 14:18:36 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ include ./libft/ft_printf/ft_printf_obj_files
 
 NAME = lem-in
 
-HEADER_FILES = $(INC_DIR)lem_in.h 
+HEADER_FILES = $(INC_DIR)lem_in.h
 
 #### End project specific section. ####
 
@@ -35,7 +35,7 @@ INC_DIR = includes/
 
 LIBFT_INC_DIR = libft/includes/
 
-LIBFT_HEADER_FILES = ./libft/includes/libft.h ./libft/includes/ft_printf.h 
+LIBFT_HEADER_FILES = ./libft/includes/libft.h ./libft/includes/ft_printf.h ./libft/includes/machine.h 
 
 LIB = -L ./libft/ -lft
 
