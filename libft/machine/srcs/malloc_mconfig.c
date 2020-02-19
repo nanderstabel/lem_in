@@ -6,11 +6,16 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/18 17:30:00 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/19 10:38:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/19 14:14:28 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "machine.h"
+
+/*
+** This function is used to allocate the sufficient memory needed for the
+** machine configuration, including the transition table and the event table.
+*/
 
 t_mconfig		*malloc_mconfig(t_state size)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   installing_machine.c                               :+:    :+:            */
+/*   install_machine.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/18 14:08:27 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/19 11:01:38 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/19 14:09:11 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** installed.
 */
 
-t_bool			installing_machine(t_machine **machine, t_mconfig *mconfig)
+t_bool			install_machine(t_machine **machine, t_mconfig *mconfig)
 {
 	*machine = (t_machine *)malloc(sizeof(t_machine));
 	if (*machine == NULL || mconfig == NULL)

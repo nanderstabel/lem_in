@@ -1,0 +1,4 @@
+MACHINE_OBJ_FILES := 						\
+					install_machine.o		\
+					malloc_mconfig.o		\
+					run_machine.o
