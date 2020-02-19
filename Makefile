@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/08 10:14:38 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/19 14:14:16 by nstabel       ########   odam.nl          #
+#    Updated: 2020/02/19 17:49:06 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ run:
 	@./lem-in
 
 run_test:
-	@$(MAKE) run -C tests/
+	@./tests/unit_test
 	
 norm:
 	@echo "----project files----"
