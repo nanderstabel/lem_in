@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 17:35:29 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/19 17:35:31 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/19 17:41:41 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ Test(test_read_stdin, read)
 	ret = read_stdin(&string);
 	cr_assert(ret == FAIL, "The result was %d, expected %d\n", ret, FAIL);
 
-	fd = open("../maps/valid_maps/map1.map", O_RDONLY);
+	fd = open("./maps/valid_maps/map1.map", O_RDONLY);
 	cr_assert(fd == 0, "The result was %d, expected %d\n", fd, 0);
 
 	ret = read_stdin(&string);
