@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/18 13:24:27 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/18 14:41:34 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/18 16:33:33 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ typedef enum
 
 typedef t_bool	(*t_event)(void *);
 
-typedef struct	s_input
+typedef struct	s_mconfig
 {
 	t_state		size;
 	t_state		**transitions;
 	t_event		*events;
-}				t_input;
+}				t_mconfig;
 
 typedef struct	s_machine
 {
@@ -49,7 +49,7 @@ typedef struct	s_machine
 	t_event		*event;
 }				t_machine;
 
-t_bool			installing_machine(t_machine **machine, t_input *input);
+t_bool			installing_machine(t_machine **machine, t_mconfig *mconfig);
 void			run_machine(t_machine *machine, void *project);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/08 10:14:38 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/18 14:18:36 by nstabel       ########   odam.nl          #
+#    Updated: 2020/02/19 10:35:31 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,9 @@ multi:
 test:
 	@$(MAKE) -C tests/
 
+run:
+	@./lem-in
+
 run_test:
 	@$(MAKE) run -C tests/
 	
@@ -95,5 +98,5 @@ re:
 	@$(MAKE) fclean
 	@$(MAKE) all
 
-.PHONY: all bonus multi libft norm clean fclean re test run_test
+.PHONY: all bonus multi libft norm clean fclean re test run_test run
  
