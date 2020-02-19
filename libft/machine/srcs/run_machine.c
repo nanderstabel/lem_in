@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/18 14:07:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/19 10:36:46 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/19 13:59:26 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ static void		execute_event(t_machine *machine, void *lem_in)
 {
 	machine->transition = machine->event[machine->current_state](lem_in);
 }
+
+/*
+** Running the machine means that this function loops through the states and
+** events until a breaking condition occurs. In each loop, first the current
+** state gets updated, and then the corresponding event gets executed.
+*/
 
 void			run_machine(t_machine *machine, void *project)
 {

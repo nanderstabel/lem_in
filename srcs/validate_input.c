@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/19 15:06:33 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/19 11:19:56 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ t_bool								validate_input(void *project)
 	t_project *test;
 
 	test = (t_project*)project;
-
 
 	ft_printf("Currently: %s\n", __func__);
 	read_stdin(&test->input_string);

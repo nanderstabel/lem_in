@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/19 14:45:38 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/19 14:37:08 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LEM_IN_H
 
 # include "libft.h"
+# include "machine.h"
 
 /*
 ** All the possible t_states of the machine.
@@ -53,7 +54,7 @@ typedef struct					s_project
 ** value.
 */
 
-t_bool							setting_options(void *lem_in);
+t_bool							set_options(void *project);
 t_bool							validate_input(void *project);
 t_bool							storing_rooms(void *lem_in);
 t_bool							storing_links(void *lem_in);
