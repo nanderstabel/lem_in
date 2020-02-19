@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 17:31:03 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/19 10:39:42 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/19 11:07:51 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,53 +14,53 @@
 
 static void			get_transitions(t_mconfig **mconfig)
 {
-	(*mconfig)->transitions[install_machine][FAIL] = idle;
-	(*mconfig)->transitions[install_machine][SUCCESS] = set_options;
-	(*mconfig)->transitions[set_options][FAIL] = find_error;
-	(*mconfig)->transitions[set_options][SUCCESS] = validate_input;
-	(*mconfig)->transitions[validate_input][FAIL] = find_error;
-	(*mconfig)->transitions[validate_input][SUCCESS] = store_rooms;
-	(*mconfig)->transitions[store_rooms][FAIL] = find_error;
-	(*mconfig)->transitions[store_rooms][SUCCESS] = store_links;
-	(*mconfig)->transitions[store_links][FAIL] = find_error;
-	(*mconfig)->transitions[store_links][SUCCESS] = label_graph;
-	(*mconfig)->transitions[label_graph][FAIL] = find_paths;
-	(*mconfig)->transitions[label_graph][SUCCESS] = move_ants;
-	(*mconfig)->transitions[find_paths][FAIL] = find_error;
-	(*mconfig)->transitions[find_paths][SUCCESS] = augment_paths;
-	(*mconfig)->transitions[augment_paths][FAIL] = find_error;
-	(*mconfig)->transitions[augment_paths][SUCCESS] = label_graph;
-	(*mconfig)->transitions[move_ants][FAIL] = find_error;
-	(*mconfig)->transitions[move_ants][SUCCESS] = print_output;
-	(*mconfig)->transitions[find_error][FAIL] = find_error;
-	(*mconfig)->transitions[find_error][SUCCESS] = print_output;
-	(*mconfig)->transitions[print_output][FAIL] = find_error;
-	(*mconfig)->transitions[print_output][SUCCESS] = uninstall_machine;
-	(*mconfig)->transitions[uninstall_machine][FAIL] = find_error;
-	(*mconfig)->transitions[uninstall_machine][SUCCESS] = idle;
+	(*mconfig)->transitions[s_install_machine][FAIL] = s_idle;
+	(*mconfig)->transitions[s_install_machine][SUCCESS] = s_set_options;
+	(*mconfig)->transitions[s_set_options][FAIL] = s_find_error;
+	(*mconfig)->transitions[s_set_options][SUCCESS] = s_validate_input;
+	(*mconfig)->transitions[s_validate_input][FAIL] = s_find_error;
+	(*mconfig)->transitions[s_validate_input][SUCCESS] = s_store_rooms;
+	(*mconfig)->transitions[s_store_rooms][FAIL] = s_find_error;
+	(*mconfig)->transitions[s_store_rooms][SUCCESS] = s_store_links;
+	(*mconfig)->transitions[s_store_links][FAIL] = s_find_error;
+	(*mconfig)->transitions[s_store_links][SUCCESS] = s_label_graph;
+	(*mconfig)->transitions[s_label_graph][FAIL] = s_find_paths;
+	(*mconfig)->transitions[s_label_graph][SUCCESS] = s_move_ants;
+	(*mconfig)->transitions[s_find_paths][FAIL] = s_find_error;
+	(*mconfig)->transitions[s_find_paths][SUCCESS] = s_augment_paths;
+	(*mconfig)->transitions[s_augment_paths][FAIL] = s_find_error;
+	(*mconfig)->transitions[s_augment_paths][SUCCESS] = s_label_graph;
+	(*mconfig)->transitions[s_move_ants][FAIL] = s_find_error;
+	(*mconfig)->transitions[s_move_ants][SUCCESS] = s_print_output;
+	(*mconfig)->transitions[s_find_error][FAIL] = s_find_error;
+	(*mconfig)->transitions[s_find_error][SUCCESS] = s_print_output;
+	(*mconfig)->transitions[s_print_output][FAIL] = s_find_error;
+	(*mconfig)->transitions[s_print_output][SUCCESS] = s_uninstall_machine;
+	(*mconfig)->transitions[s_uninstall_machine][FAIL] = s_find_error;
+	(*mconfig)->transitions[s_uninstall_machine][SUCCESS] = s_idle;
 }
 
 static void			get_events(t_mconfig **mconfig)
 {
-	(*mconfig)->events[install_machine] = NULL;
-	(*mconfig)->events[set_options] = setting_options;
-	(*mconfig)->events[validate_input] = validating_input;
-	(*mconfig)->events[store_rooms] = storing_rooms;
-	(*mconfig)->events[store_links] = storing_links;
-	(*mconfig)->events[label_graph] = labeling_graph;
-	(*mconfig)->events[find_paths] = finding_paths;
-	(*mconfig)->events[augment_paths] = augmenting_paths;
-	(*mconfig)->events[move_ants] = moving_ants;
-	(*mconfig)->events[find_error] = finding_error;
-	(*mconfig)->events[print_output] = printing_output;
-	(*mconfig)->events[uninstall_machine] = uninstalling_machine;
+	(*mconfig)->events[s_install_machine] = NULL;
+	(*mconfig)->events[s_set_options] = setting_options;
+	(*mconfig)->events[s_validate_input] = validate_input;
+	(*mconfig)->events[s_store_rooms] = storing_rooms;
+	(*mconfig)->events[s_store_links] = storing_links;
+	(*mconfig)->events[s_label_graph] = labeling_graph;
+	(*mconfig)->events[s_find_paths] = finding_paths;
+	(*mconfig)->events[s_augment_paths] = augmenting_paths;
+	(*mconfig)->events[s_move_ants] = moving_ants;
+	(*mconfig)->events[s_find_error] = finding_error;
+	(*mconfig)->events[s_print_output] = printing_output;
+	(*mconfig)->events[s_uninstall_machine] = uninstalling_machine;
 }
 
 static t_mconfig	*states(void)
 {
 	t_mconfig		*mconfig;
 
-	mconfig = malloc_mconfig(idle);
+	mconfig = malloc_mconfig(s_idle);
 	get_transitions(&mconfig);
 	get_events(&mconfig);
 	return (mconfig);

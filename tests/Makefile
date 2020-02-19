@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/06 08:47:04 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/13 15:42:31 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/18 17:43:02 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,15 +25,15 @@ $(PROJECT_OBJ_FILES)))
 
 ALL_TEST_OBJ_FILES := $(addprefix ./srcs/, $(ALL_TESTS))
 
-INC_DIR = includes/
+INC_DIR = ./includes/
 
 HEADER_FILES = $(INC_DIR)tests.h
 
-LIB = -L ./libft/ -lft
+LIB = -L ../libft/ -lft
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-DEPS = -Iincludes/ -I../libft/includes -I../includes/
+DEPS = -Iincludes/ -I../libft/includes/ -I../includes/
 
 LIB = -L ../libft/ -lft
 
@@ -41,7 +41,9 @@ all: $(NAME)
 
 $(NAME): $(ALL_TEST_OBJ_FILES) $(PROJECT_OBJ_FILES)
 	@$(CC) -o $@ $^ -I$(INC_DIR) -lcriterion $(LIB)
-	@echo "Unit test compiled."
+	@echo "Unit test compiled.\n"
+	@echo "		========== Run Tests =========="
+	@./unit_test
 
 run:
 	@./unit_test

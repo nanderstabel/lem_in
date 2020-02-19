@@ -9,4 +9,5 @@ PROJECT_OBJ_FILES :=	main.o					\
 						storing_links.o			\
 						storing_rooms.o			\
 						uninstalling_machine.o	\
-						validating_input.o
+						validate_input.o		\
+						get_input.o

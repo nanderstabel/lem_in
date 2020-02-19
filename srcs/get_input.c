@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   validating_input.c                                 :+:    :+:            */
+/*   get_input.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
+/*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/18 13:35:49 by nstabel       ########   odam.nl         */
+/*   Created: 2020/02/18 09:57:08 by mgross         #+#    #+#                */
+/*   Updated: 2020/02/18 12:05:53 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_bool								validating_input(void *lem_in)
-{
-	lem_in = NULL;
-	ft_printf("Currently: %s\n", __func__);
-	return (SUCCESS);
-}
+// static char	*read_argv(char **argv)
+// {
+// 	ret
+// }
+
+// t_bool			get_input(t_project *lem_in)
+// {
+// 	lem_in->input_str = (char*)ft_memalloc(sizeof(char) * (BUFF_SIZE + 1));
+
+	
+	
+// }
