@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 17:31:03 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/19 14:38:39 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/19 15:00:58 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ static void			get_events(t_mconfig **mconfig)
 	(*mconfig)->events[s_print_output] = printing_output;
 	(*mconfig)->events[s_uninstall_machine] = uninstalling_machine;
 }
+
+/*
+** Returns the configurated mconfig struct. Important to note here is that
+** the size you give to malloc_mconfig sould be the state with the highest
+** value.
+*/
 
 static t_mconfig	*states(void)
 {
