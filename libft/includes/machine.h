@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/18 13:24:27 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/18 16:33:33 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/19 11:03:14 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ typedef struct	s_machine
 
 t_bool			installing_machine(t_machine **machine, t_mconfig *mconfig);
 void			run_machine(t_machine *machine, void *project);
+t_mconfig		*malloc_mconfig(t_state size);
 
 #endif
