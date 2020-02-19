@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/19 10:49:20 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/19 11:19:56 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ t_bool								validate_input(void *project)
 
 	test = (t_project*)project;
 
-	ft_printf("%i\n", test->argc);
+	// ft_printf("%i\n", test->argc);
 	char buf[BUFF_SIZE + 1];
 	int ret = 0;
-	ret = read(STDIN_FILENO, buf, BUFF_SIZE);
+	// ret = read(STDIN_FILENO, buf, BUFF_SIZE);
 	buf[ret] = '\0'; 
 
 	ft_printf("%s", buf);

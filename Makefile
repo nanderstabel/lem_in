@@ -6,13 +6,14 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/08 10:14:38 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/19 10:35:31 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/19 14:14:16 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 include ./obj_files
 include ./libft/ft_libft_obj_files
 include ./libft/ft_printf/ft_printf_obj_files
+include ./libft/machine/machine_obj_files
 -include ./bonus/obj_files
 -include ./tests/test_obj_files
 
@@ -29,13 +30,15 @@ REG_BONUS_FILES := $(addprefix ./srcs/bonus/, $(BONUS_OBJ_FILES))
 REG_OBJ_FILES := $(addprefix ./srcs/, $(PROJECT_OBJ_FILES))
 
 LIBFT_OBJ_FILES := $(addprefix ./libft/, $(LIBFT_OBJ_FILES)) \
-$(addprefix ./libft/ft_printf/srcs/, $(FT_PRINTF_OBJ_FILES))
+$(addprefix ./libft/ft_printf/srcs/, $(FT_PRINTF_OBJ_FILES)) \
+$(addprefix ./libft/machine/srcs/, $(MACHINE_OBJ_FILES))
 
 INC_DIR = includes/
 
 LIBFT_INC_DIR = libft/includes/
 
-LIBFT_HEADER_FILES = ./libft/includes/libft.h ./libft/includes/ft_printf.h ./libft/includes/machine.h 
+LIBFT_HEADER_FILES = ./libft/includes/libft.h ./libft/includes/ft_printf.h \
+./libft/includes/machine.h 
 
 LIB = -L ./libft/ -lft
 
