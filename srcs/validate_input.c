@@ -12,6 +12,17 @@
 
 #include "lem_in.h"
 
+/*
+** The function takes as argument a charakter string.
+**
+** The function checks if the first line of the input, the line for the num of
+** ants, is a valid line. It is a valid line if there are only digits and the
+** number is not 0.
+**
+** Return values are FAIL or SUCCESS depending if only digits are found (no 0)
+** or other charakters are mixed into the string.
+*/
+
 t_bool								check_num_ants(char *line_to_check)
 {
 	if (line_to_check == NULL || *line_to_check == '\0' \
@@ -26,6 +37,14 @@ t_bool								check_num_ants(char *line_to_check)
 	return (SUCCESS);
 }
 
+/*
+** The function takes as argument a charakter string.
+**
+** The function checks if the line send is the charakter strin ##end.
+**
+** Return values are FAIL and SUCCESS depending if the string was found.
+*/
+
 t_bool								check_sink(char *line_to_check)
 {
 	if (line_to_check == NULL)
@@ -35,6 +54,14 @@ t_bool								check_sink(char *line_to_check)
 	else
 		return (FAIL);
 }
+
+/*
+** The function takes as argument a charakter string.
+**
+** The function checks if the line send is the charakter strin ##start.
+**
+** Return values are FAIL and SUCCESS depending if the string was found.
+*/
 
 t_bool								check_source(char *line_to_check)
 {
@@ -48,27 +75,12 @@ t_bool								check_source(char *line_to_check)
 
 t_bool								validate_input(void *project)
 {
-	// int index = 1;
 	t_project *test;
-	// int fd;
 
 	test = (t_project*)project;
 
-	// ft_printf("%i\n", test->argc);
-	char buf[BUFF_SIZE + 1];
-	int ret = 0;
-	// ret = read(STDIN_FILENO, buf, BUFF_SIZE);
-	buf[ret] = '\0'; 
-
-	ft_printf("%s", buf);
-	// lem_in = NULL;
 	ft_printf("Currently: %s\n", __func__);
+	read_stdin(&test->input_string);
 
-	// while (index < test->argc)
-	// {
-	// 	ft_printf("input string line [%i]: %s\n", index, test->argv[index]);
-	// 	index++;
-
-	// }
 	return (SUCCESS);
 }

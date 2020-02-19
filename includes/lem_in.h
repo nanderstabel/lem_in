@@ -46,7 +46,7 @@ typedef struct					s_project
 {
 	int							argc;
 	char						**argv;
-	char						**input_str;
+	char						*input_string;
 }								t_project;
 
 /*
@@ -68,5 +68,6 @@ t_bool							uninstalling_machine(void *lem_in);
 t_bool							check_num_ants(char *line_to_check);
 t_bool							check_sink(char *line_to_check);
 t_bool							check_source(char *line_to_check);
+t_bool							read_stdin(char **input_string);
 
 #endif
