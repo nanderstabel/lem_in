@@ -9,6 +9,9 @@ env:
 branches:
     only:
         - master
+        - develop
+        - feature_input
+        - feature_struct
 install:
     - brew install snaipe/soft/criterion
 before_script:
