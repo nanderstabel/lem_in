@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/06 08:47:04 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/18 17:43:02 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/19 14:51:59 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,10 +42,9 @@ all: $(NAME)
 $(NAME): $(ALL_TEST_OBJ_FILES) $(PROJECT_OBJ_FILES)
 	@$(CC) -o $@ $^ -I$(INC_DIR) -lcriterion $(LIB)
 	@echo "Unit test compiled.\n"
-	@echo "		========== Run Tests =========="
-	@./unit_test
 
 run:
+	@echo "		========== Run Tests =========="
 	@./unit_test
 
 %.o: %.c $(HEADER_FILES)
