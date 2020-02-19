@@ -6,11 +6,15 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 17:31:03 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/19 11:07:51 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/19 14:38:39 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+/*
+** The next three functions together form the framework of the lem_in project.
+*/
 
 static void			get_transitions(t_mconfig **mconfig)
 {
@@ -43,7 +47,7 @@ static void			get_transitions(t_mconfig **mconfig)
 static void			get_events(t_mconfig **mconfig)
 {
 	(*mconfig)->events[s_install_machine] = NULL;
-	(*mconfig)->events[s_set_options] = setting_options;
+	(*mconfig)->events[s_set_options] = set_options;
 	(*mconfig)->events[s_validate_input] = validate_input;
 	(*mconfig)->events[s_store_rooms] = storing_rooms;
 	(*mconfig)->events[s_store_links] = storing_links;
@@ -70,10 +74,9 @@ static t_mconfig	*states(void)
 ** The main function is the entry point where the first instructions of the
 ** program are executed. A "machine" variable is declared and next, all the
 ** necessary structures for the program get installed as well as the command-
-** line arguments. The while loop loops through all the events that combined
-** will solve the lem_in project. In every loop, first the current state of the
-** machine is updated. Second (unless the current state is 'idle') the event
-** that corresponds to the current state is executed.
+** line arguments. Next, the machine get's installed using the transition- and
+** event tables. If this is successful, the run_machine function will loop
+** through all the states and events which execute the rest of the program.
 */
 
 int					main(int argc, char **argv)
@@ -84,7 +87,7 @@ int					main(int argc, char **argv)
 	lem_in = (t_project *)ft_memalloc(sizeof(t_project));
 	lem_in->argc = argc;
 	lem_in->argv = argv;
-	if (installing_machine(&machine, states()) == SUCCESS)
+	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	free(machine);
 	machine = NULL;

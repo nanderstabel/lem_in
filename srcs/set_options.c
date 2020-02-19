@@ -12,9 +12,11 @@
 
 #include "lem_in.h"
 
-t_bool								setting_options(void *lem_in)
+t_bool								set_options(void *project)
 {
-	lem_in = NULL;
+	t_project	*lem_in;
+
+	lem_in = (t_project *)project;
 	ft_printf("Currently: %s\n", __func__);
 	return (SUCCESS);
 }
