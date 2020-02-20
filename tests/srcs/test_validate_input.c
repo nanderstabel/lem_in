@@ -6,38 +6,32 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 17:35:37 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/20 18:28:23 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/20 18:52:33 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.h"
 #include <criterion/criterion.h>
 
-Test(input_eval, ants_test)
+Test(input_eval, check_line_ants_test)
 {
 	t_bool boolean;
-	boolean = check_num_ants("5");
+	boolean = check_line_ants("5\n");
 	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	
-	boolean = check_num_ants("1000");
+	boolean = check_line_ants("1000\n");
 	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 
-	boolean = check_num_ants("9394");
+	boolean = check_line_ants("9394\n");
 	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	
-	boolean = check_num_ants("0");
+	boolean = check_line_ants("0\n");
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
-	boolean = check_num_ants("HF");
+	boolean = check_line_ants("HF\n");
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
-	boolean = check_num_ants("");
-	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
-
-	boolean = check_num_ants(NULL);
-	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
-	
-	boolean = check_num_ants("5h8G");
+	boolean = check_line_ants("5h8G\n");
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
 }
@@ -92,53 +86,32 @@ Test(input_eval, isallnum_to_char_test)
 
 }
 
-// Test(input_eval, isallnum_to_char_test)
-// {
-// 	char	valid_str[] = "JFh7YJHjdf84ir";
-// 	char	valid_str1[] = "JFh7YJH\njdf84ir";
-// 	char	invalid_str[] = "74784*3]8923458";
-// 	char	*temp;
-
-// 	temp = isallnum_to_char(valid_str, (int)'\0');
-// 	cr_assert(temp == valid_str + 14, "The result was %s, expected %s\n", temp, "");
-	
-// 	temp = isallnum_to_char(valid_str1, (int)'\n');
-// 	cr_assert(temp == valid_str1 + 7, "The result was %s, expected %s\n", temp, "\njdf84ir");
-	
-// 	temp = isallnum_to_char(invalid_str, (int)'\0');
-// 	cr_assert(temp == NULL, "The result was %s, expected %s\n", temp, NULL);
-
-// 	temp = isallnum_to_char(valid_str1, (int)'\0');
-// 	cr_assert(temp == NULL, "The result was %s, expected %s\n", temp, NULL);
-	
-// }
-
 Test(input_eval, sink_test)
 {
 	t_bool boolean;
 
-	boolean = check_sink("##end");
+	boolean = check_link_sink_command("##end");
 	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	
-	boolean = check_sink("## end");
+	boolean = check_link_sink_command("## end");
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
-	boolean = check_sink("#end");
+	boolean = check_link_sink_command("#end");
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
-	boolean = check_sink("##END");
+	boolean = check_link_sink_command("##END");
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
-	boolean = check_sink("");
+	boolean = check_link_sink_command("");
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
-	boolean = check_sink(NULL);
+	boolean = check_link_sink_command(NULL);
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
-	boolean = check_sink("8dG");
+	boolean = check_link_sink_command("8dG");
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
-	boolean = check_sink("end");
+	boolean = check_link_sink_command("end");
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
 }
@@ -147,35 +120,42 @@ Test(input_eval, source_test)
 {
 	t_bool boolean;
 
-	boolean = check_source("##start");
+	boolean = check_link_source_command("##start");
 	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	
-	boolean = check_source("## start");
+	boolean = check_link_source_command("## start");
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
-	boolean = check_source("#start");
+	boolean = check_link_source_command("#start");
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
-	boolean = check_source("##START");
+	boolean = check_link_source_command("##START");
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
-	boolean = check_source("");
+	boolean = check_link_source_command("");
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
-	boolean = check_source(NULL);
+	boolean = check_link_source_command(NULL);
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
-	boolean = check_source("8dG");
+	boolean = check_link_source_command("8dG");
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
-	boolean = check_source("start");
+	boolean = check_link_source_command("start");
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
 }
 
-// Test(input_eval, check_rooms)
-// {
-// 	t_bool	boolean;
+Test(input_eval, check_line_rooms_test)
+{
+	t_bool	boolean;
 
-// 	boolean = check_rooms("hDk8g 46 0");
-// }
+	boolean = check_line_rooms("hDk8g 46 0\n");
+	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
+
+	boolean = check_line_rooms("10 43456 848\n");
+	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
+	
+	boolean = check_line_rooms("Jd7Thj 0 674\n");
+	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
+}

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/20 18:26:41 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/20 18:56:26 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@
 ** or other charakters are mixed into the string.
 */
 
-t_bool								check_num_ants(char *line_to_check)
+t_bool								check_line_ants(char *line_to_check)
 {
-	if (line_to_check == NULL || *line_to_check == '\0' \
-	|| *line_to_check == '0')
+	if (*line_to_check == '\n' || *line_to_check == '0')
 		return (FAIL);
-	if (!isdigit_to_char(&line_to_check, (int)'\0'))
+	if (!isdigit_to_char(&line_to_check, (int)'\n'))
 		return (FAIL);
 	else
 		return (SUCCESS);
@@ -64,7 +63,7 @@ t_bool								isallnum_to_char(char **line_to_check, int c)
 ** Return values are FAIL and SUCCESS depending if the string was found.
 */
 
-t_bool								check_sink(char *line_to_check)
+t_bool								check_link_sink_command(char *line_to_check)
 {
 	if (line_to_check == NULL)
 		return (FAIL);
@@ -82,7 +81,7 @@ t_bool								check_sink(char *line_to_check)
 ** Return values are FAIL and SUCCESS depending if the string was found.
 */
 
-t_bool								check_source(char *line_to_check)
+t_bool								check_link_source_command(char *line_to_check)
 {
 	if (line_to_check == NULL)
 		return (FAIL);
@@ -92,11 +91,23 @@ t_bool								check_source(char *line_to_check)
 		return (FAIL);
 }
 
-// char								*check_room(char *line_to_check)
-// {
-// 	line_to_check = isallnum_to_char(line_to_check)
-// 	return (line_to_check);
-// }
+t_bool								check_line_rooms(char *line_to_check)
+{
+	if(!isallnum_to_char(&line_to_check, ' '))
+		return (FAIL);
+	line_to_check++;
+	if(!isdigit_to_char(&line_to_check, ' '))
+		return (FAIL);
+	line_to_check++;
+	if(!isdigit_to_char(&line_to_check, '\n'))
+		return (FAIL);
+	return (SUCCESS);
+}
+
+t_bool							transition_state(char *line_to_read)
+{
+	
+}
 
 // t_bool								check_rooms4(char *line_to_check)
 // {
