@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/20 18:56:26 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/20 19:25:47 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,17 @@ t_bool								check_line_rooms(char *line_to_check)
 	return (SUCCESS);
 }
 
-t_bool							transition_state(char *line_to_read)
-{
+// t_bool							transition_state(char *line_to_read)
+// {
 	
-}
+// }
 
+// t_bool							point_line(void *project)
+// {
+// 	t_project	*lem_in;
+
+// 	lem_in = (t_project*)project;
+// }
 // t_bool								check_rooms4(char *line_to_check)
 // {
 // 	int			len;
@@ -123,6 +129,17 @@ t_bool							transition_state(char *line_to_read)
 // 			return (FAIL);
 // 	}
 // 	if ()
+// }
+
+
+// static void			get_transitions(t_mconfig **mconfig)
+// {
+// 	TRANSITION[s_install_machine_vi][FAIL] = s_idle;
+// 	TRANSITION[s_install_machine_vi][SUCCESS] = s_check_line_ants_vi;
+// 	TRANSITION[s_check_line_ants_vi][FAIL] = s_find_error; // Is het handig hier de zelfde error te pakken?
+// 	TRANSITION[s_check_line_ants_vi][SUCCESS] = s_point_line_vi;
+// 	TRANSITION[s_point_line_vi][FAIL] = s_point_line_vi;
+// 	TRANSITION[s_point_line_vi][SUCCESS] = s_point_line_vi;
 // }
 
 t_bool								validate_input(void *project)
