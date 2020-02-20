@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/19 14:37:08 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/20 18:29:05 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,8 @@ t_bool							check_num_ants(char *line_to_check);
 t_bool							check_sink(char *line_to_check);
 t_bool							check_source(char *line_to_check);
 t_bool							read_stdin(char **input_string);
+t_bool							isdigit_to_char(char **line_to_check, int c);
+t_bool							isallnum_to_char(char **line_to_check, int c);
+// t_bool							check_rooms(char *line_to_check);
 
 #endif

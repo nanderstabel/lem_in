@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 17:35:29 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/19 18:19:04 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/20 16:08:52 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,12 @@ Test(test_read_stdin, read)
 
 	ret = read_stdin(&string);
 	cr_assert(ret == SUCCESS, "The result was %d, expected %d\n", ret, SUCCESS);
+	
+	close(0);
+	fd = open("../maps/valid_maps/map_big_sup.map", O_RDONLY);
+	ret = read_stdin(&string);
+	cr_assert(ret == SUCCESS, "The result was %d, expected %d\n", ret, SUCCESS);
+
+
 
 }

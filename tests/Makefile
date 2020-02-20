@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/06 08:47:04 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/19 17:34:42 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/20 17:22:47 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,10 @@ include ../obj_files
 ## Example: ALL_TESTS := test_file1.o test_file.o
 
 NAME = unit_test
+
+TEST_MAIN = test_main
+
+TEST_MAIN_OBJ = ./srcs/test_main.o
 
 PROJECT_OBJ_FILES := $(filter-out ../srcs/main.o,$(addprefix ../srcs/, \
 $(PROJECT_OBJ_FILES)))
@@ -50,12 +54,16 @@ run:
 %.o: %.c $(HEADER_FILES)
 	@$(CC) -c $(CFLAGS) $(DEPS) -o $@ $<
 
+test_main: $(TEST_MAIN_OBJ) $(PROJECT_OBJ_FILES)
+	@$(CC) -o $(TEST_MAIN) $^ -I$(INC_DIR) $(LIB)
+	@./test_main
+
 clean:
-	rm -f $(ALL_TEST_OBJ_FILES)
+	@rm -f $(ALL_TEST_OBJ_FILES) $(TEST_MAIN_OBJ)
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME) $(TEST_MAIN)
 
 re: fclean all
 
-.PHONY: all clean fclean re run
+.PHONY: all clean fclean re run test_main
