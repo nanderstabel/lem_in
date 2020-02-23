@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/18 13:24:27 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/19 14:08:32 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/21 18:27:46 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,15 @@ typedef struct	s_machine
 {
 	t_state		size;
 	t_state		current_state;
+	t_state		last_state;
 	t_bool		transition;
 	t_state		**transition_table;
-	t_event		*event;
+	t_event		*events;
 }				t_machine;
 
 t_bool			install_machine(t_machine **machine, t_mconfig *mconfig);
 void			run_machine(t_machine *machine, void *project);
 t_mconfig		*malloc_mconfig(t_state size);
+t_bool			uninstall_machine(t_machine **machine);
 
 #endif

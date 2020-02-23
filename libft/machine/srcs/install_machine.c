@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/18 14:08:27 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/19 14:09:11 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/21 18:29:19 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ t_bool			install_machine(t_machine **machine, t_mconfig *mconfig)
 	if (mconfig->transitions == NULL || mconfig->events == NULL)
 		return (FAIL);
 	(*machine)->current_state = 0;
+	(*machine)->last_state = 0;
 	(*machine)->size = mconfig->size;
 	(*machine)->transition_table = mconfig->transitions;
-	(*machine)->event = mconfig->events;
+	(*machine)->events = mconfig->events;
+	free(mconfig);
 	(*machine)->transition = SUCCESS;
 	return (SUCCESS);
 }

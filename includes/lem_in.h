@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/21 20:15:16 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/23 20:28:32 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,15 @@
 # include "libft.h"
 # include "machine.h"
 
-# define TRANSITION (*mconfig)->transitions 
+# define OPTIONS			"d"
+# define ARGC				lem_in->argc
+# define ARGV				lem_in->argv
+# define FLAGS				lem_in->flags
+# define ERROR				lem_in->error
+# define TRANSITIONS		(*mconfig)->transitions
+# define EVENTS				(*mconfig)->events
 
+# define DEBUG				(1 << 0)
 
 /*
 ** All the possible t_states of the machine.
@@ -36,8 +43,7 @@ enum
 	s_move_ants,
 	s_find_error,
 	s_print_output,
-	s_uninstall_machine,
-	s_idle
+	s_uninstall_machine
 }	e_state;
 
 enum
@@ -66,6 +72,17 @@ enum
 	s_uninstall_machine_vi,
 }	e_state_vi;
 
+enum
+{
+	s_install_machine_opt,
+	s_read_argument_opt,
+	s_find_dash_opt,
+	s_find_option_opt,
+	s_validate_argument_opt,
+	s_find_error_opt,
+	s_uninstall_machine_opt,
+}	e_state_opt;
+
 /*
 ** The main struct type of this project. All the necassary variables can be
 ** referred to through this datatype.
@@ -75,8 +92,10 @@ typedef struct					s_project
 {
 	int							argc;
 	char						**argv;
+	int							flags;
 	char						*input_string;
 	char						*line_to_check;
+	t_list						*error;
 }								t_project;
 
 /*
@@ -116,5 +135,16 @@ t_bool							isallnum_to_hyphen_vi(void *project);
 t_bool							find_hyphen_vi(void *project);
 t_bool							switch_link_flag_on_vi(void *project);
 t_bool							isallnum_to_space_vi(void *project);
+t_bool							find_error(void *lem_in);
+t_bool							print_output(void *lem_in);
+t_bool							check_num_ants(char *line_to_check);
+t_bool							check_sink(char *line_to_check);
+t_bool							check_source(char *line_to_check);
+t_bool							read_stdin(char **input_string);
+
+t_bool							read_argument(void *project);
+t_bool							find_dash(void *project);
+t_bool							find_option(void *project);
+t_bool							validate_argument(void *project);
 
 #endif
