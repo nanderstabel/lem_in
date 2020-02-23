@@ -1,8 +1,8 @@
 # No executables
-*
-!*.*
+# *
+# !*.*
 !*obj_files
-!*/
+# !*/
 
 # Prerequisites
 *.d
@@ -15,7 +15,7 @@
 
 # Linker output
 *.ilk
-*.map
+# *.map
 *.exp
 
 # Precompiled Headers

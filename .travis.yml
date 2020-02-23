@@ -9,6 +9,9 @@ env:
 branches:
     only:
         - master
+        - develop
+        - feature_input
+        - feature_struct
 install:
     - brew install snaipe/soft/criterion
 before_script:
@@ -16,7 +19,7 @@ before_script:
     - make test
     - env
 script:
-    - ./tests/unit_test
+    - make run_test
 after_success:
     # - make gcov
     # - bash <(curl -s https://codecov.io/bash) -X gcov

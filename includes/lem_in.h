@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/19 14:37:08 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/21 20:15:16 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "libft.h"
 # include "machine.h"
+
+# define TRANSITION (*mconfig)->transitions 
+
 
 /*
 ** All the possible t_states of the machine.
@@ -37,6 +40,32 @@ enum
 	s_idle
 }	e_state;
 
+enum
+{
+	s_install_machine_vi,
+	s_find_error_vi,
+	s_first_char_newline_vi,
+	s_first_char_zero_vi,
+	s_first_char_delim_vi,
+	s_first_char_hash_vi,
+	s_isdigit_to_newline_vi,
+	s_isdigit_to_space_vi,
+	s_check_start_flag_on_vi,
+	s_check_end_flag_on_vi,
+	s_second_char_hash_vi,
+	s_check_line_end_command_vi,
+	s_check_line_start_command_vi,
+	s_switch_start_flag_on_vi,
+	s_switch_end_flag_on_vi,
+	s_check_link_flag_on_vi,
+	s_isallnum_to_hyphen_vi,
+	s_isallnum_to_newline_vi,
+	s_find_hyphen_vi,
+	s_switch_link_flag_on_vi,
+	s_isallnum_to_space_vi,
+	s_uninstall_machine_vi,
+}	e_state_vi;
+
 /*
 ** The main struct type of this project. All the necassary variables can be
 ** referred to through this datatype.
@@ -47,6 +76,7 @@ typedef struct					s_project
 	int							argc;
 	char						**argv;
 	char						*input_string;
+	char						*line_to_check;
 }								t_project;
 
 /*
@@ -65,9 +95,26 @@ t_bool							moving_ants(void *lem_in);
 t_bool							finding_error(void *lem_in);
 t_bool							printing_output(void *lem_in);
 t_bool							uninstalling_machine(void *lem_in);
-t_bool							check_num_ants(char *line_to_check);
-t_bool							check_sink(char *line_to_check);
-t_bool							check_source(char *line_to_check);
 t_bool							read_stdin(char **input_string);
+
+t_bool							first_char_newline_vi(void *project);
+t_bool							first_char_zero_vi(void	*project);
+t_bool							first_char_delim_vi(void *project);
+t_bool							first_char_hash_vi(void *project);
+t_bool							second_char_hash_vi(void	*project);
+t_bool							isdigit_to_newline_vi(void *project);
+t_bool							isdigit_to_space_vi(void *project);
+t_bool							check_start_flag_on_vi(void *project);
+t_bool							check_end_flag_on_vi(void *project);
+t_bool							check_line_start_command(void *project);
+t_bool							check_line_end_command(void *project);
+t_bool							check_link_flag_on_vi(void *project);
+t_bool							switch_end_flag_on_vi(void *project);
+t_bool							switch_start_flag_on_vi(void *project);
+t_bool							isallnum_to_newline_vi(void *project);
+t_bool							isallnum_to_hyphen_vi(void *project);
+t_bool							find_hyphen_vi(void *project);
+t_bool							switch_link_flag_on_vi(void *project);
+t_bool							isallnum_to_space_vi(void *project);
 
 #endif
