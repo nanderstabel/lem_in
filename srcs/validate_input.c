@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/20 19:25:47 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/23 20:46:25 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,26 @@
 ** or other charakters are mixed into the string.
 */
 
-t_bool								check_line_ants(char *line_to_check)
-{
-	if (*line_to_check == '\n' || *line_to_check == '0')
-		return (FAIL);
-	if (!isdigit_to_char(&line_to_check, (int)'\n'))
-		return (FAIL);
-	else
-		return (SUCCESS);
-}
+// t_bool								check_line_ants(char *line_to_check)
+// {
+// 	if (*line_to_check == '\n' || *line_to_check == '0')
+// 		return (FAIL);
+// 	if (!isdigit_to_char(&line_to_check, (int)'\n'))
+// 		return (FAIL);
+// 	else
+// 		return (SUCCESS);
+// }
 
-t_bool								isdigit_to_char(char **line_to_check, int c)
-{
-	while (**line_to_check != (char)c)
-	{
-		if (ft_isdigit(**line_to_check) != 1)
-			return (FAIL);
-		(*line_to_check)++;
-	}
-	return (SUCCESS);
-}
+// t_bool								isdigit_to_char(char **line_to_check, int c)
+// {
+// 	while (**line_to_check != (char)c)
+// 	{
+// 		if (ft_isdigit(**line_to_check) != 1)
+// 			return (FAIL);
+// 		(*line_to_check)++;
+// 	}
+// 	return (SUCCESS);
+// }
 
 t_bool								isallnum_to_char(char **line_to_check, int c)
 {
@@ -91,18 +91,18 @@ t_bool								check_link_source_command(char *line_to_check)
 		return (FAIL);
 }
 
-t_bool								check_line_rooms(char *line_to_check)
-{
-	if(!isallnum_to_char(&line_to_check, ' '))
-		return (FAIL);
-	line_to_check++;
-	if(!isdigit_to_char(&line_to_check, ' '))
-		return (FAIL);
-	line_to_check++;
-	if(!isdigit_to_char(&line_to_check, '\n'))
-		return (FAIL);
-	return (SUCCESS);
-}
+// t_bool								check_line_rooms(char *line_to_check)
+// {
+// 	if(!isallnum_to_char(&line_to_check, ' '))
+// 		return (FAIL);
+// 	line_to_check++;
+// 	if(!isdigit_to_char(&line_to_check, ' '))
+// 		return (FAIL);
+// 	line_to_check++;
+// 	if(!isdigit_to_char(&line_to_check, '\n'))
+// 		return (FAIL);
+// 	return (SUCCESS);
+// }
 
 // t_bool							transition_state(char *line_to_read)
 // {

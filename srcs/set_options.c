@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 14:50:28 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/21 19:15:48 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/23 20:50:34 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_bool				find_error_opt(void *project)
 
 	lem_in = (t_project *)project;
 	ft_printf("Currently: %s\n", __func__);
+	ft_printf("Machine was trying to %i")
 	return (SUCCESS);
 }
 
