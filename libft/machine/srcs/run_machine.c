@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/18 14:07:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/21 18:30:48 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/23 21:12:19 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void		update_current_state(t_machine *machine)
 ** transition ('FAIL' or 'SUCCES').
 */
 
-static void		execute_event(t_machine *machine, void *lem_in)
+static void		execute_event(t_machine *machine, t_project *lem_in)
 {
 	machine->transition = machine->events[machine->current_state](lem_in);
 }
@@ -44,7 +44,7 @@ static void		execute_event(t_machine *machine, void *lem_in)
 ** state gets updated, and then the corresponding event gets executed.
 */
 
-void			run_machine(t_machine *machine, void *project)
+void			run_machine(t_machine *machine, t_project *project)
 {
 	while (1)
 	{

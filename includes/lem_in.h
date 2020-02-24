@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/23 20:28:32 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/23 21:42:39 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,48 +103,48 @@ typedef struct					s_project
 ** value.
 */
 
-t_bool							set_options(void *project);
-t_bool							validate_input(void *project);
-t_bool							storing_rooms(void *lem_in);
-t_bool							storing_links(void *lem_in);
-t_bool							labeling_graph(void *lem_in);
-t_bool							finding_paths(void *lem_in);
-t_bool							augmenting_paths(void *lem_in);
-t_bool							moving_ants(void *lem_in);
-t_bool							finding_error(void *lem_in);
-t_bool							printing_output(void *lem_in);
-t_bool							uninstalling_machine(void *lem_in);
+t_bool							set_options(t_project *lem_in);
+t_bool							validate_input(t_project *lem_in);
+t_bool							storing_rooms(t_project *lem_in);
+t_bool							storing_links(t_project *lem_in);
+t_bool							labeling_graph(t_project *lem_in);
+t_bool							finding_paths(t_project *lem_in);
+t_bool							augmenting_paths(t_project *lem_in);
+t_bool							moving_ants(t_project *lem_in);
+t_bool							finding_error(t_project *lem_in);
+t_bool							printing_output(t_project *lem_in);
+t_bool							uninstalling_machine(t_project *lem_in);
 t_bool							read_stdin(char **input_string);
 
-t_bool							first_char_newline_vi(void *project);
+t_bool							first_char_newline_vi(t_project *lem_in);
 t_bool							first_char_zero_vi(void	*project);
-t_bool							first_char_delim_vi(void *project);
-t_bool							first_char_hash_vi(void *project);
-t_bool							second_char_hash_vi(void	*project);
-t_bool							isdigit_to_newline_vi(void *project);
-t_bool							isdigit_to_space_vi(void *project);
-t_bool							check_start_flag_on_vi(void *project);
-t_bool							check_end_flag_on_vi(void *project);
-t_bool							check_line_start_command(void *project);
-t_bool							check_line_end_command(void *project);
-t_bool							check_link_flag_on_vi(void *project);
-t_bool							switch_end_flag_on_vi(void *project);
-t_bool							switch_start_flag_on_vi(void *project);
-t_bool							isallnum_to_newline_vi(void *project);
-t_bool							isallnum_to_hyphen_vi(void *project);
-t_bool							find_hyphen_vi(void *project);
-t_bool							switch_link_flag_on_vi(void *project);
-t_bool							isallnum_to_space_vi(void *project);
-t_bool							find_error(void *lem_in);
-t_bool							print_output(void *lem_in);
+t_bool							first_char_delim_vi(t_project *lem_in);
+t_bool							first_char_hash_vi(t_project *lem_in);
+t_bool							second_char_hash_vi(t_project *lem_in);
+t_bool							isdigit_to_newline_vi(t_project *lem_in);
+t_bool							isdigit_to_space_vi(t_project *lem_in);
+t_bool							check_start_flag_on_vi(t_project *lem_in);
+t_bool							check_end_flag_on_vi(t_project *lem_in);
+t_bool							check_line_start_command(t_project *lem_in);
+t_bool							check_line_end_command(t_project *lem_in);
+t_bool							check_link_flag_on_vi(t_project *lem_in);
+t_bool							switch_end_flag_on_vi(t_project *lem_in);
+t_bool							switch_start_flag_on_vi(t_project *lem_in);
+t_bool							isallnum_to_newline_vi(t_project *lem_in);
+t_bool							isallnum_to_hyphen_vi(t_project *lem_in);
+t_bool							find_hyphen_vi(t_project *lem_in);
+t_bool							switch_link_flag_on_vi(t_project *lem_in);
+t_bool							isallnum_to_space_vi(t_project *lem_in);
+t_bool							find_error(t_project *lem_in);
+t_bool							print_output(t_project *lem_in);
 t_bool							check_num_ants(char *line_to_check);
 t_bool							check_sink(char *line_to_check);
 t_bool							check_source(char *line_to_check);
 t_bool							read_stdin(char **input_string);
 
-t_bool							read_argument(void *project);
-t_bool							find_dash(void *project);
-t_bool							find_option(void *project);
-t_bool							validate_argument(void *project);
+t_bool							read_argument(t_project *lem_in);
+t_bool							find_dash(t_project *lem_in);
+t_bool							find_option(t_project *lem_in);
+t_bool							validate_argument(t_project *lem_in);
 
 #endif

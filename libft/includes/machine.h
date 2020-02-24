@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/18 13:24:27 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/21 18:27:46 by nstabel       ########   odam.nl         */
+/*   Created: 2020/02/23 21:08:03 by nstabel        #+#    #+#                */
+/*   Updated: 2020/02/23 21:09:10 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ typedef short t_state;
 ** Pseudo-boolean type.
 */
 
+typedef struct s_project t_project;
+
 typedef enum
 {
 	FAIL,
@@ -31,7 +33,7 @@ typedef enum
 ** Prototype for all the 't_event functions'.
 */
 
-typedef t_bool	(*t_event)(void *);
+typedef t_bool	(*t_event)(t_project *);
 
 /*
 ** The mconfig struct can be used to send the configuration data of your project
@@ -64,7 +66,7 @@ typedef struct	s_machine
 }				t_machine;
 
 t_bool			install_machine(t_machine **machine, t_mconfig *mconfig);
-void			run_machine(t_machine *machine, void *project);
+void			run_machine(t_machine *machine, t_project *project);
 t_mconfig		*malloc_mconfig(t_state size);
 t_bool			uninstall_machine(t_machine **machine);
 

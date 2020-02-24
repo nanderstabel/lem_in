@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   augmenting_paths.c                                 :+:    :+:            */
+/*   uninstall_machine.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/13 13:00:09 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/23 21:11:26 by nstabel       ########   odam.nl         */
+/*   Created: 2020/02/21 17:38:34 by nstabel        #+#    #+#                */
+/*   Updated: 2020/02/21 18:01:57 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "machine.h"
 
-t_bool								augmenting_paths(t_project *lem_in)
+/*
+** 'Uninstalling' the machine means to free all the allocated memory that the
+** machine has used during the run of the program.
+*/
+
+t_bool			uninstall_machine(t_machine **machine)
 {
-	lem_in = NULL;
-	ft_printf("Currently: %s\n", __func__);
+	t_state			proxy;
+
+	free((*machine)->events);
+	proxy = 0;
+	while (proxy < (*machine)->size)
+	{
+		free((*machine)->transition_table[proxy]);
+		++proxy;
+	}
+	free((*machine)->transition_table);
+	free(*machine);
 	return (SUCCESS);
 }
