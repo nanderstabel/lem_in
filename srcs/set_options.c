@@ -6,17 +6,14 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 14:50:28 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/23 20:50:34 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/23 21:42:40 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_bool				read_argument(void *project)
+t_bool				read_argument(t_project *lem_in)
 {
-	t_project	*lem_in;
-
-	lem_in = (t_project *)project;
 	ft_printf("Currently: %s\n", __func__);
 	if (ARGC > 1)
 	{
@@ -27,11 +24,8 @@ t_bool				read_argument(void *project)
 	return (FAIL);
 }
 
-t_bool				find_dash(void *project)
+t_bool				find_dash(t_project *lem_in)
 {
-	t_project	*lem_in;
-
-	lem_in = (t_project *)project;
 	ft_printf("Currently: %s\n", __func__);
 	if (**ARGV == '-')
 	{
@@ -41,11 +35,8 @@ t_bool				find_dash(void *project)
 	return (FAIL);
 }
 
-t_bool				find_option(void *project)
+t_bool				find_option(t_project *lem_in)
 {
-	t_project	*lem_in;
-
-	lem_in = (t_project *)project;
 	ft_printf("Currently: %s\n", __func__);
 	if (ft_strchr(OPTIONS, **ARGV) && **ARGV != 0)
 	{
@@ -57,24 +48,19 @@ t_bool				find_option(void *project)
 	return (FAIL);
 }
 
-t_bool				validate_argument(void *project)
+t_bool				validate_argument(t_project *lem_in)
 {
-	t_project	*lem_in;
-
-	lem_in = (t_project *)project;
 	ft_printf("Currently: %s\n", __func__);
 	if (**ARGV == 0)
 		return (SUCCESS);
 	return (FAIL);
 }
 
-t_bool				find_error_opt(void *project)
+t_bool				find_error_opt(t_project *lem_in)
 {
-	t_project	*lem_in;
-
-	lem_in = (t_project *)project;
+	lem_in = NULL;
 	ft_printf("Currently: %s\n", __func__);
-	ft_printf("Machine was trying to %i")
+	ft_printf("Machine was trying to %i\n", 1);
 	return (SUCCESS);
 }
 
@@ -114,12 +100,10 @@ static t_mconfig	*states(void)
 	return (mconfig);
 }
 
-t_bool								set_options(void *project)
+t_bool								set_options(t_project *lem_in)
 {
-	t_project	*lem_in;
 	t_machine	*machine;
 
-	lem_in = (t_project *)project;
 	ft_printf("Currently: %s\n", __func__);
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);

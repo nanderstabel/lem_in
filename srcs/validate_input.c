@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/23 20:46:25 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/23 21:12:19 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_bool								check_link_source_command(char *line_to_check)
 	
 // }
 
-// t_bool							point_line(void *project)
+// t_bool							point_line(t_project *project)
 // {
 // 	t_project	*lem_in;
 
@@ -142,7 +142,7 @@ t_bool								check_link_source_command(char *line_to_check)
 // 	TRANSITION[s_point_line_vi][SUCCESS] = s_point_line_vi;
 // }
 
-t_bool								validate_input(void *project)
+t_bool								validate_input(t_project *project)
 {
 	t_project *test;
 
