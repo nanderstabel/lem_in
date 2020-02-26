@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/26 13:30:00 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/26 16:33:04 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define ARGV				lem_in->argv
 # define FLAGS				lem_in->flags
 # define ERROR				lem_in->error
-# define EVAL_STR			lem_in->input_eval_string
+# define VALIDATE_STR		lem_in->input_validation_string
 # define TRANSITIONS		(*mconfig)->transitions
 # define EVENTS				(*mconfig)->events
 
@@ -99,7 +99,7 @@ typedef struct					s_project
 	char						**argv;
 	int							flags;
 	char						*input_string;
-	char						*input_eval_string;
+	char						*input_validation_string;
 	t_list						*error;
 }								t_project;
 
@@ -152,5 +152,6 @@ t_bool							read_argument(t_project *lem_in);
 t_bool							find_dash(t_project *lem_in);
 t_bool							find_option(t_project *lem_in);
 t_bool							validate_argument(t_project *lem_in);
+t_bool							error_log(t_project *lem_in, char	*function_name);
 
 #endif

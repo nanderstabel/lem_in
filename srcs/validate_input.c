@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/26 13:31:31 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/26 14:18:14 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_bool								first_char_newline_vi(t_project *lem_in)
 {
 	// ft_printf("Currently: %s\n", __func__);
 
-	if (*EVAL_STR == '\n')
+	if (*VALIDATE_STR == '\n')
 		return (SUCCESS);
 	else
 		return (FAIL);
@@ -26,7 +26,7 @@ t_bool								first_char_zero_vi(t_project *lem_in)
 {
 	// ft_printf("Currently: %s\n", __func__);
 
-	if (*EVAL_STR == '0')
+	if (*VALIDATE_STR == '0')
 		return (SUCCESS);
 	else
 		return (FAIL);
@@ -36,7 +36,7 @@ t_bool								first_char_delim_vi(t_project *lem_in)
 {
 	// ft_printf("Currently: %s\n", __func__);
 
-	if (*EVAL_STR == '\0')
+	if (*VALIDATE_STR == '\0')
 		return (SUCCESS);
 	else
 		return (FAIL);
@@ -46,7 +46,7 @@ t_bool								first_char_hash_vi(t_project *lem_in)
 {
 	// ft_printf("Currently: %s\n", __func__);
 	
-	if (*lem_in->input_eval_string == '#')
+	if (*VALIDATE_STR == '#')
 		return (SUCCESS);
 	else
 		return (FAIL);
@@ -56,14 +56,14 @@ t_bool								second_char_hash_vi(t_project *lem_in)
 {
 	// ft_printf("Currently: %s\n", __func__);
 	
-	if (*(EVAL_STR + 1) == '#')
+	if (*(VALIDATE_STR + 1) == '#')
 		return (SUCCESS);
 	else
 	{
-		while (*EVAL_STR != '\n' && *EVAL_STR != '\0')
-			EVAL_STR++;
-		if (*EVAL_STR == '\n')
-			EVAL_STR++;
+		while (*VALIDATE_STR != '\n' && *VALIDATE_STR != '\0')
+			VALIDATE_STR++;
+		if (*VALIDATE_STR == '\n')
+			VALIDATE_STR++;
 		return (FAIL);
 	}
 }
@@ -72,13 +72,13 @@ t_bool								isdigit_to_space_vi(t_project *lem_in)
 {
 	// ft_printf("Currently: %s\n", __func__);
 	
-	while (*EVAL_STR != ' ')
+	while (*VALIDATE_STR != ' ')
 	{
-		if (ft_isdigit(*EVAL_STR) != 1)
+		if (ft_isdigit(*VALIDATE_STR) != 1)
 			return (FAIL);
-		EVAL_STR++;
+		VALIDATE_STR++;
 	}
-	EVAL_STR++;
+	VALIDATE_STR++;
 	return (SUCCESS);
 }
 
@@ -86,13 +86,13 @@ t_bool								isdigit_to_newline_vi(t_project *lem_in)
 {
 	// ft_printf("Currently: %s\n", __func__);
 	
-	while (*EVAL_STR != '\n')
+	while (*VALIDATE_STR != '\n')
 	{
-		if (ft_isdigit(*EVAL_STR) != 1)
+		if (ft_isdigit(*VALIDATE_STR) != 1)
 			return (FAIL);
-		EVAL_STR++;
+		VALIDATE_STR++;
 	}
-	EVAL_STR++;
+	VALIDATE_STR++;
 	return (SUCCESS);
 }
 
@@ -110,13 +110,13 @@ t_bool								isallnum_to_hyphen_vi(t_project *lem_in)
 {
 	// ft_printf("Currently: %s\n", __func__);
 	
-	while (*EVAL_STR != '-')
+	while (*VALIDATE_STR != '-')
 	{
-		if (ft_isalnum((int)*EVAL_STR) != 1)
+		if (ft_isalnum((int)*VALIDATE_STR) != 1)
 			return (FAIL);
-		EVAL_STR++;
+		VALIDATE_STR++;
 	}
-	EVAL_STR++;
+	VALIDATE_STR++;
 	return (SUCCESS);
 }
 
@@ -124,13 +124,13 @@ t_bool								isallnum_to_newline_vi(t_project *lem_in)
 {
 	// ft_printf("Currently: %s\n", __func__);
 	
-	while (*EVAL_STR != '\n')
+	while (*VALIDATE_STR != '\n')
 	{
-		if (ft_isalnum((int)*EVAL_STR) != 1)
+		if (ft_isalnum((int)*VALIDATE_STR) != 1)
 			return (FAIL);
-		EVAL_STR++;
+		VALIDATE_STR++;
 	}
-	EVAL_STR++;
+	VALIDATE_STR++;
 	return (SUCCESS);
 }
 
@@ -138,13 +138,13 @@ t_bool								isallnum_to_space_vi(t_project *lem_in)
 {
 	// ft_printf("Currently: %s\n", __func__);
 	
-	while (*EVAL_STR != ' ')
+	while (*VALIDATE_STR != ' ')
 	{
-		if (ft_isalnum((int)*EVAL_STR) != 1)
+		if (ft_isalnum((int)*VALIDATE_STR) != 1)
 			return (FAIL);
-		EVAL_STR++;
+		VALIDATE_STR++;
 	}
-	EVAL_STR++;
+	VALIDATE_STR++;
 	return (SUCCESS);
 }
 
@@ -152,12 +152,12 @@ t_bool								check_if_start_command_line_vi(t_project *lem_in)
 {
 	// ft_printf("Currently: %s\n", __func__);
 	
-	if (ft_strcmp_delim(EVAL_STR, "##start\n", (int)'\n') == 0)
+	if (ft_strcmp_delim(VALIDATE_STR, "##start\n", (int)'\n') == 0)
 	{
-		while (*EVAL_STR != '\n' && *EVAL_STR != '\0')
-			EVAL_STR++;
-		if (*EVAL_STR == '\n')
-			EVAL_STR++;
+		while (*VALIDATE_STR != '\n' && *VALIDATE_STR != '\0')
+			VALIDATE_STR++;
+		if (*VALIDATE_STR == '\n')
+			VALIDATE_STR++;
 		return (SUCCESS);
 	}
 	else
@@ -168,12 +168,12 @@ t_bool								check_if_end_command_line_vi(t_project *lem_in)
 {
 	// ft_printf("Currently: %s\n", __func__);
 	
-	if (ft_strcmp_delim(EVAL_STR, "##end\n", (int)'\n') == 0)
+	if (ft_strcmp_delim(VALIDATE_STR, "##end\n", (int)'\n') == 0)
 	{
-		while (*EVAL_STR != '\n' && *EVAL_STR != '\0')
-			EVAL_STR++;
-		if (*EVAL_STR == '\n')
-			EVAL_STR++;
+		while (*VALIDATE_STR != '\n' && *VALIDATE_STR != '\0')
+			VALIDATE_STR++;
+		if (*VALIDATE_STR == '\n')
+			VALIDATE_STR++;
 		return (SUCCESS);
 	}
 	else
@@ -184,10 +184,10 @@ t_bool								skip_command_line_vi(t_project *lem_in)
 {
 	// ft_printf("Currently: %s\n", __func__);
 	
-	while (*EVAL_STR != '\n' && *EVAL_STR != '\0')
-		EVAL_STR++;
-	if (*EVAL_STR == '\n')
-		EVAL_STR++;
+	while (*VALIDATE_STR != '\n' && *VALIDATE_STR != '\0')
+		VALIDATE_STR++;
+	if (*VALIDATE_STR == '\n')
+		VALIDATE_STR++;
 	return (SUCCESS);
 }
 
@@ -231,9 +231,9 @@ t_bool								find_hyphen_vi(t_project *lem_in)
 	int		index;
 
 	index = 0;
-	while (EVAL_STR[index] != '\n' && EVAL_STR[index] != '\0')
+	while (VALIDATE_STR[index] != '\n' && VALIDATE_STR[index] != '\0')
 	{
-		if (EVAL_STR[index] == '-')
+		if (VALIDATE_STR[index] == '-')
 		{
 			FLAGS = FLAGS |= LINK;
 			return (SUCCESS);
@@ -254,7 +254,7 @@ t_bool		input_file_done_vi(t_project *lem_in)
 {
 	// ft_printf("Currently: %s\n", __func__);
 	
-	if (*EVAL_STR == '\0')
+	if (*VALIDATE_STR == '\0')
 		return (SUCCESS);
 	else
 		return (FAIL);
@@ -293,7 +293,7 @@ t_bool		read_stdin_vi(t_project *lem_in)
 		free(temp);
 	}
 	lem_in->input_string = new;
-	lem_in->input_eval_string = lem_in->input_string;
+	VALIDATE_STR = lem_in->input_string;
 	return (SUCCESS);
 }
 
@@ -388,7 +388,6 @@ static t_mconfig	*states(void)
 	get_events(&mconfig);
 	return (mconfig);
 }
-
 
 t_bool								validate_input(t_project *lem_in)
 {
