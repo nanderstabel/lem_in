@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/06 08:47:04 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/20 17:22:47 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/26 11:25:29 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,18 +44,19 @@ LIB = -L ../libft/ -lft
 all: $(NAME)
 
 $(NAME): $(ALL_TEST_OBJ_FILES) $(PROJECT_OBJ_FILES)
-	@$(CC) -o $@ $^ -I$(INC_DIR) -lcriterion $(LIB)
+	@$(CC) -o $@ $^ -I$(INC_DIR) -lcriterion $(LIB) $(CFLAGS)
 	@echo "Unit test compiled."
 
 run:
-	@echo "		========== Run Tests =========="
+	@echo "\n"
 	@./unit_test
+	@echo "\n"
 
 %.o: %.c $(HEADER_FILES)
 	@$(CC) -c $(CFLAGS) $(DEPS) -o $@ $<
 
 test_main: $(TEST_MAIN_OBJ) $(PROJECT_OBJ_FILES)
-	@$(CC) -o $(TEST_MAIN) $^ -I$(INC_DIR) $(LIB)
+	@$(CC) -o $(TEST_MAIN) $^ -I$(INC_DIR) $(LIB) $(CFLAGS)
 	@./test_main
 
 clean:

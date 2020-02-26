@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/08 10:14:38 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/19 18:13:26 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/25 14:44:10 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ_FILES) $(LIBFT_OBJ_FILES)
 	@make -C ./libft
-	@$(CC) -o $@ $^ $(LIB)
+	@$(CC) -o $@ $^ $(LIB) $(CFLAGS)
 	@echo $(NAME) "compiled."
 
 %.o: %.c $(HEADER_FILES) $(LIBFT_HEADER_FILES)

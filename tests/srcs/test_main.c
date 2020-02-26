@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 16:50:26 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/20 17:07:37 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/26 08:46:12 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 int		main(void)
 {
-	char	*str;
-	t_bool	boolean;
+	t_project 		*lem_in;
+	// char			*temp;
 
-	str = ft_strdup("12343568\n9374595");
-	boolean = isdigit_to_char(&str, (int)'\n');
-	ft_printf("boolean: %d\nstr: %s\n", boolean, str);
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
+	EVAL_STR = ft_strdup("##start\nkdjkfj");
+	// ft_printf("%s\n", temp);
+	printf("return: %d\n", ft_strcmp_delim(EVAL_STR, "##starft\n", (int)'\n'));
 
+	
+
+	
 	return (0);
 }
