@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/26 08:28:40 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/29 13:13:41 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@
 # include <fcntl.h>
 
 # define BUFF_SIZE 1000
+
+typedef void		*(*t_get_elem)(char *, size_t, size_t);
+typedef int			(*t_hashequ)(void *, size_t);
+
+typedef struct		s_hash_table
+{
+	size_t			size;
+	void			**elem;
+}					t_hash_table;
 
 typedef	struct		s_list
 {
@@ -47,6 +56,7 @@ void				ft_delnode(void *content, size_t content_size);
 int					ft_end(char const *s);
 void				ft_freezero(void *mem, size_t size);
 int					ft_get_next_line(const int fd, char **line);
+size_t				ft_hash(char *key);
 t_list				**ft_hsh_chain(void **ar, size_t size, \
 					size_t hsh(void *));
 t_list				**ft_hsh_linprob(void **ar, size_t size, \

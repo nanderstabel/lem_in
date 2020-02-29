@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/29 12:08:42 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/29 13:15:23 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,26 @@
 # include "libft.h"
 # include "machine.h"
 
-# define OPTIONS			"d"
+# define OPTIONS			"drl"
 # define ARGC				lem_in->argc
 # define ARGV				lem_in->argv
 # define FLAGS				lem_in->flags
+# define INPUT				lem_in->input_string
+# define LINE				lem_in->line
 # define ERROR				lem_in->error
 # define VALIDATE_STR		lem_in->input_validation_string
+
+# define NANTS				lem_in->nants
+# define NROOMS				lem_in->nrooms
+# define NLINKS				lem_in->nlinks
+# define ROOMS				lem_in->rooms
+# define LINKS				lem_in->links
 # define TRANSITIONS		(*mconfig)->transitions
 # define EVENTS				(*mconfig)->events
 
-# define DEBUG				(1 << 0)
+# define DEBUG_O			(1 << 0)
+# define ROOMS_O			(1 << 1)
+# define LINKS_O			(1 << 2)
 # define START				(1 << 3)
 # define END				(1 << 4)
 # define LINK				(1 << 5)
@@ -47,8 +57,18 @@ enum
 	s_move_ants,
 	s_find_error,
 	s_print_output,
-	s_uninstall_machine
+	s_uninstall_machine,
 }	e_state;
+
+enum
+{
+	s_install_machine_opt,
+	s_read_argument_opt,
+	s_find_dash_opt,
+	s_find_option_opt,
+	s_validate_argument_opt,
+	s_uninstall_machine_opt,
+}	e_state_opt;
 
 enum
 {
@@ -79,14 +99,21 @@ enum
 
 enum
 {
-	s_install_machine_opt,
-	s_read_argument_opt,
-	s_find_dash_opt,
-	s_find_option_opt,
-	s_validate_argument_opt,
-	s_find_error_opt,
-	s_uninstall_machine_opt,
-}	e_state_opt;
+	s_install_machine_rms,
+	s_initialize_table_rms,
+	s_set_line,
+	s_get_room,
+	s_store_room,
+	s_print_rooms,
+	s_uninstall_machine_rms,
+}	e_state_rms;
+
+typedef struct					s_vertex
+{
+	size_t						index;
+	size_t						hash;
+	char						*name;
+}								t_vertex;
 
 /*
 ** The main struct type of this project. All the necassary variables can be
@@ -100,8 +127,16 @@ typedef struct					s_project
 	int							flags;
 	char						*input_string;
 	char						*input_validation_string;
+	char						*line_to_check;
+	char						*line;
+	size_t						nants;
+	size_t						nrooms;
+	size_t						nlinks;
+	t_hash_table				*rooms;
+	t_hash_table				*links;
 	t_list						*error;
 }								t_project;
+
 
 /*
 ** Next are the 't_event functions'. They all return a t_bool 'transition'
@@ -110,8 +145,8 @@ typedef struct					s_project
 
 t_bool							set_options(t_project *lem_in);
 t_bool							validate_input(t_project *lem_in);
-t_bool							storing_rooms(t_project *lem_in);
-t_bool							storing_links(t_project *lem_in);
+t_bool							store_rooms(t_project *lem_in);
+t_bool							store_links(t_project *lem_in);
 t_bool							labeling_graph(t_project *lem_in);
 t_bool							finding_paths(t_project *lem_in);
 t_bool							augmenting_paths(t_project *lem_in);
