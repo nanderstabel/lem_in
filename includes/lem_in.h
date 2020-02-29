@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/29 13:15:23 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/29 14:12:36 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,8 +163,6 @@ t_bool							first_char_hash_vi(t_project *lem_in);
 t_bool							second_char_hash_vi(t_project *lem_in);
 t_bool							isdigit_to_newline_vi(t_project *lem_in);
 t_bool							isdigit_to_space_vi(t_project *lem_in);
-// t_bool							check_start_flag_on_vi(t_project *lem_in);
-// t_bool							check_end_flag_on_vi(t_project *lem_in);
 t_bool							check_if_start_command_line_vi(t_project *lem_in);
 t_bool							check_if_end_command_line_vi(t_project *lem_in);
 t_bool							check_link_flag_on_vi(t_project *lem_in);
@@ -180,7 +178,6 @@ t_bool							print_output(t_project *lem_in);
 t_bool							input_file_done_vi(t_project *lem_in);
 t_bool							all_flags_on_vi(t_project *lem_in);
 t_bool							read_stdin(char **input_string);
-// t_bool							find_error_vi(t_project *lem_in);
 t_bool							skip_command_line_vi(t_project *lem_in);
 
 t_bool							read_argument(t_project *lem_in);
