@@ -10,4 +10,5 @@ PROJECT_OBJ_FILES :=	main.o					\
 						storing_rooms.o			\
 						validate_input.o		\
 						get_input.o				\
-						read_input.o
+						read_input.o			\
+						error_log.o
