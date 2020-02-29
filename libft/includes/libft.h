@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/19 13:18:45 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/26 08:28:40 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,4 +148,5 @@ char				*ft_strupr(char *s);
 char				*ft_strtrim(char const *s);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
+int					ft_strcmp_delim(const char *s1, const char *s2, int c);
 #endif

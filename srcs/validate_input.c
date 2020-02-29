@@ -6,150 +6,397 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/23 21:12:19 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/29 12:14:38 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-/*
-** The function takes as argument a charakter string.
-**
-** The function checks if the first line of the input, the line for the num of
-** ants, is a valid line. It is a valid line if there are only digits and the
-** number is not 0.
-**
-** Return values are FAIL or SUCCESS depending if only digits are found (no 0)
-** or other charakters are mixed into the string.
-*/
-
-// t_bool								check_line_ants(char *line_to_check)
-// {
-// 	if (*line_to_check == '\n' || *line_to_check == '0')
-// 		return (FAIL);
-// 	if (!isdigit_to_char(&line_to_check, (int)'\n'))
-// 		return (FAIL);
-// 	else
-// 		return (SUCCESS);
-// }
-
-// t_bool								isdigit_to_char(char **line_to_check, int c)
-// {
-// 	while (**line_to_check != (char)c)
-// 	{
-// 		if (ft_isdigit(**line_to_check) != 1)
-// 			return (FAIL);
-// 		(*line_to_check)++;
-// 	}
-// 	return (SUCCESS);
-// }
-
-t_bool								isallnum_to_char(char **line_to_check, int c)
+t_bool								first_char_newline_vi(t_project *lem_in)
 {
-	while (**line_to_check != (char)c)
+	// ft_printf("Currently: %s\n", __func__);
+
+	if (*VALIDATE_STR == '\n')
+		return (error_log(lem_in, ft_strdup(__func__), SUCCESS));
+	else
+		return (FAIL);
+}
+
+t_bool								first_char_zero_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+
+	if (*VALIDATE_STR == '0')
+		return (error_log(lem_in, ft_strdup(__func__), SUCCESS));
+	else
+		return (FAIL);
+}
+
+t_bool								first_char_delim_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+
+	if (*VALIDATE_STR == '\0')
+		return (error_log(lem_in, ft_strdup(__func__), SUCCESS));
+	else
+		return (FAIL);
+}
+
+t_bool								first_char_hash_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+	
+	if (*VALIDATE_STR == '#')
+		return (SUCCESS);
+	else
+		return (FAIL);
+}
+
+t_bool								second_char_hash_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+	
+	if (*(VALIDATE_STR + 1) == '#')
+		return (SUCCESS);
+	else
 	{
-		if (ft_isalnum(**line_to_check) != 1)
-			return (FAIL);
-		(*line_to_check)++;
+		while (*VALIDATE_STR != '\n' && *VALIDATE_STR != '\0')
+			VALIDATE_STR++;
+		if (*VALIDATE_STR == '\n')
+			VALIDATE_STR++;
+		return (FAIL);
 	}
+}
+
+t_bool								isdigit_to_space_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+	
+	while (*VALIDATE_STR != ' ')
+	{
+		if (ft_isdigit(*VALIDATE_STR) != 1)
+			return (error_log(lem_in, ft_strdup(__func__), FAIL));
+		VALIDATE_STR++;
+	}
+	VALIDATE_STR++;
 	return (SUCCESS);
 }
 
-/*
-** The function takes as argument a charakter string.
-**
-** The function checks if the line send is the charakter string ##end.
-**
-** Return values are FAIL and SUCCESS depending if the string was found.
-*/
-
-t_bool								check_link_sink_command(char *line_to_check)
+t_bool								isdigit_to_newline_vi(t_project *lem_in)
 {
-	if (line_to_check == NULL)
-		return (FAIL);
-	if (ft_strcmp(line_to_check, "##end") == 0)
-		return (SUCCESS);
-	else
-		return (FAIL);
-}
-
-/*
-** The function takes as argument a charakter string.
-**
-** The function checks if the line send is the charakter string ##start.
-**
-** Return values are FAIL and SUCCESS depending if the string was found.
-*/
-
-t_bool								check_link_source_command(char *line_to_check)
-{
-	if (line_to_check == NULL)
-		return (FAIL);
-	if (ft_strcmp(line_to_check, "##start") == 0)
-		return (SUCCESS);
-	else
-		return (FAIL);
-}
-
-// t_bool								check_line_rooms(char *line_to_check)
-// {
-// 	if(!isallnum_to_char(&line_to_check, ' '))
-// 		return (FAIL);
-// 	line_to_check++;
-// 	if(!isdigit_to_char(&line_to_check, ' '))
-// 		return (FAIL);
-// 	line_to_check++;
-// 	if(!isdigit_to_char(&line_to_check, '\n'))
-// 		return (FAIL);
-// 	return (SUCCESS);
-// }
-
-// t_bool							transition_state(char *line_to_read)
-// {
+	// ft_printf("Currently: %s\n", __func__);
 	
-// }
+	while (*VALIDATE_STR != '\n')
+	{
+		if (ft_isdigit(*VALIDATE_STR) != 1)
+			return (error_log(lem_in, ft_strdup(__func__), FAIL));
+		VALIDATE_STR++;
+	}
+	VALIDATE_STR++;
+	return (SUCCESS);
+}
 
-// t_bool							point_line(t_project *project)
-// {
-// 	t_project	*lem_in;
-
-// 	lem_in = (t_project*)project;
-// }
-// t_bool								check_rooms4(char *line_to_check)
-// {
-// 	int			len;
-// 	int			index;
-// 	char		*
-
-// 	len = ft_strlen(line_to_check);
-// 	index = 0;
-// 	while (*line_to_check != ' ' && *line_to_check != '\n' && *line_to_check != '\0')
-// 	{
-// 		if (ft_isalnum(*line_to_check) != 1)
-// 			return (FAIL);
-// 	}
-// 	if ()
-// }
-
-
-// static void			get_transitions(t_mconfig **mconfig)
-// {
-// 	TRANSITION[s_install_machine_vi][FAIL] = s_idle;
-// 	TRANSITION[s_install_machine_vi][SUCCESS] = s_check_line_ants_vi;
-// 	TRANSITION[s_check_line_ants_vi][FAIL] = s_find_error; // Is het handig hier de zelfde error te pakken?
-// 	TRANSITION[s_check_line_ants_vi][SUCCESS] = s_point_line_vi;
-// 	TRANSITION[s_point_line_vi][FAIL] = s_point_line_vi;
-// 	TRANSITION[s_point_line_vi][SUCCESS] = s_point_line_vi;
-// }
-
-t_bool								validate_input(t_project *project)
+t_bool								check_link_flag_on_vi(t_project *lem_in)
 {
-	t_project *test;
+	// ft_printf("Currently: %s\n", __func__);
+	
+	if ((FLAGS & LINK) == LINK)
+		return (SUCCESS);
+	else
+		return (FAIL);	
+}
 
-	test = (t_project*)project;
+t_bool								isallnum_to_hyphen_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+	
+	while (*VALIDATE_STR != '-')
+	{
+		if (ft_isalnum((int)*VALIDATE_STR) != 1)
+			return (error_log(lem_in, ft_strdup(__func__), FAIL));
+		VALIDATE_STR++;
+	}
+	VALIDATE_STR++;
+	return (SUCCESS);
+}
 
-	ft_printf("Currently: %s\n", __func__);
-	read_stdin(&test->input_string);
+t_bool								isallnum_to_newline_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+	
+	while (*VALIDATE_STR != '\n')
+	{
+		if (ft_isalnum((int)*VALIDATE_STR) != 1)
+		{
+			if (*VALIDATE_STR == '\0')
+				return (SUCCESS);
+			else
+				return (error_log(lem_in, ft_strdup(__func__), FAIL));
+		}
+		VALIDATE_STR++;
+	}
+	VALIDATE_STR++;
+	return (SUCCESS);
+}
 
+t_bool								isallnum_to_space_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+	
+	while (*VALIDATE_STR != ' ')
+	{
+		if (ft_isalnum((int)*VALIDATE_STR) != 1)
+			return (error_log(lem_in, ft_strdup(__func__), FAIL));
+		VALIDATE_STR++;
+	}
+	VALIDATE_STR++;
+	return (SUCCESS);
+}
+
+t_bool								check_if_start_command_line_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+	
+	if (ft_strcmp_delim(VALIDATE_STR, "##start\n", (int)'\n') == 0)
+	{
+		while (*VALIDATE_STR != '\n' && *VALIDATE_STR != '\0')
+			VALIDATE_STR++;
+		if (*VALIDATE_STR == '\n')
+			VALIDATE_STR++;
+		return (SUCCESS);
+	}
+	else
+		return (FAIL);
+}
+
+t_bool								check_if_end_command_line_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+	
+	if (ft_strcmp_delim(VALIDATE_STR, "##end\n", (int)'\n') == 0)
+	{
+		while (*VALIDATE_STR != '\n' && *VALIDATE_STR != '\0')
+			VALIDATE_STR++;
+		if (*VALIDATE_STR == '\n')
+			VALIDATE_STR++;
+		return (SUCCESS);
+	}
+	else
+		return (FAIL);
+}
+
+t_bool								skip_command_line_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+	
+	while (*VALIDATE_STR != '\n' && *VALIDATE_STR != '\0')
+		VALIDATE_STR++;
+	if (*VALIDATE_STR == '\n')
+		VALIDATE_STR++;
+	return (SUCCESS);
+}
+
+t_bool								switch_start_flag_on_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+
+	if ((FLAGS & START) == START)
+		return (error_log(lem_in, ft_strdup(__func__), FAIL));
+	else
+		FLAGS = FLAGS |= START;
+		return (SUCCESS);
+}
+
+t_bool								switch_end_flag_on_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+	
+	if ((FLAGS & END) == END)
+		return (error_log(lem_in, ft_strdup(__func__), FAIL));
+	else
+		FLAGS = FLAGS |= END;
+		return (SUCCESS);
+}
+
+t_bool								switch_link_flag_on_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+	
+	if ((FLAGS & LINK) == LINK)
+		return (FAIL);
+	else
+		FLAGS = FLAGS |= LINK;
+		return (SUCCESS);
+}
+
+t_bool								find_hyphen_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+
+	int		index;
+
+	index = 0;
+	while (VALIDATE_STR[index] != '\n' && VALIDATE_STR[index] != '\0')
+	{
+		if (VALIDATE_STR[index] == '-')
+		{
+			FLAGS = FLAGS |= LINK;
+			return (SUCCESS);
+		}
+		index++;
+	}
+	return (FAIL);
+}
+
+t_bool		input_file_done_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+	
+	if (*VALIDATE_STR == '\0')
+		return (SUCCESS);
+	else
+		return (FAIL);
+}
+
+t_bool								all_flags_on_vi(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+
+	if ((FLAGS & START) == START && (FLAGS & END) == END && \
+		(FLAGS & LINK) == LINK)
+		return (SUCCESS);
+	else
+		return (error_log(lem_in, ft_strdup(__func__), FAIL));
+}
+
+t_bool		read_stdin_vi(t_project *lem_in)
+{
+	char			*temp;
+	int				ret;
+	char			buf[BUFF_SIZE + 1];
+	char			*new;
+
+	// ft_printf("Currently: %s\n", __func__);
+	
+	ret = 1;
+	new = ft_strnew(0);
+	while (ret != 0)
+	{
+		ret = read(0, buf, BUFF_SIZE);
+		if (ret == -1)
+			return (error_log(lem_in, ft_strdup(__func__), FAIL));
+		buf[ret] = '\0';
+		temp = new;
+		new = ft_strjoin(new, buf);
+		free(temp);
+	}
+	lem_in->input_string = new;
+	VALIDATE_STR = lem_in->input_string;
+	return (SUCCESS);
+}
+
+static void			get_transitions(t_mconfig **mconfig)
+{
+	TRANSITIONS[s_install_machine][FAIL] = s_uninstall_machine_vi;
+	TRANSITIONS[s_install_machine][SUCCESS] = s_read_stdin_vi;
+	TRANSITIONS[s_read_stdin_vi][FAIL] = s_uninstall_machine_vi; //ERROR
+	TRANSITIONS[s_read_stdin_vi][SUCCESS] = s_first_char_delim_vi;
+	TRANSITIONS[s_first_char_delim_vi][SUCCESS] = s_uninstall_machine_vi;//ERROR
+	TRANSITIONS[s_first_char_delim_vi][FAIL] = s_first_char_newline_vi;
+	TRANSITIONS[s_first_char_newline_vi][SUCCESS] = s_uninstall_machine_vi;//ERROR
+	TRANSITIONS[s_first_char_newline_vi][FAIL] = s_first_char_zero_vi;
+	TRANSITIONS[s_first_char_zero_vi][SUCCESS] = s_uninstall_machine_vi;//ERROR
+	TRANSITIONS[s_first_char_zero_vi][FAIL] = s_isdigit_to_newline_vi;
+	TRANSITIONS[s_isdigit_to_newline_vi][FAIL] = s_uninstall_machine_vi;//ERROR
+	TRANSITIONS[s_isdigit_to_newline_vi][SUCCESS] = s_input_file_done_vi;
+	TRANSITIONS[s_input_file_done_vi][FAIL] = s_first_char_hash_vi; // <<<while>>>
+	TRANSITIONS[s_input_file_done_vi][SUCCESS] = s_all_flags_on_vi;
+	TRANSITIONS[s_all_flags_on_vi][FAIL] = s_uninstall_machine_vi;//ERROR
+	TRANSITIONS[s_all_flags_on_vi][SUCCESS] = s_uninstall_machine_vi; // INPUT VALIDATED
+	TRANSITIONS[s_first_char_hash_vi][FAIL] = s_check_link_flag_on_vi;
+	TRANSITIONS[s_first_char_hash_vi][SUCCESS] = s_second_char_hash_vi;
+	TRANSITIONS[s_second_char_hash_vi][FAIL] = s_input_file_done_vi;
+	TRANSITIONS[s_second_char_hash_vi][SUCCESS] = s_check_if_start_command_line_vi; 
+	TRANSITIONS[s_check_if_start_command_line_vi][FAIL] = s_check_if_end_command_line_vi;
+	TRANSITIONS[s_check_if_start_command_line_vi][SUCCESS] = s_switch_start_flag_on_vi;
+	TRANSITIONS[s_switch_start_flag_on_vi][FAIL] = s_uninstall_machine_vi; //ERROR
+	TRANSITIONS[s_switch_start_flag_on_vi][SUCCESS] = s_input_file_done_vi;
+	TRANSITIONS[s_check_if_end_command_line_vi][SUCCESS] = s_switch_end_flag_on_vi;
+	TRANSITIONS[s_check_if_end_command_line_vi][FAIL] = s_input_file_done_vi;
+	TRANSITIONS[s_switch_end_flag_on_vi][SUCCESS] = s_skip_command_line_vi;
+	TRANSITIONS[s_switch_end_flag_on_vi][FAIL] = s_uninstall_machine_vi;//ERROR
+	TRANSITIONS[s_skip_command_line_vi][SUCCESS] = s_input_file_done_vi;
+	TRANSITIONS[s_skip_command_line_vi][FAIL] = s_uninstall_machine_vi;
+	TRANSITIONS[s_check_link_flag_on_vi][SUCCESS] = s_isallnum_to_hyphen_vi;// <<<<<<<<<<<<<<<<<<
+	TRANSITIONS[s_check_link_flag_on_vi][FAIL] = s_find_hyphen_vi;
+	TRANSITIONS[s_isallnum_to_hyphen_vi][SUCCESS] = s_isallnum_to_newline_vi;
+	TRANSITIONS[s_isallnum_to_hyphen_vi][FAIL] = s_uninstall_machine_vi;//ERROR
+	TRANSITIONS[s_isallnum_to_newline_vi][SUCCESS] = s_input_file_done_vi;
+	TRANSITIONS[s_isallnum_to_newline_vi][FAIL] = s_uninstall_machine_vi;//ERROR
+	TRANSITIONS[s_find_hyphen_vi][SUCCESS] = s_isallnum_to_hyphen_vi;
+	TRANSITIONS[s_find_hyphen_vi][FAIL] = s_isallnum_to_space_vi;
+	TRANSITIONS[s_isallnum_to_space_vi][SUCCESS] = s_isdigit_to_space_vi;
+	TRANSITIONS[s_isallnum_to_space_vi][FAIL] = s_uninstall_machine_vi;//ERROR
+	TRANSITIONS[s_isdigit_to_space_vi][SUCCESS] = s_isdigit_to_newline_vi;
+	TRANSITIONS[s_isdigit_to_space_vi][FAIL] = s_uninstall_machine_vi;//ERROR
+	TRANSITIONS[s_isdigit_to_newline_vi][SUCCESS] = s_input_file_done_vi;
+	TRANSITIONS[s_isdigit_to_newline_vi][FAIL] = s_uninstall_machine_vi;//ERROR
+}
+
+static void			get_events(t_mconfig **mconfig)
+{
+	EVENTS[s_install_machine] = NULL;
+	EVENTS[s_read_stdin_vi] = read_stdin_vi;
+	EVENTS[s_first_char_newline_vi] = first_char_newline_vi;
+	EVENTS[s_first_char_zero_vi] = first_char_zero_vi;
+	EVENTS[s_first_char_delim_vi] = first_char_delim_vi;
+	EVENTS[s_first_char_hash_vi] = first_char_hash_vi;
+	EVENTS[s_second_char_hash_vi] = second_char_hash_vi;
+	EVENTS[s_find_hyphen_vi] = find_hyphen_vi;
+	EVENTS[s_isdigit_to_newline_vi] = isdigit_to_newline_vi;
+	EVENTS[s_isdigit_to_space_vi] = isdigit_to_space_vi;
+	EVENTS[s_isallnum_to_hyphen_vi] = isallnum_to_hyphen_vi;
+	EVENTS[s_isallnum_to_space_vi] = isallnum_to_space_vi;
+	EVENTS[s_isallnum_to_newline_vi] = isallnum_to_newline_vi;
+	EVENTS[s_check_if_end_command_line_vi] = check_if_end_command_line_vi;
+	EVENTS[s_check_if_start_command_line_vi] = check_if_start_command_line_vi;
+	EVENTS[s_switch_start_flag_on_vi] = switch_start_flag_on_vi;
+	EVENTS[s_switch_end_flag_on_vi] = switch_end_flag_on_vi;
+	EVENTS[s_switch_link_flag_on_vi] = switch_link_flag_on_vi;
+	EVENTS[s_skip_command_line_vi] = skip_command_line_vi;
+	EVENTS[s_check_link_flag_on_vi] = check_link_flag_on_vi;
+	EVENTS[s_all_flags_on_vi] = all_flags_on_vi;
+	EVENTS[s_input_file_done_vi] = input_file_done_vi;
+	// EVENTS[s_uninstall_machine_vi] = find_error_vi;
+	EVENTS[s_uninstall_machine_vi] = NULL;
+}
+
+/*
+** Returns the configurated mconfig struct. Important to note here is that
+** the size you give to malloc_mconfig sould be the state with the highest
+** value.
+*/
+
+static t_mconfig	*states(void)
+{
+	t_mconfig		*mconfig;
+
+	mconfig = malloc_mconfig(s_uninstall_machine_vi);
+	get_transitions(&mconfig);
+	get_events(&mconfig);
+	return (mconfig);
+}
+
+t_bool								validate_input(t_project *lem_in)
+{
+	// ft_printf("Currently: %s\n", __func__);
+	
+	t_machine		*machine;
+
+	if (install_machine(&machine, states()) == SUCCESS)
+		run_machine(machine, lem_in);
+	uninstall_machine(&machine);
+	if (lem_in->error)
+		return (FAIL);
 	return (SUCCESS);
 }

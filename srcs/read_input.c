@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 12:58:29 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/19 15:02:47 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/25 09:48:27 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,27 @@
 **	It return a FAIL if read returns a -1 or a SUCCESS if everything went well.
 */
 
-t_bool		read_stdin(char **input_string)
-{
-	char			*temp;
-	int				ret;
-	char			buf[BUFF_SIZE + 1];
-	char			*new;
+// t_bool		read_stdin_vi(t_project *lem_in)
+// {
+// 	char			*temp;
+// 	int				ret;
+// 	char			buf[BUFF_SIZE + 1];
+// 	char			*new;
 
-	ret = 1;
-	new = ft_strnew(0);
-	while (ret !=  0)
-	{
-		ret = read(STDIN_FILENO, buf, BUFF_SIZE);
-		if (ret == -1)
-			return (FAIL);
-		buf[ret] = '\0';
-		temp = new;
-		new = ft_strjoin(new, buf);
-		free(temp);
-	}
-	*input_string = new;
-	return (SUCCESS);
-}
+// 	ft_printf("Currently: %s\n", __func__);
+// 	ret = 1;
+// 	new = ft_strnew(0);
+// 	while (ret !=  0)
+// 	{
+// 		ret = read(STDIN_FILENO, buf, BUFF_SIZE);
+// 		if (ret == -1)
+// 			return (FAIL);
+// 		buf[ret] = '\0';
+// 		temp = new;
+// 		new = ft_strjoin(new, buf);
+// 		free(temp);
+// 	}
+// 	lem_in->input_string = new;
+// 	lem_in->input_eval_string = lem_in->input_string;
+// 	return (SUCCESS);
+// }

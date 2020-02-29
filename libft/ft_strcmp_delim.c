@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strnew.c                                        :+:    :+:            */
+/*   ft_strcmp_delim.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/24 11:37:34 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/25 14:16:49 by mgross        ########   odam.nl         */
+/*   Created: 2019/01/23 16:47:08 by mgross         #+#    #+#                */
+/*   Updated: 2020/02/26 08:38:49 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnew(size_t size)
+int		ft_strcmp_delim(const char *s1, const char *s2, int c)
 {
-	char	*str;
+	int	i;
 
-	str = ft_memalloc(sizeof(char) * (size + 1));
-	ft_strclr(str);
-	if (str == NULL)
-		return (NULL);
-	return (str);
+	i = 0;
+	while ((unsigned char)s1[i] == (unsigned char)s2[i]
+		&& s1[i] != (char)c && s2[i] != (char)c && \
+		s1[i] != '\0' && s2[i] != '\0')
+	{
+		i++;
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strnew.c                                        :+:    :+:            */
+/*   error_log.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/24 11:37:34 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/25 14:16:49 by mgross        ########   odam.nl         */
+/*   Created: 2020/02/26 14:21:44 by mgross         #+#    #+#                */
+/*   Updated: 2020/02/29 12:21:30 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lem_in.h"
 
-char	*ft_strnew(size_t size)
+t_bool			error_log(t_project *lem_in, char *str, t_bool ret)
 {
-	char	*str;
+	t_list		*temp;
 
-	str = ft_memalloc(sizeof(char) * (size + 1));
-	ft_strclr(str);
-	if (str == NULL)
-		return (NULL);
-	return (str);
+	temp = ft_lstnew(str, ft_strlen(str));
+	if (lem_in->error == NULL)
+	{
+		lem_in->error = temp;
+	}
+	else
+	{
+		ft_lstapp(&lem_in->error, temp);
+	}
+	free(str);
+	return (ret);
 }
