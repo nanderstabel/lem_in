@@ -6,8 +6,8 @@ PROJECT_OBJ_FILES :=	main.o					\
 						moving_ants.o			\
 						print_output.o			\
 						set_options.o			\
-						storing_links.o			\
-						storing_rooms.o			\
+						store_links.o			\
+						store_rooms.o			\
 						validate_input.o		\
 						get_input.o				\
 						read_input.o			\

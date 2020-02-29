@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   storing_rooms.c                                    :+:    :+:            */
+/*   ft_hash.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/13 12:55:36 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/23 21:11:26 by nstabel       ########   odam.nl         */
+/*   Created: 2020/02/25 10:06:46 by nstabel        #+#    #+#                */
+/*   Updated: 2020/02/29 12:58:06 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-t_bool								storing_rooms(t_project *lem_in)
+size_t				ft_hash(char *key)
 {
-	lem_in = NULL;
-	ft_printf("Currently: %s\n", __func__);
-	return (SUCCESS);
+	size_t	index;
+	size_t	hash;
+
+	index = 0;
+	hash = 0;
+	while (key[index])
+	{
+		hash += key[index] * (index + 1);
+		++index;
+	}
+	hash *= index;
+	return (hash);
 }
