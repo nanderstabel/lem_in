@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/29 13:15:23 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/29 18:08:57 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@
 # include "libft.h"
 # include "machine.h"
 
-# define OPTIONS			"drl"
+# define OPTIONS			"grl"
 # define ARGC				lem_in->argc
 # define ARGV				lem_in->argv
 # define FLAGS				lem_in->flags
 # define INPUT				lem_in->input_string
-# define LINE				lem_in->line
 # define ERROR				lem_in->error
-# define VALIDATE_STR		lem_in->input_validation_string
+# define INPUT_CPY			lem_in->input_string_copy
 
 # define NANTS				lem_in->nants
 # define NROOMS				lem_in->nrooms
@@ -102,14 +101,22 @@ enum
 	s_install_machine_rms,
 	s_initialize_table_rms,
 	s_set_line,
-	s_get_room,
+	s_get_type,
 	s_store_room,
 	s_print_rooms,
 	s_uninstall_machine_rms,
 }	e_state_rms;
 
+typedef enum
+{
+	standard,
+	start,
+	end
+}	t_type;
+
 typedef struct					s_vertex
 {
+	t_type						type;
 	size_t						index;
 	size_t						hash;
 	char						*name;
@@ -126,7 +133,7 @@ typedef struct					s_project
 	char						**argv;
 	int							flags;
 	char						*input_string;
-	char						*input_validation_string;
+	char						*input_string_copy;
 	char						*line_to_check;
 	char						*line;
 	size_t						nants;
@@ -134,6 +141,7 @@ typedef struct					s_project
 	size_t						nlinks;
 	t_hash_table				*rooms;
 	t_hash_table				*links;
+	t_type						room_type;
 	t_list						*error;
 }								t_project;
 

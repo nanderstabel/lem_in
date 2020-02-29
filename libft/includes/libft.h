@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/29 13:13:41 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/29 17:53:57 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int					ft_end(char const *s);
 void				ft_freezero(void *mem, size_t size);
 int					ft_get_next_line(const int fd, char **line);
 size_t				ft_hash(char *key);
+void				*ft_hash_table_add(t_hash_table *hash_table, char *key, \
+					t_hashequ hashequ, t_get_elem get_elem);
 t_list				**ft_hsh_chain(void **ar, size_t size, \
 					size_t hsh(void *));
 t_list				**ft_hsh_linprob(void **ar, size_t size, \
@@ -84,6 +86,7 @@ t_list				*ft_lstfind_size(t_list *head, size_t size);
 void				ft_lstiter(t_list *lst, void(*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
+t_hash_table		*ft_malloc_hash_table(size_t size);
 void				**ft_mem_array_alloc(size_t x_dim, size_t size_x,
 					size_t size_y);
 void				*ft_memalloc(size_t size);
@@ -112,9 +115,10 @@ void				ft_putnstr_fd(const int fd, char const *str, size_t len);
 void				ft_putstr_fd(char const *str, int fd);
 void				ft_putstr(const char *str);
 void				ft_putstrarr(const char **array);
-char				*ft_select(char **str, size_t pos, size_t len);
 char				*ft_replace(char **str, char const *insert, size_t pos, \
 					size_t len);
+char				*ft_select(char **str, size_t pos, size_t len);
+void				ft_skip_line(char **str);
 void				ft_strarrdel(char ***array, size_t size_x);
 size_t				ft_strarrlen(const char **array);
 char				*ft_strcalc_add(char **nb, const char *s2);

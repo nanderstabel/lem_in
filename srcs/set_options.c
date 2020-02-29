@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 14:50:28 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/25 13:50:47 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/29 16:29:19 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_bool				find_option(t_project *lem_in)
 		ft_printf("Currently: %s\n", __func__);
 	if (ft_strchr(OPTIONS, **ARGV) && **ARGV != 0)
 	{
-		if (**ARGV == 'd')
+		if (**ARGV == 'g')
 			FLAGS |= DEBUG_O;
 		if (**ARGV == 'r')
 			FLAGS |= ROOMS_O;
