@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:21:44 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/29 12:21:30 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/29 18:44:36 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_bool			error_log(t_project *lem_in, char *str, t_bool ret)
 {
 	t_list		*temp;
 
+	if (FLAGS & DEBUG_O)
+		ft_printf("Currently: %s\n", __func__);
 	temp = ft_lstnew(str, ft_strlen(str));
 	if (lem_in->error == NULL)
 	{
