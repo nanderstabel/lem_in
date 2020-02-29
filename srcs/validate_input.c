@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/26 14:18:14 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/29 12:14:38 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_bool								first_char_newline_vi(t_project *lem_in)
 	// ft_printf("Currently: %s\n", __func__);
 
 	if (*VALIDATE_STR == '\n')
-		return (SUCCESS);
+		return (error_log(lem_in, ft_strdup(__func__), SUCCESS));
 	else
 		return (FAIL);
 }
@@ -27,7 +27,7 @@ t_bool								first_char_zero_vi(t_project *lem_in)
 	// ft_printf("Currently: %s\n", __func__);
 
 	if (*VALIDATE_STR == '0')
-		return (SUCCESS);
+		return (error_log(lem_in, ft_strdup(__func__), SUCCESS));
 	else
 		return (FAIL);
 }
@@ -37,7 +37,7 @@ t_bool								first_char_delim_vi(t_project *lem_in)
 	// ft_printf("Currently: %s\n", __func__);
 
 	if (*VALIDATE_STR == '\0')
-		return (SUCCESS);
+		return (error_log(lem_in, ft_strdup(__func__), SUCCESS));
 	else
 		return (FAIL);
 }
@@ -75,7 +75,7 @@ t_bool								isdigit_to_space_vi(t_project *lem_in)
 	while (*VALIDATE_STR != ' ')
 	{
 		if (ft_isdigit(*VALIDATE_STR) != 1)
-			return (FAIL);
+			return (error_log(lem_in, ft_strdup(__func__), FAIL));
 		VALIDATE_STR++;
 	}
 	VALIDATE_STR++;
@@ -89,7 +89,7 @@ t_bool								isdigit_to_newline_vi(t_project *lem_in)
 	while (*VALIDATE_STR != '\n')
 	{
 		if (ft_isdigit(*VALIDATE_STR) != 1)
-			return (FAIL);
+			return (error_log(lem_in, ft_strdup(__func__), FAIL));
 		VALIDATE_STR++;
 	}
 	VALIDATE_STR++;
@@ -113,7 +113,7 @@ t_bool								isallnum_to_hyphen_vi(t_project *lem_in)
 	while (*VALIDATE_STR != '-')
 	{
 		if (ft_isalnum((int)*VALIDATE_STR) != 1)
-			return (FAIL);
+			return (error_log(lem_in, ft_strdup(__func__), FAIL));
 		VALIDATE_STR++;
 	}
 	VALIDATE_STR++;
@@ -127,7 +127,12 @@ t_bool								isallnum_to_newline_vi(t_project *lem_in)
 	while (*VALIDATE_STR != '\n')
 	{
 		if (ft_isalnum((int)*VALIDATE_STR) != 1)
-			return (FAIL);
+		{
+			if (*VALIDATE_STR == '\0')
+				return (SUCCESS);
+			else
+				return (error_log(lem_in, ft_strdup(__func__), FAIL));
+		}
 		VALIDATE_STR++;
 	}
 	VALIDATE_STR++;
@@ -141,7 +146,7 @@ t_bool								isallnum_to_space_vi(t_project *lem_in)
 	while (*VALIDATE_STR != ' ')
 	{
 		if (ft_isalnum((int)*VALIDATE_STR) != 1)
-			return (FAIL);
+			return (error_log(lem_in, ft_strdup(__func__), FAIL));
 		VALIDATE_STR++;
 	}
 	VALIDATE_STR++;
@@ -196,7 +201,7 @@ t_bool								switch_start_flag_on_vi(t_project *lem_in)
 	// ft_printf("Currently: %s\n", __func__);
 
 	if ((FLAGS & START) == START)
-		return (FAIL);
+		return (error_log(lem_in, ft_strdup(__func__), FAIL));
 	else
 		FLAGS = FLAGS |= START;
 		return (SUCCESS);
@@ -207,7 +212,7 @@ t_bool								switch_end_flag_on_vi(t_project *lem_in)
 	// ft_printf("Currently: %s\n", __func__);
 	
 	if ((FLAGS & END) == END)
-		return (FAIL);
+		return (error_log(lem_in, ft_strdup(__func__), FAIL));
 	else
 		FLAGS = FLAGS |= END;
 		return (SUCCESS);
@@ -243,13 +248,6 @@ t_bool								find_hyphen_vi(t_project *lem_in)
 	return (FAIL);
 }
 
-t_bool								find_error_vi(t_project *lem_in)
-{
-	(void)lem_in;
-	ft_printf("Currently: %s\n", __func__);
-	return (SUCCESS);	
-}
-
 t_bool		input_file_done_vi(t_project *lem_in)
 {
 	// ft_printf("Currently: %s\n", __func__);
@@ -268,7 +266,7 @@ t_bool								all_flags_on_vi(t_project *lem_in)
 		(FLAGS & LINK) == LINK)
 		return (SUCCESS);
 	else
-		return (FAIL);
+		return (error_log(lem_in, ft_strdup(__func__), FAIL));
 }
 
 t_bool		read_stdin_vi(t_project *lem_in)
@@ -286,7 +284,7 @@ t_bool		read_stdin_vi(t_project *lem_in)
 	{
 		ret = read(0, buf, BUFF_SIZE);
 		if (ret == -1)
-			return (FAIL);
+			return (error_log(lem_in, ft_strdup(__func__), FAIL));
 		buf[ret] = '\0';
 		temp = new;
 		new = ft_strjoin(new, buf);
@@ -369,7 +367,7 @@ static void			get_events(t_mconfig **mconfig)
 	EVENTS[s_check_link_flag_on_vi] = check_link_flag_on_vi;
 	EVENTS[s_all_flags_on_vi] = all_flags_on_vi;
 	EVENTS[s_input_file_done_vi] = input_file_done_vi;
-	EVENTS[s_uninstall_machine_vi] = find_error_vi;
+	// EVENTS[s_uninstall_machine_vi] = find_error_vi;
 	EVENTS[s_uninstall_machine_vi] = NULL;
 }
 
@@ -391,11 +389,14 @@ static t_mconfig	*states(void)
 
 t_bool								validate_input(t_project *lem_in)
 {
+	// ft_printf("Currently: %s\n", __func__);
+	
 	t_machine		*machine;
 
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
-	ft_printf("Currently: %s\n", __func__);
+	if (lem_in->error)
+		return (FAIL);
 	return (SUCCESS);
 }

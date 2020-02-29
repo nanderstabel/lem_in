@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/26 16:33:04 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/29 12:08:42 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,13 +145,13 @@ t_bool							print_output(t_project *lem_in);
 t_bool							input_file_done_vi(t_project *lem_in);
 t_bool							all_flags_on_vi(t_project *lem_in);
 t_bool							read_stdin(char **input_string);
-t_bool							find_error_vi(t_project *lem_in);
+// t_bool							find_error_vi(t_project *lem_in);
 t_bool							skip_command_line_vi(t_project *lem_in);
 
 t_bool							read_argument(t_project *lem_in);
 t_bool							find_dash(t_project *lem_in);
 t_bool							find_option(t_project *lem_in);
 t_bool							validate_argument(t_project *lem_in);
-t_bool							error_log(t_project *lem_in, char	*function_name);
+t_bool							error_log(t_project *lem_in, char *str, t_bool ret);
 
 #endif

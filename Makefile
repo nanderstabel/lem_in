@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/08 10:14:38 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/25 14:44:10 by mgross        ########   odam.nl          #
+#    Updated: 2020/02/29 12:50:28 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ LIBFT_HEADER_FILES = ./libft/includes/libft.h ./libft/includes/ft_printf.h \
 
 LIB = -L ./libft/ -lft
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 DEPS = -I$(INC_DIR) -I$(LIBFT_INC_DIR)
 
