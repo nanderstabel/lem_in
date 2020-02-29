@@ -1,1 +1,1 @@
-ALL_TESTS := test_validate_input.o test_read_input.o
+ALL_TESTS := test_validate_input.o test_read_input.o test_error_log.o
