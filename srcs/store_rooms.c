@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/24 17:21:47 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/29 13:29:47 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/29 13:39:47 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ t_bool				store_room(t_project *lem_in)
 		ft_printf("Currently: %s\n", __func__);
 	if (hash_table_add(ROOMS, ft_strsub(LINE, 0, ft_nchar(LINE, ' ')), check_room, get_vertex))
 	{
-		ft_putendl("here2");
 		skip_line(&LINE);
 		return (SUCCESS);
 	}
