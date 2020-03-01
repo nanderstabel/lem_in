@@ -21,6 +21,7 @@ Test(error_log_suite, error_log_test)
 	
 	lem_in = (t_project*)malloc(sizeof(t_project));
 	lem_in->error = NULL;
+	FLAGS = 0;
 	boolean = error_log(lem_in, ft_strdup(__func__), FAIL);
 	// ft_printf("String: %s\n");
 	if (lem_in->error)

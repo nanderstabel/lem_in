@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/29 18:08:57 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/01 17:12:23 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define START				(1 << 3)
 # define END				(1 << 4)
 # define LINK				(1 << 5)
+# define ROOM_LINE			(1 << 6)
 
 /*
 ** All the possible t_states of the machine.
@@ -90,6 +91,8 @@ enum
 	s_switch_end_flag_on_vi,
 	s_switch_link_flag_on_vi,
 	s_skip_command_line_vi,
+	s_next_line_room_hash_vi,
+	s_next_line_room_link_vi,
 	s_check_link_flag_on_vi,
 	s_all_flags_on_vi,
 	s_input_file_done_vi,
@@ -171,8 +174,6 @@ t_bool							first_char_hash_vi(t_project *lem_in);
 t_bool							second_char_hash_vi(t_project *lem_in);
 t_bool							isdigit_to_newline_vi(t_project *lem_in);
 t_bool							isdigit_to_space_vi(t_project *lem_in);
-// t_bool							check_start_flag_on_vi(t_project *lem_in);
-// t_bool							check_end_flag_on_vi(t_project *lem_in);
 t_bool							check_if_start_command_line_vi(t_project *lem_in);
 t_bool							check_if_end_command_line_vi(t_project *lem_in);
 t_bool							check_link_flag_on_vi(t_project *lem_in);
@@ -188,8 +189,10 @@ t_bool							print_output(t_project *lem_in);
 t_bool							input_file_done_vi(t_project *lem_in);
 t_bool							all_flags_on_vi(t_project *lem_in);
 t_bool							read_stdin(char **input_string);
-// t_bool							find_error_vi(t_project *lem_in);
 t_bool							skip_command_line_vi(t_project *lem_in);
+t_bool							next_line_room_link_vi(t_project *lem_in);
+t_bool							next_line_room_hash_vi(t_project *lem_in);
+
 
 t_bool							read_argument(t_project *lem_in);
 t_bool							find_dash(t_project *lem_in);
