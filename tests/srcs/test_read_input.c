@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 17:35:29 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/29 12:44:03 by mgross        ########   odam.nl         */
+/*   Updated: 2020/02/29 17:11:37 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ Test(test_read_stdin_vi, read_input)
 	t_project	*lem_in;
 
 	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
+	FLAGS = 0;
 
 	close(0);
 	fd = open("../../maps/valid_maps/map1.map", O_RDONLY);

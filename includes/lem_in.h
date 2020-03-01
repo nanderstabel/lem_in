@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/29 13:15:23 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/02/29 18:33:36 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define INPUT				lem_in->input_string
 # define LINE				lem_in->line
 # define ERROR				lem_in->error
-# define VALIDATE_STR		lem_in->input_validation_string
+# define INPUT_CPY			lem_in->input_string_copy
 
 # define NANTS				lem_in->nants
 # define NROOMS				lem_in->nrooms
@@ -39,6 +39,7 @@
 # define START				(1 << 3)
 # define END				(1 << 4)
 # define LINK				(1 << 5)
+# define ROOM_LINE			(1 << 6)
 
 /*
 ** All the possible t_states of the machine.
@@ -91,6 +92,8 @@ enum
 	s_switch_end_flag_on_vi,
 	s_switch_link_flag_on_vi,
 	s_skip_command_line_vi,
+	s_next_line_room_hash_vi,
+	s_next_line_room_link_vi,
 	s_check_link_flag_on_vi,
 	s_all_flags_on_vi,
 	s_input_file_done_vi,
@@ -126,8 +129,7 @@ typedef struct					s_project
 	char						**argv;
 	int							flags;
 	char						*input_string;
-	char						*input_validation_string;
-	char						*line_to_check;
+	char						*input_string_copy;
 	char						*line;
 	size_t						nants;
 	size_t						nrooms;
@@ -163,8 +165,6 @@ t_bool							first_char_hash_vi(t_project *lem_in);
 t_bool							second_char_hash_vi(t_project *lem_in);
 t_bool							isdigit_to_newline_vi(t_project *lem_in);
 t_bool							isdigit_to_space_vi(t_project *lem_in);
-// t_bool							check_start_flag_on_vi(t_project *lem_in);
-// t_bool							check_end_flag_on_vi(t_project *lem_in);
 t_bool							check_if_start_command_line_vi(t_project *lem_in);
 t_bool							check_if_end_command_line_vi(t_project *lem_in);
 t_bool							check_link_flag_on_vi(t_project *lem_in);
@@ -180,8 +180,10 @@ t_bool							print_output(t_project *lem_in);
 t_bool							input_file_done_vi(t_project *lem_in);
 t_bool							all_flags_on_vi(t_project *lem_in);
 t_bool							read_stdin(char **input_string);
-// t_bool							find_error_vi(t_project *lem_in);
 t_bool							skip_command_line_vi(t_project *lem_in);
+t_bool							next_line_room_link_vi(t_project *lem_in);
+t_bool							next_line_room_hash_vi(t_project *lem_in);
+
 
 t_bool							read_argument(t_project *lem_in);
 t_bool							find_dash(t_project *lem_in);
