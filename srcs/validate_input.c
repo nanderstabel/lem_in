@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/29 18:50:16 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/02 14:48:00 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_bool								first_char_newline_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if (*INPUT_CPY == '\n')
 		return (error_log(lem_in, ft_strdup(__func__), SUCCESS));
 	else
@@ -25,7 +25,7 @@ t_bool								first_char_newline_vi(t_project *lem_in)
 t_bool								first_char_zero_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if (*INPUT_CPY == '0')
 		return (error_log(lem_in, ft_strdup(__func__), SUCCESS));
 	else
@@ -49,7 +49,7 @@ t_bool								next_line_room_link_vi(t_project *lem_in)
 t_bool								first_char_delim_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if (*INPUT_CPY == '\0')
 		return (error_log(lem_in, ft_strdup(__func__), SUCCESS));
 	else
@@ -59,7 +59,7 @@ t_bool								first_char_delim_vi(t_project *lem_in)
 t_bool								first_char_hash_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if (*INPUT_CPY == '#')
 		return (SUCCESS);
 	else
@@ -69,7 +69,7 @@ t_bool								first_char_hash_vi(t_project *lem_in)
 t_bool								second_char_hash_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if (*(INPUT_CPY + 1) == '#')
 		return (SUCCESS);
 	else
@@ -85,7 +85,7 @@ t_bool								second_char_hash_vi(t_project *lem_in)
 t_bool								isdigit_to_space_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	while (*INPUT_CPY != ' ')
 	{
 		if (ft_isdigit(*INPUT_CPY) != 1)
@@ -102,7 +102,7 @@ t_bool								isdigit_to_newline_vi(t_project *lem_in)
 
 	temp = INPUT_CPY;
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	while (*INPUT_CPY != '\n')
 	{
 		if (ft_isdigit(*INPUT_CPY) != 1)
@@ -120,7 +120,7 @@ t_bool								isdigit_to_newline_vi(t_project *lem_in)
 t_bool								check_link_flag_on_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if ((FLAGS & LINK) == LINK)
 		return (SUCCESS);
 	else
@@ -130,7 +130,7 @@ t_bool								check_link_flag_on_vi(t_project *lem_in)
 t_bool								isallnum_to_hyphen_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	while (*INPUT_CPY != '-')
 	{
 		if (ft_isalnum((int)*INPUT_CPY) != 1)
@@ -145,7 +145,7 @@ t_bool								isallnum_to_hyphen_vi(t_project *lem_in)
 t_bool								isallnum_to_newline_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	while (*INPUT_CPY != '\n')
 	{
 		if (ft_isalnum((int)*INPUT_CPY) != 1)
@@ -164,7 +164,7 @@ t_bool								isallnum_to_newline_vi(t_project *lem_in)
 t_bool								isallnum_to_space_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	while (*INPUT_CPY != ' ')
 	{
 		if (ft_isalnum((int)*INPUT_CPY) != 1)
@@ -179,7 +179,7 @@ t_bool								isallnum_to_space_vi(t_project *lem_in)
 t_bool								check_if_start_command_line_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if (ft_strcmp_delim(INPUT_CPY, "##start\n", (int)'\n') == 0)
 	{
 		while (*INPUT_CPY != '\n' && *INPUT_CPY != '\0')
@@ -195,7 +195,7 @@ t_bool								check_if_start_command_line_vi(t_project *lem_in)
 t_bool								check_if_end_command_line_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if (ft_strcmp_delim(INPUT_CPY, "##end\n", (int)'\n') == 0)
 	{
 		while (*INPUT_CPY != '\n' && *INPUT_CPY != '\0')
@@ -211,7 +211,7 @@ t_bool								check_if_end_command_line_vi(t_project *lem_in)
 t_bool								skip_command_line_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	while (*INPUT_CPY != '\n' && *INPUT_CPY != '\0')
 		INPUT_CPY++;
 	if (*INPUT_CPY == '\n')
@@ -222,7 +222,7 @@ t_bool								skip_command_line_vi(t_project *lem_in)
 t_bool								switch_start_flag_on_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if ((FLAGS & START) == START)
 		return (error_log(lem_in, ft_strdup(__func__), FAIL));
 	else
@@ -236,7 +236,7 @@ t_bool								switch_start_flag_on_vi(t_project *lem_in)
 t_bool								switch_end_flag_on_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if ((FLAGS & END) == END)
 		return (error_log(lem_in, ft_strdup(__func__), FAIL));
 	else
@@ -250,7 +250,7 @@ t_bool								switch_end_flag_on_vi(t_project *lem_in)
 t_bool								switch_link_flag_on_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if ((FLAGS & LINK) == LINK)
 		return (FAIL);
 	else
@@ -264,7 +264,7 @@ t_bool								find_hyphen_vi(t_project *lem_in)
 
 	index = 0;
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	while (INPUT_CPY[index] != '\n' && INPUT_CPY[index] != '\0')
 	{
 		if (INPUT_CPY[index] == '-')
@@ -280,7 +280,7 @@ t_bool								find_hyphen_vi(t_project *lem_in)
 t_bool		input_file_done_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if (*INPUT_CPY == '\0')
 		return (SUCCESS);
 	else
@@ -290,7 +290,7 @@ t_bool		input_file_done_vi(t_project *lem_in)
 t_bool								all_flags_on_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if ((FLAGS & START) == START && (FLAGS & END) == END && \
 		(FLAGS & LINK) == LINK)
 		return (SUCCESS);
@@ -308,7 +308,7 @@ t_bool		read_stdin_vi(t_project *lem_in)
 	ret = 1;
 	new = ft_strnew(0);
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	while (ret != 0)
 	{
 		ret = read(0, buf, BUFF_SIZE);
@@ -423,9 +423,9 @@ static t_mconfig	*states(void)
 t_bool								validate_input(t_project *lem_in)
 {
 	t_machine		*machine;
-	
+
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("%s\n", __func__);
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);

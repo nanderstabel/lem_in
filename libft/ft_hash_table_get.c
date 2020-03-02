@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   print_output.c                                     :+:    :+:            */
+/*   ft_hash_table_get.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/21 19:10:56 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/02 17:42:18 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/02 16:21:24 by nstabel        #+#    #+#                */
+/*   Updated: 2020/03/02 18:57:29 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#include "lem_in.h"
-
-t_bool								print_output(t_project *lem_in)
+t_elem	*ft_hash_table_get(t_hash_table *hash_table, char *key)
 {
-	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
-	return (SUCCESS);
+	size_t	i;
+	size_t	hash;
+	size_t	probe;
+
+	hash = ft_hash(key);
+	probe = 0;
+	while (probe < hash_table->size)
+	{
+		i = (hash + probe) % hash_table->size;
+		if (hash_table->elem[i]->hash == hash)
+			return (hash_table->elem[i]);
+		++probe;
+	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 12:58:29 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/25 09:48:27 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/02 14:48:00 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // 	char			buf[BUFF_SIZE + 1];
 // 	char			*new;
 
-// 	ft_printf("Currently: %s\n", __func__);
+// 	ft_printf("\t%s\n", __func__);
 // 	ret = 1;
 // 	new = ft_strnew(0);
 // 	while (ret !=  0)

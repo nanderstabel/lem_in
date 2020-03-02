@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/29 17:53:57 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/02 20:25:18 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,20 @@
 # define BUFF_SIZE 1000
 
 typedef void		*(*t_get_elem)(char *, size_t, size_t);
-typedef int			(*t_hashequ)(void *, size_t);
+
+typedef struct		s_elem
+{
+	size_t			index;
+	size_t			hash;
+	char			*name;
+	void			*content;
+}					t_elem;
 
 typedef struct		s_hash_table
 {
+	char			*title;
 	size_t			size;
-	void			**elem;
+	t_elem			**elem;
 }					t_hash_table;
 
 typedef	struct		s_list
@@ -57,8 +65,9 @@ int					ft_end(char const *s);
 void				ft_freezero(void *mem, size_t size);
 int					ft_get_next_line(const int fd, char **line);
 size_t				ft_hash(char *key);
-void				*ft_hash_table_add(t_hash_table *hash_table, char *key, \
-					t_hashequ hashequ, t_get_elem get_elem);
+t_elem				*ft_hash_table_add(t_hash_table *hash_table, char *key, \
+					void *content);
+t_elem				*ft_hash_table_get(t_hash_table *hash_table, char *key);
 t_list				**ft_hsh_chain(void **ar, size_t size, \
 					size_t hsh(void *));
 t_list				**ft_hsh_linprob(void **ar, size_t size, \
@@ -86,7 +95,7 @@ t_list				*ft_lstfind_size(t_list *head, size_t size);
 void				ft_lstiter(t_list *lst, void(*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
-t_hash_table		*ft_malloc_hash_table(size_t size);
+t_hash_table		*ft_malloc_hash_table(size_t size, char *title);
 void				**ft_mem_array_alloc(size_t x_dim, size_t size_x,
 					size_t size_y);
 void				*ft_memalloc(size_t size);
@@ -98,6 +107,7 @@ void				ft_memdel(void **ap);
 void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memset(void *b, int c, size_t len);
 int					ft_nchar(const char *str, int c);
+size_t				ft_ndigits(long long nbr);
 double				ft_power(int nb, int b);
 char				*ft_prepend(char **str, char const *prepend);
 int					ft_dprintf(const int fd, const char *format, ...);
@@ -115,6 +125,7 @@ void				ft_putnstr_fd(const int fd, char const *str, size_t len);
 void				ft_putstr_fd(char const *str, int fd);
 void				ft_putstr(const char *str);
 void				ft_putstrarr(const char **array);
+void				ft_puttbl(t_hash_table *table);
 char				*ft_replace(char **str, char const *insert, size_t pos, \
 					size_t len);
 char				*ft_select(char **str, size_t pos, size_t len);
@@ -154,12 +165,14 @@ char				*ft_strnstr(const char *haystack, const char
 					*needle, size_t len);
 char				*ft_strnew(size_t size);
 char				*ft_strnewfill(size_t len, char c);
+char				**ft_strnsplit(char const *s, char c, size_t size);
 char				*ft_strrchr(const char *s, int c);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_strstr(const char *haystack, const char *needle);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strupr(char *s);
 char				*ft_strtrim(char const *s);
+void				ft_swap(void **ptr1, void **ptr2);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 int					ft_strcmp_delim(const char *s1, const char *s2, int c);

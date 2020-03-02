@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/01 17:12:23 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/02 19:36:29 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@
 # define INPUT				lem_in->input_string
 # define ERROR				lem_in->error
 # define INPUT_CPY			lem_in->input_string_copy
-
 # define NANTS				lem_in->nants
 # define NROOMS				lem_in->nrooms
 # define NLINKS				lem_in->nlinks
-# define ROOMS				lem_in->rooms
-# define LINKS				lem_in->links
+# define ALL_ROOMS			lem_in->all_rooms
+# define ALL_LINKS			lem_in->all_links
+# define ROOM_TYPE			lem_in->room_type
+# define LINKED_ROOMS		lem_in->linked_rooms
+
 # define TRANSITIONS		(*mconfig)->transitions
 # define EVENTS				(*mconfig)->events
 
@@ -103,12 +105,26 @@ enum
 {
 	s_install_machine_rms,
 	s_initialize_table_rms,
-	s_set_line,
+	s_set_line_rms,
 	s_get_type,
 	s_store_room,
 	s_print_rooms,
 	s_uninstall_machine_rms,
 }	e_state_rms;
+
+enum
+{
+	s_install_machine_lks,
+	s_initialize_table_lks,
+	s_save_roomnames,
+	s_check_first_room,
+	s_check_second_room,
+	s_store_link,
+	s_add_link_to_rooms,
+	s_set_line,
+	s_print_links,
+	s_uninstall_machine_lks,
+}	e_state_lks;
 
 typedef enum
 {
@@ -120,10 +136,15 @@ typedef enum
 typedef struct					s_vertex
 {
 	t_type						type;
-	size_t						index;
-	size_t						hash;
-	char						*name;
+	t_adlist					*links;
 }								t_vertex;
+
+typedef struct					s_edge
+{
+	size_t						capacity;
+	t_vertex					*back;
+	t_vertex					*forward;
+}								t_edge;
 
 /*
 ** The main struct type of this project. All the necassary variables can be
@@ -137,14 +158,13 @@ typedef struct					s_project
 	int							flags;
 	char						*input_string;
 	char						*input_string_copy;
-	char						*line_to_check;
-	char						*line;
 	size_t						nants;
 	size_t						nrooms;
 	size_t						nlinks;
-	t_hash_table				*rooms;
-	t_hash_table				*links;
+	t_hash_table				*all_rooms;
+	t_hash_table				*all_links;
 	t_type						room_type;
+	void						**linked_rooms;
 	t_list						*error;
 }								t_project;
 

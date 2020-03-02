@@ -6,11 +6,16 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 17:31:03 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/25 11:25:31 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/02 21:11:39 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+static void			initialize_project(t_project **lem_in)
+{
+	*lem_in = (t_project *)ft_memalloc(sizeof(t_project));
+}
 
 /*
 ** The next three functions together form the framework of the lem_in project.
@@ -87,7 +92,7 @@ int					main(int argc, char **argv)
 	t_machine	*machine;
 	t_project	*lem_in;
 
-	lem_in = (t_project *)ft_memalloc(sizeof(t_project));
+	initialize_project(&lem_in);
 	ARGC = argc;
 	ARGV = argv;
 	if (install_machine(&machine, states()) == SUCCESS)
