@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 14:50:28 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/02 14:48:00 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/03 18:43:54 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,26 @@ t_bool				find_dash(t_project *lem_in)
 	if (**ARGV == '-')
 	{
 		++(*ARGV);
-		return (SUCCESS);
+		if (**ARGV)
+			return (SUCCESS);
 	}
-	return (FAIL);
+	return (ERROR_LOG(FAIL));
 }
 
 t_bool				find_option(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	if (ft_strchr(OPTIONS, **ARGV))
+	if (ft_strchr(OPTIONS, **ARGV) && **ARGV)
 	{
 		if (**ARGV == 'g')
 			FLAGS |= DEBUG_O;
-		if (**ARGV == 'r')
+		else if (**ARGV == 'r')
 			FLAGS |= ROOMS_O;
-		if (**ARGV == 'l')
+		else if (**ARGV == 'l')
 			FLAGS |= LINKS_O;
+		else if (**ARGV == 'e')
+			FLAGS |= ERROR_O;
 		++(*ARGV);
 		return (SUCCESS);
 	}
@@ -61,7 +64,7 @@ t_bool				validate_argument(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if (**ARGV == 0)
 		return (SUCCESS);
-	return (FAIL);
+	return (ERROR_LOG(FAIL));
 }
 
 static void			get_transitions(t_mconfig **mconfig)
@@ -107,6 +110,6 @@ t_bool								set_options(t_project *lem_in)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
 	if (ERROR)
-		return (FAIL);
+		return (ERROR_LOG(FAIL));
 	return (SUCCESS);
 }

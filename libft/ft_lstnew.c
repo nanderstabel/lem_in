@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/04 13:54:28 by mgross         #+#    #+#                */
-/*   Updated: 2019/04/03 11:29:27 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/03 18:54:46 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 	}
 	else
 	{
-		new->content = malloc(content_size);
-		ft_memcpy(new->content, content, content_size);
+		new->content = malloc(content_size + 1);
+		ft_memcpy(new->content, content, content_size + 1);
 		new->content_size = content_size;
 	}
 	new->next = NULL;

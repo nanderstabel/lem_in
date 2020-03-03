@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 19:37:04 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/02 20:56:49 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/03 17:30:53 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void				ft_puttbl(t_hash_table *table)
 	t_elem		*tmp;
 	//char		*hash;
 
+	if (!table)
+		return ;
 	i = 0;
 	ft_putchar(10);
 	if (table->title)

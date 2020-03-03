@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/29 16:07:55 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/02 20:10:26 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/03 16:36:51 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_hash_table	*ft_malloc_hash_table(size_t size, char *title)
 	t_hash_table	*hash_table;
 	size_t			index;
 
+	if (!size)
+		return (NULL);
 	hash_table = (t_hash_table *)malloc(sizeof(t_hash_table));
 	if (hash_table == NULL)
 		return (NULL);

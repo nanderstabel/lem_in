@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/02 14:48:00 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/03 18:49:29 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ t_bool								first_char_zero_vi(t_project *lem_in)
 t_bool								next_line_room_hash_vi(t_project *lem_in)
 {
 	if ((FLAGS & ROOM_LINE) == ROOM_LINE)
-		return (error_log(lem_in, ft_strdup(__func__), FAIL));
+		return (ERROR_LOG(FAIL));
 	return (SUCCESS);
 }
 
 t_bool								next_line_room_link_vi(t_project *lem_in)
 {
 	if ((FLAGS & ROOM_LINE) == ROOM_LINE)
-		return (error_log(lem_in, ft_strdup(__func__), FAIL));
+		return (ERROR_LOG(FAIL));
 	return (SUCCESS);
 }
 
@@ -89,7 +89,7 @@ t_bool								isdigit_to_space_vi(t_project *lem_in)
 	while (*INPUT_CPY != ' ')
 	{
 		if (ft_isdigit(*INPUT_CPY) != 1)
-			return (error_log(lem_in, ft_strdup(__func__), FAIL));
+			return (ERROR_LOG(FAIL));
 		INPUT_CPY++;
 	}
 	INPUT_CPY++;
@@ -106,7 +106,7 @@ t_bool								isdigit_to_newline_vi(t_project *lem_in)
 	while (*INPUT_CPY != '\n')
 	{
 		if (ft_isdigit(*INPUT_CPY) != 1)
-			return (error_log(lem_in, ft_strdup(__func__), FAIL));
+			return (ERROR_LOG(FAIL));
 		INPUT_CPY++;
 	}
 	if (NANTS == 0)
@@ -134,7 +134,7 @@ t_bool								isallnum_to_hyphen_vi(t_project *lem_in)
 	while (*INPUT_CPY != '-')
 	{
 		if (ft_isalnum((int)*INPUT_CPY) != 1)
-			return (error_log(lem_in, ft_strdup(__func__), FAIL));
+			return (ERROR_LOG(FAIL));
 		INPUT_CPY++;
 	}
 	NLINKS++;
@@ -153,7 +153,7 @@ t_bool								isallnum_to_newline_vi(t_project *lem_in)
 			if (*INPUT_CPY == '\0')
 				return (SUCCESS);
 			else
-				return (error_log(lem_in, ft_strdup(__func__), FAIL));
+				return (ERROR_LOG(FAIL));
 		}
 		INPUT_CPY++;
 	}
@@ -168,7 +168,7 @@ t_bool								isallnum_to_space_vi(t_project *lem_in)
 	while (*INPUT_CPY != ' ')
 	{
 		if (ft_isalnum((int)*INPUT_CPY) != 1)
-			return (error_log(lem_in, ft_strdup(__func__), FAIL));
+			return (ERROR_LOG(FAIL));
 		INPUT_CPY++;
 	}
 	NROOMS++;
@@ -224,7 +224,7 @@ t_bool								switch_start_flag_on_vi(t_project *lem_in)
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	if ((FLAGS & START) == START)
-		return (error_log(lem_in, ft_strdup(__func__), FAIL));
+		return (ERROR_LOG(FAIL));
 	else
 	{
 		FLAGS |= START;
@@ -238,7 +238,7 @@ t_bool								switch_end_flag_on_vi(t_project *lem_in)
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	if ((FLAGS & END) == END)
-		return (error_log(lem_in, ft_strdup(__func__), FAIL));
+		return (ERROR_LOG(FAIL));
 	else
 	{
 		FLAGS |= END;
@@ -295,7 +295,7 @@ t_bool								all_flags_on_vi(t_project *lem_in)
 		(FLAGS & LINK) == LINK)
 		return (SUCCESS);
 	else
-		return (error_log(lem_in, ft_strdup(__func__), FAIL));
+		return (ERROR_LOG(FAIL));
 }
 
 t_bool		read_stdin_vi(t_project *lem_in)
@@ -313,7 +313,7 @@ t_bool		read_stdin_vi(t_project *lem_in)
 	{
 		ret = read(0, buf, BUFF_SIZE);
 		if (ret == -1)
-			return (error_log(lem_in, ft_strdup(__func__), FAIL));
+			return (ERROR_LOG(FAIL));
 		buf[ret] = '\0';
 		temp = new;
 		new = ft_strjoin(new, buf);
@@ -429,7 +429,7 @@ t_bool								validate_input(t_project *lem_in)
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
-	if (lem_in->error)
-		return (FAIL);
+	if (ERROR)
+		return (ERROR_LOG(FAIL));
 	return (SUCCESS);
 }

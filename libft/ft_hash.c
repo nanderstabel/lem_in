@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/25 10:06:46 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/02 19:46:34 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/03 18:24:29 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t				ft_hash(char *key)
 	hash = 0;
 	while (key[index])
 	{
-		hash += (key[index] * key[index]) * (index + 1);
+		hash += (key[index] * (key[index] - 1) * (key[index] - 2) * (key[index] - 3)) * (index + 1);
 		++index;
 	}
 	hash *= index;

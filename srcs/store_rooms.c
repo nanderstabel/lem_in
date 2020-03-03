@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/24 17:21:47 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/02 20:16:10 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/03 17:37:26 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_vertex			*get_vertex(void)
 	t_vertex		*vertex;
 
 	vertex = (t_vertex *)malloc(sizeof(t_vertex));
+	vertex->id = NULL;
 	vertex->type = standard;
 	vertex->links = NULL;
 	return (vertex);
@@ -27,9 +28,10 @@ t_bool				initialize_table_rms(t_project *lem_in)
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	ALL_ROOMS = ft_malloc_hash_table(NROOMS, ft_strdup("Rooms"));
+	ROOM_POINTERS = (void **)malloc(sizeof(void *));
 	if (ALL_ROOMS)
 		return (SUCCESS);
-	return (FAIL);
+	return (ERROR_LOG(FAIL));
 }
 
 t_bool				set_line_rms(t_project *lem_in)
@@ -38,7 +40,7 @@ t_bool				set_line_rms(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	INPUT_CPY = INPUT;
 	if (INPUT_CPY == NULL)
-		return (FAIL);
+		return (ERROR_LOG(FAIL));
 	ft_skip_line(&INPUT_CPY);
 	return (SUCCESS);
 }
@@ -47,7 +49,7 @@ t_bool				get_type(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	if (INPUT_CPY[1] == '-')
+	if (ft_nchar(INPUT_CPY, '-') < ft_nchar(INPUT_CPY, 10))
 		return (FAIL);
 	ROOM_TYPE = standard;
 	while (*INPUT_CPY == '#')
@@ -63,19 +65,19 @@ t_bool				get_type(t_project *lem_in)
 
 t_bool				store_room(t_project *lem_in)
 {
-	t_elem	*new_room;
-
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	new_room = ft_hash_table_add(ALL_ROOMS, \
+	ROOM_POINTER(0) = ft_hash_table_add(ALL_ROOMS, \
 	ft_strsub(INPUT_CPY, 0, ft_nchar(INPUT_CPY, ' ') - 1), (void *)get_vertex());
-	if (new_room)
+	if (ROOM_POINTER(0))
 	{
-		((t_vertex *)new_room->content)->type = ROOM_TYPE;
+		ROOM_CONTENT(0)->id = ROOM_ELEM(0);
+		ROOM_CONTENT(0)->type = ROOM_TYPE;
 		ft_skip_line(&INPUT_CPY);
 		return (SUCCESS);
 	}
-	return (FAIL);
+	ft_printf("%s\n", ft_strsub(INPUT_CPY, 0, 10));
+	return (ERROR_LOG(FAIL));
 }
 
 t_bool				print_rooms(t_project *lem_in)
@@ -136,6 +138,6 @@ t_bool								store_rooms(t_project *lem_in)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
 	if (ERROR)
-		return (FAIL);
+		return (ERROR_LOG(FAIL));
 	return (SUCCESS);
 }

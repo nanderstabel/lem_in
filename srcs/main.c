@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 17:31:03 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/02 21:11:39 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/03 16:26:48 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,25 @@ static void			get_transitions(t_mconfig **mconfig)
 {
 	TRANSITIONS[s_install_machine][FAIL] = s_uninstall_machine;
 	TRANSITIONS[s_install_machine][SUCCESS] = s_set_options;
-	TRANSITIONS[s_set_options][FAIL] = s_find_error;
+	TRANSITIONS[s_set_options][FAIL] = s_print_error;
 	TRANSITIONS[s_set_options][SUCCESS] = s_validate_input;
-	TRANSITIONS[s_validate_input][FAIL] = s_find_error;
+	TRANSITIONS[s_validate_input][FAIL] = s_print_error;
 	TRANSITIONS[s_validate_input][SUCCESS] = s_store_rooms;
-	TRANSITIONS[s_store_rooms][FAIL] = s_find_error;
+	TRANSITIONS[s_store_rooms][FAIL] = s_print_error;
 	TRANSITIONS[s_store_rooms][SUCCESS] = s_store_links;
-	TRANSITIONS[s_store_links][FAIL] = s_find_error;
+	TRANSITIONS[s_store_links][FAIL] = s_print_error;
 	TRANSITIONS[s_store_links][SUCCESS] = s_label_graph;
 	TRANSITIONS[s_label_graph][FAIL] = s_find_paths;
 	TRANSITIONS[s_label_graph][SUCCESS] = s_move_ants;
-	TRANSITIONS[s_find_paths][FAIL] = s_find_error;
+	TRANSITIONS[s_find_paths][FAIL] = s_print_error;
 	TRANSITIONS[s_find_paths][SUCCESS] = s_augment_paths;
-	TRANSITIONS[s_augment_paths][FAIL] = s_find_error;
+	TRANSITIONS[s_augment_paths][FAIL] = s_print_error;
 	TRANSITIONS[s_augment_paths][SUCCESS] = s_label_graph;
-	TRANSITIONS[s_move_ants][FAIL] = s_find_error;
+	TRANSITIONS[s_move_ants][FAIL] = s_print_error;
 	TRANSITIONS[s_move_ants][SUCCESS] = s_print_output;
-	TRANSITIONS[s_find_error][FAIL] = s_find_error;
-	TRANSITIONS[s_find_error][SUCCESS] = s_print_output;
-	TRANSITIONS[s_print_output][FAIL] = s_find_error;
+	TRANSITIONS[s_print_error][FAIL] = s_print_error;
+	TRANSITIONS[s_print_error][SUCCESS] = s_uninstall_machine;
+	TRANSITIONS[s_print_output][FAIL] = s_print_error;
 	TRANSITIONS[s_print_output][SUCCESS] = s_uninstall_machine;
 }
 
@@ -58,7 +58,7 @@ static void			get_events(t_mconfig **mconfig)
 	EVENTS[s_find_paths] = finding_paths;
 	EVENTS[s_augment_paths] = augmenting_paths;
 	EVENTS[s_move_ants] = moving_ants;
-	EVENTS[s_find_error] = find_error;
+	EVENTS[s_print_error] = print_error;
 	EVENTS[s_print_output] = print_output;
 }
 
