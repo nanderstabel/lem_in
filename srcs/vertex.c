@@ -1,33 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   print_error.c                                       :+:    :+:            */
+/*   vertex.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/13 13:01:21 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/02 14:48:00 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/04 13:58:36 by nstabel        #+#    #+#                */
+/*   Updated: 2020/03/04 15:07:53 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_bool								print_error(t_project *lem_in)
+t_vertex			*get_vertex(void)
 {
-	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
-	if (FLAGS & ERROR_O)
+	t_vertex		*vertex;
+
+	vertex = (t_vertex *)malloc(sizeof(t_vertex));
+	vertex->id = NULL;
+	vertex->type = standard;
+	vertex->links = NULL;
+	return (vertex);
+}
+
+void				free_vertex(void *content)
+{
+	t_vertex	*vertex;
+	t_adlist	*clean;
+
+	vertex = (t_vertex *)content;
+	if (!vertex)
+		return ;
+	while (vertex->links)
 	{
-		ft_printf(ERROR_MSG);
-		ft_putlst(ERROR, '\n');
-		ft_printf(EOC);
+		clean = vertex->links;
+		vertex->links = vertex->links->next;
+		free(clean);
 	}
-	ft_lstdel(&ERROR, ft_freezero);
-	if (FLAGS & ROOMS_O)
-		ft_puttbl(ALL_ROOMS);
-	if (FLAGS & LINKS_O)
-		ft_puttbl(ALL_LINKS);
-	if (FLAGS & ERROR_O)
-		ft_putendl("Ending program");
-	return (SUCCESS);
+	free(vertex);
 }

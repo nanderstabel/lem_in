@@ -6,28 +6,19 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/24 17:21:47 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/03 17:37:26 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/05 22:48:23 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_vertex			*get_vertex(void)
-{
-	t_vertex		*vertex;
-
-	vertex = (t_vertex *)malloc(sizeof(t_vertex));
-	vertex->id = NULL;
-	vertex->type = standard;
-	vertex->links = NULL;
-	return (vertex);
-}
-
 t_bool				initialize_table_rms(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	ALL_ROOMS = ft_malloc_hash_table(NROOMS, ft_strdup("Rooms"));
+	if (NROOMS > MAX_MALLOC_SIZE)
+		return (ERROR_LOG(FAIL));
+	ALL_ROOMS = ft_malloc_hash_table(NROOMS, "Rooms", FORMAT_LEFT);
 	ROOM_POINTERS = (void **)malloc(sizeof(void *));
 	if (ALL_ROOMS)
 		return (SUCCESS);
@@ -49,14 +40,18 @@ t_bool				get_type(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	if (ft_nchar(INPUT_CPY, '-') < ft_nchar(INPUT_CPY, 10))
+	if (ft_isprior(INPUT_CPY, '-', '\n'))
+	{
+		free(ROOM_POINTERS);
+		ROOM_POINTERS = NULL;
 		return (FAIL);
+	}
 	ROOM_TYPE = standard;
 	while (*INPUT_CPY == '#')
 	{
 		if (ft_strnstr(INPUT_CPY, "##start", 8))
 			ROOM_TYPE = start;
-		else if (ft_strnstr(INPUT_CPY, "##end", 5))
+		else if (ft_strnstr(INPUT_CPY, "##end", 6))
 			ROOM_TYPE = end;
 		ft_skip_line(&INPUT_CPY);
 	}
@@ -67,8 +62,8 @@ t_bool				store_room(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	ROOM_POINTER(0) = ft_hash_table_add(ALL_ROOMS, \
-	ft_strsub(INPUT_CPY, 0, ft_nchar(INPUT_CPY, ' ') - 1), (void *)get_vertex());
+	ROOM_POINTER(0) = ft_hash_table_add(ALL_ROOMS, ft_strsub(INPUT_CPY, 0, \
+		ft_nchar(INPUT_CPY, ' ') - 1), get_vertex());
 	if (ROOM_POINTER(0))
 	{
 		ROOM_CONTENT(0)->id = ROOM_ELEM(0);
@@ -76,7 +71,6 @@ t_bool				store_room(t_project *lem_in)
 		ft_skip_line(&INPUT_CPY);
 		return (SUCCESS);
 	}
-	ft_printf("%s\n", ft_strsub(INPUT_CPY, 0, 10));
 	return (ERROR_LOG(FAIL));
 }
 

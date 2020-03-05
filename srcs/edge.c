@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   print_error.c                                       :+:    :+:            */
+/*   edge.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/13 13:01:21 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/02 14:48:00 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/04 14:00:18 by nstabel        #+#    #+#                */
+/*   Updated: 2020/03/04 15:09:15 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_bool								print_error(t_project *lem_in)
+void				*get_edge(void)
 {
-	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
-	if (FLAGS & ERROR_O)
-	{
-		ft_printf(ERROR_MSG);
-		ft_putlst(ERROR, '\n');
-		ft_printf(EOC);
-	}
-	ft_lstdel(&ERROR, ft_freezero);
-	if (FLAGS & ROOMS_O)
-		ft_puttbl(ALL_ROOMS);
-	if (FLAGS & LINKS_O)
-		ft_puttbl(ALL_LINKS);
-	if (FLAGS & ERROR_O)
-		ft_putendl("Ending program");
-	return (SUCCESS);
+	t_edge		*edge;
+
+	edge = (t_edge *)malloc(sizeof(t_edge));
+	edge->id = NULL;
+	edge->capacity = 0;
+	edge->back = NULL;
+	edge->forward = NULL;
+	return (edge);
+}
+
+void				free_edge(void *content)
+{
+	t_edge	*edge;
+
+	edge = (t_edge *)content;
+	if (!edge)
+		return ;
+	free(edge);
 }

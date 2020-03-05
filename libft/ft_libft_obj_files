@@ -11,6 +11,7 @@ LIBFT_OBJ_FILES := 	ft_abs.o \
 					ft_delnode.o \
 					ft_end.o \
 					ft_freezero.o \
+					ft_free_hash_table.o \
 					ft_get_next_line.o \
 					ft_hash.o \
 					ft_hash_table_add.o \
@@ -26,6 +27,7 @@ LIBFT_OBJ_FILES := 	ft_abs.o \
 					ft_islower.o \
 					ft_isprime.o \
 					ft_isprint.o \
+					ft_isprior.o \
 					ft_isupper.o \
 					ft_itoa.o \
 					ft_itoa_base.o \
@@ -59,6 +61,7 @@ LIBFT_OBJ_FILES := 	ft_abs.o \
 					ft_putchar_fd.o \
 					ft_putendl.o \
 					ft_putendl_fd.o \
+					ft_putlst.o \
 					ft_putnbr.o \
 					ft_putnbr_fd.o \
 					ft_putnchar.o \

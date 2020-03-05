@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/03 18:45:04 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/05 20:36:52 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define ARGV				lem_in->argv
 # define FLAGS				lem_in->flags
 # define INDEX				lem_in->index
+# define STRING				lem_in->string
 # define INPUT				lem_in->input_string
 # define INPUT_CPY			lem_in->input_string_copy
 # define NANTS				lem_in->nants
@@ -40,8 +41,9 @@
 # define LINK_ELEM			((t_elem *)LINK_POINTER)
 # define LINK_CONTENT		((t_edge *)LINK_ELEM->content)
 
+# define ERROR_MSG			RED "An error occurred, machine was not able to: \n"
 # define ERROR				lem_in->error
-# define ERROR_LOG(x)		error_log(lem_in, ft_strdup(__func__), x)
+# define ERROR_LOG(x)		error_log(lem_in, ft_strjoin("\t- ", __func__), x)
 
 # define TRANSITIONS		(*mconfig)->transitions
 # define EVENTS				(*mconfig)->events
@@ -54,7 +56,6 @@
 # define END				(1 << 6)
 # define LINK				(1 << 7)
 # define ROOM_LINE			(1 << 8)
-
 /*
 ** All the possible t_states of the machine.
 */
@@ -72,6 +73,7 @@ enum
 	s_move_ants,
 	s_print_error,
 	s_print_output,
+	s_free_project,
 	s_uninstall_machine,
 }	e_state;
 
@@ -173,6 +175,7 @@ typedef struct					s_project
 	char						**argv;
 	int							flags;
 	size_t						index;
+	char						*string;
 	char						*input_string;
 	char						*input_string_copy;
 	size_t						nants;
@@ -187,7 +190,6 @@ typedef struct					s_project
 	t_edge						*current_link;
 	t_list						*error;
 }								t_project;
-
 
 /*
 ** Next are the 't_event functions'. They all return a t_bool 'transition'
@@ -204,7 +206,7 @@ t_bool							augmenting_paths(t_project *lem_in);
 t_bool							moving_ants(t_project *lem_in);
 t_bool							finding_error(t_project *lem_in);
 t_bool							printing_output(t_project *lem_in);
-t_bool							uninstalling_machine(t_project *lem_in);
+t_bool							free_project(t_project *lem_in);
 t_bool							read_stdin_vi(t_project *lem_in);
 
 t_bool							first_char_newline_vi(t_project *lem_in);
@@ -240,4 +242,13 @@ t_bool							find_option(t_project *lem_in);
 t_bool							validate_argument(t_project *lem_in);
 t_bool							error_log(t_project *lem_in, char *str, t_bool ret);
 
+t_vertex						*get_vertex(void);
+void							free_vertex(void *content);
+void							*get_edge(void);
+void							free_edge(void *content);
+
+
+
+int					testprint(void);
+void				ft_puttbl2(t_hash_table *table);
 #endif

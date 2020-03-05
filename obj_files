@@ -11,4 +11,7 @@ PROJECT_OBJ_FILES :=	main.o					\
 						validate_input.o		\
 						get_input.o				\
 						read_input.o			\
-						error_log.o
+						error_log.o				\
+						vertex.o				\
+						edge.o					\
+						free_project.o

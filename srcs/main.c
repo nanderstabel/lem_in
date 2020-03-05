@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 17:31:03 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/03 16:26:48 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/05 21:17:07 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_move_ants][FAIL] = s_print_error;
 	TRANSITIONS[s_move_ants][SUCCESS] = s_print_output;
 	TRANSITIONS[s_print_error][FAIL] = s_print_error;
-	TRANSITIONS[s_print_error][SUCCESS] = s_uninstall_machine;
+	TRANSITIONS[s_print_error][SUCCESS] = s_free_project;
 	TRANSITIONS[s_print_output][FAIL] = s_print_error;
-	TRANSITIONS[s_print_output][SUCCESS] = s_uninstall_machine;
+	TRANSITIONS[s_print_output][SUCCESS] = s_free_project;
+	TRANSITIONS[s_free_project][FAIL] = s_print_error;
+	TRANSITIONS[s_free_project][SUCCESS] = s_uninstall_machine;
 }
 
 static void			get_events(t_mconfig **mconfig)
@@ -60,6 +62,7 @@ static void			get_events(t_mconfig **mconfig)
 	EVENTS[s_move_ants] = moving_ants;
 	EVENTS[s_print_error] = print_error;
 	EVENTS[s_print_output] = print_output;
+	EVENTS[s_free_project] = free_project;
 }
 
 /*

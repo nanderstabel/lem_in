@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   print_error.c                                       :+:    :+:            */
+/*   ft_putlst.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/13 13:01:21 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/02 14:48:00 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/04 11:59:35 by nstabel        #+#    #+#                */
+/*   Updated: 2020/03/04 14:54:57 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-t_bool								print_error(t_project *lem_in)
+void		ft_putlst(t_list *lst, char c)
 {
-	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
-	if (FLAGS & ERROR_O)
+	while (lst)
 	{
-		ft_printf(ERROR_MSG);
-		ft_putlst(ERROR, '\n');
-		ft_printf(EOC);
+		write(1, lst->content, lst->content_size);
+		if (c && lst->next)
+			ft_putchar(c);
+		lst = lst->next;
 	}
-	ft_lstdel(&ERROR, ft_freezero);
-	if (FLAGS & ROOMS_O)
-		ft_puttbl(ALL_ROOMS);
-	if (FLAGS & LINKS_O)
-		ft_puttbl(ALL_LINKS);
-	if (FLAGS & ERROR_O)
-		ft_putendl("Ending program");
-	return (SUCCESS);
+	ft_putchar('\n');
 }

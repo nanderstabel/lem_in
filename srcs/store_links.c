@@ -6,29 +6,19 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:56:15 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/03 18:41:02 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/05 22:50:08 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void				*get_edge(void)
-{
-	t_edge		*edge;
-
-	edge = (t_edge *)malloc(sizeof(t_edge));
-	edge->id = NULL;
-	edge->capacity = 0;
-	edge->back = NULL;
-	edge->forward = NULL;
-	return (edge);
-}
-
 t_bool				initialize_table_lks(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	ALL_LINKS = ft_malloc_hash_table(NLINKS, ft_strdup("Links"));
+	if (NLINKS > MAX_MALLOC_SIZE)
+		return (ERROR_LOG(FAIL));
+	ALL_LINKS = ft_malloc_hash_table(NLINKS, "Links", FORMAT_LEFT);
 	if (ALL_LINKS)
 		return (SUCCESS);
 	return (ERROR_LOG(FAIL));
@@ -54,13 +44,11 @@ t_bool				save_roomnames(t_project *lem_in)
 
 t_bool				find_first_room(t_project *lem_in)
 {
-	char	*name;
-
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	name = ROOM_POINTER(0);
-	ROOM_POINTER(0) = (void *)ft_hash_table_get(ALL_ROOMS, name);
-	free(name);
+	STRING = ROOM_POINTER(0);
+	ROOM_POINTER(0) = (void *)ft_hash_table_get(ALL_ROOMS, STRING);
+	free(STRING);
 	if (!ROOM_POINTER(0))
 		return (ERROR_LOG(FAIL));
 	return (SUCCESS);
@@ -68,13 +56,11 @@ t_bool				find_first_room(t_project *lem_in)
 
 t_bool				find_second_room(t_project *lem_in)
 {
-	char	*name;
-
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	name = ROOM_POINTER(1);
-	ROOM_POINTER(1) = (void *)ft_hash_table_get(ALL_ROOMS, name);
-	free(name);
+	STRING = ROOM_POINTER(1);
+	ROOM_POINTER(1) = (void *)ft_hash_table_get(ALL_ROOMS, STRING);
+	free(STRING);
 	if (!ROOM_POINTER(1))
 		return (ERROR_LOG(FAIL));
 	return (SUCCESS);
@@ -85,8 +71,10 @@ t_bool				store_link(t_project *lem_in)
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	LINK_POINTER = (void *)ft_strjoin(ROOM_ELEM(0)->name, "-");
-	LINK_POINTER = (void *)ft_append((char **)&LINK_POINTER, ROOM_ELEM(1)->name);
-	LINK_POINTER = (void *)ft_hash_table_add(ALL_LINKS, (char *)LINK_POINTER, (void *)get_edge());
+	LINK_POINTER = (void *)ft_append((char **)&LINK_POINTER, \
+		ROOM_ELEM(1)->name);
+	LINK_POINTER = (void *)ft_hash_table_add(ALL_LINKS, (char *)LINK_POINTER, \
+		get_edge());
 	if (LINK_POINTER)
 	{
 		LINK_CONTENT->id = LINK_ELEM;
@@ -113,7 +101,8 @@ t_bool				add_link_to_room(t_project *lem_in)
 	if (INDEX > 1)
 		return (FAIL);
 	if (ROOM_CONTENT(INDEX)->links)
-		ft_addr_lstadd(&ROOM_CONTENT(INDEX)->links, ft_addr_lstnew(LINK_CONTENT));
+		ft_addr_lstadd(&ROOM_CONTENT(INDEX)->links, \
+			ft_addr_lstnew(LINK_CONTENT));
 	else
 		ROOM_CONTENT(INDEX)->links = ft_addr_lstnew(LINK_CONTENT);
 	++INDEX;
@@ -124,6 +113,9 @@ t_bool				set_line(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
+	free(ROOM_POINTERS);
+	ROOM_POINTERS = NULL;
+	LINK_POINTER = NULL;
 	ft_skip_line(&INPUT_CPY);
 	while (*INPUT_CPY == '#')
 		ft_skip_line(&INPUT_CPY);
@@ -136,12 +128,19 @@ t_bool				print_links(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
+	if (FLAGS & ROOMS_O)
+	{
+		if (!ALL_ROOMS)
+			return (FAIL);
+		ft_puttbl(ALL_ROOMS);
+	}
 	if (FLAGS & LINKS_O)
 	{
+		if (!ALL_LINKS)
+			return (FAIL);
 		ft_puttbl(ALL_LINKS);
-		return (SUCCESS);
 	}
-	return (FAIL);
+	return (SUCCESS);
 }
 
 static void			get_transitions(t_mconfig **mconfig)
@@ -157,9 +156,9 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_find_second_room][FAIL] = s_uninstall_machine_lks;
 	TRANSITIONS[s_find_second_room][SUCCESS] = s_store_link;
 	TRANSITIONS[s_store_link][FAIL] = s_set_line;
-	TRANSITIONS[s_store_link][SUCCESS] = s_add_link_to_room;
+	TRANSITIONS[s_store_link][SUCCESS] = s_add_rooms_to_link;
 	TRANSITIONS[s_add_rooms_to_link][FAIL] = s_uninstall_machine_lks;
-	TRANSITIONS[s_add_rooms_to_link][SUCCESS] = s_add_rooms_to_link;
+	TRANSITIONS[s_add_rooms_to_link][SUCCESS] = s_add_link_to_room;
 	TRANSITIONS[s_add_link_to_room][FAIL] = s_set_line;
 	TRANSITIONS[s_add_link_to_room][SUCCESS] = s_add_link_to_room;
 	TRANSITIONS[s_set_line][FAIL] = s_print_links;

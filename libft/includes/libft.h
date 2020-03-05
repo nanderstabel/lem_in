@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross         #+#    #+#                */
-/*   Updated: 2020/03/02 20:25:18 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/05 22:42:57 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,12 @@
 # include <string.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include "ft_printf.h"
 
-# define BUFF_SIZE 1000
-
-typedef void		*(*t_get_elem)(char *, size_t, size_t);
-
-typedef struct		s_elem
-{
-	size_t			index;
-	size_t			hash;
-	char			*name;
-	void			*content;
-}					t_elem;
-
-typedef struct		s_hash_table
-{
-	char			*title;
-	size_t			size;
-	t_elem			**elem;
-}					t_hash_table;
+# define BUFF_SIZE			1000
+# define MAX_MALLOC_SIZE	2147483424
+# define FORMAT_LEFT		"%-*s"
+# define FORMAT_RIGHT		"%+*s"
 
 typedef	struct		s_list
 {
@@ -50,11 +37,31 @@ typedef	struct		s_adlist
 	struct s_adlist	*next;
 }					t_adlist;
 
+typedef struct		s_elem
+{
+	size_t			index;
+	char			*name;
+	size_t			hash;
+	t_adlist		*body_content;
+	void			*content;
+}					t_elem;
+
+typedef struct		s_hash_table
+{
+	char			*title;
+	t_list			*header_format;
+	t_list			*header_content;
+	t_list			*body_format;
+	t_adlist		*width;
+	size_t			size;
+	t_elem			**elem;
+}					t_hash_table;
+
 size_t				ft_abs(int nb);
 void				ft_addr_lstadd(t_adlist **alst, t_adlist *newlst);
 void				ft_addr_lstapp(t_adlist **alst, t_adlist *newlst);
-void				ft_addr_lstdel(t_adlist **alst);
-void				ft_addr_lstdelone(t_adlist **alst);
+void				ft_addr_lstdel(t_adlist **alst, void (*del)(void *, size_t));
+void				ft_addr_lstdelone(t_adlist **alst, void (*del)(void *, size_t));
 t_adlist			*ft_addr_lstnew(void *address);
 char				*ft_append(char **str, char const *append);
 size_t				ft_arsize(void **ar);
@@ -63,6 +70,8 @@ void				ft_bzero(void *s, size_t n);
 void				ft_delnode(void *content, size_t content_size);
 int					ft_end(char const *s);
 void				ft_freezero(void *mem, size_t size);
+void				ft_free_hash_table(t_hash_table **table, \
+					void (*free_cont)(void *));
 int					ft_get_next_line(const int fd, char **line);
 size_t				ft_hash(char *key);
 t_elem				*ft_hash_table_add(t_hash_table *hash_table, char *key, \
@@ -82,6 +91,7 @@ int					ft_isdigit(int c);
 int					ft_islower(int c);
 int					ft_isprime(size_t prime);
 int					ft_isprint(int c);
+int					ft_isprior(char *str, char prior, char rival);
 int					ft_isupper(int c);
 char				*ft_itoa(int n);
 char				*ft_itoa_base(unsigned long long value, int base);
@@ -95,7 +105,7 @@ t_list				*ft_lstfind_size(t_list *head, size_t size);
 void				ft_lstiter(t_list *lst, void(*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
-t_hash_table		*ft_malloc_hash_table(size_t size, char *title);
+t_hash_table		*ft_malloc_hash_table(size_t size, char *title, char *format);
 void				**ft_mem_array_alloc(size_t x_dim, size_t size_x,
 					size_t size_y);
 void				*ft_memalloc(size_t size);
@@ -118,6 +128,7 @@ void				ft_putnchar(char const *c, size_t len);
 void				ft_putnchar_fd(const int fd, char const *c, size_t len);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putendl(char const *s);
+void				ft_putlst(t_list *lst, char c);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putnbr(int n);
 void				ft_putnstr(char const *str, size_t len);

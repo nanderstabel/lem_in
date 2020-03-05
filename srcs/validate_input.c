@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/03 18:49:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/04 18:23:11 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_bool								first_char_newline_vi(t_project *lem_in)
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	if (*INPUT_CPY == '\n')
-		return (error_log(lem_in, ft_strdup(__func__), SUCCESS));
+		return (ERROR_LOG(SUCCESS));
 	else
 		return (FAIL);
 }
@@ -27,7 +27,7 @@ t_bool								first_char_zero_vi(t_project *lem_in)
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	if (*INPUT_CPY == '0')
-		return (error_log(lem_in, ft_strdup(__func__), SUCCESS));
+		return (ERROR_LOG(SUCCESS));
 	else
 		return (FAIL);
 }
@@ -51,7 +51,7 @@ t_bool								first_char_delim_vi(t_project *lem_in)
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	if (*INPUT_CPY == '\0')
-		return (error_log(lem_in, ft_strdup(__func__), SUCCESS));
+		return (ERROR_LOG(SUCCESS));
 	else
 		return (FAIL);
 }
@@ -124,7 +124,7 @@ t_bool								check_link_flag_on_vi(t_project *lem_in)
 	if ((FLAGS & LINK) == LINK)
 		return (SUCCESS);
 	else
-		return (FAIL);	
+		return (FAIL);
 }
 
 t_bool								isallnum_to_hyphen_vi(t_project *lem_in)
