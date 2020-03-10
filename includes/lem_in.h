@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/10 13:20:16 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/10 16:08:00 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ typedef struct					s_vertex
 {
 	t_elem						*id;
 	t_type						type;
+	size_t						level;
 	t_adlist					*links;
 }								t_vertex;
 
@@ -195,6 +196,7 @@ typedef struct					s_project
 	void						*link_pointer;
 	t_vertex					*current_room;
 	t_edge						*current_link;
+	t_adlist					*paths_list;
 	t_list						*error;
 }								t_project;
 
