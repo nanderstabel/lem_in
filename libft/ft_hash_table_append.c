@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   free_project.c                                     :+:    :+:            */
+/*   ft_hash_table_append.c                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/04 15:52:06 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/07 17:46:16 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/07 12:28:27 by nstabel        #+#    #+#                */
+/*   Updated: 2020/03/07 13:51:30 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-t_bool								free_project(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
-	free(INPUT);
-	ft_free_hash_table(&ALL_ROOMS, free_vertex);
-	ft_free_hash_table(&ALL_LINKS, free_edge);
-	free(ROOM_POINTERS);
-	free(LINK_POINTER);
-	free(lem_in);
-	return (SUCCESS);
-}
+// void	*ft_hash_table_append(t_hash_table *table, void *(*columns)(t_hash_table *table))
+// {
+// 	if (table == NULL || columns == NULL)
+// 		return (NULL);
+// 	return (columns(table));
+// }

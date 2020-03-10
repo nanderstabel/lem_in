@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/05 20:36:52 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/10 13:20:16 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@
 # define END				(1 << 6)
 # define LINK				(1 << 7)
 # define ROOM_LINE			(1 << 8)
+
 /*
 ** All the possible t_states of the machine.
 */
@@ -142,11 +143,17 @@ enum
 	s_uninstall_machine_lks,
 }	e_state_lks;
 
+enum
+{
+	first_room,
+	second_room
+}	e_room;
+
 typedef enum
 {
 	standard,
-	start,
-	end
+	source,
+	sink
 }	t_type;
 
 typedef struct					s_vertex
@@ -243,12 +250,12 @@ t_bool							validate_argument(t_project *lem_in);
 t_bool							error_log(t_project *lem_in, char *str, t_bool ret);
 
 t_vertex						*get_vertex(void);
+void							*vertex_columns(t_hash_table *table);
 void							free_vertex(void *content);
 void							*get_edge(void);
+void							*edge_columns(t_hash_table *table);
 void							free_edge(void *content);
 
 
-
-int					testprint(void);
-void				ft_puttbl2(t_hash_table *table);
+void	*ft_hash_table_append(t_hash_table *table, void *(*columns)(t_hash_table *table));
 #endif
