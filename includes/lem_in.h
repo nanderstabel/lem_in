@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/10 16:08:00 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/10 17:42:38 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@
 # define LINK_POINTER		lem_in->link_pointer
 # define LINK_ELEM			((t_elem *)LINK_POINTER)
 # define LINK_CONTENT		((t_edge *)LINK_ELEM->content)
+
+# define SOURCE				lem_in->source
+# define SINK				lem_in->sink
+# define PATHS_LIST			lem_in->paths_list
+# define CURRENT_PATH		lem_in->current_path
 
 # define ERROR_MSG			RED "An error occurred, machine was not able to: \n"
 # define ERROR				lem_in->error
@@ -196,7 +201,10 @@ typedef struct					s_project
 	void						*link_pointer;
 	t_vertex					*current_room;
 	t_edge						*current_link;
+	t_vertex					*source;
+	t_vertex					*sink;
 	t_adlist					*paths_list;
+	t_adlist					*current_path;
 	t_list						*error;
 }								t_project;
 
@@ -210,10 +218,10 @@ t_bool							validate_input(t_project *lem_in);
 t_bool							store_rooms(t_project *lem_in);
 t_bool							store_links(t_project *lem_in);
 t_bool							labeling_graph(t_project *lem_in);
-t_bool							finding_paths(t_project *lem_in);
+t_bool							find_paths(t_project *lem_in);
 t_bool							augmenting_paths(t_project *lem_in);
 t_bool							moving_ants(t_project *lem_in);
-t_bool							finding_error(t_project *lem_in);
+t_bool							print_error(t_project *lem_in);
 t_bool							printing_output(t_project *lem_in);
 t_bool							free_project(t_project *lem_in);
 t_bool							read_stdin_vi(t_project *lem_in);
