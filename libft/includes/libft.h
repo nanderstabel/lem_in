@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross         #+#    #+#                */
-/*   Updated: 2020/03/05 22:42:57 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/07 12:49:51 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct		s_elem
 typedef struct		s_hash_table
 {
 	char			*title;
+	char			*format;
 	t_list			*header_format;
 	t_list			*header_content;
 	t_list			*body_format;

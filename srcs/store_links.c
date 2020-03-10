@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:56:15 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/05 22:50:08 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/10 12:45:32 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ t_bool				save_roomnames(t_project *lem_in)
 	ROOM_POINTERS = (void **)ft_strnsplit(INPUT_CPY, '-', len);
 	if (!ROOM_POINTERS)
 		return (ERROR_LOG(FAIL));
-	if (ft_strcmp(ROOM_POINTER(0), ROOM_POINTER(1)) > 0)
-		ft_swap(&ROOM_POINTER(0), &ROOM_POINTER(1));
+	if (ft_strcmp(ROOM_POINTER(first_room), ROOM_POINTER(second_room)) > 0)
+		ft_swap(&ROOM_POINTER(first_room), &ROOM_POINTER(second_room));
 	return (SUCCESS);
 }
 
@@ -46,10 +46,10 @@ t_bool				find_first_room(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	STRING = ROOM_POINTER(0);
-	ROOM_POINTER(0) = (void *)ft_hash_table_get(ALL_ROOMS, STRING);
+	STRING = ROOM_POINTER(first_room);
+	ROOM_POINTER(first_room) = (void *)ft_hash_table_get(ALL_ROOMS, STRING);
 	free(STRING);
-	if (!ROOM_POINTER(0))
+	if (!ROOM_POINTER(first_room))
 		return (ERROR_LOG(FAIL));
 	return (SUCCESS);
 }
@@ -58,10 +58,10 @@ t_bool				find_second_room(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	STRING = ROOM_POINTER(1);
-	ROOM_POINTER(1) = (void *)ft_hash_table_get(ALL_ROOMS, STRING);
+	STRING = ROOM_POINTER(second_room);
+	ROOM_POINTER(second_room) = (void *)ft_hash_table_get(ALL_ROOMS, STRING);
 	free(STRING);
-	if (!ROOM_POINTER(1))
+	if (!ROOM_POINTER(second_room))
 		return (ERROR_LOG(FAIL));
 	return (SUCCESS);
 }
@@ -70,9 +70,9 @@ t_bool				store_link(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	LINK_POINTER = (void *)ft_strjoin(ROOM_ELEM(0)->name, "-");
+	LINK_POINTER = (void *)ft_strjoin(ROOM_ELEM(first_room)->name, "-");
 	LINK_POINTER = (void *)ft_append((char **)&LINK_POINTER, \
-		ROOM_ELEM(1)->name);
+		ROOM_ELEM(second_room)->name);
 	LINK_POINTER = (void *)ft_hash_table_add(ALL_LINKS, (char *)LINK_POINTER, \
 		get_edge());
 	if (LINK_POINTER)
@@ -87,10 +87,11 @@ t_bool				add_rooms_to_link(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	if (!LINK_CONTENT || !ROOM_CONTENT(0) || !ROOM_CONTENT(1))
+	if (!LINK_CONTENT || !ROOM_CONTENT(first_room) || \
+		!ROOM_CONTENT(second_room))
 		return (ERROR_LOG(FAIL));
-	LINK_CONTENT->back = ROOM_CONTENT(0);
-	LINK_CONTENT->forward = ROOM_CONTENT(1);
+	LINK_CONTENT->back = ROOM_CONTENT(first_room);
+	LINK_CONTENT->forward = ROOM_CONTENT(second_room);
 	return (SUCCESS);
 }
 
@@ -132,12 +133,14 @@ t_bool				print_links(t_project *lem_in)
 	{
 		if (!ALL_ROOMS)
 			return (FAIL);
+		ft_hash_table_append(ALL_ROOMS, vertex_columns);
 		ft_puttbl(ALL_ROOMS);
 	}
 	if (FLAGS & LINKS_O)
 	{
 		if (!ALL_LINKS)
 			return (FAIL);
+		ft_hash_table_append(ALL_LINKS, edge_columns);
 		ft_puttbl(ALL_LINKS);
 	}
 	return (SUCCESS);

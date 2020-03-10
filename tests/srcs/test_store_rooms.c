@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   free_project.c                                     :+:    :+:            */
+/*   test_store_rooms.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/04 15:52:06 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/07 17:46:16 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/10 14:20:41 by nstabel        #+#    #+#                */
+/*   Updated: 2020/03/10 16:19:30 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "tests.h"
 
-t_bool								free_project(t_project *lem_in)
+Test(store_rooms, storing_of_rooms )
 {
-	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
-	free(INPUT);
-	ft_free_hash_table(&ALL_ROOMS, free_vertex);
-	ft_free_hash_table(&ALL_LINKS, free_edge);
-	free(ROOM_POINTERS);
-	free(LINK_POINTER);
-	free(lem_in);
-	return (SUCCESS);
+	int		fd;
+	int		ret;
+	t_project	*lem_in;
+
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
+	NANTS = 5;
+	NROOMS = 7;
+	NLINKS = 12;
+
+
+	ret = store_rooms(lem_in);
+	cr_assert(ret == SUCCESS, "The result was %d, expected %d\n", ret, FAIL);
+
+	lemin
+	store_links(lem_in);
+	
 }

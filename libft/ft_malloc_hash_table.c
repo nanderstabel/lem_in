@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/29 16:07:55 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/05 21:11:12 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/10 12:36:16 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 static void		add_header(t_hash_table **hash_table, char *format)
 {
-	(*hash_table)->header_format = ft_lstnew(format, 4);
-	ft_lstadd(&(*hash_table)->header_format, ft_lstnew(format, 4));
-	ft_lstadd(&(*hash_table)->header_format, ft_lstnew(format, 4));
+	size_t	len;
+
+	len = ft_strlen(format);
+	(*hash_table)->header_format = ft_lstnew(format, len);
+	ft_lstadd(&(*hash_table)->header_format, ft_lstnew(format, len));
+	ft_lstadd(&(*hash_table)->header_format, ft_lstnew(format, len));
 	ft_lstadd(&(*hash_table)->header_format, ft_lstnew("%-*s", 4));
 	(*hash_table)->header_content = ft_lstnew("hash", 4);
 	ft_lstadd(&(*hash_table)->header_content, ft_lstnew("name", 4));
@@ -26,8 +29,11 @@ static void		add_header(t_hash_table **hash_table, char *format)
 
 static void		add_body(t_hash_table **hash_table, char *format)
 {
-	(*hash_table)->body_format = ft_lstnew(format, 4);
-	ft_lstadd(&(*hash_table)->body_format, ft_lstnew(format, 4));
+	size_t	len;
+
+	len = ft_strlen(format);
+	(*hash_table)->body_format = ft_lstnew(format, len);
+	ft_lstadd(&(*hash_table)->body_format, ft_lstnew(format, len));
 	ft_lstadd(&(*hash_table)->body_format, ft_lstnew("%-*p", 4));
 	ft_lstadd(&(*hash_table)->body_format, ft_lstnew("[%*i] --> ", 12));
 }
@@ -37,14 +43,16 @@ static void		add_width(t_hash_table **hash_table)
 	size_t		len;
 
 	len = ft_ndigits((*hash_table)->size - 1) + 7;
-	(*hash_table)->width = ft_addr_lstnew((void *)len);
-	ft_addr_lstapp(&(*hash_table)->width, ft_addr_lstnew((void *)16));
-	ft_addr_lstapp(&(*hash_table)->width, ft_addr_lstnew((void *)8));
-	ft_addr_lstapp(&(*hash_table)->width, ft_addr_lstnew((void *)4));
+	(*hash_table)->width = ft_addr_lstnew((void *)4);
+	ft_addr_lstadd(&(*hash_table)->width, ft_addr_lstnew((void *)8));
+	ft_addr_lstadd(&(*hash_table)->width, ft_addr_lstnew((void *)16));
+	ft_addr_lstadd(&(*hash_table)->width, ft_addr_lstnew((void *)len));
 }
 
 static void		add_formats(t_hash_table **hash_table, char *format)
 {
+	if (format == NULL)
+		return ;
 	add_header(hash_table, format);
 	add_body(hash_table, format);
 	add_width(hash_table);
@@ -69,11 +77,9 @@ t_hash_table	*ft_malloc_hash_table(size_t size, char *title, char *format)
 		hash_table->elem[index] = NULL;
 		++index;
 	}
-	hash_table->title = NULL;
-	if (title)
-		hash_table->title = ft_strdup(title);
+	hash_table->title = ft_strdup(title);
+	hash_table->format = ft_strdup(format);
 	hash_table->size = size;
-	if (format)
-		add_formats(&hash_table, format);
+	add_formats(&hash_table, format);
 	return (hash_table);
 }

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/24 17:21:47 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/05 22:48:23 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/10 12:50:46 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_bool				initialize_table_rms(t_project *lem_in)
 		return (ERROR_LOG(FAIL));
 	ALL_ROOMS = ft_malloc_hash_table(NROOMS, "Rooms", FORMAT_LEFT);
 	ROOM_POINTERS = (void **)malloc(sizeof(void *));
-	if (ALL_ROOMS)
+	if (ALL_ROOMS && ROOM_POINTERS)
 		return (SUCCESS);
 	return (ERROR_LOG(FAIL));
 }
@@ -49,10 +49,10 @@ t_bool				get_type(t_project *lem_in)
 	ROOM_TYPE = standard;
 	while (*INPUT_CPY == '#')
 	{
-		if (ft_strnstr(INPUT_CPY, "##start", 8))
-			ROOM_TYPE = start;
-		else if (ft_strnstr(INPUT_CPY, "##end", 6))
-			ROOM_TYPE = end;
+		if (ft_strnstr(INPUT_CPY, "##start\n", 9))
+			ROOM_TYPE = source;
+		else if (ft_strnstr(INPUT_CPY, "##end\n", 7))
+			ROOM_TYPE = sink;
 		ft_skip_line(&INPUT_CPY);
 	}
 	return (SUCCESS);
@@ -62,12 +62,12 @@ t_bool				store_room(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	ROOM_POINTER(0) = ft_hash_table_add(ALL_ROOMS, ft_strsub(INPUT_CPY, 0, \
-		ft_nchar(INPUT_CPY, ' ') - 1), get_vertex());
-	if (ROOM_POINTER(0))
+	ROOM_POINTER(first_room) = ft_hash_table_add(ALL_ROOMS, \
+		ft_strsub(INPUT_CPY, 0, ft_nchar(INPUT_CPY, ' ') - 1), get_vertex());
+	if (ROOM_POINTER(first_room))
 	{
-		ROOM_CONTENT(0)->id = ROOM_ELEM(0);
-		ROOM_CONTENT(0)->type = ROOM_TYPE;
+		ROOM_CONTENT(first_room)->id = ROOM_ELEM(first_room);
+		ROOM_CONTENT(first_room)->type = ROOM_TYPE;
 		ft_skip_line(&INPUT_CPY);
 		return (SUCCESS);
 	}
