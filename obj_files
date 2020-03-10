@@ -1,7 +1,7 @@
 PROJECT_OBJ_FILES :=	main.o					\
 						augmenting_paths.o		\
 						print_error.o			\
-						finding_paths.o			\
+						find_paths.o			\
 						labeling_graph.o		\
 						moving_ants.o			\
 						print_output.o			\
