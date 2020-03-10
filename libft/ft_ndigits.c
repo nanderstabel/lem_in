@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   labeling_graph.c                                   :+:    :+:            */
+/*   ft_ndigits.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/13 12:56:49 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/02 17:41:25 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/02 20:18:36 by nstabel        #+#    #+#                */
+/*   Updated: 2020/03/05 21:06:20 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-t_bool								labeling_graph(t_project *lem_in)
+size_t		ft_ndigits(long long nbr)
 {
-	if (FLAGS & DEBUG_O)
-    	ft_printf("%s\n", __func__);
-	return (SUCCESS);
+	size_t		n;
+	long long	min;
+
+	n = 0;
+	min = -9223372036854775807;
+	if (nbr < 0)
+		nbr = -nbr;
+	if (nbr < min)
+		return (19);
+	while (nbr)
+	{
+		nbr /= 10;
+		++n;
+	}
+	return (n);
 }

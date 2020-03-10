@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   labeling_graph.c                                   :+:    :+:            */
+/*   free_project.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/13 12:56:49 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/02 17:41:25 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/04 15:52:06 by nstabel        #+#    #+#                */
+/*   Updated: 2020/03/05 21:33:16 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_bool								labeling_graph(t_project *lem_in)
+t_bool								free_project(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-    	ft_printf("%s\n", __func__);
+		ft_printf("%s\n", __func__);
+	free(INPUT);
+	ft_free_hash_table(&ALL_ROOMS, free_vertex);
+	ft_free_hash_table(&ALL_LINKS, free_edge);
+	free(ROOM_POINTERS);
+	free(LINK_POINTER);
+	free(lem_in);
 	return (SUCCESS);
 }

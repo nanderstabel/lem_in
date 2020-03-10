@@ -2,6 +2,9 @@
 # *
 # !*.*
 !*obj_files
+!flow_one
+!flow_ten
+!big
 # !*/
 
 # Prerequisites

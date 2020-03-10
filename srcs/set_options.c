@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 14:50:28 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/25 13:50:47 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/04 13:12:29 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_bool				read_argument(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if (ARGC > 1)
 	{
 		--ARGC;
@@ -28,27 +28,30 @@ t_bool				read_argument(t_project *lem_in)
 t_bool				find_dash(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if (**ARGV == '-')
 	{
 		++(*ARGV);
-		return (SUCCESS);
+		if (**ARGV)
+			return (SUCCESS);
 	}
-	return (FAIL);
+	return (ERROR_LOG(FAIL));
 }
 
 t_bool				find_option(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
-	if (ft_strchr(OPTIONS, **ARGV) && **ARGV != 0)
+		ft_printf("\t%s\n", __func__);
+	if (ft_strchr(OPTIONS, **ARGV) && **ARGV)
 	{
-		if (**ARGV == 'd')
+		if (**ARGV == 'g')
 			FLAGS |= DEBUG_O;
-		if (**ARGV == 'r')
+		else if (**ARGV == 'r')
 			FLAGS |= ROOMS_O;
-		if (**ARGV == 'l')
+		else if (**ARGV == 'l')
 			FLAGS |= LINKS_O;
+		else if (**ARGV == 'e')
+			FLAGS |= ERROR_O;
 		++(*ARGV);
 		return (SUCCESS);
 	}
@@ -58,10 +61,10 @@ t_bool				find_option(t_project *lem_in)
 t_bool				validate_argument(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if (**ARGV == 0)
 		return (SUCCESS);
-	return (FAIL);
+	return (ERROR_LOG(FAIL));
 }
 
 static void			get_transitions(t_mconfig **mconfig)
@@ -102,11 +105,11 @@ t_bool								set_options(t_project *lem_in)
 	t_machine	*machine;
 
 	if (FLAGS & DEBUG_O)
-    	ft_printf("Currently: %s\n", __func__);
+		ft_printf("%s\n", __func__);
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
 	if (ERROR)
-		return (FAIL);
+		return (ERROR_LOG(FAIL));
 	return (SUCCESS);
 }

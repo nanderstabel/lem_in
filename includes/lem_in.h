@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/29 18:33:36 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/05 20:36:52 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,46 @@
 # include "libft.h"
 # include "machine.h"
 
-# define OPTIONS			"drl"
+# define OPTIONS			"eglr"
 # define ARGC				lem_in->argc
 # define ARGV				lem_in->argv
 # define FLAGS				lem_in->flags
+# define INDEX				lem_in->index
+# define STRING				lem_in->string
 # define INPUT				lem_in->input_string
-# define LINE				lem_in->line
-# define ERROR				lem_in->error
 # define INPUT_CPY			lem_in->input_string_copy
-
 # define NANTS				lem_in->nants
 # define NROOMS				lem_in->nrooms
 # define NLINKS				lem_in->nlinks
-# define ROOMS				lem_in->rooms
-# define LINKS				lem_in->links
+# define ALL_ROOMS			lem_in->all_rooms
+# define ALL_LINKS			lem_in->all_links
+# define ROOM_TYPE			lem_in->room_type
+# define CURRENT_ROOM		lem_in->current_room
+# define CURRENT_LINK		lem_in->current_link
+
+# define ROOM_POINTERS		lem_in->room_pointers
+# define ROOM_POINTER(x)	ROOM_POINTERS[x]
+# define ROOM_ELEM(x)		((t_elem *)(ROOM_POINTER(x)))
+# define ROOM_CONTENT(x)	((t_vertex *)ROOM_ELEM(x)->content)
+# define LINK_POINTER		lem_in->link_pointer
+# define LINK_ELEM			((t_elem *)LINK_POINTER)
+# define LINK_CONTENT		((t_edge *)LINK_ELEM->content)
+
+# define ERROR_MSG			RED "An error occurred, machine was not able to: \n"
+# define ERROR				lem_in->error
+# define ERROR_LOG(x)		error_log(lem_in, ft_strjoin("\t- ", __func__), x)
+
 # define TRANSITIONS		(*mconfig)->transitions
 # define EVENTS				(*mconfig)->events
 
 # define DEBUG_O			(1 << 0)
-# define ROOMS_O			(1 << 1)
-# define LINKS_O			(1 << 2)
-# define START				(1 << 3)
-# define END				(1 << 4)
-# define LINK				(1 << 5)
-# define ROOM_LINE			(1 << 6)
-
+# define ERROR_O			(1 << 2)
+# define ROOMS_O			(1 << 3)
+# define LINKS_O			(1 << 4)
+# define START				(1 << 5)
+# define END				(1 << 6)
+# define LINK				(1 << 7)
+# define ROOM_LINE			(1 << 8)
 /*
 ** All the possible t_states of the machine.
 */
@@ -56,8 +71,9 @@ enum
 	s_find_paths,
 	s_augment_paths,
 	s_move_ants,
-	s_find_error,
+	s_print_error,
 	s_print_output,
+	s_free_project,
 	s_uninstall_machine,
 }	e_state;
 
@@ -104,19 +120,49 @@ enum
 {
 	s_install_machine_rms,
 	s_initialize_table_rms,
-	s_set_line,
-	s_get_room,
+	s_set_line_rms,
+	s_get_type,
 	s_store_room,
 	s_print_rooms,
 	s_uninstall_machine_rms,
 }	e_state_rms;
 
+enum
+{
+	s_install_machine_lks,
+	s_initialize_table_lks,
+	s_save_roomnames,
+	s_find_first_room,
+	s_find_second_room,
+	s_store_link,
+	s_add_rooms_to_link,
+	s_add_link_to_room,
+	s_set_line,
+	s_print_links,
+	s_uninstall_machine_lks,
+}	e_state_lks;
+
+typedef enum
+{
+	standard,
+	start,
+	end
+}	t_type;
+
 typedef struct					s_vertex
 {
-	size_t						index;
-	size_t						hash;
-	char						*name;
+	t_elem						*id;
+	t_type						type;
+	t_adlist					*links;
 }								t_vertex;
+
+typedef struct					s_edge
+{
+	t_elem						*id;
+	size_t						capacity;
+	t_vertex					*back;
+	t_vertex					*forward;
+}								t_edge;
 
 /*
 ** The main struct type of this project. All the necassary variables can be
@@ -128,17 +174,22 @@ typedef struct					s_project
 	int							argc;
 	char						**argv;
 	int							flags;
+	size_t						index;
+	char						*string;
 	char						*input_string;
 	char						*input_string_copy;
-	char						*line;
 	size_t						nants;
 	size_t						nrooms;
 	size_t						nlinks;
-	t_hash_table				*rooms;
-	t_hash_table				*links;
+	t_hash_table				*all_rooms;
+	t_hash_table				*all_links;
+	t_type						room_type;
+	void						**room_pointers;
+	void						*link_pointer;
+	t_vertex					*current_room;
+	t_edge						*current_link;
 	t_list						*error;
 }								t_project;
-
 
 /*
 ** Next are the 't_event functions'. They all return a t_bool 'transition'
@@ -155,7 +206,7 @@ t_bool							augmenting_paths(t_project *lem_in);
 t_bool							moving_ants(t_project *lem_in);
 t_bool							finding_error(t_project *lem_in);
 t_bool							printing_output(t_project *lem_in);
-t_bool							uninstalling_machine(t_project *lem_in);
+t_bool							free_project(t_project *lem_in);
 t_bool							read_stdin_vi(t_project *lem_in);
 
 t_bool							first_char_newline_vi(t_project *lem_in);
@@ -175,7 +226,7 @@ t_bool							isallnum_to_hyphen_vi(t_project *lem_in);
 t_bool							find_hyphen_vi(t_project *lem_in);
 t_bool							switch_link_flag_on_vi(t_project *lem_in);
 t_bool							isallnum_to_space_vi(t_project *lem_in);
-t_bool							find_error(t_project *lem_in);
+t_bool							print_error(t_project *lem_in);
 t_bool							print_output(t_project *lem_in);
 t_bool							input_file_done_vi(t_project *lem_in);
 t_bool							all_flags_on_vi(t_project *lem_in);
@@ -191,4 +242,13 @@ t_bool							find_option(t_project *lem_in);
 t_bool							validate_argument(t_project *lem_in);
 t_bool							error_log(t_project *lem_in, char *str, t_bool ret);
 
+t_vertex						*get_vertex(void);
+void							free_vertex(void *content);
+void							*get_edge(void);
+void							free_edge(void *content);
+
+
+
+int					testprint(void);
+void				ft_puttbl2(t_hash_table *table);
 #endif

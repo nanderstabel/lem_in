@@ -6,153 +6,81 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/24 17:21:47 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/29 13:39:47 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/05 22:48:23 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void				skip_line(char **str)
-{
-	while (**str != '\n' && **str != 0)
-		++(*str);
-	if (**str == 0)
-		return ;
-	++(*str);
-}
-void				*get_vertex(char *name, size_t index, size_t hash)
-{
-	t_vertex		*test;
-
-	test = (t_vertex *)malloc(sizeof(t_vertex));
-	test->index = index;
-	test->hash = hash;
-	test->name = name;
-	return ((void *)test);
-}
-
-int					check_room(void *elem, size_t hash)
-{
-	t_vertex	*room;
-
-	room = (t_vertex *)elem;
-	if (room->hash == hash)
-		return (1);
-	return (0);
-}
-
-int		hash_table_add(t_hash_table *hash_table, char *key, t_hashequ hashequ, t_get_elem get_elem)
-{
-	size_t	index;
-	size_t	probe;
-	size_t	hash;
-
-	hash = ft_hash(key);
-	index = hash % hash_table->size;
-	probe = 0;
-	while (hash_table->elem[(index + probe) % hash_table->size])
-	{
-		if (hashequ(hash_table->elem[(index + probe) % hash_table->size], hash))
-			return (0);
-		++probe;
-	}
-	index = (index + probe) % hash_table->size;
-	hash_table->elem[index] = get_elem(key, index, hash);
-	return (1);
-}
-
-t_hash_table	*malloc_hash_table(size_t size)
-{
-	t_hash_table	*hash_table;
-	size_t			index;
-
-	hash_table = (t_hash_table *)malloc(sizeof(t_hash_table));
-	if (hash_table == NULL)
-		return (NULL);
-	hash_table->elem = (void **)malloc(sizeof(void *) * size);
-	if (hash_table->elem == NULL)
-		return (NULL);
-	index = 0;
-	while (index < size)
-	{
-		hash_table->elem[index] = NULL;
-		++index;
-	}
-	hash_table->size = size;
-	return (hash_table);
-}
-
-t_bool				initialize_table(t_project *lem_in)
+t_bool				initialize_table_rms(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
-	ROOMS = malloc_hash_table(NROOMS);
-	if (ROOMS)
+		ft_printf("\t%s\n", __func__);
+	if (NROOMS > MAX_MALLOC_SIZE)
+		return (ERROR_LOG(FAIL));
+	ALL_ROOMS = ft_malloc_hash_table(NROOMS, "Rooms", FORMAT_LEFT);
+	ROOM_POINTERS = (void **)malloc(sizeof(void *));
+	if (ALL_ROOMS)
 		return (SUCCESS);
-	return (FAIL);
+	return (ERROR_LOG(FAIL));
 }
 
-t_bool				set_line(t_project *lem_in)
+t_bool				set_line_rms(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
-	LINE = INPUT;
-	if (LINE == NULL)
-		return (FAIL);
-	skip_line(&LINE);
+		ft_printf("\t%s\n", __func__);
+	INPUT_CPY = INPUT;
+	if (INPUT_CPY == NULL)
+		return (ERROR_LOG(FAIL));
+	ft_skip_line(&INPUT_CPY);
 	return (SUCCESS);
 }
 
-
-t_bool				get_room(t_project *lem_in)
+t_bool				get_type(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
-	while (*LINE == '#')
-		skip_line(&LINE);
-	if (LINE[1] == '-')
+		ft_printf("\t%s\n", __func__);
+	if (ft_isprior(INPUT_CPY, '-', '\n'))
+	{
+		free(ROOM_POINTERS);
+		ROOM_POINTERS = NULL;
 		return (FAIL);
+	}
+	ROOM_TYPE = standard;
+	while (*INPUT_CPY == '#')
+	{
+		if (ft_strnstr(INPUT_CPY, "##start", 8))
+			ROOM_TYPE = start;
+		else if (ft_strnstr(INPUT_CPY, "##end", 6))
+			ROOM_TYPE = end;
+		ft_skip_line(&INPUT_CPY);
+	}
 	return (SUCCESS);
 }
 
 t_bool				store_room(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
-	if (hash_table_add(ROOMS, ft_strsub(LINE, 0, ft_nchar(LINE, ' ')), check_room, get_vertex))
+		ft_printf("\t%s\n", __func__);
+	ROOM_POINTER(0) = ft_hash_table_add(ALL_ROOMS, ft_strsub(INPUT_CPY, 0, \
+		ft_nchar(INPUT_CPY, ' ') - 1), get_vertex());
+	if (ROOM_POINTER(0))
 	{
-		skip_line(&LINE);
+		ROOM_CONTENT(0)->id = ROOM_ELEM(0);
+		ROOM_CONTENT(0)->type = ROOM_TYPE;
+		ft_skip_line(&INPUT_CPY);
 		return (SUCCESS);
 	}
-	return (FAIL);
-}
-
-void				print_hash_table(t_hash_table *table)
-{
-	size_t		i;
-	t_vertex	*tmp;
-
-	i = 0;
-	ft_printf("\n\x1B[4mindex\taddress\t\tname\t\thash\t\ti\e[0m\n\n");
-	while (i < table->size)
-	{
-		tmp = (t_vertex *)table->elem[i];
-		ft_printf("[%i] -->	%p", i, table->elem[i]);
-		if (tmp)
-			ft_printf("\t%-16s#%u\t\t%u", tmp->name, tmp->hash, tmp->index);
-		ft_putchar(10);
-		++i;
-	}
-	ft_printf("________________________________________\n\n");
+	return (ERROR_LOG(FAIL));
 }
 
 t_bool				print_rooms(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if (FLAGS & ROOMS_O)
 	{
-		print_hash_table(ROOMS);
+		ft_puttbl(ALL_ROOMS);
 		return (SUCCESS);
 	}
 	return (FAIL);
@@ -163,13 +91,13 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_install_machine_rms][FAIL] = s_uninstall_machine_rms;
 	TRANSITIONS[s_install_machine_rms][SUCCESS] = s_initialize_table_rms;
 	TRANSITIONS[s_initialize_table_rms][FAIL] = s_uninstall_machine_rms;
-	TRANSITIONS[s_initialize_table_rms][SUCCESS] = s_set_line;
-	TRANSITIONS[s_set_line][FAIL] = s_uninstall_machine_rms;
-	TRANSITIONS[s_set_line][SUCCESS] = s_get_room;
-	TRANSITIONS[s_get_room][FAIL] = s_print_rooms;
-	TRANSITIONS[s_get_room][SUCCESS] = s_store_room;
+	TRANSITIONS[s_initialize_table_rms][SUCCESS] = s_set_line_rms;
+	TRANSITIONS[s_set_line_rms][FAIL] = s_uninstall_machine_rms;
+	TRANSITIONS[s_set_line_rms][SUCCESS] = s_get_type;
+	TRANSITIONS[s_get_type][FAIL] = s_print_rooms;
+	TRANSITIONS[s_get_type][SUCCESS] = s_store_room;
 	TRANSITIONS[s_store_room][FAIL] = s_uninstall_machine_rms;
-	TRANSITIONS[s_store_room][SUCCESS] = s_get_room;
+	TRANSITIONS[s_store_room][SUCCESS] = s_get_type;
 	TRANSITIONS[s_print_rooms][FAIL] = s_uninstall_machine_rms;
 	TRANSITIONS[s_print_rooms][SUCCESS] = s_uninstall_machine_rms;
 }
@@ -177,9 +105,9 @@ static void			get_transitions(t_mconfig **mconfig)
 static void			get_events(t_mconfig **mconfig)
 {
 	EVENTS[s_install_machine_rms] = NULL;
-	EVENTS[s_initialize_table_rms] = initialize_table;
-	EVENTS[s_set_line] = set_line;
-	EVENTS[s_get_room] = get_room;
+	EVENTS[s_initialize_table_rms] = initialize_table_rms;
+	EVENTS[s_set_line_rms] = set_line_rms;
+	EVENTS[s_get_type] = get_type;
 	EVENTS[s_store_room] = store_room;
 	EVENTS[s_print_rooms] = print_rooms;
 }
@@ -198,13 +126,12 @@ t_bool								store_rooms(t_project *lem_in)
 {
 	t_machine	*machine;
 
-	NROOMS = 7;// delete this
 	if (FLAGS & DEBUG_O)
-		ft_printf("Currently: %s\n", __func__);
+		ft_printf("%s\n", __func__);
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
 	if (ERROR)
-		return (FAIL);
+		return (ERROR_LOG(FAIL));
 	return (SUCCESS);
 }

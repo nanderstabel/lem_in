@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   labeling_graph.c                                   :+:    :+:            */
+/*   ft_isprior.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/13 12:56:49 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/02 17:41:25 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/04 19:18:07 by nstabel        #+#    #+#                */
+/*   Updated: 2020/03/04 19:18:22 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-t_bool								labeling_graph(t_project *lem_in)
+int					ft_isprior(char *str, char prior, char rival)
 {
-	if (FLAGS & DEBUG_O)
-    	ft_printf("%s\n", __func__);
-	return (SUCCESS);
+	while (*str)
+	{
+		if (*str == prior)
+			return (1);
+		if (*str == rival)
+			return (0);
+		++str;
+	}
+	return (0);
 }
