@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 17:35:37 by mgross         #+#    #+#                */
-/*   Updated: 2020/02/29 18:41:38 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/10 12:40:54 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -505,14 +505,14 @@ Test(input_validation, isallnum_to_hyphen_vi_test)
 	ERROR = NULL;
 	FLAGS = 0;
 
-	INPUT_CPY = ft_strdup("hD6734-38djkUI\n");
+	INPUT_CPY = ft_strdup("hD6*&23734-38djkUI\n");
 	boolean = isallnum_to_hyphen_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	// ft_printf("string: %s\n", INPUT_CPY);
 
 	INPUT_CPY = ft_strdup("hD6&7343-8djkUI");
 	boolean = isallnum_to_hyphen_vi(lem_in);
-	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
+	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	// ft_printf("string: %s\n", INPUT_CPY);
 
 	INPUT_CPY = ft_strdup("hD673438djkUI");
@@ -532,12 +532,17 @@ Test(input_validation, isallnum_to_newline_vi_test)
 	FLAGS = 0;
 	ERROR = NULL;
 
-	INPUT_CPY = ft_strdup("38djkUI\nsdjhfkjsdh-jshdfkjs");
+	INPUT_CPY = ft_strdup("38d(@jkUI\nsdjhfkjsdh-jshdfkjs");
 	boolean = isallnum_to_newline_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	// ft_printf("string: %s\n", INPUT_CPY);
 
 	INPUT_CPY = ft_strdup("hD6&7343\n8djkUI");
+	boolean = isallnum_to_newline_vi(lem_in);
+	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
+	// ft_printf("string: %s\n", INPUT_CPY);
+	
+	INPUT_CPY = ft_strdup("LD6&7343\n8djkUI");
 	boolean = isallnum_to_newline_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	// ft_printf("string: %s\n", INPUT_CPY);
@@ -559,14 +564,14 @@ Test(input_validation, isallnum_to_space_vi_test)
 	FLAGS = 0;
 	ERROR = NULL;
 
-	INPUT_CPY = ft_strdup("38djkUI 383 45");
+	INPUT_CPY = ft_strdup("38&3+djkUI 383 45");
 	boolean = isallnum_to_space_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	// ft_printf("string: %s\n", INPUT_CPY);
 
 	INPUT_CPY = ft_strdup("hD6&7343 49 893");
 	boolean = isallnum_to_space_vi(lem_in);
-	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
+	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	// ft_printf("string: %s\n", INPUT_CPY);
 
 	INPUT_CPY = ft_strdup("hD673438djkUI");

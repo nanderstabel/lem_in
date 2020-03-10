@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/04 18:23:11 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/10 12:40:26 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ t_bool								isallnum_to_hyphen_vi(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	while (*INPUT_CPY != '-')
 	{
-		if (ft_isalnum((int)*INPUT_CPY) != 1)
+		if (ft_isprint((int)*INPUT_CPY) != 1)
 			return (ERROR_LOG(FAIL));
 		INPUT_CPY++;
 	}
@@ -146,15 +146,19 @@ t_bool								isallnum_to_newline_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
+	if (*INPUT_CPY == 'L')
+		return (ERROR_LOG(FAIL));
 	while (*INPUT_CPY != '\n')
 	{
-		if (ft_isalnum((int)*INPUT_CPY) != 1)
+		if (ft_isprint((int)*INPUT_CPY) != 1)
 		{
 			if (*INPUT_CPY == '\0')
 				return (SUCCESS);
 			else
 				return (ERROR_LOG(FAIL));
 		}
+		if (*INPUT_CPY == '-')
+			return (ERROR_LOG(FAIL));
 		INPUT_CPY++;
 	}
 	INPUT_CPY++;
@@ -167,7 +171,9 @@ t_bool								isallnum_to_space_vi(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	while (*INPUT_CPY != ' ')
 	{
-		if (ft_isalnum((int)*INPUT_CPY) != 1)
+		if (ft_isprint((int)*INPUT_CPY) != 1)
+			return (ERROR_LOG(FAIL));
+		if (*INPUT_CPY == '-')
 			return (ERROR_LOG(FAIL));
 		INPUT_CPY++;
 	}
