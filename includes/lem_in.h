@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/10 17:42:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/10 18:02:57 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@
 
 # define TRANSITIONS		(*mconfig)->transitions
 # define EVENTS				(*mconfig)->events
+
+# define QUE				lem_in->que_list;
+# define CURRENT_VERTEX		lem_in->current_vertex_que_list;
+# define VERTEX_IN_LIST		lem_in->que_list->address;
 
 # define DEBUG_O			(1 << 0)
 # define ERROR_O			(1 << 2)
@@ -150,6 +154,14 @@ enum
 
 enum
 {
+	s_install_machine_bfs,
+	s_init_bfs,
+	s_que_list_remain_bfs,
+	s_uninstall_machine_bfs,
+}	e_state_bfs;
+
+enum
+{
 	first_room,
 	second_room
 }	e_room;
@@ -203,6 +215,12 @@ typedef struct					s_project
 	t_edge						*current_link;
 	t_vertex					*source;
 	t_vertex					*sink;
+
+	size_t						level;
+	t_adlist					*que_list;
+	t_adlist					*visited_list;
+	t_vertex					*current_vertex_que_list;
+	
 	t_adlist					*paths_list;
 	t_adlist					*current_path;
 	t_list						*error;
@@ -266,6 +284,8 @@ void							*get_edge(void);
 void							*edge_columns(t_hash_table *table);
 void							free_edge(void *content);
 
+t_bool							init_bfs(t_project *lem_in);
+t_bool							que_list_remain_bfs(t_project *lem_in);
 
 void	*ft_hash_table_append(t_hash_table *table, void *(*columns)(t_hash_table *table));
 #endif
