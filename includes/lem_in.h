@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/10 17:42:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/11 15:13:38 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@
 
 # define TRANSITIONS		(*mconfig)->transitions
 # define EVENTS				(*mconfig)->events
+
+# define QUE				lem_in->que_list
+# define VERTEX_IN_LIST		((t_vertex *)(lem_in->que_list->address))
 
 # define DEBUG_O			(1 << 0)
 # define ERROR_O			(1 << 2)
@@ -150,6 +153,14 @@ enum
 
 enum
 {
+	s_install_machine_bfs,
+	s_init_bfs,
+	s_que_list_remain_bfs,
+	s_uninstall_machine_bfs,
+}	e_state_bfs;
+
+enum
+{
 	first_room,
 	second_room
 }	e_room;
@@ -166,6 +177,7 @@ typedef struct					s_vertex
 	t_elem						*id;
 	t_type						type;
 	size_t						level;
+	size_t						visited;
 	t_adlist					*links;
 }								t_vertex;
 
@@ -173,6 +185,7 @@ typedef struct					s_edge
 {
 	t_elem						*id;
 	size_t						capacity;
+	size_t						residual;
 	t_vertex					*back;
 	t_vertex					*forward;
 }								t_edge;
@@ -203,6 +216,11 @@ typedef struct					s_project
 	t_edge						*current_link;
 	t_vertex					*source;
 	t_vertex					*sink;
+
+	size_t						level;
+	t_adlist					*que_list;
+	t_adlist					*visited_list;
+	
 	t_adlist					*paths_list;
 	t_adlist					*current_path;
 	t_list						*error;
@@ -217,7 +235,7 @@ t_bool							set_options(t_project *lem_in);
 t_bool							validate_input(t_project *lem_in);
 t_bool							store_rooms(t_project *lem_in);
 t_bool							store_links(t_project *lem_in);
-t_bool							labeling_graph(t_project *lem_in);
+t_bool							label_graph(t_project *lem_in);
 t_bool							find_paths(t_project *lem_in);
 t_bool							augmenting_paths(t_project *lem_in);
 t_bool							moving_ants(t_project *lem_in);
@@ -266,6 +284,8 @@ void							*get_edge(void);
 void							*edge_columns(t_hash_table *table);
 void							free_edge(void *content);
 
+t_bool							init_bfs(t_project *lem_in);
+t_bool							que_list_remain_bfs(t_project *lem_in);
 
 void	*ft_hash_table_append(t_hash_table *table, void *(*columns)(t_hash_table *table));
 #endif

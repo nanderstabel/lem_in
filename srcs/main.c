@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 17:31:03 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/10 17:17:50 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/10 18:06:04 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void			get_events(t_mconfig **mconfig)
 	EVENTS[s_validate_input] = validate_input;
 	EVENTS[s_store_rooms] = store_rooms;
 	EVENTS[s_store_links] = store_links;
-	EVENTS[s_label_graph] = labeling_graph;
+	EVENTS[s_label_graph] = label_graph;
 	EVENTS[s_find_paths] = find_paths;
 	EVENTS[s_augment_paths] = augmenting_paths;
 	EVENTS[s_move_ants] = moving_ants;
