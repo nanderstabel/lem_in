@@ -1,12 +1,13 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   labeling_graph.c                                   :+:    :+:            */
+/*   label_graph.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:56:49 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/10 17:47:41 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/10 18:09:09 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +17,8 @@ t_bool				init_bfs(t_project *lem_in)
 {
 	if(FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	lem_in->level = 1;
+	// lem_in->level = 1;
+	QUE = ft_addr_lstnew((void*)SOURCE);
 	return (SUCCESS);
 }
 
@@ -25,17 +27,22 @@ t_bool				que_list_remain_bfs(t_project *lem_in)
 	if(FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	if (QUE)
-		CURRENT_VERTEX = VERTEX_IN_LIST;
-	
+	{
+		CURRENT_ROOM = VERTEX_IN_LIST;
+		return (SUCCESS);
+	}
+	return (FAIL);
 }
+
+// t_bool				check_links
 
 static void			get_transitions(t_mconfig **mconfig)
 {
 	TRANSITIONS[s_install_machine_bfs][FAIL] = s_uninstall_machine_bfs;
 	TRANSITIONS[s_install_machine_bfs][SUCCESS] = s_init_bfs;
 	TRANSITIONS[s_init_bfs][SUCCESS] = s_que_list_remain_bfs;
-	// TRANSITIONS[s_initialize_table_rms][FAIL] = s_uninstall_machine_rms;
-	// TRANSITIONS[s_set_line_rms][FAIL] = s_uninstall_machine_rms;
+	TRANSITIONS[s_que_list_remain_bfs][SUCCESS] = s_uninstall_machine_rms;
+	TRANSITIONS[s_que_list_remain_bfs][FAIL] = s_uninstall_machine_rms;
 	// TRANSITIONS[s_set_line_rms][SUCCESS] = s_get_type;
 	// TRANSITIONS[s_get_type][FAIL] = s_print_rooms;
 	// TRANSITIONS[s_get_type][SUCCESS] = s_store_room;
@@ -65,7 +72,7 @@ static t_mconfig	*states(void)
 	return (mconfig);
 }
 
-t_bool								labeling_graph(t_project *lem_in)
+t_bool								label_graph(t_project *lem_in)
 {
 	t_machine	*machine;
 

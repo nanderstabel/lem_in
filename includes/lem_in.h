@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/10 18:02:57 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/11 15:13:38 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,8 @@
 # define TRANSITIONS		(*mconfig)->transitions
 # define EVENTS				(*mconfig)->events
 
-# define QUE				lem_in->que_list;
-# define CURRENT_VERTEX		lem_in->current_vertex_que_list;
-# define VERTEX_IN_LIST		lem_in->que_list->address;
+# define QUE				lem_in->que_list
+# define VERTEX_IN_LIST		((t_vertex *)(lem_in->que_list->address))
 
 # define DEBUG_O			(1 << 0)
 # define ERROR_O			(1 << 2)
@@ -178,6 +177,7 @@ typedef struct					s_vertex
 	t_elem						*id;
 	t_type						type;
 	size_t						level;
+	size_t						visited;
 	t_adlist					*links;
 }								t_vertex;
 
@@ -185,6 +185,7 @@ typedef struct					s_edge
 {
 	t_elem						*id;
 	size_t						capacity;
+	size_t						residual;
 	t_vertex					*back;
 	t_vertex					*forward;
 }								t_edge;
@@ -219,7 +220,6 @@ typedef struct					s_project
 	size_t						level;
 	t_adlist					*que_list;
 	t_adlist					*visited_list;
-	t_vertex					*current_vertex_que_list;
 	
 	t_adlist					*paths_list;
 	t_adlist					*current_path;
@@ -235,7 +235,7 @@ t_bool							set_options(t_project *lem_in);
 t_bool							validate_input(t_project *lem_in);
 t_bool							store_rooms(t_project *lem_in);
 t_bool							store_links(t_project *lem_in);
-t_bool							labeling_graph(t_project *lem_in);
+t_bool							label_graph(t_project *lem_in);
 t_bool							find_paths(t_project *lem_in);
 t_bool							augmenting_paths(t_project *lem_in);
 t_bool							moving_ants(t_project *lem_in);
