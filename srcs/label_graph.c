@@ -18,6 +18,7 @@ enum
 	s_init_bfs,
 	s_que_list_remain_bfs,
 	s_check_link_free_bfs_bfs,
+	s_capacity_link_available_bfs,
 	s_uninstall_machine_bfs,
 }	e_state_bfs;
 
@@ -50,37 +51,32 @@ t_bool				que_list_remain_bfs(t_project *lem_in)
 	return (FAIL);
 }
 
-t_bool				check_link_free_bfs(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
-	if (TEMP_LINKS)
-	{
-		if (TEMP_LINKS->address->residual == e_free )
-		return (SUCCESS);
-	}
-	TEMP_QUE = TEMP_QUE->next;
-	return (FAIL);
-}
-
-// t_bool				check_edge_free(t_project *lem_in)
+// t_bool				check_link_free_bfs(t_project *lem_in)
 // {
-// 	if(FLAGS & DEBUG_O)
+// 	if (FLAGS & DEBUG_O)
 // 		ft_printf("\t%s\n", __func__);
+// 	if (TEMP_LINKS)
+// 	{
+// 		if (TEMP_LINKS->address->residual == e_free )
+// 		return (SUCCESS);
+// 	}
+// 	TEMP_QUE = TEMP_QUE->next;
+// 	return (FAIL);
 // }
 
-t_bool				check_forward_backward_bfs(t_project *lem_in)
+t_bool				vertex_has_level(t_project *lem_in)
+{
+	if(FLAGS & DEBUG_O)
+		ft_printf("\t%s\n", __func__);
+}
+
+t_bool				capacity_link_available_bfs(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	if (((t_edge*)(TEMP_LINKS->address))->back == CURRENT_ROOM)
-	{
-		if (ROOM_FORWARD_LEVEL == 0)
-		{
-			ROOM_FORWARD_LEVEL++;
-			ft_addr_lstapp(&TEMP_QUE, ROOM_FORWARD);
-		}
-	}
+	if (((t_edge*)(TEMP_LINKS->address))->capacity == 1)
+		return (SUCCESS);
+	return (FAIL);
 }		
 
 static void			get_transitions(t_mconfig **mconfig)
@@ -88,10 +84,10 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_install_machine_bfs][FAIL] = s_uninstall_machine_bfs;
 	TRANSITIONS[s_install_machine_bfs][SUCCESS] = s_init_bfs;
 	TRANSITIONS[s_init_bfs][SUCCESS] = s_que_list_remain_bfs;
-	TRANSITIONS[s_que_list_remain_bfs][SUCCESS] = s_check_link_free_bfs_bfs;
+	TRANSITIONS[s_que_list_remain_bfs][SUCCESS] = s_capacity_link_available_bfs;
 	TRANSITIONS[s_que_list_remain_bfs][FAIL] = s_uninstall_machine_rms; // EINDE
-	TRANSITIONS[s_check_link_free_bfs_bfs][SUCCESS] = s_get_type;
-	TRANSITIONS[s_check_link_free_bfs_bfs][FAIL] = s_que_list_remain_bfs;
+	TRANSITIONS[s_capacity_link_available_bfs][SUCCESS] = s_get_type;
+	TRANSITIONS[s_capacity_link_available_bfs][FAIL] = s_que_list_remain_bfs;
 	// TRANSITIONS[s_get_type][SUCCESS] = s_store_room;
 	// TRANSITIONS[s_store_room][FAIL] = s_uninstall_machine_rms;
 	// TRANSITIONS[s_store_room][SUCCESS] = s_get_type;

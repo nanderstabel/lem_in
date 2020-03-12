@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/12 18:31:10 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/12 18:36:24 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,7 +295,8 @@ void							free_edge(void *content);
 
 t_bool							init_bfs(t_project *lem_in);
 t_bool							que_list_remain_bfs(t_project *lem_in);
-t_bool							check_link_free_bfs_bfs(t_project *lem_in);
+// t_bool						check_link_free_bfs_bfs(t_project *lem_in);
+t_bool							capacity_link_available_bfs(t_project *lem_in);
 
 void	*ft_hash_table_append(t_hash_table *table, void *(*columns)(t_hash_table *table));
 #endif
