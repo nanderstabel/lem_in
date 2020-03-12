@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 14:00:18 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/12 15:56:21 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/12 18:31:44 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ void				*get_edge(void)
 	t_edge		*edge;
 
 	edge = (t_edge *)ft_memalloc(sizeof(t_edge));
-	edge->id = NULL;
-	edge->capacity = 0;
-	edge->back = NULL;
-	edge->forward = NULL;
+	edge->capacity = 1;
 	return (edge);
 }
 
@@ -34,12 +31,9 @@ void				*edge_columns(t_hash_table *table)
 	if (table == NULL)
 		return (NULL);
 	ft_lstapp(&table->header_content, ft_lstnew("capacity", 8));
-	ft_lstapp(&table->header_content, ft_lstnew("back", 4));
-	ft_lstapp(&table->header_content, ft_lstnew("forward", 7));
+	ft_lstapp(&table->header_content, ft_lstnew("next", 4));
 	ft_lstapp(&table->header_format, ft_lstnew(table->format, 4));
 	ft_lstapp(&table->header_format, ft_lstnew(table->format, 4));
-	ft_lstapp(&table->header_format, ft_lstnew(table->format, 4));
-	ft_lstapp(&table->body_format, ft_lstnew(table->format, 4));
 	ft_lstapp(&table->body_format, ft_lstnew(table->format, 4));
 	ft_lstapp(&table->body_format, ft_lstnew(table->format, 4));
 
@@ -50,12 +44,10 @@ void				*edge_columns(t_hash_table *table)
 		{
 			elem = table->elem[i];
 			ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(ft_itoa(((t_edge *)elem->content)->capacity)));
-			ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(ft_strdup(((t_edge *)(elem->content))->back->id->name)));
-			ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(ft_strdup(((t_edge *)(elem->content))->forward->id->name)));
+			ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(ft_strdup(((t_edge *)(elem->content))->next->id->name)));
 		}
 		++i;
 	}
-	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)10));
 	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)10));
 	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)10));
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 13:58:36 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/12 15:56:10 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/12 18:31:50 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@ t_vertex			*get_vertex(void)
 	t_vertex		*vertex;
 
 	vertex = (t_vertex *)ft_memalloc(sizeof(t_vertex));
-	vertex->id = NULL;
-	vertex->type = standard;
-	vertex->links = NULL;
 	return (vertex);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/24 17:21:47 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/10 17:14:07 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/12 14:01:14 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ t_bool				initialize_table_rms(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if (NROOMS > MAX_MALLOC_SIZE)
 		return (ERROR_LOG(FAIL));
-	ALL_ROOMS = ft_malloc_hash_table(NROOMS, "Rooms", FORMAT_LEFT);
+	if (FLAGS & ROOMS_O)
+		ALL_ROOMS = ft_malloc_hash_table(NROOMS, "Rooms", FORMAT_LEFT);
+	else
+		ALL_ROOMS = ft_malloc_hash_table(NROOMS, "Rooms", NULL);
 	ROOM_POINTERS = (void **)malloc(sizeof(void *));
 	if (ALL_ROOMS && ROOM_POINTERS)
 		return (SUCCESS);
