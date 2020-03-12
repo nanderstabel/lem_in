@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 14:00:18 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/07 17:40:19 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/12 15:56:21 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void				*get_edge(void)
 {
 	t_edge		*edge;
 
-	edge = (t_edge *)malloc(sizeof(t_edge));
+	edge = (t_edge *)ft_memalloc(sizeof(t_edge));
 	edge->id = NULL;
 	edge->capacity = 0;
 	edge->back = NULL;

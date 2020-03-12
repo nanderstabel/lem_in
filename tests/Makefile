@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/06 08:47:04 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/26 11:25:29 by mgross        ########   odam.nl          #
+#    Updated: 2020/03/12 11:35:30 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ HEADER_FILES = $(INC_DIR)tests.h
 
 LIB = -L ../libft/ -lft
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 DEPS = -Iincludes/ -I../libft/includes/ -I../includes/
 

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/10 13:39:35 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/12 12:07:13 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ t_bool								second_char_hash_vi(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
+	if (*INPUT_CPY == '\0')
+		return (FAIL);
 	if (*(INPUT_CPY + 1) == '#')
 		return (SUCCESS);
 	else
