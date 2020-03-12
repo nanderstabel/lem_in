@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/11 15:38:54 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/12 17:33:25 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,9 +185,7 @@ typedef struct					s_edge
 {
 	t_elem						*id;
 	size_t						capacity;
-	size_t						residual;
-	t_vertex					*back;
-	t_vertex					*forward;
+	t_vertex					*next;
 }								t_edge;
 
 /*
