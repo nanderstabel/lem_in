@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/11 15:13:38 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/12 17:33:25 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 
 # define SOURCE				lem_in->source
 # define SINK				lem_in->sink
-# define PATHS_LIST			lem_in->paths_list
+# define ALL_PATHS			lem_in->all_paths
 # define CURRENT_PATH		lem_in->current_path
 
 # define ERROR_MSG			RED "An error occurred, machine was not able to: \n"
@@ -185,9 +185,7 @@ typedef struct					s_edge
 {
 	t_elem						*id;
 	size_t						capacity;
-	size_t						residual;
-	t_vertex					*back;
-	t_vertex					*forward;
+	t_vertex					*next;
 }								t_edge;
 
 /*
@@ -222,6 +220,7 @@ typedef struct					s_project
 	t_adlist					*visited_list;
 	
 	t_adlist					*paths_list;
+	t_adlist					*all_paths;
 	t_adlist					*current_path;
 	t_list						*error;
 }								t_project;
