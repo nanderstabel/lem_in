@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross         #+#    #+#                */
-/*   Updated: 2020/03/07 12:49:51 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/12 18:57:43 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct		s_elem
 	char			*name;
 	size_t			hash;
 	t_adlist		*body_content;
+	t_list			*misc;
 	void			*content;
 }					t_elem;
 
@@ -61,8 +62,8 @@ typedef struct		s_hash_table
 size_t				ft_abs(int nb);
 void				ft_addr_lstadd(t_adlist **alst, t_adlist *newlst);
 void				ft_addr_lstapp(t_adlist **alst, t_adlist *newlst);
-void				ft_addr_lstdel(t_adlist **alst, void (*del)(void *, size_t));
-void				ft_addr_lstdelone(t_adlist **alst, void (*del)(void *, size_t));
+void				ft_addr_lstdel(t_adlist **alst);
+void				ft_addr_lstdelone(t_adlist **alst);
 t_adlist			*ft_addr_lstnew(void *address);
 char				*ft_append(char **str, char const *append);
 size_t				ft_arsize(void **ar);

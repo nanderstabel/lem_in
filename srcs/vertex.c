@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 13:58:36 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/12 17:40:01 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/12 19:50:41 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void				*vertex_columns(t_hash_table *table)
 	t_elem		*elem;
 	char		*links_str;
 	t_adlist	*links;
+	char		*type_str;
 
 	if (table == NULL)
 		return (NULL);
@@ -43,7 +44,15 @@ void				*vertex_columns(t_hash_table *table)
 		if (table->elem[i])
 		{
 			elem = table->elem[i];
-			ft_addr_lstapp(&elem->body_content, ft_addr_lstnew((void *)ft_itoa(((t_vertex *)elem->content)->type)));
+			if (((t_vertex *)(elem->content))->type == 1)
+				type_str = ft_strdup("Source");
+			else if (((t_vertex *)(elem->content))->type == 2)
+				type_str = ft_strdup("Sink");
+			else
+				type_str = ft_strdup("0");
+			ft_lstadd(&elem->misc, ft_lstnew(type_str, ft_strlen(type_str)));
+			free(type_str);
+			ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(elem->misc->content));
 			links_str = ft_strnew(0);
 			links = ((t_vertex *)(elem->content))->links;
 			while (links)
@@ -52,14 +61,16 @@ void				*vertex_columns(t_hash_table *table)
 				links_str = ft_append(&links_str, ", ");
 				links = links->next;
 			}
-			ft_addr_lstapp(&elem->body_content, ft_addr_lstnew((void *)links_str));
+			ft_lstadd(&elem->misc, ft_lstnew(links_str, ft_strlen(links_str)));
+			free(links_str);
+			ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(elem->misc->content));
 			if (links_width < ft_strlen(links_str))
 				links_width = ft_strlen(links_str);
 		}
 
 		++i;
 	}
-	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)6));
+	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)8));
 	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)(links_width)));
 	return (NULL);
 }
