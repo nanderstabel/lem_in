@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/29 16:05:24 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/07 13:26:02 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/12 13:51:21 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void		update_format(t_hash_table *hash_table, t_elem *elem)
 static t_elem	*add_elem(t_hash_table *hash_table, t_elem *elem, size_t i)
 {
 	hash_table->elem[i] = elem;
-	if (hash_table->header_format)
+	if (hash_table->format)
 		update_format(hash_table, elem);
 	return (elem);
 }
