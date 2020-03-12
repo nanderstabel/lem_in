@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:56:15 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/10 12:45:32 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/12 18:21:29 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ t_bool				initialize_table_lks(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if (NLINKS > MAX_MALLOC_SIZE)
 		return (ERROR_LOG(FAIL));
-	ALL_LINKS = ft_malloc_hash_table(NLINKS, "Links", FORMAT_LEFT);
+	if (FLAGS & LINKS_O)
+		ALL_LINKS = ft_malloc_hash_table(NLINKS * 2, "Links", FORMAT_LEFT);
+	else
+		ALL_LINKS = ft_malloc_hash_table(NLINKS * 2, "Links", NULL);
 	if (ALL_LINKS)
 		return (SUCCESS);
 	return (ERROR_LOG(FAIL));
@@ -37,8 +40,6 @@ t_bool				save_roomnames(t_project *lem_in)
 	ROOM_POINTERS = (void **)ft_strnsplit(INPUT_CPY, '-', len);
 	if (!ROOM_POINTERS)
 		return (ERROR_LOG(FAIL));
-	if (ft_strcmp(ROOM_POINTER(first_room), ROOM_POINTER(second_room)) > 0)
-		ft_swap(&ROOM_POINTER(first_room), &ROOM_POINTER(second_room));
 	return (SUCCESS);
 }
 
@@ -83,15 +84,14 @@ t_bool				store_link(t_project *lem_in)
 	return (FAIL);
 }
 
-t_bool				add_rooms_to_link(t_project *lem_in)
+t_bool				add_room_to_link(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	if (!LINK_CONTENT || !ROOM_CONTENT(first_room) || \
 		!ROOM_CONTENT(second_room))
 		return (ERROR_LOG(FAIL));
-	LINK_CONTENT->back = ROOM_CONTENT(first_room);
-	LINK_CONTENT->forward = ROOM_CONTENT(second_room);
+	LINK_CONTENT->next = ROOM_CONTENT(second_room);
 	return (SUCCESS);
 }
 
@@ -99,13 +99,21 @@ t_bool				add_link_to_room(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	if (INDEX > 1)
-		return (FAIL);
-	if (ROOM_CONTENT(INDEX)->links)
-		ft_addr_lstadd(&ROOM_CONTENT(INDEX)->links, \
+	if (ROOM_CONTENT(first_room)->links)
+		ft_addr_lstadd(&ROOM_CONTENT(first_room)->links, \
 			ft_addr_lstnew(LINK_CONTENT));
 	else
-		ROOM_CONTENT(INDEX)->links = ft_addr_lstnew(LINK_CONTENT);
+		ROOM_CONTENT(first_room)->links = ft_addr_lstnew(LINK_CONTENT);
+	return (SUCCESS);
+}
+
+t_bool				swap_rooms(t_project *lem_in)
+{
+	if (FLAGS & DEBUG_O)
+		ft_printf("\t%s\n", __func__);
+	if (INDEX)
+		return (FAIL);
+	ft_swap(&ROOM_POINTER(first_room), &ROOM_POINTER(second_room));
 	++INDEX;
 	return (SUCCESS);
 }
@@ -159,11 +167,13 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_find_second_room][FAIL] = s_uninstall_machine_lks;
 	TRANSITIONS[s_find_second_room][SUCCESS] = s_store_link;
 	TRANSITIONS[s_store_link][FAIL] = s_set_line;
-	TRANSITIONS[s_store_link][SUCCESS] = s_add_rooms_to_link;
-	TRANSITIONS[s_add_rooms_to_link][FAIL] = s_uninstall_machine_lks;
-	TRANSITIONS[s_add_rooms_to_link][SUCCESS] = s_add_link_to_room;
-	TRANSITIONS[s_add_link_to_room][FAIL] = s_set_line;
-	TRANSITIONS[s_add_link_to_room][SUCCESS] = s_add_link_to_room;
+	TRANSITIONS[s_store_link][SUCCESS] = s_add_room_to_link;
+	TRANSITIONS[s_add_room_to_link][FAIL] = s_uninstall_machine_lks;
+	TRANSITIONS[s_add_room_to_link][SUCCESS] = s_add_link_to_room;
+	TRANSITIONS[s_add_link_to_room][FAIL] = s_uninstall_machine_lks;
+	TRANSITIONS[s_add_link_to_room][SUCCESS] = s_swap_rooms;
+	TRANSITIONS[s_swap_rooms][FAIL] = s_set_line;
+	TRANSITIONS[s_swap_rooms][SUCCESS] = s_store_link;
 	TRANSITIONS[s_set_line][FAIL] = s_print_links;
 	TRANSITIONS[s_set_line][SUCCESS] = s_save_roomnames;
 	TRANSITIONS[s_print_links][FAIL] = s_uninstall_machine_lks;
@@ -178,8 +188,9 @@ static void			get_events(t_mconfig **mconfig)
 	EVENTS[s_find_first_room] = find_first_room;
 	EVENTS[s_find_second_room] = find_second_room;
 	EVENTS[s_store_link] = store_link;
-	EVENTS[s_add_rooms_to_link] = add_rooms_to_link;
+	EVENTS[s_add_room_to_link] = add_room_to_link;
 	EVENTS[s_add_link_to_room] = add_link_to_room;
+	EVENTS[s_swap_rooms] = swap_rooms;
 	EVENTS[s_set_line] = set_line;
 	EVENTS[s_print_links] = print_links;
 }

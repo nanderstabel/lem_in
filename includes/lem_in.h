@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/12 17:33:25 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/12 18:07:39 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,9 @@ enum
 	s_find_first_room,
 	s_find_second_room,
 	s_store_link,
-	s_add_rooms_to_link,
+	s_add_room_to_link,
 	s_add_link_to_room,
+	s_swap_rooms,
 	s_set_line,
 	s_print_links,
 	s_uninstall_machine_lks,
