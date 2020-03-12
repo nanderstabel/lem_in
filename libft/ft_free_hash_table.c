@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 13:40:07 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/07 17:37:14 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/12 12:49:33 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,8 @@ static void		free_elements(t_hash_table *table, void (*free_content)(void *))
 	{
 		if (elem[i])
 		{
-			if (table->format)
-				ft_addr_lstdel(&elem[i]->body_content, ft_freezero);
-			else
-			{
-				ft_strdel(&elem[i]->name);
-				free(elem[i]);
-			}
+			ft_strdel(&elem[i]->name);
+			free(elem[i]);
 			free_content(elem[i]->content);
 		}
 		++i;
@@ -41,7 +36,7 @@ static void		free_formats(t_hash_table *table)
 	ft_lstdel(&table->header_format, ft_freezero);
 	ft_lstdel(&table->header_content, ft_freezero);
 	ft_lstdel(&table->body_format, ft_freezero);
-	ft_addr_lstdel(&table->width, NULL);
+	ft_addr_lstdel(&table->width);
 	ft_strdel(&table->format);
 }
 

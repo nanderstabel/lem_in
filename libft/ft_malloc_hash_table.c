@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/29 16:07:55 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/10 12:36:16 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/12 14:29:56 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void		add_body(t_hash_table **hash_table, char *format)
 	(*hash_table)->body_format = ft_lstnew(format, len);
 	ft_lstadd(&(*hash_table)->body_format, ft_lstnew(format, len));
 	ft_lstadd(&(*hash_table)->body_format, ft_lstnew("%-*p", 4));
-	ft_lstadd(&(*hash_table)->body_format, ft_lstnew("[%*i] --> ", 12));
+	ft_lstadd(&(*hash_table)->body_format, ft_lstnew("[%*i] --> ", 10));
 }
 
 static void		add_width(t_hash_table **hash_table)
@@ -78,7 +78,8 @@ t_hash_table	*ft_malloc_hash_table(size_t size, char *title, char *format)
 		++index;
 	}
 	hash_table->title = ft_strdup(title);
-	hash_table->format = ft_strdup(format);
+	if (format)
+		hash_table->format = strdup(format);
 	hash_table->size = size;
 	add_formats(&hash_table, format);
 	return (hash_table);
