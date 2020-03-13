@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/12 18:36:24 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/12 19:49:50 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,9 @@
 # define TEMP_QUE				lem_in->temp_que_list
 # define VERTEX_IN_LIST			((t_vertex *)(lem_in->temp_que_list->address))
 # define TEMP_LINKS				lem_in->temp
-# define ROOM_FORWARD_LEVEL		((t_edge*)(TEMP_LINKS->address))->forward->level
-# define ROOM_BACK_LEVEL		((t_edge*)(TEMP_LINKS->address))->back->level
-# define ROOM_FORWARD			((t_edge*)(TEMP_LINKS->address))->forward
-# define ROOM_BACK				((t_edge*)(TEMP_LINKS->address))->forward
+# define NEXT_ROOM				(t_vertex*)(((t_edge*)(TEMP_LINKS->address))->next)
+# define NEXT_ROOM_LEVEL		((t_edge*)(TEMP_LINKS->address))->next->level
+# define TEMP_LINK_CAPACITY		((t_edge*)(TEMP_LINKS->address))->capacity
 
 # define DEBUG_O				(1 << 0)
 # define ERROR_O				(1 << 2)
@@ -295,8 +294,10 @@ void							free_edge(void *content);
 
 t_bool							init_bfs(t_project *lem_in);
 t_bool							que_list_remain_bfs(t_project *lem_in);
-// t_bool						check_link_free_bfs_bfs(t_project *lem_in);
-t_bool							capacity_link_available_bfs(t_project *lem_in);
+t_bool							edge_list_remain_bfs(t_project *lem_in);
+t_bool							capacity_available_bfs(t_project *lem_in);
+t_bool							vertex_has_level_bfs(t_project *lem_in);
+t_bool							update_level_and_que_bfs(t_project *lem_in);
 
 void	*ft_hash_table_append(t_hash_table *table, void *(*columns)(t_hash_table *table));
 #endif
