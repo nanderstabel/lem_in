@@ -14,13 +14,8 @@
 
 void	ft_addr_lstdelone(t_adlist **alst)
 {
-	ft_putendl("here2.1.4.2.1");
 	if (*alst == NULL)
 		return ;
-	ft_putendl("here2.1.4.2.2");
-	ft_printf("address: %p\n", *alst);
 	(*alst)->address = NULL;
-	ft_putendl("here2.1.4.2.3");
 	ft_memdel((void **)alst);
-	ft_putendl("here2.1.4.2.4");
 }
