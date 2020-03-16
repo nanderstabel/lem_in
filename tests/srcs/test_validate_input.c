@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 17:35:37 by mgross         #+#    #+#                */
-/*   Updated: 2020/03/10 12:40:54 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/12 16:12:18 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ Test(input_validation, validate_input_test)
 	t_bool			boolean;
 	t_list			*temp;
 
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
 	fd = open("../maps/valid_maps/map1.map", O_RDONLY);
 	ERROR = NULL;
@@ -38,7 +38,7 @@ Test(input_validation, validate_input_test)
 	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	// free(lem_in);
 	
-	// lem_in = (t_project*)malloc(sizeof(t_project));
+	// lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
 	fd = open("../maps/valid_maps/map2.map", O_RDONLY);
 	ERROR = NULL;
@@ -57,7 +57,7 @@ Test(input_validation, validate_input_test)
 	// free(lem_in);
 
 	
-	// lem_in = (t_project*)malloc(sizeof(t_project));
+	// lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
 	fd = open("../maps/valid_maps/map3.map", O_RDONLY);
 	ERROR = NULL;
@@ -75,7 +75,7 @@ Test(input_validation, validate_input_test)
 	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	// free(lem_in);
 
-	// lem_in = (t_project*)malloc(sizeof(t_project));
+	// lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
 	fd = open("../maps/invalid_maps/invalid_map1.map", O_RDONLY);
 	ERROR = NULL;
@@ -93,7 +93,7 @@ Test(input_validation, validate_input_test)
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	// free(lem_in);
 
-	// lem_in = (t_project*)malloc(sizeof(t_project));
+	// lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
 	fd = open("../maps/invalid_maps/no_room_after_start_map.map", O_RDONLY);
 	ERROR = NULL;
@@ -112,7 +112,7 @@ Test(input_validation, validate_input_test)
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	// free(lem_in);
 
-	// lem_in = (t_project*)malloc(sizeof(t_project));
+	// lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
 	fd = open("../maps/invalid_maps/no_room_after_start_map2.map", O_RDONLY);
 	ERROR = NULL;
@@ -139,7 +139,7 @@ Test(input_validation, num_of_ants_links_rooms_test)
 	t_project		*lem_in;
 	t_bool			boolean;
 
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
 	fd = open("../maps/valid_maps/map1.map", O_RDONLY);
 	ERROR = NULL;
@@ -156,7 +156,7 @@ Test(input_validation, num_of_ants_links_rooms_test)
 	cr_assert(NLINKS == 3, "The result was %zu, expected %d\n", NLINKS, 3);
 	// free(lem_in);
 
-	// lem_in = (t_project*)malloc(sizeof(t_project));
+	// lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
 	fd = open("../maps/valid_maps/map2.map", O_RDONLY);
 	ERROR = NULL;
@@ -173,7 +173,7 @@ Test(input_validation, num_of_ants_links_rooms_test)
 	cr_assert(NLINKS == 9, "The result was %zu, expected %d\n", NLINKS, 9);
 	// free(lem_in);
 
-	// lem_in = (t_project*)malloc(sizeof(t_project));	
+	// lem_in = (t_project*)ft_memalloc(sizeof(t_project));	
 	close(0);
 	fd = open("../maps/valid_maps/map3.map", O_RDONLY);
 	ERROR = NULL;
@@ -428,7 +428,7 @@ Test(input_validation, isdigit_to_newline_vi_test)
 	t_bool			boolean;
 	char			*temp;
 	
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	FLAGS = 0;
 	ERROR = NULL;
 	
@@ -465,7 +465,7 @@ Test(input_validation, isdigit_to_space_vi_test)
 	t_bool			boolean;
 	char			*temp;
 	
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	FLAGS = 0;
 	ERROR = NULL;
 	
@@ -501,7 +501,7 @@ Test(input_validation, isallnum_to_hyphen_vi_test)
 	t_project		*lem_in;
 	t_bool			boolean;
 	
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	ERROR = NULL;
 	FLAGS = 0;
 
@@ -528,7 +528,7 @@ Test(input_validation, isallnum_to_newline_vi_test)
 	t_project		*lem_in;
 	t_bool			boolean;
 	
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	FLAGS = 0;
 	ERROR = NULL;
 
@@ -560,7 +560,7 @@ Test(input_validation, isallnum_to_space_vi_test)
 	t_project		*lem_in;
 	t_bool			boolean;
 	
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	FLAGS = 0;
 	ERROR = NULL;
 
@@ -588,7 +588,7 @@ Test(input_validation, all_flags_on_vi_test)
 	t_project	*lem_in;
 	t_bool	boolean;
 
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	FLAGS = 0;
 	ERROR = NULL;
 
@@ -625,7 +625,7 @@ Test(input_validation, input_file_done_vi_test)
 	t_project	*lem_in;
 	t_bool		boolean;
 
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	FLAGS = 0;
 	ERROR = NULL;
 
@@ -645,7 +645,7 @@ Test(input_validation, check_if_start_command_line_vi_test)
 	t_project	*lem_in;
 	t_bool		boolean;
 
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	FLAGS = 0;
 	ERROR = NULL;
 
@@ -670,7 +670,7 @@ Test(input_validation, check_if_end_command_line_vi_test)
 	t_project	*lem_in;
 	t_bool	boolean;
 
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	FLAGS = 0;
 	ERROR = NULL;
 
@@ -694,7 +694,7 @@ Test(input_validation, switch_start_flag_on_vi_test)
 	t_project		*lem_in;
 	t_bool			boolean;
 
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	ERROR = NULL;
 
 	FLAGS = 0;
@@ -714,7 +714,7 @@ Test(input_validation, switch_end_flag_on_vi_test)
 	t_project		*lem_in;
 	t_bool			boolean;
 
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	ERROR = NULL;
 
 	FLAGS = 0;
@@ -735,7 +735,7 @@ Test(input_validation, check_link_flag_on_vi_test)
 	t_project		*lem_in;
 	t_bool			boolean;
 
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	ERROR = NULL;
 
 	FLAGS = 0;
@@ -756,7 +756,7 @@ Test(input_validation, switch_link_flag_on_vi_test)
 	t_project		*lem_in;
 	t_bool			boolean;
 
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	ERROR = NULL;
 
 	FLAGS = 0;
@@ -777,7 +777,7 @@ Test(input_validation, find_hyphen_vi_test)
 	t_project		*lem_in;
 	t_bool			boolean;
 
-	lem_in = (t_project*)malloc(sizeof(t_project));
+	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	ERROR = NULL;
 	
 	FLAGS = 0;
