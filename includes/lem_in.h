@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/12 18:07:39 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/12 19:49:50 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,54 +16,60 @@
 # include "libft.h"
 # include "machine.h"
 
-# define OPTIONS			"eglr"
-# define ARGC				lem_in->argc
-# define ARGV				lem_in->argv
-# define FLAGS				lem_in->flags
-# define INDEX				lem_in->index
-# define STRING				lem_in->string
-# define INPUT				lem_in->input_string
-# define INPUT_CPY			lem_in->input_string_copy
-# define NANTS				lem_in->nants
-# define NROOMS				lem_in->nrooms
-# define NLINKS				lem_in->nlinks
-# define ALL_ROOMS			lem_in->all_rooms
-# define ALL_LINKS			lem_in->all_links
-# define ROOM_TYPE			lem_in->room_type
-# define CURRENT_ROOM		lem_in->current_room
-# define CURRENT_LINK		lem_in->current_link
+# define OPTIONS				"eglr"
+# define ARGC					lem_in->argc
+# define ARGV					lem_in->argv
+# define FLAGS					lem_in->flags
+# define INDEX					lem_in->index
+# define STRING					lem_in->string
+# define INPUT					lem_in->input_string
+# define INPUT_CPY				lem_in->input_string_copy
+# define NANTS					lem_in->nants
+# define NROOMS					lem_in->nrooms
+# define NLINKS					lem_in->nlinks
+# define ALL_ROOMS				lem_in->all_rooms
+# define ALL_LINKS				lem_in->all_links
+# define ROOM_TYPE				lem_in->room_type
+# define CURRENT_ROOM			lem_in->current_room
+# define CURRENT_LINK			lem_in->current_link
+# define CURRENT_ROOM_LINKS		CURRENT_ROOM->links
 
-# define ROOM_POINTERS		lem_in->room_pointers
-# define ROOM_POINTER(x)	ROOM_POINTERS[x]
-# define ROOM_ELEM(x)		((t_elem *)(ROOM_POINTER(x)))
-# define ROOM_CONTENT(x)	((t_vertex *)ROOM_ELEM(x)->content)
-# define LINK_POINTER		lem_in->link_pointer
-# define LINK_ELEM			((t_elem *)LINK_POINTER)
-# define LINK_CONTENT		((t_edge *)LINK_ELEM->content)
+# define ROOM_POINTERS			lem_in->room_pointers
+# define ROOM_POINTER(x)		ROOM_POINTERS[x]
+# define ROOM_ELEM(x)			((t_elem *)(ROOM_POINTER(x)))
+# define ROOM_CONTENT(x)		((t_vertex *)ROOM_ELEM(x)->content)
+# define LINK_POINTER			lem_in->link_pointer
+# define LINK_ELEM				((t_elem *)LINK_POINTER)
+# define LINK_CONTENT			((t_edge *)LINK_ELEM->content)
 
-# define SOURCE				lem_in->source
-# define SINK				lem_in->sink
-# define ALL_PATHS			lem_in->all_paths
-# define CURRENT_PATH		lem_in->current_path
+# define SOURCE					lem_in->source
+# define SINK					lem_in->sink
+# define PATHS_LIST				lem_in->paths_list
+# define CURRENT_PATH			lem_in->current_path
 
-# define ERROR_MSG			RED "An error occurred, machine was not able to: \n"
-# define ERROR				lem_in->error
-# define ERROR_LOG(x)		error_log(lem_in, ft_strjoin("\t- ", __func__), x)
+# define ERROR_MSG				RED "An error occurred, machine was not able to: \n"
+# define ERROR					lem_in->error
+# define ERROR_LOG(x)			error_log(lem_in, ft_strjoin("\t- ", __func__), x)
 
-# define TRANSITIONS		(*mconfig)->transitions
-# define EVENTS				(*mconfig)->events
+# define TRANSITIONS			(*mconfig)->transitions
+# define EVENTS					(*mconfig)->events
 
-# define QUE				lem_in->que_list
-# define VERTEX_IN_LIST		((t_vertex *)(lem_in->que_list->address))
+# define QUE					lem_in->que_list
+# define TEMP_QUE				lem_in->temp_que_list
+# define VERTEX_IN_LIST			((t_vertex *)(lem_in->temp_que_list->address))
+# define TEMP_LINKS				lem_in->temp
+# define NEXT_ROOM				(t_vertex*)(((t_edge*)(TEMP_LINKS->address))->next)
+# define NEXT_ROOM_LEVEL		((t_edge*)(TEMP_LINKS->address))->next->level
+# define TEMP_LINK_CAPACITY		((t_edge*)(TEMP_LINKS->address))->capacity
 
-# define DEBUG_O			(1 << 0)
-# define ERROR_O			(1 << 2)
-# define ROOMS_O			(1 << 3)
-# define LINKS_O			(1 << 4)
-# define START				(1 << 5)
-# define END				(1 << 6)
-# define LINK				(1 << 7)
-# define ROOM_LINE			(1 << 8)
+# define DEBUG_O				(1 << 0)
+# define ERROR_O				(1 << 2)
+# define ROOMS_O				(1 << 3)
+# define LINKS_O				(1 << 4)
+# define START					(1 << 5)
+# define END					(1 << 6)
+# define LINK					(1 << 7)
+# define ROOM_LINE				(1 << 8)
 
 /*
 ** All the possible t_states of the machine.
@@ -152,13 +158,13 @@ enum
 	s_uninstall_machine_lks,
 }	e_state_lks;
 
-enum
-{
-	s_install_machine_bfs,
-	s_init_bfs,
-	s_que_list_remain_bfs,
-	s_uninstall_machine_bfs,
-}	e_state_bfs;
+// enum
+// {
+// 	s_install_machine_bfs,
+// 	s_init_bfs,
+// 	s_que_list_remain_bfs,
+// 	s_uninstall_machine_bfs,
+// }	e_state_bfs;
 
 enum
 {
@@ -218,7 +224,9 @@ typedef struct					s_project
 
 	size_t						level;
 	t_adlist					*que_list;
-	t_adlist					*visited_list;
+	t_adlist					*temp_que_list;
+	t_adlist					*temp;
+	
 	
 	t_adlist					*paths_list;
 	t_adlist					*all_paths;
@@ -286,6 +294,10 @@ void							free_edge(void *content);
 
 t_bool							init_bfs(t_project *lem_in);
 t_bool							que_list_remain_bfs(t_project *lem_in);
+t_bool							edge_list_remain_bfs(t_project *lem_in);
+t_bool							capacity_available_bfs(t_project *lem_in);
+t_bool							vertex_has_level_bfs(t_project *lem_in);
+t_bool							update_level_and_que_bfs(t_project *lem_in);
 
 void	*ft_hash_table_append(t_hash_table *table, void *(*columns)(t_hash_table *table));
 #endif

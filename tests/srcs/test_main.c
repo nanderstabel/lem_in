@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 16:50:26 by mgross         #+#    #+#                */
-/*   Updated: 2020/03/11 14:46:11 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/12 15:56:44 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int		main(void)
 	store_links(lem_in);
 
 	boolean = init_bfs(lem_in);
+	que_list_remain_bfs(lem_in);
 	temp = ((t_vertex *)(QUE->address))->id->name;
 	ft_printf("string :%s len %d\n", ((t_vertex *)(QUE->address))->id->name, ft_strlen(((t_vertex *)(QUE->address))->id->name));
+	// ((t_edge*)(TEMP_LINKS->address))->forward->level
+	ft_printf("test: %d\n", ((t_edge*)(TEMP_LINKS->address))->forward->level);
 	return (0);
 }
