@@ -120,7 +120,7 @@ static t_mconfig	*states(void)
 {
 	t_mconfig		*mconfig;
 
-	mconfig = malloc_mconfig(s_uninstall_machine_rms);
+	mconfig = malloc_mconfig(s_uninstall_machine_bfs);
 	get_transitions(&mconfig);
 	get_events(&mconfig);
 	return (mconfig);
