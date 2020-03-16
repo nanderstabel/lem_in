@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 13:58:36 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/16 12:49:11 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/16 15:31:45 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,15 @@ void				*vertex_columns(t_hash_table *table)
 	if (table == NULL)
 		return (NULL);
 	ft_lstapp(&table->header_content, ft_lstnew("type", 4));
+	ft_lstapp(&table->header_content, ft_lstnew("level", 5));
+	ft_lstapp(&table->header_content, ft_lstnew("visited", 7));
 	ft_lstapp(&table->header_content, ft_lstnew("links to:", 9));
 	ft_lstapp(&table->header_format, ft_lstnew(table->format, 4));
 	ft_lstapp(&table->header_format, ft_lstnew(table->format, 4));
+	ft_lstapp(&table->header_format, ft_lstnew(table->format, 4));
+	ft_lstapp(&table->header_format, ft_lstnew(table->format, 4));
+	ft_lstapp(&table->body_format, ft_lstnew(table->format, 4));
+	ft_lstapp(&table->body_format, ft_lstnew(table->format, 4));
 	ft_lstapp(&table->body_format, ft_lstnew(table->format, 4));
 	ft_lstapp(&table->body_format, ft_lstnew(table->format, 4));
 	links_width = 5;
@@ -53,6 +59,20 @@ void				*vertex_columns(t_hash_table *table)
 			ft_lstadd(&elem->misc, ft_lstnew(type_str, ft_strlen(type_str)));
 			free(type_str);
 			ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(elem->misc->content));
+
+			type_str = ft_itoa(((t_vertex *)(elem->content))->level);
+			ft_lstadd(&elem->misc, ft_lstnew(type_str, ft_strlen(type_str)));
+			free(type_str);
+			ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(elem->misc->content));
+
+			if (((t_vertex *)(elem->content))->visited)
+				type_str = ft_strdup("Yes");
+			else
+				type_str = ft_strdup("No");
+			ft_lstadd(&elem->misc, ft_lstnew(type_str, ft_strlen(type_str)));
+			free(type_str);
+			ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(elem->misc->content));
+
 			links_str = ft_strnew(0);
 			links = ((t_vertex *)(elem->content))->links;
 			while (links)
@@ -71,6 +91,8 @@ void				*vertex_columns(t_hash_table *table)
 		++i;
 	}
 	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)8));
+	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)7));
+	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)9));
 	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)(links_width)));
 	return (NULL);
 }
@@ -90,17 +112,4 @@ void				free_vertex(void *content)
 		free(clean);
 	}
 	free(vertex);
-}
-
-void	*ft_hash_table_append(t_hash_table *table, void *(*columns)(t_hash_table *table))
-{
-	t_adlist	*last_width;
-
-	if (table == NULL || columns == NULL)
-		return (NULL);
-	last_width = table->width;
-	while (last_width->next)
-		last_width = last_width->next;
-	last_width->address += 2;
-	return (columns(table));
 }

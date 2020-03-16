@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross         #+#    #+#                */
-/*   Updated: 2020/03/16 12:49:36 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/16 15:32:58 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void				ft_addr_lstapp(t_adlist **alst, t_adlist *newlst);
 void				ft_addr_lstdel(t_adlist **alst);
 void				ft_addr_lstdelone(t_adlist **alst);
 t_adlist			*ft_addr_lstnew(void *address);
+void				ft_addr_lstsrt(t_adlist **alst, \
+					int (*method)(void *, void *));
 char				*ft_append(char **str, char const *append);
 size_t				ft_arsize(void **ar);
 int					ft_atoi(const char *str);
@@ -78,6 +80,8 @@ int					ft_get_next_line(const int fd, char **line);
 size_t				ft_hash(char *key);
 t_elem				*ft_hash_table_add(t_hash_table *hash_table, char *key, \
 					void *content);
+void				*ft_hash_table_append(t_hash_table *table, \
+    				void *(*columns)(t_hash_table *table));
 t_elem				*ft_hash_table_get(t_hash_table *hash_table, char *key);
 t_list				**ft_hsh_chain(void **ar, size_t size, \
 					size_t hsh(void *));

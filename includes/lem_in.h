@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/12 19:49:50 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/16 13:07:15 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ typedef struct					s_vertex
 	t_type						type;
 	size_t						level;
 	size_t						visited;
+	t_adlist					*select;
 	t_adlist					*links;
 }								t_vertex;
 

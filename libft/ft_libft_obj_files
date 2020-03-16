@@ -4,6 +4,7 @@ LIBFT_OBJ_FILES := 	ft_abs.o \
 					ft_addr_lstdel.o \
 					ft_addr_lstdelone.o \
 					ft_addr_lstnew.o \
+					ft_addr_lstsrt.o \
 					ft_append.o \
 					ft_arsize.o \
 					ft_atoi.o \
@@ -15,6 +16,7 @@ LIBFT_OBJ_FILES := 	ft_abs.o \
 					ft_get_next_line.o \
 					ft_hash.o \
 					ft_hash_table_add.o \
+					ft_hash_table_append.o \
 					ft_hash_table_get.o \
 					ft_hsh_chain.o \
 					ft_hsh_linprob.o \

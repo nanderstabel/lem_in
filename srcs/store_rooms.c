@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/24 17:21:47 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/12 14:01:14 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/16 15:08:56 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_bool				store_room(t_project *lem_in)
 		else if (ROOM_TYPE == sink)
 			SINK = ROOM_CONTENT(first_room);
 		ROOM_CONTENT(first_room)->type = ROOM_TYPE;
+		ROOM_CONTENT(first_room)->level = INDEX++;
 		ft_skip_line(&INPUT_CPY);
 		return (SUCCESS);
 	}

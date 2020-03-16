@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:56:15 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/12 18:21:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/16 15:20:20 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,11 +216,5 @@ t_bool								store_links(t_project *lem_in)
 	uninstall_machine(&machine);
 	if (ERROR)
 		return (ERROR_LOG(FAIL));
-	// CURRENT_ROOM = (t_vertex *)(ft_hash_table_get(ALL_ROOMS, "Kls2")->content);
-	// while (CURRENT_ROOM->links)
-	// {
-	// 	ft_printf("linkname: %s\n", ((t_edge *)(CURRENT_ROOM->links->address))->id->name);
-	// 	CURRENT_ROOM->links = CURRENT_ROOM->links->next;
-	// }
 	return (SUCCESS);
 }
