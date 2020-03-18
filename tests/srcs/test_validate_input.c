@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 17:35:37 by mgross         #+#    #+#                */
-/*   Updated: 2020/03/12 16:12:18 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/18 17:15:05 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 Test(input_validation, validate_input_test)
 {
-	int				fd;
 	t_project		*lem_in;
 	t_bool			boolean;
 	t_list			*temp;
 
 	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
-	fd = open("../maps/valid_maps/map1.map", O_RDONLY);
+	open("../maps/valid_maps/map1.map", O_RDONLY);
 	ERROR = NULL;
 	FLAGS = 0;
 	// FLAGS |= DEBUG_O;
@@ -40,7 +39,7 @@ Test(input_validation, validate_input_test)
 	
 	// lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
-	fd = open("../maps/valid_maps/map2.map", O_RDONLY);
+	open("../maps/valid_maps/map2.map", O_RDONLY);
 	ERROR = NULL;
 	FLAGS = 0;
 	boolean = validate_input(lem_in);
@@ -59,7 +58,7 @@ Test(input_validation, validate_input_test)
 	
 	// lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
-	fd = open("../maps/valid_maps/map3.map", O_RDONLY);
+	open("../maps/valid_maps/map3.map", O_RDONLY);
 	ERROR = NULL;
 	FLAGS = 0;
 	boolean = validate_input(lem_in);
@@ -77,7 +76,7 @@ Test(input_validation, validate_input_test)
 
 	// lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
-	fd = open("../maps/invalid_maps/invalid_map1.map", O_RDONLY);
+	open("../maps/invalid_maps/invalid_map1.map", O_RDONLY);
 	ERROR = NULL;
 	FLAGS = 0;
 	boolean = validate_input(lem_in);
@@ -95,7 +94,7 @@ Test(input_validation, validate_input_test)
 
 	// lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
-	fd = open("../maps/invalid_maps/no_room_after_start_map.map", O_RDONLY);
+	open("../maps/invalid_maps/no_room_after_start_map.map", O_RDONLY);
 	ERROR = NULL;
 	FLAGS = 0;
 	// FLAGS |= DEBUG_O;
@@ -114,7 +113,7 @@ Test(input_validation, validate_input_test)
 
 	// lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
-	fd = open("../maps/invalid_maps/no_room_after_start_map2.map", O_RDONLY);
+	open("../maps/invalid_maps/no_room_after_start_map2.map", O_RDONLY);
 	ERROR = NULL;
 	FLAGS = 0;
 	// FLAGS |= DEBUG_O;
@@ -135,13 +134,11 @@ Test(input_validation, validate_input_test)
 
 Test(input_validation, num_of_ants_links_rooms_test)
 {
-	int				fd;
 	t_project		*lem_in;
-	t_bool			boolean;
 
 	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
-	fd = open("../maps/valid_maps/map1.map", O_RDONLY);
+	open("../maps/valid_maps/map1.map", O_RDONLY);
 	ERROR = NULL;
 	FLAGS = 0;
 	// FLAGS |= DEBUG_O;
@@ -150,7 +147,7 @@ Test(input_validation, num_of_ants_links_rooms_test)
 	NROOMS = 0;
 	INPUT_CPY = NULL;
 	lem_in->input_string = NULL;
-	boolean = validate_input(lem_in);
+	validate_input(lem_in);
 	cr_assert(NANTS == 3, "The result was %zu, expected %d\n", NANTS, 3);
 	cr_assert(NROOMS == 4, "The result was %zu, expected %d\n", NROOMS, 4);
 	cr_assert(NLINKS == 3, "The result was %zu, expected %d\n", NLINKS, 3);
@@ -158,7 +155,7 @@ Test(input_validation, num_of_ants_links_rooms_test)
 
 	// lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
-	fd = open("../maps/valid_maps/map2.map", O_RDONLY);
+	open("../maps/valid_maps/map2.map", O_RDONLY);
 	ERROR = NULL;
 	FLAGS = 0;
 	// FLAGS |= DEBUG_O;
@@ -167,7 +164,7 @@ Test(input_validation, num_of_ants_links_rooms_test)
 	NROOMS = 0;
 	INPUT_CPY = NULL;
 	lem_in->input_string = NULL;
-	boolean = validate_input(lem_in);
+	validate_input(lem_in);
 	cr_assert(NANTS == 4, "The result was %zu, expected %d\n", NANTS, 4);
 	cr_assert(NROOMS == 8, "The result was %zu, expected %d\n", NROOMS, 8);
 	cr_assert(NLINKS == 9, "The result was %zu, expected %d\n", NLINKS, 9);
@@ -175,7 +172,7 @@ Test(input_validation, num_of_ants_links_rooms_test)
 
 	// lem_in = (t_project*)ft_memalloc(sizeof(t_project));	
 	close(0);
-	fd = open("../maps/valid_maps/map3.map", O_RDONLY);
+	open("../maps/valid_maps/map3.map", O_RDONLY);
 	ERROR = NULL;
 	FLAGS = 0;
 	// FLAGS |= DEBUG_O;
@@ -184,7 +181,7 @@ Test(input_validation, num_of_ants_links_rooms_test)
 	NROOMS = 0;
 	INPUT_CPY = NULL;
 	lem_in->input_string = NULL;
-	boolean = validate_input(lem_in);
+	validate_input(lem_in);
 	cr_assert(NANTS == 4, "The result was %zu, expected %d\n", NANTS, 4);
 	cr_assert(NROOMS == 8, "The result was %zu, expected %d\n", NROOMS, 8);
 	cr_assert(NLINKS == 9, "The result was %zu, expected %d\n", NLINKS, 9);
@@ -202,6 +199,7 @@ Test(input_validation, first_char_delim_vi_test)
 	char			*new;
 	int				fd;
 
+
 	index = 0;
 	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	FLAGS = 0;
@@ -211,7 +209,7 @@ Test(input_validation, first_char_delim_vi_test)
 	boolean = first_char_delim_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	
-	fd =  open("../maps/invalid_maps/map_empty.map", O_RDONLY);
+	fd = open("../maps/invalid_maps/map_empty.map", O_RDONLY);
 	ret = 1;
 	new = ft_strnew(0);
 	while (ret != 0)
@@ -387,9 +385,7 @@ Test(input_validation, second_char_hash_vi_test)
 {
 	t_project 		*lem_in;
 	t_bool			boolean;
-	int				index;
 
-	index = 0;
 	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	FLAGS = 0;
 	ERROR = NULL;
@@ -592,24 +588,24 @@ Test(input_validation, all_flags_on_vi_test)
 	FLAGS = 0;
 	ERROR = NULL;
 
-	FLAGS = FLAGS |= START;
-	FLAGS = FLAGS |= END;
-	FLAGS = FLAGS |= LINK;
+	FLAGS |= START;
+	FLAGS |= END;
+	FLAGS |= LINK;
 	boolean = all_flags_on_vi(lem_in);
 	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 
 	FLAGS = 0;
-	FLAGS = FLAGS |= END;
+	FLAGS |= END;
 	boolean = all_flags_on_vi(lem_in);
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
 	FLAGS = 0;
-	FLAGS = FLAGS |= START;
+	FLAGS |= START;
 	boolean = all_flags_on_vi(lem_in);
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
 	FLAGS = 0;
-	FLAGS = FLAGS |= LINK;
+	FLAGS |= LINK;
 	boolean = all_flags_on_vi(lem_in);
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
@@ -702,7 +698,7 @@ Test(input_validation, switch_start_flag_on_vi_test)
 	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 
 	FLAGS = 0;
-	FLAGS = FLAGS |= START;
+	FLAGS |= START;
 	boolean = switch_start_flag_on_vi(lem_in);
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
@@ -723,7 +719,7 @@ Test(input_validation, switch_end_flag_on_vi_test)
 	// ft_printf("FLAG: %d\n", FLAGS);
 
 	FLAGS = 0;
-	FLAGS = FLAGS |= END;
+	FLAGS |= END;
 	boolean = switch_end_flag_on_vi(lem_in);
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
@@ -739,7 +735,7 @@ Test(input_validation, check_link_flag_on_vi_test)
 	ERROR = NULL;
 
 	FLAGS = 0;
-	FLAGS = FLAGS |= LINK;
+	FLAGS |= LINK;
 	boolean = check_link_flag_on_vi(lem_in);
 	
 	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
@@ -765,7 +761,7 @@ Test(input_validation, switch_link_flag_on_vi_test)
 	// ft_printf("FLAG: %d\n", FLAGS);
 
 	FLAGS = 0;
-	FLAGS = FLAGS |= LINK;
+	FLAGS |= LINK;
 	boolean = switch_link_flag_on_vi(lem_in);
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 

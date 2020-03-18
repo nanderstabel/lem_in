@@ -35,7 +35,7 @@ HEADER_FILES = $(INC_DIR)tests.h
 
 LIB = -L ../libft/ -lft
 
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g
 
 DEPS = -Iincludes/ -I../libft/includes/ -I../includes/
 

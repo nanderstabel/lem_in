@@ -91,11 +91,14 @@ void		conversion_f_precision(t_flags *conv, t_float *dbl, int min)
 	temp = 0;
 	min = 0;
 	len = ft_strlen(dbl->output);
+	(void)len;
+	(void)min;
+	(void)temp;
 	rounding = ft_nchar(dbl->output, '.');
 	if (dbl->output[rounding + dbl->precision] > '4')
 	{
 		rounding -= 1;
-		rounding = (dbl->precision == 0) ? rounding -= 1 : rounding;
+		rounding = (dbl->precision == 0) ? rounding - 1 : rounding;
 		if (dbl->output[rounding + dbl->precision] == '9')
 		{
 			f_rounding_up(dbl, rounding);

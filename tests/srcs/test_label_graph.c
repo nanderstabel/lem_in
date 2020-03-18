@@ -15,43 +15,40 @@
 Test(test_label_graph, init_bfs_test)
 {
 	t_project		*lem_in;
-	int				fd;
-	t_bool			boolean;
 
 	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
-	fd = open("../maps/valid_maps/map1.map", O_RDONLY);
+	open("../maps/valid_maps/map1.map", O_RDONLY);
 	set_options(lem_in);
 	validate_input(lem_in);
 	store_rooms(lem_in);
 	store_links(lem_in);
 
-	boolean = init_bfs(lem_in);
+	init_bfs(lem_in);
 	cr_assert_str_eq(((t_vertex *)(TEMP_QUE->address))->id->name,"0", "The result was %s, expected %s\n", ((t_vertex *)(TEMP_QUE->address))->id->name, "0");
 	free(lem_in);
 	lem_in = NULL;
 
 	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
-	fd = open("../maps/valid_maps/flow_ten.map", O_RDONLY);
+	open("../maps/valid_maps/flow_ten.map", O_RDONLY);
 	set_options(lem_in);
 	validate_input(lem_in);
 	store_rooms(lem_in);
 	store_links(lem_in);
 
-	boolean = init_bfs(lem_in);
+	init_bfs(lem_in);
 	cr_assert_str_eq(((t_vertex *)(TEMP_QUE->address))->id->name,"Fog1", "The result was %s, expected %s\n", ((t_vertex *)(TEMP_QUE->address))->id->name, "Fog1");
 }
 
 Test(test_label_graph, que_list_remain_bfs_test)
 {
 	t_project		*lem_in;
-	int				fd;
 	t_bool			boolean;
 
 	lem_in = (t_project*)ft_memalloc(sizeof(t_project));
 	close(0);
-	fd = open("../maps/valid_maps/map1.map", O_RDONLY);
+	open("../maps/valid_maps/map1.map", O_RDONLY);
 	set_options(lem_in);
 	validate_input(lem_in);
 	store_rooms(lem_in);

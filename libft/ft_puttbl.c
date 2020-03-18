@@ -15,7 +15,7 @@
 void				ft_puttbl(t_hash_table *table)
 {
 	size_t		i;
-	size_t		len;
+	// size_t		len;
 
 	if (!table || !table->header_format)
 		return ;
@@ -23,7 +23,7 @@ void				ft_puttbl(t_hash_table *table)
 	ft_putchar(10);
 	if (table->title)
 		ft_printf("%s:\n", table->title);
-	len = 0;
+	// len = 0;
 	i = 0;
 
 	//header

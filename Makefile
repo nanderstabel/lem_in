@@ -42,7 +42,7 @@ LIBFT_HEADER_FILES = ./libft/includes/libft.h ./libft/includes/ft_printf.h \
 
 LIB = -L ./libft/ -lft
 
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g
 
 DEPS = -I$(INC_DIR) -I$(LIBFT_INC_DIR)
 
