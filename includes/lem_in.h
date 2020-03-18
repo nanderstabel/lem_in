@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/16 13:07:15 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/17 17:22:17 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@
 
 # define SOURCE					lem_in->source
 # define SINK					lem_in->sink
-# define PATHS_LIST				lem_in->paths_list
+# define ALL_PATHS				lem_in->all_paths
 # define CURRENT_PATH			lem_in->current_path
+# define SELECTED				CURRENT_ROOM->selected
 
 # define ERROR_MSG				RED "An error occurred, machine was not able to: \n"
 # define ERROR					lem_in->error
@@ -58,7 +59,7 @@
 # define TEMP_QUE				lem_in->temp_que_list
 # define VERTEX_IN_LIST			((t_vertex *)(lem_in->temp_que_list->address))
 # define TEMP_LINKS				lem_in->temp
-# define NEXT_ROOM				(t_vertex*)(((t_edge*)(TEMP_LINKS->address))->next)
+# define NEXT_ROOM				(((t_edge*)(TEMP_LINKS->address))->next)
 # define NEXT_ROOM_LEVEL		((t_edge*)(TEMP_LINKS->address))->next->level
 # define TEMP_LINK_CAPACITY		((t_edge*)(TEMP_LINKS->address))->capacity
 
@@ -185,7 +186,7 @@ typedef struct					s_vertex
 	t_type						type;
 	size_t						level;
 	size_t						visited;
-	t_adlist					*select;
+	t_adlist					*selected;
 	t_adlist					*links;
 }								t_vertex;
 
@@ -227,9 +228,7 @@ typedef struct					s_project
 	t_adlist					*que_list;
 	t_adlist					*temp_que_list;
 	t_adlist					*temp;
-	
-	
-	t_adlist					*paths_list;
+
 	t_adlist					*all_paths;
 	t_adlist					*current_path;
 	t_list						*error;
