@@ -41,9 +41,6 @@ void			conversion_f_redirect(t_flags *conv, t_float *dbl)
 
 void			conversion_f_infnan(t_flags *conv, t_float *dbl)
 {
-	int	i;
-
-	i = 0;
 	conv->width = (conv->width == -1) ? 0 : (conv->width - \
 		ft_strlen(dbl->output));
 	if ((conv->flag & FLAG_MIN) == FLAG_MIN)

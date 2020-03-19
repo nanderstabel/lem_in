@@ -14,9 +14,6 @@
 
 void	ft_putnstr(char const *str, size_t len)
 {
-	int i;
-
-	i = 0;
 	if (str == NULL)
 		return ;
 	ft_putnchar(str, len);
