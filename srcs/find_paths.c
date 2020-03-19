@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:57:21 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/19 13:55:40 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/19 16:49:26 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ t_bool				delete_path(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
+	if (!CURRENT_PATH)
+		return (ERROR_LOG(FAIL));
 	ft_addr_lstdel(&CURRENT_PATH);
 	return (SUCCESS);
 }
@@ -109,6 +111,8 @@ t_bool				remove_room(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
+	if (!CURRENT_ROOM || !QUE)
+		return (ERROR_LOG(FAIL));
 	TEMP_LINKS = SELECTED;
 	TEMP_LINK_CAPACITY = 1;
 	ft_addr_lstdelone(&QUE->next);
@@ -122,6 +126,8 @@ t_bool				traverse_path(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if (FLAGS & DFS_O)
 		ft_printf("\t\tTravelled from %s, to ", CURRENT_ROOM->id->name);
+	if (!NEXT_ROOM)
+		return(ERROR_LOG(FAIL) || !CURRENT_PATH);
 	CURRENT_ROOM = NEXT_ROOM;
 	if (FLAGS & DFS_O)
 		ft_printf("\t\t%s\n", CURRENT_ROOM->id->name);
