@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 14:50:28 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/19 14:34:14 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/19 15:57:11 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ t_bool				print_usage_message(t_project *lem_in)
 	ft_printf("room, using a given map, in the least amount of steps\n");
 	ft_printf("\t-d\t\tprints the steps taken during pathfinding (dfs)\n");
 	ft_printf("\t-e\t\tshows where an error occured, if there was any\n");
-	ft_printf("\t-g\t\tdebug mode: shows executed functions in chronological order\n");
+	ft_printf( \
+	"\t-g\t\tdebug mode: shows executed functions in chronological order\n");
 	ft_printf("\t-l\t\tprints hashtables containing all links\n");
 	ft_printf("\t-r\t\tprints hashtables containing all rooms\n");
 	ft_printf("\t-u\t\tshows usage message\n");
