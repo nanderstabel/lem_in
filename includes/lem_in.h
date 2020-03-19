@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/12 19:49:50 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/19 14:49:09 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 # define TEMP_QUE				lem_in->temp_que_list
 # define VERTEX_IN_LIST			((t_vertex *)(lem_in->temp_que_list->address))
 # define TEMP_LINKS				lem_in->temp
-# define NEXT_ROOM				(t_vertex*)(((t_edge*)(TEMP_LINKS->address))->next)
+# define NEXT_ROOM				((t_edge*)(TEMP_LINKS->address))->next
 # define NEXT_ROOM_LEVEL		((t_edge*)(TEMP_LINKS->address))->next->level
 # define TEMP_LINK_CAPACITY		((t_edge*)(TEMP_LINKS->address))->capacity
 
