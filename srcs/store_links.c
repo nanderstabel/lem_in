@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:56:15 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/16 15:20:20 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/19 11:10:48 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,31 +133,10 @@ t_bool				set_line(t_project *lem_in)
 	return (SUCCESS);
 }
 
-t_bool				print_links(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
-	if (FLAGS & ROOMS_O)
-	{
-		if (!ALL_ROOMS)
-			return (FAIL);
-		ft_hash_table_append(ALL_ROOMS, vertex_columns);
-		ft_puttbl(ALL_ROOMS);
-	}
-	if (FLAGS & LINKS_O)
-	{
-		if (!ALL_LINKS)
-			return (FAIL);
-		ft_hash_table_append(ALL_LINKS, edge_columns);
-		ft_puttbl(ALL_LINKS);
-	}
-	return (SUCCESS);
-}
-
 static void			get_transitions(t_mconfig **mconfig)
 {
-	TRANSITIONS[s_install_machine_rms][FAIL] = s_uninstall_machine_lks;
-	TRANSITIONS[s_install_machine_rms][SUCCESS] = s_initialize_table_lks;
+	TRANSITIONS[s_install_machine_lks][FAIL] = s_uninstall_machine_lks;
+	TRANSITIONS[s_install_machine_lks][SUCCESS] = s_initialize_table_lks;
 	TRANSITIONS[s_initialize_table_lks][FAIL] = s_uninstall_machine_lks;
 	TRANSITIONS[s_initialize_table_lks][SUCCESS] = s_save_roomnames;
 	TRANSITIONS[s_save_roomnames][FAIL] = s_uninstall_machine_lks;
@@ -174,10 +153,10 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_add_link_to_room][SUCCESS] = s_swap_rooms;
 	TRANSITIONS[s_swap_rooms][FAIL] = s_set_line;
 	TRANSITIONS[s_swap_rooms][SUCCESS] = s_store_link;
-	TRANSITIONS[s_set_line][FAIL] = s_print_links;
+	TRANSITIONS[s_set_line][FAIL] = s_print_tables_lks;
 	TRANSITIONS[s_set_line][SUCCESS] = s_save_roomnames;
-	TRANSITIONS[s_print_links][FAIL] = s_uninstall_machine_lks;
-	TRANSITIONS[s_print_links][SUCCESS] = s_uninstall_machine_lks;
+	TRANSITIONS[s_print_tables_lks][FAIL] = s_uninstall_machine_lks;
+	TRANSITIONS[s_print_tables_lks][SUCCESS] = s_uninstall_machine_lks;
 }
 
 static void			get_events(t_mconfig **mconfig)
@@ -192,7 +171,7 @@ static void			get_events(t_mconfig **mconfig)
 	EVENTS[s_add_link_to_room] = add_link_to_room;
 	EVENTS[s_swap_rooms] = swap_rooms;
 	EVENTS[s_set_line] = set_line;
-	EVENTS[s_print_links] = print_links;
+	EVENTS[s_print_tables_lks] = print_tables;
 }
 
 static t_mconfig	*states(void)

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/17 17:22:17 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/19 11:10:02 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ enum
 	s_set_line_rms,
 	s_get_type,
 	s_store_room,
-	s_print_rooms,
+	s_print_tables_rms,
 	s_uninstall_machine_rms,
 }	e_state_rms;
 
@@ -155,7 +155,7 @@ enum
 	s_add_link_to_room,
 	s_swap_rooms,
 	s_set_line,
-	s_print_links,
+	s_print_tables_lks,
 	s_uninstall_machine_lks,
 }	e_state_lks;
 
@@ -299,5 +299,6 @@ t_bool							capacity_available_bfs(t_project *lem_in);
 t_bool							vertex_has_level_bfs(t_project *lem_in);
 t_bool							update_level_and_que_bfs(t_project *lem_in);
 
-void	*ft_hash_table_append(t_hash_table *table, void *(*columns)(t_hash_table *table));
+t_bool							print_tables(t_project *lem_in);
+
 #endif

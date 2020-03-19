@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/07 12:28:27 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/16 15:32:11 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/19 11:20:54 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,10 @@ void	*ft_hash_table_append(t_hash_table *table, \
 	while (last_width->next)
 		last_width = last_width->next;
 	last_width->address += 2;
-	return (columns(table));
+	if (columns(table))
+	{
+		table->mounted = 1;
+		return (table);
+	}
+	return (NULL);
 }

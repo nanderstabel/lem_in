@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross         #+#    #+#                */
-/*   Updated: 2020/03/17 14:24:33 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/19 11:16:07 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct		s_hash_table
 	t_list			*body_format;
 	t_adlist		*width;
 	size_t			size;
+	char			mounted;
 	t_elem			**elem;
 }					t_hash_table;
 
@@ -82,7 +83,10 @@ t_elem				*ft_hash_table_add(t_hash_table *hash_table, char *key, \
 					void *content);
 void				*ft_hash_table_append(t_hash_table *table, \
     				void *(*columns)(t_hash_table *table));
+void        	    *ft_hash_table_drop(t_hash_table *table, size_t cutoff);
 t_elem				*ft_hash_table_get(t_hash_table *hash_table, char *key);
+void				*ft_hash_table_update(t_hash_table *table, \
+   					void *(*columns)(t_hash_table *table));
 t_list				**ft_hsh_chain(void **ar, size_t size, \
 					size_t hsh(void *));
 t_list				**ft_hsh_linprob(void **ar, size_t size, \

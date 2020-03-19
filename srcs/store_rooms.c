@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/24 17:21:47 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/16 15:08:56 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/19 11:54:50 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,23 +75,10 @@ t_bool				store_room(t_project *lem_in)
 		else if (ROOM_TYPE == sink)
 			SINK = ROOM_CONTENT(first_room);
 		ROOM_CONTENT(first_room)->type = ROOM_TYPE;
-		ROOM_CONTENT(first_room)->level = INDEX++;
 		ft_skip_line(&INPUT_CPY);
 		return (SUCCESS);
 	}
 	return (ERROR_LOG(FAIL));
-}
-
-t_bool				print_rooms(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
-	if (FLAGS & ROOMS_O)
-	{
-		ft_puttbl(ALL_ROOMS);
-		return (SUCCESS);
-	}
-	return (FAIL);
 }
 
 static void			get_transitions(t_mconfig **mconfig)
@@ -102,12 +89,12 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_initialize_table_rms][SUCCESS] = s_set_line_rms;
 	TRANSITIONS[s_set_line_rms][FAIL] = s_uninstall_machine_rms;
 	TRANSITIONS[s_set_line_rms][SUCCESS] = s_get_type;
-	TRANSITIONS[s_get_type][FAIL] = s_print_rooms;
+	TRANSITIONS[s_get_type][FAIL] = s_print_tables_rms;
 	TRANSITIONS[s_get_type][SUCCESS] = s_store_room;
 	TRANSITIONS[s_store_room][FAIL] = s_uninstall_machine_rms;
 	TRANSITIONS[s_store_room][SUCCESS] = s_get_type;
-	TRANSITIONS[s_print_rooms][FAIL] = s_uninstall_machine_rms;
-	TRANSITIONS[s_print_rooms][SUCCESS] = s_uninstall_machine_rms;
+	TRANSITIONS[s_print_tables_rms][FAIL] = s_uninstall_machine_rms;
+	TRANSITIONS[s_print_tables_rms][SUCCESS] = s_uninstall_machine_rms;
 }
 
 static void			get_events(t_mconfig **mconfig)
@@ -117,7 +104,7 @@ static void			get_events(t_mconfig **mconfig)
 	EVENTS[s_set_line_rms] = set_line_rms;
 	EVENTS[s_get_type] = get_type;
 	EVENTS[s_store_room] = store_room;
-	EVENTS[s_print_rooms] = print_rooms;
+	EVENTS[s_print_tables_rms] = print_tables;
 }
 
 static t_mconfig	*states(void)

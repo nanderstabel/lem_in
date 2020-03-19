@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:57:21 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/18 11:04:52 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/19 11:51:28 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ enum
 	s_traverse_path,
 	s_check_sink,
 	s_store_path,
+	s_print_tables_dfs,
 	s_uninstall_machine_dfs,
 }	e_state_dfs;
 
@@ -164,7 +165,7 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_backtrack_path][FAIL] = s_delete_path;
 	TRANSITIONS[s_backtrack_path][SUCCESS] = s_remove_room;
 	TRANSITIONS[s_delete_path][FAIL] = s_uninstall_machine_dfs;
-	TRANSITIONS[s_delete_path][SUCCESS] = s_uninstall_machine_dfs;
+	TRANSITIONS[s_delete_path][SUCCESS] = s_print_tables_dfs;
 	TRANSITIONS[s_remove_room][FAIL] = s_uninstall_machine_dfs;
 	TRANSITIONS[s_remove_room][SUCCESS] = s_find_next_room;
 	TRANSITIONS[s_traverse_path][FAIL] = s_uninstall_machine_dfs;
@@ -173,6 +174,8 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_check_sink][SUCCESS] = s_store_path;
 	TRANSITIONS[s_store_path][FAIL] = s_uninstall_machine_dfs;
 	TRANSITIONS[s_store_path][SUCCESS] = s_start_path;
+	TRANSITIONS[s_print_tables_dfs][FAIL] = s_uninstall_machine_dfs;
+	TRANSITIONS[s_print_tables_dfs][SUCCESS] = s_uninstall_machine_dfs;
 }
 
 static void			get_events(t_mconfig **mconfig)
@@ -187,6 +190,7 @@ static void			get_events(t_mconfig **mconfig)
 	EVENTS[s_traverse_path] = traverse_path;
 	EVENTS[s_check_sink] = check_sink;
 	EVENTS[s_store_path] = store_path;
+	EVENTS[s_print_tables_dfs] = print_tables;
 }
 
 static t_mconfig	*states(void)
@@ -210,7 +214,5 @@ t_bool								find_paths(t_project *lem_in)
 	uninstall_machine(&machine);
 	if (ERROR)
 		return (ERROR_LOG(FAIL));
-	ft_hash_table_append(ALL_ROOMS, vertex_columns);
-	ft_puttbl(ALL_ROOMS);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 13:58:36 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/16 15:31:45 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/19 11:18:55 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void				*vertex_columns(t_hash_table *table)
 	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)7));
 	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)9));
 	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)(links_width)));
-	return (NULL);
+	return (table);
 }
 
 void				free_vertex(void *content)
