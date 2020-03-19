@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/08 10:14:38 by mgross         #+#    #+#                 #
-#    Updated: 2020/03/16 12:56:35 by nstabel       ########   odam.nl          #
+#    Updated: 2020/03/19 12:11:10 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ LIBFT_HEADER_FILES = ./libft/includes/libft.h ./libft/includes/ft_printf.h \
 
 LIB = -L ./libft/ -lft
 
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g
 
 DEPS = -I$(INC_DIR) -I$(LIBFT_INC_DIR)
 
