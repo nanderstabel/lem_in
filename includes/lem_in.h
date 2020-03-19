@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/19 11:10:02 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/19 14:33:44 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include "machine.h"
 
-# define OPTIONS				"eglr"
+# define OPTIONS				"deglru"
 # define ARGC					lem_in->argc
 # define ARGV					lem_in->argv
 # define FLAGS					lem_in->flags
@@ -67,10 +67,12 @@
 # define ERROR_O				(1 << 2)
 # define ROOMS_O				(1 << 3)
 # define LINKS_O				(1 << 4)
-# define START					(1 << 5)
-# define END					(1 << 6)
-# define LINK					(1 << 7)
-# define ROOM_LINE				(1 << 8)
+# define DFS_O					(1 << 5)
+# define USAGE_O				(1 << 6)
+# define START					(1 << 7)
+# define END					(1 << 8)
+# define LINK					(1 << 9)
+# define ROOM_LINE				(1 << 10)
 
 /*
 ** All the possible t_states of the machine.
@@ -100,6 +102,7 @@ enum
 	s_find_dash_opt,
 	s_find_option_opt,
 	s_validate_argument_opt,
+	s_print_usage_message,
 	s_uninstall_machine_opt,
 }	e_state_opt;
 

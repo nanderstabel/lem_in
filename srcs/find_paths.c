@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:57:21 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/19 11:51:28 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/19 13:55:40 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ t_bool				backtrack_path(t_project *lem_in)
 	while (QUE->next->next)
 		QUE = QUE->next;
 	CURRENT_ROOM = (t_vertex *)QUE->address;
-	ft_printf("Backtracked to: %s\n", CURRENT_ROOM->id->name);
+	if (FLAGS & DFS_O)
+		ft_printf("\t\tBacktracked to: %s\n", CURRENT_ROOM->id->name);
 	return (SUCCESS);
 }
 
@@ -119,9 +120,11 @@ t_bool				traverse_path(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	ft_printf("From %s, to ", CURRENT_ROOM->id->name);
+	if (FLAGS & DFS_O)
+		ft_printf("\t\tTravelled from %s, to ", CURRENT_ROOM->id->name);
 	CURRENT_ROOM = NEXT_ROOM;
-	ft_printf("%s\n", CURRENT_ROOM->id->name);
+	if (FLAGS & DFS_O)
+		ft_printf("\t\t%s\n", CURRENT_ROOM->id->name);
 	TEMP_LINK_CAPACITY = 0;
 	ft_addr_lstapp(&CURRENT_PATH, ft_addr_lstnew((void *)CURRENT_ROOM));
 	return (SUCCESS);
