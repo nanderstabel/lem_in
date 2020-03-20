@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 17:31:03 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/20 11:13:09 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/20 19:27:23 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void			initialize_project(t_project **lem_in)
 {
 	*lem_in = (t_project *)ft_memalloc(sizeof(t_project));
+	(*lem_in)->round_nr = 1;
 }
 
 /*

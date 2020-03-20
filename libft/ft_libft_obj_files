@@ -3,7 +3,9 @@ LIBFT_OBJ_FILES := 	ft_abs.o \
 					ft_addr_lstapp.o \
 					ft_addr_lstdel.o \
 					ft_addr_lstdelone.o \
+					ft_addr_lstiter.o \
 					ft_addr_lstnew.o \
+					ft_addr_lstrev.o \
 					ft_addr_lstsrt.o \
 					ft_append.o \
 					ft_arsize.o \
@@ -62,6 +64,7 @@ LIBFT_OBJ_FILES := 	ft_abs.o \
 					ft_ndigits.o \
 					ft_prepend.o \
 					ft_primetab.o \
+					ft_putadlst.o \
 					ft_putchar.o \
 					ft_putchar_fd.o \
 					ft_putendl.o \

@@ -17,6 +17,8 @@ t_list				*ft_lstrev(t_list *alst)
 	t_list	*a;
 	t_list	*b;
 
+	if (!alst)
+		return (NULL);
 	a = alst;
 	while (a->next)
 	{

@@ -15,7 +15,7 @@
 void		*ft_hash_table_update(t_hash_table *table, \
     void *(*columns)(t_hash_table *table))
 {
-	if (!table)
+	if (!table || !columns)
 		return (NULL);
 	if (table->mounted)
 		if (ft_hash_table_drop(table, 4) == NULL)

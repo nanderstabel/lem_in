@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:57:21 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/19 16:49:26 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/20 17:28:13 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_bool				start_path(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	CURRENT_ROOM = SOURCE;
 	CURRENT_PATH = ft_addr_lstnew((void *)CURRENT_ROOM);
+	INDEX = 0;
 	if (!CURRENT_ROOM || !CURRENT_PATH)
 		return (ERROR_LOG(FAIL));
 	return (SUCCESS);
@@ -88,10 +89,7 @@ t_bool				backtrack_path(t_project *lem_in)
 	if (CURRENT_ROOM == SOURCE)
 		return (FAIL);
 	CURRENT_ROOM->visited = 0;
-	QUE = CURRENT_PATH;
-	while (QUE->next->next)
-		QUE = QUE->next;
-	CURRENT_ROOM = (t_vertex *)QUE->address;
+	CURRENT_ROOM = (t_vertex *)CURRENT_PATH->next->address;
 	if (FLAGS & DFS_O)
 		ft_printf("\t\tBacktracked to: %s\n", CURRENT_ROOM->id->name);
 	return (SUCCESS);
@@ -111,11 +109,14 @@ t_bool				remove_room(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	if (!CURRENT_ROOM || !QUE)
+	if (!CURRENT_ROOM || !CURRENT_PATH)
 		return (ERROR_LOG(FAIL));
 	TEMP_LINKS = SELECTED;
 	TEMP_LINK_CAPACITY = 1;
-	ft_addr_lstdelone(&QUE->next);
+	QUE = CURRENT_PATH;
+	CURRENT_PATH = CURRENT_PATH->next;
+	ft_addr_lstdelone(&QUE);
+	--INDEX;
 	SELECTED = SELECTED->next;
 	return (SUCCESS);
 }
@@ -130,9 +131,10 @@ t_bool				traverse_path(t_project *lem_in)
 		return(ERROR_LOG(FAIL) || !CURRENT_PATH);
 	CURRENT_ROOM = NEXT_ROOM;
 	if (FLAGS & DFS_O)
-		ft_printf("\t\t%s\n", CURRENT_ROOM->id->name);
+		ft_printf("%s\n", CURRENT_ROOM->id->name);
 	TEMP_LINK_CAPACITY = 0;
-	ft_addr_lstapp(&CURRENT_PATH, ft_addr_lstnew((void *)CURRENT_ROOM));
+	ft_addr_lstadd(&CURRENT_PATH, ft_addr_lstnew((void *)CURRENT_ROOM));
+	++INDEX;
 	return (SUCCESS);
 }
 
@@ -152,12 +154,15 @@ t_bool				store_path(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
+	if (!CURRENT_PATH)
+		return (ERROR_LOG(FAIL));
+	CURRENT_PATH = ft_addr_lstrev(CURRENT_PATH);
+	ft_addr_lstadd(&CURRENT_PATH, ft_addr_lstnew((void *)INDEX));
+	ft_addr_lstadd(&CURRENT_PATH, ft_addr_lstnew((void *)ROUND_NR));
 	if (ALL_PATHS)
 		ft_addr_lstadd(&ALL_PATHS, ft_addr_lstnew(CURRENT_PATH));
 	else
 		ALL_PATHS = ft_addr_lstnew(CURRENT_PATH);
-	if (!ALL_PATHS)
-		return (ERROR_LOG(FAIL));
 	return (SUCCESS);
 }
 
