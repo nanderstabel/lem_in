@@ -25,7 +25,7 @@ Test(test_label_graph, init_bfs_test)
 	store_links(lem_in);
 
 	init_bfs(lem_in);
-	cr_assert_str_eq(((t_vertex *)(TEMP_QUE->address))->id->name,"0", "The result was %s, expected %s\n", ((t_vertex *)(TEMP_QUE->address))->id->name, "0");
+	cr_assert_str_eq(((t_vertex *)(TEMP_QUE->address))->id->name,"1", "The result was %s, expected %s\n", ((t_vertex *)(TEMP_QUE->address))->id->name, "1");
 	free(lem_in);
 	lem_in = NULL;
 
@@ -38,7 +38,7 @@ Test(test_label_graph, init_bfs_test)
 	store_links(lem_in);
 
 	init_bfs(lem_in);
-	cr_assert_str_eq(((t_vertex *)(TEMP_QUE->address))->id->name,"Fog1", "The result was %s, expected %s\n", ((t_vertex *)(TEMP_QUE->address))->id->name, "Fog1");
+	cr_assert_str_eq(((t_vertex *)(TEMP_QUE->address))->id->name,"Gll7", "The result was %s, expected %s\n", ((t_vertex *)(TEMP_QUE->address))->id->name, "Gll7");
 }
 
 Test(test_label_graph, que_list_remain_bfs_test)
