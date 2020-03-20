@@ -12,17 +12,6 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
-enum
-{
-	s_install_machine_bfs,
-	s_init_bfs,
-	s_que_list_remain_bfs,
-	s_edge_list_remain_bfs,
-	s_vertex_has_level_bfs,
-	s_capacity_available_bfs,
-	s_update_level_and_que_bfs,
-	s_uninstall_machine_bfs,
-}	e_state_bfs;
 
 t_bool				init_bfs(t_project *lem_in)
 {
