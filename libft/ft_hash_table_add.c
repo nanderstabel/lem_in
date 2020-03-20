@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/29 16:05:24 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/12 13:51:21 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/12 20:30:52 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static t_elem	*get_elem(char *name, size_t index, size_t hash, void *content)
 {
 	t_elem		*elem;
 
-	elem = (t_elem *)malloc(sizeof(t_elem));
+	elem = (t_elem *)ft_memalloc(sizeof(t_elem));
 	elem->index = index;
 	elem->hash = hash;
 	elem->name = name;
@@ -29,17 +29,21 @@ static void		update_format(t_hash_table *hash_table, t_elem *elem)
 	char		*hash;
 	size_t		*name_width;
 	size_t		*hash_width;
+	size_t		hash_len;
 
 	name_width = (size_t *)&(hash_table->width->next->next->address);
 	hash_width = (size_t *)&(hash_table->width->next->next->next->address);
 	hash = ft_itoa_base(elem->hash, 16);
+	hash_len = ft_strlen(hash);
+	elem->misc = ft_lstnew(hash, hash_len);
+	free(hash);
 	elem->body_content = ft_addr_lstnew(elem);
 	if (ft_strlen(elem->name) + 4 > *name_width)
 		*name_width = (size_t)ft_strlen(elem->name) + 4;
 	ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(elem->name));
-	if (ft_strlen(hash) > *hash_width)
-		*hash_width = ft_strlen(hash);
-	ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(hash));
+	if (hash_len > *hash_width)
+		*hash_width = hash_len;
+	ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(elem->misc->content));
 }
 
 static t_elem	*add_elem(t_hash_table *hash_table, t_elem *elem, size_t i)

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 14:00:18 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/12 18:31:44 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/19 11:19:15 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void				*edge_columns(t_hash_table *table)
 	}
 	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)10));
 	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)10));
-	return (NULL);
+	return (table);
 }
 
 void				free_edge(void *content)

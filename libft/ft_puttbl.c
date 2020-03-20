@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 19:37:04 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/05 21:38:47 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/19 12:12:01 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void				ft_puttbl(t_hash_table *table)
 {
 	size_t		i;
-	// size_t		len;
 
 	if (!table || !table->header_format)
 		return ;
@@ -23,7 +22,6 @@ void				ft_puttbl(t_hash_table *table)
 	ft_putchar(10);
 	if (table->title)
 		ft_printf("%s:\n", table->title);
-	// len = 0;
 	i = 0;
 
 	//header

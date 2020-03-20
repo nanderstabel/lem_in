@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/11 14:18:32 by nstabel        #+#    #+#                */
-/*   Updated: 2020/01/17 13:56:42 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/19 12:10:40 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,8 @@ void		conversion_f_precision2(t_flags *conv, t_float *dbl, int rounding)
 void		conversion_f_precision(t_flags *conv, t_float *dbl, int min)
 {
 	int			rounding;
-	int			len;
-	int			temp;
-
-	temp = 0;
-	min = 0;
-	len = ft_strlen(dbl->output);
-	(void)len;
+	
 	(void)min;
-	(void)temp;
 	rounding = ft_nchar(dbl->output, '.');
 	if (dbl->output[rounding + dbl->precision] > '4')
 	{
