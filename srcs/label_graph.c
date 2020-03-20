@@ -94,7 +94,7 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_install_machine_bfs][FAIL] = s_uninstall_machine_bfs;
 	TRANSITIONS[s_install_machine_bfs][SUCCESS] = s_init_bfs;
 	TRANSITIONS[s_init_bfs][SUCCESS] = s_que_list_remain_bfs;
-	TRANSITIONS[s_que_list_remain_bfs][FAIL] = s_uninstall_machine_rms; // EINDE
+	TRANSITIONS[s_que_list_remain_bfs][FAIL] = s_uninstall_machine_bfs; // EINDE
 	TRANSITIONS[s_que_list_remain_bfs][SUCCESS] = s_edge_list_remain_bfs;
 	TRANSITIONS[s_edge_list_remain_bfs][SUCCESS] = s_capacity_available_bfs;
 	TRANSITIONS[s_edge_list_remain_bfs][FAIL] = s_que_list_remain_bfs;
@@ -114,7 +114,6 @@ static void			get_events(t_mconfig **mconfig)
 	EVENTS[s_capacity_available_bfs] = capacity_available_bfs;
 	EVENTS[s_vertex_has_level_bfs] = vertex_has_level_bfs;
 	EVENTS[s_update_level_and_que_bfs] = update_level_and_que_bfs;
-	// EVENTS[s_print_rooms] = print_rooms;
 }
 
 static t_mconfig	*states(void)
