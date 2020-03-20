@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/12 19:49:50 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/19 14:33:44 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include "machine.h"
 
-# define OPTIONS				"eglr"
+# define OPTIONS				"deglru"
 # define ARGC					lem_in->argc
 # define ARGV					lem_in->argv
 # define FLAGS					lem_in->flags
@@ -44,8 +44,9 @@
 
 # define SOURCE					lem_in->source
 # define SINK					lem_in->sink
-# define PATHS_LIST				lem_in->paths_list
+# define ALL_PATHS				lem_in->all_paths
 # define CURRENT_PATH			lem_in->current_path
+# define SELECTED				CURRENT_ROOM->selected
 
 # define ERROR_MSG				RED "An error occurred, machine was not able to: \n"
 # define ERROR					lem_in->error
@@ -58,7 +59,7 @@
 # define TEMP_QUE				lem_in->temp_que_list
 # define VERTEX_IN_LIST			((t_vertex *)(lem_in->temp_que_list->address))
 # define TEMP_LINKS				lem_in->temp
-# define NEXT_ROOM				(t_vertex*)(((t_edge*)(TEMP_LINKS->address))->next)
+# define NEXT_ROOM				(((t_edge*)(TEMP_LINKS->address))->next)
 # define NEXT_ROOM_LEVEL		((t_edge*)(TEMP_LINKS->address))->next->level
 # define TEMP_LINK_CAPACITY		((t_edge*)(TEMP_LINKS->address))->capacity
 
@@ -66,10 +67,12 @@
 # define ERROR_O				(1 << 2)
 # define ROOMS_O				(1 << 3)
 # define LINKS_O				(1 << 4)
-# define START					(1 << 5)
-# define END					(1 << 6)
-# define LINK					(1 << 7)
-# define ROOM_LINE				(1 << 8)
+# define DFS_O					(1 << 5)
+# define USAGE_O				(1 << 6)
+# define START					(1 << 7)
+# define END					(1 << 8)
+# define LINK					(1 << 9)
+# define ROOM_LINE				(1 << 10)
 
 /*
 ** All the possible t_states of the machine.
@@ -99,6 +102,7 @@ enum
 	s_find_dash_opt,
 	s_find_option_opt,
 	s_validate_argument_opt,
+	s_print_usage_message,
 	s_uninstall_machine_opt,
 }	e_state_opt;
 
@@ -138,7 +142,7 @@ enum
 	s_set_line_rms,
 	s_get_type,
 	s_store_room,
-	s_print_rooms,
+	s_print_tables_rms,
 	s_uninstall_machine_rms,
 }	e_state_rms;
 
@@ -154,7 +158,7 @@ enum
 	s_add_link_to_room,
 	s_swap_rooms,
 	s_set_line,
-	s_print_links,
+	s_print_tables_lks,
 	s_uninstall_machine_lks,
 }	e_state_lks;
 
@@ -185,6 +189,7 @@ typedef struct					s_vertex
 	t_type						type;
 	size_t						level;
 	size_t						visited;
+	t_adlist					*selected;
 	t_adlist					*links;
 }								t_vertex;
 
@@ -226,9 +231,7 @@ typedef struct					s_project
 	t_adlist					*que_list;
 	t_adlist					*temp_que_list;
 	t_adlist					*temp;
-	
-	
-	t_adlist					*paths_list;
+
 	t_adlist					*all_paths;
 	t_adlist					*current_path;
 	t_list						*error;
@@ -299,5 +302,6 @@ t_bool							capacity_available_bfs(t_project *lem_in);
 t_bool							vertex_has_level_bfs(t_project *lem_in);
 t_bool							update_level_and_que_bfs(t_project *lem_in);
 
-void	*ft_hash_table_append(t_hash_table *table, void *(*columns)(t_hash_table *table));
+t_bool							print_tables(t_project *lem_in);
+
 #endif

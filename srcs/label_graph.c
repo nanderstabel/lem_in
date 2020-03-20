@@ -61,10 +61,11 @@ t_bool				update_level_and_que_bfs(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	NEXT_ROOM_LEVEL = CURRENT_ROOM->level + 1;
+	if (TEMP_LINKS)
+		NEXT_ROOM_LEVEL = CURRENT_ROOM->level + 1;
 	if (NEXT_ROOM != SINK)
 		ft_addr_lstapp(&QUE, ft_addr_lstnew((void*)NEXT_ROOM));
-	TEMP_LINKS = TEMP_LINKS->next;	
+	TEMP_LINKS = TEMP_LINKS->next;
 	return (SUCCESS);
 }
 
@@ -120,7 +121,7 @@ static t_mconfig	*states(void)
 {
 	t_mconfig		*mconfig;
 
-	mconfig = malloc_mconfig(s_uninstall_machine_rms);
+	mconfig = malloc_mconfig(s_uninstall_machine_bfs);
 	get_transitions(&mconfig);
 	get_events(&mconfig);
 	return (mconfig);

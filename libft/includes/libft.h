@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross         #+#    #+#                */
-/*   Updated: 2020/03/12 18:38:54 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/19 11:16:07 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct		s_elem
 	char			*name;
 	size_t			hash;
 	t_adlist		*body_content;
+	t_list			*misc;
 	void			*content;
 }					t_elem;
 
@@ -55,6 +56,7 @@ typedef struct		s_hash_table
 	t_list			*body_format;
 	t_adlist		*width;
 	size_t			size;
+	char			mounted;
 	t_elem			**elem;
 }					t_hash_table;
 
@@ -64,6 +66,8 @@ void				ft_addr_lstapp(t_adlist **alst, t_adlist *newlst);
 void				ft_addr_lstdel(t_adlist **alst);
 void				ft_addr_lstdelone(t_adlist **alst);
 t_adlist			*ft_addr_lstnew(void *address);
+void				ft_addr_lstsrt(t_adlist **alst, \
+					int (*method)(void *, void *));
 char				*ft_append(char **str, char const *append);
 size_t				ft_arsize(void **ar);
 int					ft_atoi(const char *str);
@@ -77,7 +81,12 @@ int					ft_get_next_line(const int fd, char **line);
 size_t				ft_hash(char *key);
 t_elem				*ft_hash_table_add(t_hash_table *hash_table, char *key, \
 					void *content);
+void				*ft_hash_table_append(t_hash_table *table, \
+    				void *(*columns)(t_hash_table *table));
+void        	    *ft_hash_table_drop(t_hash_table *table, size_t cutoff);
 t_elem				*ft_hash_table_get(t_hash_table *hash_table, char *key);
+void				*ft_hash_table_update(t_hash_table *table, \
+   					void *(*columns)(t_hash_table *table));
 t_list				**ft_hsh_chain(void **ar, size_t size, \
 					size_t hsh(void *));
 t_list				**ft_hsh_linprob(void **ar, size_t size, \
@@ -106,6 +115,7 @@ t_list				*ft_lstfind_size(t_list *head, size_t size);
 void				ft_lstiter(t_list *lst, void(*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
+t_list				*ft_lstrev(t_list *alst);
 t_hash_table		*ft_malloc_hash_table(size_t size, char *title, char *format);
 void				**ft_mem_array_alloc(size_t x_dim, size_t size_x,
 					size_t size_y);

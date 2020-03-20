@@ -2,7 +2,7 @@ PROJECT_OBJ_FILES :=	main.o					\
 						augmenting_paths.o		\
 						print_error.o			\
 						find_paths.o			\
-						label_graph.o		\
+						label_graph.o			\
 						moving_ants.o			\
 						print_output.o			\
 						set_options.o			\
@@ -14,4 +14,5 @@ PROJECT_OBJ_FILES :=	main.o					\
 						error_log.o				\
 						vertex.o				\
 						edge.o					\
-						free_project.o
+						free_project.o			\
+						print_tables.o
