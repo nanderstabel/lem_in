@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/20 14:18:21 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/20 14:22:28 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ enum
 	s_vertex_has_level_bfs,
 	s_capacity_available_bfs,
 	s_update_level_and_que_bfs,
+	s_print_tables_bfs,
 	s_uninstall_machine_bfs,
 }	e_state_bfs;
 
