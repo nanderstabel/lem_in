@@ -19,7 +19,7 @@ t_bool								print_error(t_project *lem_in)
 	if (FLAGS & ERROR_O)
 	{
 		ft_printf(ERROR_MSG);
-		ft_putlst(ERROR, '\n');
+		ft_putlst(ERROR, "\n");
 		ft_printf(EOC);
 	}
 	ft_lstdel(&ERROR, ft_freezero);

@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_hash_table_update.c                             :+:    :+:            */
+/*   ft_addr_lstrev.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/18 17:58:21 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/18 17:58:21 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/20 13:57:24 by nstabel        #+#    #+#                */
+/*   Updated: 2020/03/20 13:57:24 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		*ft_hash_table_update(t_hash_table *table, \
-    void *(*columns)(t_hash_table *table))
+t_adlist				*ft_addr_lstrev(t_adlist *alst)
 {
-	if (!table || !columns)
+	t_adlist	*a;
+	t_adlist	*b;
+
+	if (!alst)
 		return (NULL);
-	if (table->mounted)
-		if (ft_hash_table_drop(table, 4) == NULL)
-			return (NULL);
-	if (ft_hash_table_append(table, columns))
-		return (table);
-	return (NULL);
+	a = alst;
+	while (a->next)
+	{
+		b = alst;
+		alst = a->next;
+		a->next = alst->next;
+		alst->next = b;
+	}
+	return (alst);
 }

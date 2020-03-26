@@ -53,8 +53,6 @@ t_bool				update_level_and_que_bfs(t_project *lem_in)
 	if (NEXT_ROOM != SINK)
 	{
 		NEXT_ROOM_LEVEL = CURRENT_ROOM->level + 1;
-		TEMP_LINK_CAPACITY = 0;
-
 	}
 	if (NEXT_ROOM != SOURCE)
 		ft_addr_lstapp(&QUE, ft_addr_lstnew((void*)NEXT_ROOM));
