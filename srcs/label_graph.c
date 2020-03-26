@@ -12,18 +12,6 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
-enum
-{
-	s_install_machine_bfs,
-	s_init_bfs,
-	s_que_list_remain_bfs,
-	s_edge_list_remain_bfs,
-	s_vertex_has_level_bfs,
-	s_capacity_available_bfs,
-	s_update_level_and_que_bfs,
-	s_print_tables_bfs,
-	s_uninstall_machine_bfs,
-}	e_state_bfs;
 
 t_bool				init_bfs(t_project *lem_in)
 {
@@ -65,8 +53,6 @@ t_bool				update_level_and_que_bfs(t_project *lem_in)
 	if (NEXT_ROOM != SINK)
 	{
 		NEXT_ROOM_LEVEL = CURRENT_ROOM->level + 1;
-		TEMP_LINK_CAPACITY = 0;
-
 	}
 	if (NEXT_ROOM != SOURCE)
 		ft_addr_lstapp(&QUE, ft_addr_lstnew((void*)NEXT_ROOM));
