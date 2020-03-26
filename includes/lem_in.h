@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/20 10:14:54 by mgross        ########   odam.nl         */
+/*   Updated: 2020/03/20 19:38:18 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include "machine.h"
 
-# define OPTIONS				"deglru"
+# define OPTIONS				"deglpru"
 # define ARGC					lem_in->argc
 # define ARGV					lem_in->argv
 # define FLAGS					lem_in->flags
@@ -44,6 +44,7 @@
 
 # define SOURCE					lem_in->source
 # define SINK					lem_in->sink
+# define ROUND_NR				lem_in->round_nr
 # define ALL_PATHS				lem_in->all_paths
 # define CURRENT_PATH			lem_in->current_path
 # define SELECTED				CURRENT_ROOM->selected
@@ -63,16 +64,22 @@
 # define NEXT_ROOM_LEVEL		((t_edge*)(TEMP_LINKS->address))->next->level
 # define TEMP_LINK_CAPACITY		((t_edge*)(TEMP_LINKS->address))->capacity
 
+# define PATH_OFFSET			((t_adlist *)((t_adlist *)QUE->address))
+# define PATH_ROUND				PATH_OFFSET->address
+# define PATH_LENGTH			PATH_OFFSET->next->address
+# define PATH_START				PATH_OFFSET->next->next			
+
 # define DEBUG_O				(1 << 0)
 # define ERROR_O				(1 << 2)
 # define ROOMS_O				(1 << 3)
 # define LINKS_O				(1 << 4)
 # define DFS_O					(1 << 5)
 # define USAGE_O				(1 << 6)
-# define START					(1 << 7)
-# define END					(1 << 8)
-# define LINK					(1 << 9)
-# define ROOM_LINE				(1 << 10)
+# define PATHS_O				(1 << 7)
+# define START					(1 << 8)
+# define END					(1 << 9)
+# define LINK					(1 << 10)
+# define ROOM_LINE				(1 << 11)
 
 /*
 ** All the possible t_states of the machine.
@@ -234,6 +241,8 @@ typedef struct					s_project
 
 	t_adlist					*all_paths;
 	t_adlist					*current_path;
+
+	size_t						round_nr;
 	t_list						*error;
 }								t_project;
 

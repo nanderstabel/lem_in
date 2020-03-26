@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross         #+#    #+#                */
-/*   Updated: 2020/03/19 11:16:07 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/20 18:58:08 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ void				ft_addr_lstadd(t_adlist **alst, t_adlist *newlst);
 void				ft_addr_lstapp(t_adlist **alst, t_adlist *newlst);
 void				ft_addr_lstdel(t_adlist **alst);
 void				ft_addr_lstdelone(t_adlist **alst);
+void				ft_addr_lstiter(t_adlist *lst, void (*f)(t_adlist *elem));
 t_adlist			*ft_addr_lstnew(void *address);
+t_adlist			*ft_addr_lstrev(t_adlist *alst);
 void				ft_addr_lstsrt(t_adlist **alst, \
 					int (*method)(void *, void *));
 char				*ft_append(char **str, char const *append);
@@ -133,13 +135,15 @@ double				ft_power(int nb, int b);
 char				*ft_prepend(char **str, char const *prepend);
 int					ft_dprintf(const int fd, const char *format, ...);
 int					ft_printf(const char *format, ...);
+void				ft_putadlst(t_adlist *lst, char *(*content)(void *item), \
+					char *str);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putchar(char c);
 void				ft_putnchar(char const *c, size_t len);
 void				ft_putnchar_fd(const int fd, char const *c, size_t len);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putendl(char const *s);
-void				ft_putlst(t_list *lst, char c);
+void				ft_putlst(t_list *lst, char *str);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putnbr(int n);
 void				ft_putnstr(char const *str, size_t len);

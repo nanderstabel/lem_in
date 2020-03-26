@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 14:50:28 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/19 15:57:11 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/20 19:50:10 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ t_bool				find_option(t_project *lem_in)
 		else if (**ARGV == 'd')
 			FLAGS |= DFS_O;
 		else if (**ARGV == 'u')
-			FLAGS |= USAGE_O;
+			return (FAIL);
+		else if (**ARGV == 'p')
+			FLAGS |= PATHS_O;
 		++(*ARGV);
 		return (SUCCESS);
 	}
@@ -82,6 +84,7 @@ t_bool				print_usage_message(t_project *lem_in)
 	ft_printf( \
 	"\t-g\t\tdebug mode: shows executed functions in chronological order\n");
 	ft_printf("\t-l\t\tprints hashtables containing all links\n");
+	ft_printf("\t-p\t\tshows all paths ordered by round number\n");
 	ft_printf("\t-r\t\tprints hashtables containing all rooms\n");
 	ft_printf("\t-u\t\tshows usage message\n");
 	return (SUCCESS);

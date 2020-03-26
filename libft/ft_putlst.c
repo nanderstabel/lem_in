@@ -6,19 +6,19 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 11:59:35 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/04 14:54:57 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/20 18:25:00 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_putlst(t_list *lst, char c)
+void		ft_putlst(t_list *lst, char *str)
 {
 	while (lst)
 	{
 		write(1, lst->content, lst->content_size);
-		if (c && lst->next)
-			ft_putchar(c);
+		if (str && lst->next)
+			ft_putstr(str);
 		lst = lst->next;
 	}
 	ft_putchar('\n');
