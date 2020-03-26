@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/20 19:38:18 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/26 11:01:09 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,13 +169,18 @@ enum
 	s_uninstall_machine_lks,
 }	e_state_lks;
 
-// enum
-// {
-// 	s_install_machine_bfs,
-// 	s_init_bfs,
-// 	s_que_list_remain_bfs,
-// 	s_uninstall_machine_bfs,
-// }	e_state_bfs;
+enum
+{
+	s_install_machine_bfs,
+	s_init_bfs,
+	s_que_list_remain_bfs,
+	s_edge_list_remain_bfs,
+	s_vertex_has_level_bfs,
+	s_capacity_available_bfs,
+	s_update_level_and_que_bfs,
+	s_print_tables_bfs,
+	s_uninstall_machine_bfs,
+}	e_state_bfs;
 
 enum
 {
