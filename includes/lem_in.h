@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/26 11:01:09 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/03/30 21:46:02 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,19 @@
 # define TEMP_LINKS				lem_in->temp
 # define NEXT_ROOM				((t_edge*)(TEMP_LINKS->address))->next
 # define NEXT_ROOM_LEVEL		((t_edge*)(TEMP_LINKS->address))->next->level
+# define NEXT_ROOM_LINKS		((t_edge*)(TEMP_LINKS->address))->next->links
+# define NEXT_ROOM_TEMP_LINKS			TEMP_QUE
+# define NEXT_ROOM_TEMP_LINKS_CAPACITY	((t_edge*)(TEMP_QUE->address))->capacity
+
+# define NEXT_ROOM_INDEX_CMP	((t_edge*)(NEXT_ROOM_TEMP_LINKS->address))->id->index
 # define TEMP_LINK_CAPACITY		((t_edge*)(TEMP_LINKS->address))->capacity
+
+# define CURRENT_EDGE			lem_in->temp_que_list
+# define VERTEX_INDEX			((t_edge*)(CURRENT_EDGE->address))->id->index
+# define CURRENT_ROOM_INDEX		CURRENT_ROOM->id->index
+# define CURRENT_EDGE_INDEX		((t_edge*)(CURRENT_EDGE))->capacity
+# define NEXT_ROOM_INDEX		((t_edge*)(TEMP_LINKS))->next->id->index
+# define INDEX_COPY				lem_in->index_copy
 
 # define PATH_OFFSET			((t_adlist *)((t_adlist *)QUE->address))
 # define PATH_ROUND				PATH_OFFSET->address
@@ -184,6 +196,21 @@ enum
 
 enum
 {
+	s_install_machine_augp,
+	s_capacity_from_source_augp,
+	s_capacity_to_lower_level_augp,
+	s_capacity_to_higher_level_augp,
+	s_capacity_away_from_augment_augp,
+	s_check_capcity_to_lower_level_augp,
+	s_get_indexes_edges_augp,
+	s_current_room_sink_augp,
+	s_current_room_source_augp,
+	s_print_tables_augp,
+	s_uninstall_machine_augp,
+}	e_state_augp;
+
+enum
+{
 	first_room,
 	second_room
 }	e_room;
@@ -248,6 +275,7 @@ typedef struct					s_project
 	t_adlist					*current_path;
 
 	size_t						round_nr;
+	size_t						index_copy;
 	t_list						*error;
 }								t_project;
 
@@ -295,7 +323,6 @@ t_bool							skip_command_line_vi(t_project *lem_in);
 t_bool							next_line_room_link_vi(t_project *lem_in);
 t_bool							next_line_room_hash_vi(t_project *lem_in);
 
-
 t_bool							read_argument(t_project *lem_in);
 t_bool							find_dash(t_project *lem_in);
 t_bool							find_option(t_project *lem_in);
@@ -315,6 +342,9 @@ t_bool							edge_list_remain_bfs(t_project *lem_in);
 t_bool							capacity_available_bfs(t_project *lem_in);
 t_bool							vertex_has_level_bfs(t_project *lem_in);
 t_bool							update_level_and_que_bfs(t_project *lem_in);
+
+t_bool							capacity_from_source_augp(t_project *lem_in);
+t_bool 							capacity_to_lower_level_augp(t_project *lem_in);
 
 t_bool							print_tables(t_project *lem_in);
 
