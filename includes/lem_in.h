@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/07 12:43:12 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/07 13:48:04 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ enum
 	s_label_graph,
 	s_find_paths,
 	s_augment_paths,
+	s_choose_graph,
 	s_move_ants,
 	s_print_error,
 	s_print_output,
@@ -241,6 +242,13 @@ typedef struct					s_edge
 	t_vertex					*next;
 }								t_edge;
 
+typedef struct					s_graph_vars
+{
+	size_t						source_ants;
+	size_t						sink_ants;
+	size_t						turns;
+}								t_graph_vars;
+
 /*
 ** The main struct type of this project. All the necassary variables can be
 ** referred to through this datatype.
@@ -258,6 +266,7 @@ typedef struct					s_project
 	size_t						nants;
 	size_t						nrooms;
 	size_t						nlinks;
+	size_t						nturns;
 	t_hash_table				*all_rooms;
 	t_hash_table				*all_links;
 	t_type						room_type;
@@ -277,6 +286,7 @@ typedef struct					s_project
 	t_adlist					*current_path;
 
 	size_t						round_nr;
+	t_graph_vars				graph_vars;
 	size_t						index_copy;
 	t_list						*error;
 }								t_project;
@@ -293,7 +303,8 @@ t_bool							store_links(t_project *lem_in);
 t_bool							label_graph(t_project *lem_in);
 t_bool							find_paths(t_project *lem_in);
 t_bool							augmenting_paths(t_project *lem_in);
-t_bool							moving_ants(t_project *lem_in);
+t_bool							choose_graph(t_project *lem_in);
+t_bool							move_ants(t_project *lem_in);
 t_bool							print_error(t_project *lem_in);
 t_bool							printing_output(t_project *lem_in);
 t_bool							free_project(t_project *lem_in);

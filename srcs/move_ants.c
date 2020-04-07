@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   moving_ants.c                                      :+:    :+:            */
+/*   move_ants.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-t_bool								moving_ants(t_project *lem_in)
+t_bool								move_ants(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("%s\n", __func__);

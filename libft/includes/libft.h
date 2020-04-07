@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross         #+#    #+#                */
-/*   Updated: 2020/03/20 18:58:08 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/03/31 11:39:22 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ size_t				ft_ndigits(long long nbr);
 double				ft_power(int nb, int b);
 char				*ft_prepend(char **str, char const *prepend);
 int					ft_dprintf(const int fd, const char *format, ...);
+size_t				*ft_primetab(size_t n);
 int					ft_printf(const char *format, ...);
 void				ft_putadlst(t_adlist *lst, char *(*content)(void *item), \
 					char *str);

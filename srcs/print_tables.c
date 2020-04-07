@@ -35,7 +35,7 @@ t_bool				print_rooms(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t\t%s\n", __func__);
-	if (FLAGS & ROOMS_O)
+	if (FLAGS & ROOMS_O && ALL_ROOMS)
 		if (!print_table(ALL_ROOMS, vertex_columns))
 			return (ERROR_LOG(FAIL));
 	return (SUCCESS);
@@ -45,7 +45,7 @@ t_bool				print_links(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t\t%s\n", __func__);
-	if (FLAGS & LINKS_O)
+	if (FLAGS & LINKS_O && ALL_LINKS)
 		if (!print_table(ALL_LINKS, edge_columns))
 			return (ERROR_LOG(FAIL));
 	return (SUCCESS);
@@ -70,7 +70,7 @@ t_bool				print_paths(t_project *lem_in)
 			QUE = ALL_PATHS;
 			ft_printf("\n{underline}Paths:{eoc}\n");
 			INDEX = 0;
-			while (QUE)
+			while (QUE && QUE->address)
 			{
 				if ((size_t)PATH_ROUND > INDEX)
 				{
