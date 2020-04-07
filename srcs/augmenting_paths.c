@@ -5,49 +5,262 @@
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/13 13:00:09 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/20 14:27:47 by mgross        ########   odam.nl         */
+/*   Created: 2020/02/13 13:00:09 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/07 13:35:17 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-enum
+t_bool				init_augp(t_project *lem_in)
 {
-	s_install_machine_augp,
-	s_print_tables_augp,
-	s_uninstall_machine_augp,
-}	e_state_augp;
+	if (FLAGS & DEBUG_O)
+		ft_printf("%s\n", __func__);
+	lem_in->level = 0;
+	return (SUCCESS);
+
+}
+t_bool				capacity_from_source_augp(t_project *lem_in)
+{
+	if (FLAGS & DEBUG_O)
+		ft_printf("%s\n", __func__);
+	TEMP_LINKS = SOURCE->links;
+	while (TEMP_LINKS)
+	{
+		if (TEMP_LINK_CAPACITY == 1)
+		{
+			lem_in->level++;
+			TEMP_LINK_CAPACITY = 0;
+			CURRENT_ROOM = NEXT_ROOM;
+			// ft_printf("func: %s - current: %s - index: %d\n",   __func__, CURRENT_ROOM->id->name, CURRENT_ROOM_INDEX);
+			return (SUCCESS);
+		}
+		TEMP_LINKS = TEMP_LINKS->next;
+	}
+	return (FAIL);
+}
+
+// moet nog inbouwen dat hij het doet bij een map waar sink en source meteen verbonden zijn
+// en er nog 1 doodlopend pat is vanuit source-
+t_bool 				capacity_to_lower_level_augp(t_project *lem_in)
+{
+	// ft_printf("test");
+	if (FLAGS & DEBUG_O)
+		ft_printf("%s\n", __func__);
+	TEMP_LINKS = CURRENT_ROOM->links;
+	while (TEMP_LINKS)
+	{
+		// ft_printf("name :%s\n", CURRENT_ROOM->id->name);
+		if (TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level - 1)
+		{
+			TEMP_LINK_CAPACITY = 0;
+			INDEX_COPY = CURRENT_ROOM_INDEX;
+			CURRENT_ROOM = NEXT_ROOM;
+			// ft_printf("func: %s - current: %s - index: %d\n",   __func__, CURRENT_ROOM->id->name, CURRENT_ROOM_INDEX);
+			return (SUCCESS);
+		}
+		TEMP_LINKS = TEMP_LINKS->next;
+	}
+	return (FAIL);// Deze kan waarschijnlijk weg
+}
+
+t_bool				capacity_to_higher_level_augp(t_project *lem_in)
+{
+	if (FLAGS & DEBUG_O)
+		ft_printf("%s\n", __func__);
+	TEMP_LINKS = CURRENT_ROOM->links;
+	while (TEMP_LINKS)
+	{
+		// ft_printf("current room %s - %s\n", CURRENT_ROOM->id->name, __func__);
+		if (TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level + 1 \
+		&& NEXT_ROOM_INDEX != INDEX_COPY)
+		{
+			// ft_printf("func: %s - current: %s - index: %d\n",   __func__, CURRENT_ROOM->id->name, CURRENT_ROOM_INDEX);
+			// ft_printf("func: %s - Next room: %s \n",   __func__, NEXT_ROOM->id->name);
+			// INDEX_COPY = EDGE_INDEX;
+			CURRENT_LINK = ((t_edge*)(TEMP_LINKS->address));
+			return (SUCCESS);
+		}
+		TEMP_LINKS = TEMP_LINKS->next;
+	}
+	return (FAIL);
+}
+
+t_bool				capacity_away_from_augment_augp(t_project *lem_in)
+{
+	if (FLAGS & DEBUG_O)
+		ft_printf("%s\n", __func__);
+	TEMP_LINKS = CURRENT_ROOM->links;
+	INDEX_COPY = CURRENT_ROOM_INDEX;
+	while (TEMP_LINKS)
+	{
+		if (TEMP_LINK_CAPACITY == 1)
+		{
+			NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_LINKS;
+			while (NEXT_ROOM_TEMP_LINKS)
+			{
+				if (NEXT_ROOM_TEMP_LINKS_CAPACITY == 0 && NEXT_ROOM_INDEX_CMP == INDEX_COPY)
+					break ;
+				NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_TEMP_LINKS->next;
+			}
+			if (NEXT_ROOM_TEMP_LINKS == NULL)
+			{
+				((t_edge*)(TEMP_LINKS->address))->capacity = 0;
+				CURRENT_ROOM = NEXT_ROOM;
+				// ft_printf("func: %s - current: %s - index: %d\n",   __func__, CURRENT_ROOM->id->name, CURRENT_ROOM_INDEX);
+				return (SUCCESS);
+			}
+		}
+		TEMP_LINKS = TEMP_LINKS->next;
+	}
+	return (FAIL);
+}
+
+t_bool				get_indexes_edges_augp(t_project *lem_in)
+{
+	if (FLAGS & DEBUG_O)
+		ft_printf("%s\n", __func__);
+	// CURRENT_EDGE = CURRENT_ROOM->links;
+	// ft_printf("func: %s - current: %s - index: %d\n",   __func__, CURRENT_ROOM->id->name, CURRENT_ROOM_INDEX);
+	if (!QUE)
+	{
+		QUE = ft_addr_lstnew((void*)EDGE_INDEX);
+		ROUND_NR++;
+	}
+	else
+		ft_addr_lstapp(&QUE, ft_addr_lstnew((void*)EDGE_INDEX));
+	INDEX_COPY = CURRENT_ROOM_INDEX;
+
+	CURRENT_LINK_CAPACITY = 0;
+	CURRENT_ROOM = CURRENT_LINK->next;
+	
+	// ft_printf("current room %s - %s\n", CURRENT_ROOM->id->name, __func__);
+	TEMP_LINKS = CURRENT_ROOM->links;
+	while (NEXT_ROOM_INDEX != INDEX_COPY)
+	{
+		TEMP_LINKS = TEMP_LINKS->next;
+	}
+	// ft_printf("func: %s - Next room: %s \n",   __func__, NEXT_ROOM->id->name);
+	CURRENT_LINK = ((t_edge*)(TEMP_LINKS->address));
+	// ft_printf("CURRENT LINK capacity %d\n", CURRENT_LINK_CAPACITY);
+	ft_addr_lstapp(&QUE, ft_addr_lstnew((void*)EDGE_INDEX));
+	return (SUCCESS);
+}
+
+
+t_bool				check_capacity_to_lower_level_augp(t_project *lem_in)
+{
+	if (FLAGS & DEBUG_O)
+		ft_printf("%s\n", __func__);
+	TEMP_LINKS = CURRENT_ROOM->links;
+	while (TEMP_LINKS)
+	{
+		if (TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level - 1)
+		{
+			// ft_printf("test2\n");
+			// ft_printf("func: %s - current: %s - index: %d\n",   __func__, CURRENT_ROOM->id->name, CURRENT_ROOM_INDEX);
+			return (SUCCESS);
+		}
+		TEMP_LINKS = TEMP_LINKS->next;
+	}
+	// ft_printf("test3\n");
+	return (FAIL);
+}
+
+t_bool				current_room_sink_augp(t_project *lem_in)
+{
+	if (FLAGS & DEBUG_O)
+		ft_printf("%s\n", __func__);
+	if (CURRENT_ROOM == SINK)
+		return (SUCCESS);
+	return (FAIL);
+}
+
+t_bool				current_room_source_augp(t_project *lem_in)
+{
+	if (FLAGS & DEBUG_O)
+		ft_printf("%s\n", __func__);
+	if (CURRENT_ROOM == SOURCE)
+		return (SUCCESS);
+	return (FAIL);
+}
+
+t_bool				clear_capacity_on_graph_augp(t_project *lem_in)
+{
+	size_t 	index;
+
+	index = 0;
+	if (FLAGS & DEBUG_O)
+		ft_printf("%s\n", __func__);
+	if (lem_in->level != 0)
+	{
+		while (index < ALL_LINKS->size)
+		{
+			((t_edge*)(ALL_LINKS->elem[index]->content))->capacity = 1;
+			index++;
+		}
+		while (QUE)
+		{
+			// ft_printf("index %d\n", ((long long)(QUE->address)));
+			((t_edge*)(ALL_LINKS->elem[((long long)(QUE->address))]->content))->capacity = 0;
+			QUE = QUE->next;
+		}
+		index = 0;
+		while (index < ALL_ROOMS->size)
+		{
+			((t_vertex*)(ALL_ROOMS->elem[index]->content))->level = 0;
+			index++;
+		}
+	}
+	// index = 0;
+	// while (index < ALL_LINKS->size)
+	// {
+	// 	ft_printf("index %d - capacity %d\n", index, ((t_edge*)(ALL_LINKS->elem[index]->content))->capacity);
+	// 	index++;
+	// }
+	ft_addr_lstdel(&QUE);
+	return (SUCCESS);
+}
 
 static void			get_transitions(t_mconfig **mconfig)
 {
 	TRANSITIONS[s_install_machine_bfs][FAIL] = s_uninstall_machine_bfs;
-	// TRANSITIONS[s_install_machine_bfs][SUCCESS] = s_init_bfs;
-	// TRANSITIONS[s_init_bfs][SUCCESS] = s_que_list_remain_bfs;
-	// TRANSITIONS[s_que_list_remain_bfs][FAIL] = s_print_tables_bfs; // EINDE
-	// TRANSITIONS[s_que_list_remain_bfs][SUCCESS] = s_edge_list_remain_bfs;
-	// TRANSITIONS[s_edge_list_remain_bfs][SUCCESS] = s_capacity_available_bfs;
-	// TRANSITIONS[s_edge_list_remain_bfs][FAIL] = s_que_list_remain_bfs;
-	// TRANSITIONS[s_capacity_available_bfs][SUCCESS] = s_vertex_has_level_bfs;
-	// TRANSITIONS[s_capacity_available_bfs][FAIL] = s_edge_list_remain_bfs;
-	// TRANSITIONS[s_vertex_has_level_bfs][SUCCESS] = s_edge_list_remain_bfs;
-	// TRANSITIONS[s_vertex_has_level_bfs][FAIL] = s_update_level_and_que_bfs;
-	// TRANSITIONS[s_update_level_and_que_bfs][SUCCESS] = s_edge_list_remain_bfs;
-	// TRANSITIONS[s_print_tables_bfs][FAIL] = s_uninstall_machine_bfs;
-	// TRANSITIONS[s_print_tables_bfs][SUCCESS] = s_uninstall_machine_bfs;
-
+	TRANSITIONS[s_install_machine_bfs][SUCCESS] = s_init_augp;
+	TRANSITIONS[s_init_augp][SUCCESS] = s_capacity_from_source_augp;
+	TRANSITIONS[s_capacity_from_source_augp][SUCCESS] = s_capacity_to_lower_level_augp;
+	TRANSITIONS[s_capacity_from_source_augp][FAIL] = s_clear_capacity_on_graph_augp; // EINDE
+	TRANSITIONS[s_capacity_to_lower_level_augp][SUCCESS] = s_current_room_sink_augp;
+	TRANSITIONS[s_capacity_to_lower_level_augp][FAIL] = s_capacity_to_higher_level_augp;
+	TRANSITIONS[s_current_room_sink_augp][SUCCESS] = s_capacity_from_source_augp;
+	TRANSITIONS[s_current_room_sink_augp][FAIL] = s_capacity_to_lower_level_augp;
+	// TRANSITIONS[s_capacity_to_higher_level_augp][FAIL] = s_edge_list_remain_bfs; <<< volgens mij kan er geen fail zijn
+	TRANSITIONS[s_capacity_to_higher_level_augp][SUCCESS] = s_get_indexes_edges_augp;
+	TRANSITIONS[s_get_indexes_edges_augp][SUCCESS] = s_current_room_source_augp;
+	TRANSITIONS[s_current_room_source_augp][FAIL] = s_check_capacity_to_lower_level_augp;
+	TRANSITIONS[s_current_room_source_augp][SUCCESS] = s_capacity_from_source_augp;
+	TRANSITIONS[s_check_capacity_to_lower_level_augp][FAIL] = s_capacity_away_from_augment_augp;
+	TRANSITIONS[s_check_capacity_to_lower_level_augp][SUCCESS] = s_capacity_to_lower_level_augp;
+	TRANSITIONS[s_capacity_away_from_augment_augp][FAIL] = s_capacity_to_higher_level_augp;
+	TRANSITIONS[s_capacity_away_from_augment_augp][SUCCESS] = s_check_capacity_to_lower_level_augp;
+	TRANSITIONS[s_clear_capacity_on_graph_augp][SUCCESS] = s_print_tables_augp;
+	TRANSITIONS[s_print_tables_augp][FAIL] = s_uninstall_machine_augp;
+	TRANSITIONS[s_print_tables_augp][SUCCESS] = s_uninstall_machine_augp;
 }
 
 static void			get_events(t_mconfig **mconfig)
 {
-	EVENTS[s_install_machine_bfs] = NULL;
-	// EVENTS[s_init_bfs] = init_bfs;
-	// EVENTS[s_que_list_remain_bfs] = que_list_remain_bfs;
-	// EVENTS[s_edge_list_remain_bfs] = edge_list_remain_bfs;
-	// EVENTS[s_capacity_available_bfs] = capacity_available_bfs;
-	// EVENTS[s_vertex_has_level_bfs] = vertex_has_level_bfs;
-	// EVENTS[s_update_level_and_que_bfs] = update_level_and_que_bfs;
-	// EVENTS[s_print_tables_bfs] = print_tables;
+	EVENTS[s_install_machine_augp] = NULL;
+	EVENTS[s_init_augp] = init_augp;
+	EVENTS[s_capacity_from_source_augp] = capacity_from_source_augp;
+	EVENTS[s_capacity_to_lower_level_augp] = capacity_to_lower_level_augp;
+	EVENTS[s_capacity_to_higher_level_augp] = capacity_to_higher_level_augp;
+	EVENTS[s_capacity_away_from_augment_augp] = capacity_away_from_augment_augp;
+	EVENTS[s_check_capacity_to_lower_level_augp] = check_capacity_to_lower_level_augp;
+	EVENTS[s_get_indexes_edges_augp] = get_indexes_edges_augp;
+	EVENTS[s_current_room_sink_augp] = current_room_sink_augp;
+	EVENTS[s_current_room_source_augp] = current_room_source_augp;
+	EVENTS[s_clear_capacity_on_graph_augp] = clear_capacity_on_graph_augp;
+	EVENTS[s_print_tables_augp] = print_tables;
 }
 
 static t_mconfig	*states(void)
@@ -69,7 +282,10 @@ t_bool					augmenting_paths(t_project *lem_in)
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
-	if (ERROR)
-		return (ERROR_LOG(FAIL));
+	ft_printf("round: %d\n", ROUND_NR);
+	if (lem_in->level == 0)
+	{
+		return (FAIL);
+	}
 	return (SUCCESS);
 }

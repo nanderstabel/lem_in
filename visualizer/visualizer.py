@@ -17,7 +17,7 @@ import networkx as nx
 G = nx.read_edgelist("edges", nodetype = str, data = (('color', str),))
 G = G.to_directed()
 pos = nx.kamada_kawai_layout(G)
-print(pos['Y_m5'][0])
+# print(pos['Y_m5'][0])
 edgecolors = []
 for (u, v, c) in G.edges.data('color', default='orange'):
 	edgecolors.append(c)
