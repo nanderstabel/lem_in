@@ -70,7 +70,9 @@ void			ft_addr_lstsrt(t_adlist **alst, int (*method)(void *, void *))
 	t_adlist			*b;
 
 	head = *alst;
-	if (head == NULL || head->next == NULL)
+	if (head == NULL)
+		return ;
+	if (head->next == NULL)
 		return ;
 	partition(head, &a, &b);
 	ft_addr_lstsrt(&a, method);

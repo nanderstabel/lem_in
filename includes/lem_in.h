@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/07 13:48:04 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/08 00:41:24 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@
 # define PATH_OFFSET			((t_adlist *)((t_adlist *)QUE->address))
 # define PATH_ROUND				PATH_OFFSET->address
 # define PATH_LENGTH			PATH_OFFSET->next->address
-# define PATH_START				PATH_OFFSET->next->next			
+# define PATH_START				PATH_OFFSET->next->next	
+
+# define CURRENT_ANT			((t_ant *)QUE->address)
 
 # define DEBUG_O				(1 << 0)
 # define ERROR_O				(1 << 2)
@@ -242,6 +244,12 @@ typedef struct					s_edge
 	t_vertex					*next;
 }								t_edge;
 
+typedef struct					s_ant
+{
+	char						*name;
+	t_adlist					*location;
+}								t_ant;
+
 typedef struct					s_graph_vars
 {
 	size_t						source_ants;
@@ -282,6 +290,8 @@ typedef struct					s_project
 	t_adlist					*temp_que_list;
 	t_adlist					*temp;
 
+	t_adlist					*all_ants;
+	t_ant						*current_ant;
 	t_adlist					*all_paths;
 	t_adlist					*current_path;
 
