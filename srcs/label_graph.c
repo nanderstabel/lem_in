@@ -19,7 +19,6 @@ t_bool				init_bfs(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	QUE = ft_addr_lstnew((void*)SINK);
 	TEMP_QUE = QUE;
-	lem_in->level = 0;
 	return (SUCCESS);
 }
 
@@ -129,7 +128,7 @@ t_bool								label_graph(t_project *lem_in)
 {
 	t_machine	*machine;
 
-	size_t index = 0;
+	// size_t index = 0;
 	if (FLAGS & DEBUG_O)
 		ft_printf("%s\n", __func__);
 	if (install_machine(&machine, states()) == SUCCESS)
