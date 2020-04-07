@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/04 16:05:13 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/30 21:46:02 by zitzak        ########   odam.nl         */
+/*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/07 12:43:12 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@
 # define NEXT_ROOM_TEMP_LINKS			TEMP_QUE
 # define NEXT_ROOM_TEMP_LINKS_CAPACITY	((t_edge*)(TEMP_QUE->address))->capacity
 
-# define NEXT_ROOM_INDEX_CMP	((t_edge*)(NEXT_ROOM_TEMP_LINKS->address))->id->index
+# define NEXT_ROOM_INDEX_CMP	((t_edge*)(NEXT_ROOM_TEMP_LINKS->address))->next->id->index
 # define TEMP_LINK_CAPACITY		((t_edge*)(TEMP_LINKS->address))->capacity
 
-# define CURRENT_EDGE			lem_in->temp_que_list
-# define VERTEX_INDEX			((t_edge*)(CURRENT_EDGE->address))->id->index
+// # define CURRENT_EDGE			CURRENT_LINK
+# define EDGE_INDEX				CURRENT_LINK->id->index
 # define CURRENT_ROOM_INDEX		CURRENT_ROOM->id->index
-# define CURRENT_EDGE_INDEX		((t_edge*)(CURRENT_EDGE))->capacity
-# define NEXT_ROOM_INDEX		((t_edge*)(TEMP_LINKS))->next->id->index
+# define CURRENT_LINK_CAPACITY	CURRENT_LINK->capacity
+# define NEXT_ROOM_INDEX		((t_edge*)(TEMP_LINKS->address))->next->id->index
 # define INDEX_COPY				lem_in->index_copy
 
 # define PATH_OFFSET			((t_adlist *)((t_adlist *)QUE->address))
@@ -197,14 +197,16 @@ enum
 enum
 {
 	s_install_machine_augp,
+	s_init_augp,
 	s_capacity_from_source_augp,
 	s_capacity_to_lower_level_augp,
 	s_capacity_to_higher_level_augp,
 	s_capacity_away_from_augment_augp,
-	s_check_capcity_to_lower_level_augp,
+	s_check_capacity_to_lower_level_augp,
 	s_get_indexes_edges_augp,
 	s_current_room_sink_augp,
 	s_current_room_source_augp,
+	s_clear_capacity_on_graph_augp,
 	s_print_tables_augp,
 	s_uninstall_machine_augp,
 }	e_state_augp;
@@ -345,6 +347,16 @@ t_bool							update_level_and_que_bfs(t_project *lem_in);
 
 t_bool							capacity_from_source_augp(t_project *lem_in);
 t_bool 							capacity_to_lower_level_augp(t_project *lem_in);
+t_bool							capacity_away_from_augment_augp(t_project *lem_in);
+t_bool							init_augp(t_project *lem_in);
+t_bool							capacity_to_higher_level_augp(t_project *lem_in);
+t_bool							get_indexes_edges_augp(t_project *lem_in);
+t_bool							check_capacity_to_lower_level_augp(t_project *lem_in);
+t_bool							current_room_sink_augp(t_project *lem_in);
+t_bool							current_room_source_augp(t_project *lem_in);
+t_bool							clear_capacity_on_graph_augp(t_project *lem_in);
+
+
 
 t_bool							print_tables(t_project *lem_in);
 
