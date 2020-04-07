@@ -72,10 +72,10 @@ t_bool				print_paths(t_project *lem_in)
 			INDEX = 0;
 			while (QUE && QUE->address)
 			{
-				if ((size_t)PATH_ROUND > INDEX)
+				if ((size_t)PATH_ROUND != INDEX)
 				{
 					ft_printf("\tRound %i:\n", PATH_ROUND);
-					++INDEX;
+					INDEX = (size_t)PATH_ROUND;
 				}
 				ft_printf("\t\tlength: %i --> ", PATH_LENGTH);
 				ft_putadlst(PATH_START, vertex_name, "->");
