@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 13:00:09 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/07 13:35:17 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/07 14:39:43 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_bool				init_augp(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	lem_in->level = 0;
 	return (SUCCESS);
 
@@ -23,7 +23,7 @@ t_bool				init_augp(t_project *lem_in)
 t_bool				capacity_from_source_augp(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	TEMP_LINKS = SOURCE->links;
 	while (TEMP_LINKS)
 	{
@@ -46,7 +46,7 @@ t_bool 				capacity_to_lower_level_augp(t_project *lem_in)
 {
 	// ft_printf("test");
 	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
 	while (TEMP_LINKS)
 	{
@@ -67,7 +67,7 @@ t_bool 				capacity_to_lower_level_augp(t_project *lem_in)
 t_bool				capacity_to_higher_level_augp(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
 	while (TEMP_LINKS)
 	{
@@ -89,7 +89,7 @@ t_bool				capacity_to_higher_level_augp(t_project *lem_in)
 t_bool				capacity_away_from_augment_augp(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
 	INDEX_COPY = CURRENT_ROOM_INDEX;
 	while (TEMP_LINKS)
@@ -119,7 +119,7 @@ t_bool				capacity_away_from_augment_augp(t_project *lem_in)
 t_bool				get_indexes_edges_augp(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	// CURRENT_EDGE = CURRENT_ROOM->links;
 	// ft_printf("func: %s - current: %s - index: %d\n",   __func__, CURRENT_ROOM->id->name, CURRENT_ROOM_INDEX);
 	if (!QUE)
@@ -151,7 +151,7 @@ t_bool				get_indexes_edges_augp(t_project *lem_in)
 t_bool				check_capacity_to_lower_level_augp(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
 	while (TEMP_LINKS)
 	{
@@ -170,7 +170,7 @@ t_bool				check_capacity_to_lower_level_augp(t_project *lem_in)
 t_bool				current_room_sink_augp(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if (CURRENT_ROOM == SINK)
 		return (SUCCESS);
 	return (FAIL);
@@ -179,7 +179,7 @@ t_bool				current_room_sink_augp(t_project *lem_in)
 t_bool				current_room_source_augp(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if (CURRENT_ROOM == SOURCE)
 		return (SUCCESS);
 	return (FAIL);
@@ -191,7 +191,7 @@ t_bool				clear_capacity_on_graph_augp(t_project *lem_in)
 
 	index = 0;
 	if (FLAGS & DEBUG_O)
-		ft_printf("%s\n", __func__);
+		ft_printf("\t%s\n", __func__);
 	if (lem_in->level != 0)
 	{
 		while (index < ALL_LINKS->size)
@@ -282,7 +282,23 @@ t_bool					augmenting_paths(t_project *lem_in)
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
-	ft_printf("round: %d\n", ROUND_NR);
+	ft_printf("round: %d\n", ROUND_NR);	
+	
+	
+	/*
+	Code om visited in ALL_ROOMS te resetten:
+
+	size_t index = 0;
+
+	while (index < ALL_ROOMS->size)
+	{
+		((t_vertex*)(ALL_ROOMS->elem[index]->content))->visited = 0;
+		index++;
+	}
+	*/
+
+
+
 	if (lem_in->level == 0)
 	{
 		return (FAIL);
