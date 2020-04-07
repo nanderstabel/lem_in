@@ -70,7 +70,7 @@ t_bool				print_paths(t_project *lem_in)
 			QUE = ALL_PATHS;
 			ft_printf("\n{underline}Paths:{eoc}\n");
 			INDEX = 0;
-			while (QUE)
+			while (QUE && QUE->address)
 			{
 				if ((size_t)PATH_ROUND > INDEX)
 				{

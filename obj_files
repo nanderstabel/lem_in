@@ -1,9 +1,10 @@
 PROJECT_OBJ_FILES :=	main.o					\
 						augmenting_paths.o		\
+						choose_graph.o			\
 						print_error.o			\
 						find_paths.o			\
 						label_graph.o			\
-						moving_ants.o			\
+						move_ants.o				\
 						print_output.o			\
 						set_options.o			\
 						store_links.o			\

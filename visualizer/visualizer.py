@@ -19,10 +19,10 @@ G = G.to_directed()
 pos = nx.kamada_kawai_layout(G)
 print(pos['Y_m5'][0])
 edgecolors = []
-for (u, v, c) in G.edges.data('color', default='blue'):
+for (u, v, c) in G.edges.data('color', default='orange'):
 	edgecolors.append(c)
 nodecolors = []
-for (n, c) in G.nodes.data('color', default='red'):
+for (n, c) in G.nodes.data('color', default='lightgreen'):
 	if n == 'Fog1' or n == 'Gll7':
 		c = 'yellow'
 	nodecolors.append(c)
