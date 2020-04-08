@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 13:00:09 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/07 17:30:58 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/08 13:35:53 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,23 @@ t_bool				capacity_to_higher_level_augp(t_project *lem_in)
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
-	while (TEMP_LINKS)
+	while (TEMP_LINKS->next != NULL)
 	{
 		if (TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level + 1 \
-		&& NEXT_ROOM_INDEX != INDEX_COPY)
+		&& NEXT_ROOM->visited == 1)
 		{
+			
+			// NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_LINKS;
+			// while (NEXT_ROOM_TEMP_LINKS)
+			// {
+			// 	if (NEXT_ROOM_TEMP_LINKS_CAPACITY == 0 && )
+			// }
 			CURRENT_LINK = ((t_edge*)(TEMP_LINKS->address));
 			return (SUCCESS);
 		}
 		TEMP_LINKS = TEMP_LINKS->next;
 	}
+	// ft_printf("room name %s\n", CURRENT_ROOM->id->name);
 	return (FAIL);
 }
 
@@ -86,7 +93,7 @@ t_bool				capacity_away_from_augment_augp(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
 	INDEX_COPY = CURRENT_ROOM_INDEX;
-	while (TEMP_LINKS)
+	while (TEMP_LINKS->next != NULL)
 	{
 		if (TEMP_LINK_CAPACITY == 1)
 		{
@@ -181,30 +188,50 @@ t_bool				clear_capacity_on_graph_augp(t_project *lem_in)
 	temp = QUE;
 
 	index = 0;
+	// int num = 0;
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	if (QUE)
+	if (lem_in->level)
 	{
 		while (index < ALL_LINKS->size)
 		{
-			((t_edge*)(ALL_LINKS->elem[index]->content))->capacity = 1;
+			if (((t_edge*)(ALL_LINKS->elem[index]->content))->visited == 1 && !temp)
+			{
+				// num++;
+				((t_edge*)(ALL_LINKS->elem[index]->content))->capacity = 0;
+			}
+			else
+			{
+				((t_edge*)(ALL_LINKS->elem[index]->content))->capacity = 1;
+				((t_edge*)(ALL_LINKS->elem[index]->content))->visited = 0;
+			}
 			index++;
 		}
-		while (QUE)
+		while (temp)
 		{
-			((t_edge*)(ALL_LINKS->elem[((long long)(QUE->address))]->content))->capacity = 0;
-			QUE = QUE->next;
+			// ft_printf("test1\n");
+			((t_edge*)(ALL_LINKS->elem[((long long)(temp->address))]->content))->capacity = 0;
+			temp = temp->next;
 		}
 	}
 	index = 0;
-	while (index < ALL_ROOMS->size)
+	if (lem_in->level)
 	{
-		((t_vertex*)(ALL_ROOMS->elem[index]->content))->level = 0;
-		if (temp)
-			((t_vertex*)(ALL_ROOMS->elem[index]->content))->visited = 0;
-		index++;
+		while (index < ALL_ROOMS->size)
+		{
+			((t_vertex*)(ALL_ROOMS->elem[index]->content))->level = 0;
+			// ft_printf("test1\n");
+			if (QUE)
+			{
+				// ft_printf("test2\n");
+				((t_vertex*)(ALL_ROOMS->elem[index]->content))->visited = 0;
+			}
+			index++;
+		}
+		
 	}
 	index = 0;
+	// ft_printf("num of links %d\n", num);
 	// while (index < ALL_LINKS->size)
 	// {
 	// 	ft_printf("index %d - capacity %d\n", index, ((t_edge*)(ALL_LINKS->elem[index]->content))->capacity);
@@ -215,7 +242,7 @@ t_bool				clear_capacity_on_graph_augp(t_project *lem_in)
 	// 	ft_printf("level %d\n", ((t_vertex*)(ALL_ROOMS->elem[index]->content))->level);
 	// 	index++;
 	// }
-	ft_addr_lstdel(&temp);
+	ft_addr_lstdel(&QUE);
 	return (SUCCESS);
 }
 
@@ -230,7 +257,7 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_capacity_to_lower_level_augp][FAIL] = s_capacity_to_higher_level_augp;
 	TRANSITIONS[s_current_room_sink_augp][SUCCESS] = s_capacity_from_source_augp;
 	TRANSITIONS[s_current_room_sink_augp][FAIL] = s_capacity_to_lower_level_augp;
-	TRANSITIONS[s_capacity_to_higher_level_augp][FAIL] = s_check_capacity_to_lower_level_augp; // <<< volgens mij kan er geen fail zijn
+	// TRANSITIONS[s_capacity_to_higher_level_augp][FAIL] = s_capacity_away_from_augment_augp; // <<< volgens mij kan er geen fail zijn
 	TRANSITIONS[s_capacity_to_higher_level_augp][SUCCESS] = s_get_indexes_edges_augp;
 	TRANSITIONS[s_get_indexes_edges_augp][SUCCESS] = s_current_room_source_augp;
 	TRANSITIONS[s_current_room_source_augp][FAIL] = s_check_capacity_to_lower_level_augp;
