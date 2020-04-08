@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 13:11:03 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/08 14:15:16 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,6 @@ t_bool								print_output(t_project *lem_in)
 {
 	t_machine	*machine;
 
-	return (SUCCESS);
 	if (FLAGS & DEBUG_O)
 		ft_printf("%s\n", __func__);
 	if (install_machine(&machine, states()) == SUCCESS)
