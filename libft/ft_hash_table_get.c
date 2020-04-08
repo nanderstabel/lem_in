@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   validating_input.c                                 :+:    :+:            */
+/*   ft_hash_table_get.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/13 12:54:14 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/13 16:12:52 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/02 16:21:24 by nstabel        #+#    #+#                */
+/*   Updated: 2020/03/03 18:40:05 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-t_bool								validating_input(t_project *lem_in)
+t_elem	*ft_hash_table_get(t_hash_table *hash_table, char *key)
 {
-	lem_in = NULL;
-	ft_printf("Currently: %s\n", __func__);
-	return (SUCCESS);
+	size_t	i;
+	size_t	hash;
+	size_t	probe;
+
+	hash = ft_hash(key);
+	probe = 0;
+	while (probe < hash_table->size)
+	{
+		i = (hash + probe) % hash_table->size;
+		if (hash_table->elem[i])
+			if (hash_table->elem[i]->hash == hash)
+				return (hash_table->elem[i]);
+		++probe;
+	}
+	return (NULL);
 }

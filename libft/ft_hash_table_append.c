@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   finding_error.c                                    :+:    :+:            */
+/*   ft_hash_table_append.c                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/13 13:01:21 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/13 16:13:05 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/07 12:28:27 by nstabel        #+#    #+#                */
+/*   Updated: 2020/03/19 11:20:54 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-t_bool								finding_error(t_project *lem_in)
+void	*ft_hash_table_append(t_hash_table *table, \
+    void *(*columns)(t_hash_table *table))
 {
-	lem_in = NULL;
-	ft_printf("Currently: %s\n", __func__);
-	return (SUCCESS);
+	t_adlist	*last_width;
+
+	if (table == NULL || columns == NULL)
+		return (NULL);
+	last_width = table->width;
+	while (last_width->next)
+		last_width = last_width->next;
+	last_width->address += 2;
+	if (columns(table))
+	{
+		table->mounted = 1;
+		return (table);
+	}
+	return (NULL);
 }

@@ -12,6 +12,14 @@
 		"string_view": "c",
 		"unordered_map": "c",
 		"vector": "c",
-		"__locale": "c"
+		"__locale": "c",
+		"criterion.h": "c",
+		"atomic": "cpp",
+		"cstddef": "cpp",
+		"limits": "cpp",
+		"locale": "cpp",
+		"memory": "cpp",
+		"new": "cpp",
+		"type_traits": "cpp"
 	}
 }

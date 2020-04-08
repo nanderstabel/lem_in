@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   setting_options.c                                    :+:    :+:            */
+/*   ft_putlst.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/13 14:58:03 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/13 16:13:30 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/04 11:59:35 by nstabel        #+#    #+#                */
+/*   Updated: 2020/03/20 18:25:00 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-t_bool								setting_options(t_project *lem_in)
+void		ft_putlst(t_list *lst, char *str)
 {
-	lem_in = NULL;
-	ft_printf("Currently: %s\n", __func__);
-	return (SUCCESS);
+	while (lst)
+	{
+		write(1, lst->content, lst->content_size);
+		if (str && lst->next)
+			ft_putstr(str);
+		lst = lst->next;
+	}
+	ft_putchar('\n');
 }

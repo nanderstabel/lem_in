@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   moving_ants.c                                      :+:    :+:            */
+/*   ft_isprior.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/13 13:00:43 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/13 16:13:20 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/04 19:18:07 by nstabel        #+#    #+#                */
+/*   Updated: 2020/03/04 19:18:22 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-t_bool								moving_ants(t_project *lem_in)
+int					ft_isprior(char *str, char prior, char rival)
 {
-	lem_in = NULL;
-	ft_printf("Currently: %s\n", __func__);
-	return (SUCCESS);
+	while (*str)
+	{
+		if (*str == prior)
+			return (1);
+		if (*str == rival)
+			return (0);
+		++str;
+	}
+	return (0);
 }

@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/02/09 19:54:06 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/04 16:48:36 by nstabel       ########   odam.nl         */
+/*   Created: 2019/02/09 19:54:06 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/07 09:30:24 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	ft_addr_lstdel(t_adlist **alst)
 
 	while (*alst)
 	{
-		tmp = (*alst)->next;
-		ft_addr_lstdelone(alst);
-		*alst = tmp;
+		tmp = *alst;
+		ft_addr_lstdelone(&tmp);
+		*alst = (*alst)->next;
 	}
 	ft_memdel((void **)alst);
 }

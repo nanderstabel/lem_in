@@ -1,12 +1,19 @@
 PROJECT_OBJ_FILES :=	main.o					\
 						augmenting_paths.o		\
-						finding_error.o			\
-						finding_paths.o			\
-						labeling_graph.o		\
-						moving_ants.o			\
-						printing_error.o		\
-						setting_options.o		\
-						storing_links.o			\
-						storing_rooms.o			\
-						uninstalling_machine.o	\
-						validating_input.o
+						choose_graph.o			\
+						print_error.o			\
+						find_paths.o			\
+						label_graph.o			\
+						move_ants.o				\
+						print_output.o			\
+						set_options.o			\
+						store_links.o			\
+						store_rooms.o			\
+						validate_input.o		\
+						get_input.o				\
+						read_input.o			\
+						error_log.o				\
+						vertex.o				\
+						edge.o					\
+						free_project.o			\
+						print_tables.o
