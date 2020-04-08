@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/07 12:54:47 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/08 01:19:06 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,99 @@
 enum
 {
 	s_install_machine_po,
+	s_print_input,
+	s_sort_paths,
+	s_spawn_ants,
+	s_move_all_ants,
 	s_print_tables_po,
 	s_uninstall_machine_po,
 }	e_state_po;
+
+t_bool				print_input(t_project *lem_in)
+{
+	if (FLAGS & DEBUG_O)
+		ft_printf("\t%s\n", __func__);
+	ft_printf("%s\n\n", INPUT);
+	return (SUCCESS);
+}
+
+int					sort_by_length(void *a, void *b)
+{
+	t_adlist	*path_a;
+	t_adlist	*path_b;
+
+	path_a = ((t_adlist *)((t_adlist *)a)->address)->next;
+	path_b = ((t_adlist *)((t_adlist *)b)->address)->next;
+	if ((size_t)path_a->address < (size_t)path_b->address)
+		return (1);
+	return (0);
+}
+
+t_ant			*get_ant(size_t nbr)
+{
+	t_ant		*ant;
+
+	ant = (t_ant *)ft_memalloc(sizeof(t_ant));
+	ant->name = ft_itoa((int)nbr);
+	ant->name = ft_insert(&ant->name, "L", 0);
+	return (ant);
+}
+
+t_bool				sort_paths(t_project *lem_in)
+{
+	if (FLAGS & DEBUG_O)
+		ft_printf("\t%s\n", __func__);
+	INDEX = 1;
+	ft_addr_lstsrt(&ALL_PATHS, sort_by_length);
+	return (SUCCESS);
+}
+
+t_bool				spawn_ants(t_project *lem_in)
+{
+	if (FLAGS & DEBUG_O)
+		ft_printf("\t%s\n", __func__);
+	QUE = ALL_PATHS;
+	while (QUE && INDEX <= NANTS)
+	{
+		if ((size_t)PATH_LENGTH <= lem_in->nturns)
+		{
+			lem_in->current_ant = get_ant(INDEX);
+			lem_in->current_ant->location = PATH_START;
+			if (lem_in->all_ants)
+				ft_addr_lstadd(&lem_in->all_ants, ft_addr_lstnew((void *)lem_in->current_ant));
+			else
+				lem_in->all_ants = ft_addr_lstnew((void *)lem_in->current_ant);
+			++INDEX;
+		}
+		QUE = QUE->next;
+	}
+	return (SUCCESS);
+}
+
+t_bool				move_all_ants(t_project *lem_in)
+{
+	if (FLAGS & DEBUG_O)
+		ft_printf("\t%s\n", __func__);
+	if (!lem_in->all_ants)
+		return (FAIL);
+	QUE = lem_in->all_ants;
+	while (QUE)
+	{
+		if (QUE->address)
+		{
+			CURRENT_ANT->location = CURRENT_ANT->location->next;
+			ft_printf("%s-%s ", CURRENT_ANT->name, ((t_vertex *)CURRENT_ANT->location->address)->id->name);
+			if ((t_vertex *)CURRENT_ANT->location->address == SINK){
+				QUE->address = NULL; //fix dit
+				if (QUE == lem_in->all_ants)//fix dit ook
+					lem_in->all_ants = NULL;}
+		}
+		QUE = QUE->next;
+	}
+	--lem_in->nturns;
+	ft_putchar(10);
+	return (SUCCESS);
+}
 
 t_bool				proto(t_project *lem_in)
 {
@@ -29,7 +119,15 @@ t_bool				proto(t_project *lem_in)
 static void			get_transitions(t_mconfig **mconfig)
 {
 	TRANSITIONS[s_install_machine_rms][FAIL] = s_uninstall_machine_po;
-	TRANSITIONS[s_install_machine_rms][SUCCESS] = s_uninstall_machine_po;
+	TRANSITIONS[s_install_machine_rms][SUCCESS] = s_print_input;
+	TRANSITIONS[s_print_input][FAIL] = s_uninstall_machine_po;
+	TRANSITIONS[s_print_input][SUCCESS] = s_sort_paths;
+	TRANSITIONS[s_sort_paths][FAIL] = s_uninstall_machine_po;
+	TRANSITIONS[s_sort_paths][SUCCESS] = s_spawn_ants;
+	TRANSITIONS[s_spawn_ants][FAIL] = s_uninstall_machine_po;
+	TRANSITIONS[s_spawn_ants][SUCCESS] = s_move_all_ants;
+	TRANSITIONS[s_move_all_ants][FAIL] = s_print_tables_po;
+	TRANSITIONS[s_move_all_ants][SUCCESS] = s_spawn_ants;
 	TRANSITIONS[s_print_tables_po][FAIL] = s_uninstall_machine_po;
 	TRANSITIONS[s_print_tables_po][SUCCESS] = s_uninstall_machine_po;
 }
@@ -37,6 +135,10 @@ static void			get_transitions(t_mconfig **mconfig)
 static void			get_events(t_mconfig **mconfig)
 {
 	EVENTS[s_install_machine_po] = NULL;
+	EVENTS[s_print_input] = print_input;
+	EVENTS[s_sort_paths] = sort_paths;
+	EVENTS[s_spawn_ants] = spawn_ants;
+	EVENTS[s_move_all_ants] = move_all_ants;
 	EVENTS[s_print_tables_po] = print_tables;
 }
 

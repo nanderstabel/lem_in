@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/04 13:57:07 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/07 12:24:22 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/07 22:22:05 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ enum
 	s_set_graph_vars,
 	s_get_graph,
 	s_delete_excess_paths,
+	s_clean_pathslist,
 	s_finish_graph_calculation,
 	s_calculate_turn,
 	s_update_stored_graph,
@@ -69,26 +70,35 @@ t_bool				delete_excess_paths(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	TEMP_QUE = ALL_PATHS;
-	while (TEMP_QUE)
+	QUE = ALL_PATHS;
+	while (QUE)
 	{
-		QUE = TEMP_QUE->next;
-		if (!QUE)
-			break;
 		if ((size_t)PATH_ROUND != ROUND_NR)
-		{
 			ft_addr_lstdel((t_adlist **)&QUE->address);
-			QUE = QUE->next;
-			ft_addr_lstdelone(&TEMP_QUE->next);
-		}
-		TEMP_QUE = QUE;
+		QUE = QUE->next;
+	}
+	return (SUCCESS);
+}
+
+t_bool				clean_pathslist(t_project *lem_in)
+{
+	if (FLAGS & DEBUG_O)
+		ft_printf("\t%s\n", __func__);
+	while (!ALL_PATHS->address)
+	{
+		QUE = ALL_PATHS;
+		ALL_PATHS = ALL_PATHS->next;
+		ft_addr_lstdelone(&QUE);
 	}
 	QUE = ALL_PATHS;
-	if ((size_t)PATH_ROUND != ROUND_NR)
+	while (QUE->next)
 	{
-		ft_addr_lstdel((t_adlist **)&QUE->address);
-		ALL_PATHS = QUE->next;
-		ft_addr_lstdelone(&QUE);
+		if (!QUE->next->address)
+		{
+			ft_addr_lstdel(&QUE->next);
+			break ;
+		}
+		QUE = QUE->next;
 	}
 	return (SUCCESS);
 }
@@ -109,6 +119,8 @@ t_bool				calculate_turn(t_project *lem_in)
 	QUE = TEMP_QUE;
 	while (QUE)
 	{
+		if ((size_t)PATH_ROUND != INDEX)
+			break;
 		if (lem_in->graph_vars.turns + 1 < (size_t)PATH_LENGTH)
 			--(lem_in->graph_vars.source_ants);
 		else
@@ -123,7 +135,7 @@ t_bool				update_stored_graph(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	if (lem_in->nturns < lem_in->graph_vars.turns)
+	if (lem_in->nturns > lem_in->graph_vars.turns)
 	{
 		lem_in->nturns = lem_in->graph_vars.turns;
 		ROUND_NR = INDEX;
@@ -142,7 +154,9 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_get_graph][FAIL] = s_delete_excess_paths;
 	TRANSITIONS[s_get_graph][SUCCESS] = s_finish_graph_calculation;
 	TRANSITIONS[s_delete_excess_paths][FAIL] = s_uninstall_machine_cg;
-	TRANSITIONS[s_delete_excess_paths][SUCCESS] = s_print_tables_cg;
+	TRANSITIONS[s_delete_excess_paths][SUCCESS] = s_clean_pathslist;
+	TRANSITIONS[s_clean_pathslist][FAIL] = s_uninstall_machine_cg;
+	TRANSITIONS[s_clean_pathslist][SUCCESS] = s_print_tables_cg;
 	TRANSITIONS[s_finish_graph_calculation][FAIL] = s_calculate_turn;
 	TRANSITIONS[s_finish_graph_calculation][SUCCESS] = s_update_stored_graph;
 	TRANSITIONS[s_calculate_turn][FAIL] = s_uninstall_machine_cg;
@@ -160,6 +174,7 @@ static void			get_events(t_mconfig **mconfig)
 	EVENTS[s_set_graph_vars] = set_graph_vars;
 	EVENTS[s_get_graph] = get_graph;
 	EVENTS[s_delete_excess_paths] = delete_excess_paths;
+	EVENTS[s_clean_pathslist] = clean_pathslist;
 	EVENTS[s_finish_graph_calculation] = finish_graph_calculation;
 	EVENTS[s_calculate_turn] = calculate_turn;
 	EVENTS[s_update_stored_graph] = update_stored_graph;
