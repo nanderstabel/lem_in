@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:57:21 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 12:11:27 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/08 13:39:55 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ t_bool				start_path(t_project *lem_in)
 	INDEX = 0;
 	if (!CURRENT_ROOM || !CURRENT_PATH)
 		return (ERROR_LOG(FAIL));
+	if (FLAGS & DFS_O)
+		ft_printf("\t\tStart Path\n");
 	return (SUCCESS);
 }
 
@@ -149,6 +151,8 @@ t_bool				check_sink(t_project *lem_in)
 		CURRENT_ROOM->visited = 1;
 		return (FAIL);
 	}
+	if (FLAGS & DFS_O)
+		ft_printf("\t\tFound sink\n");
 	return (SUCCESS);
 }
 
