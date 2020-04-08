@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 00:41:24 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/08 12:09:38 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@
 
 # define NEXT_ROOM_INDEX_CMP	((t_edge*)(NEXT_ROOM_TEMP_LINKS->address))->next->id->index
 # define TEMP_LINK_CAPACITY		((t_edge*)(TEMP_LINKS->address))->capacity
+# define TEMP_LINK_VISITED		((t_edge*)(TEMP_LINKS->address))->visited
 
 // # define CURRENT_EDGE			CURRENT_LINK
 # define EDGE_INDEX				CURRENT_LINK->id->index
@@ -241,6 +242,7 @@ typedef struct					s_edge
 {
 	t_elem						*id;
 	size_t						capacity;
+	size_t						visited;
 	t_vertex					*next;
 }								t_edge;
 

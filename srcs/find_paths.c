@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:57:21 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/07 17:06:13 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/08 12:11:27 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ t_bool				remove_room(t_project *lem_in)
 		return (ERROR_LOG(FAIL));
 	TEMP_LINKS = SELECTED;
 	TEMP_LINK_CAPACITY = 1;
+	TEMP_LINK_VISITED = 0;
 	QUE = CURRENT_PATH;
 	CURRENT_PATH = CURRENT_PATH->next;
 	ft_addr_lstdelone(&QUE);
@@ -133,6 +134,7 @@ t_bool				traverse_path(t_project *lem_in)
 	if (FLAGS & DFS_O)
 		ft_printf("%s\n", CURRENT_ROOM->id->name);
 	TEMP_LINK_CAPACITY = 0;
+	TEMP_LINK_VISITED = 1;
 	ft_addr_lstadd(&CURRENT_PATH, ft_addr_lstnew((void *)CURRENT_ROOM));
 	++INDEX;
 	return (SUCCESS);
