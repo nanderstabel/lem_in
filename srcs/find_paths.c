@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:57:21 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 12:11:27 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/08 14:18:32 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_bool				sort_links_lists(t_project *lem_in)
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	INDEX = 0;
+	SOURCE->level = __INT_MAX__;
 	while (INDEX < ALL_ROOMS->size)
 	{
 		CURRENT_ROOM = ALL_ROOMS->elem[INDEX]->content;
@@ -64,6 +65,8 @@ t_bool				start_path(t_project *lem_in)
 	INDEX = 0;
 	if (!CURRENT_ROOM || !CURRENT_PATH)
 		return (ERROR_LOG(FAIL));
+	if (FLAGS & DFS_O)
+		ft_printf("\t\tStart path\n");
 	return (SUCCESS);
 }
 
@@ -79,6 +82,7 @@ t_bool				find_next_room(t_project *lem_in)
 				return (SUCCESS);
 		SELECTED = SELECTED->next;
 	}
+
 	return (FAIL);
 }
 
@@ -102,6 +106,8 @@ t_bool				delete_path(t_project *lem_in)
 	if (!CURRENT_PATH)
 		return (ERROR_LOG(FAIL));
 	ft_addr_lstdel(&CURRENT_PATH);
+	if (FLAGS & DFS_O)
+		ft_printf("\t\tDeleted path\n");
 	return (SUCCESS);
 }
 
@@ -149,6 +155,8 @@ t_bool				check_sink(t_project *lem_in)
 		CURRENT_ROOM->visited = 1;
 		return (FAIL);
 	}
+	if (FLAGS & DFS_O)
+		ft_printf("\t\tFound sink\n");
 	return (SUCCESS);
 }
 
@@ -228,6 +236,9 @@ t_bool								find_paths(t_project *lem_in)
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
+	if (lem_in->count == 2)
+		exit(0);
+	lem_in->count++;
 	if (ERROR)
 		return (ERROR_LOG(FAIL));
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 12:09:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/08 13:52:01 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,9 @@ typedef struct					s_graph_vars
 
 typedef struct					s_project
 {
+	int							count;//temp
+
+
 	int							argc;
 	char						**argv;
 	int							flags;
