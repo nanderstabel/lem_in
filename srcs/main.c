@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 17:31:03 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/07 13:54:03 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/08 18:26:15 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_label_graph][SUCCESS] = s_find_paths;
 	TRANSITIONS[s_label_graph][FAIL] = s_choose_graph;
 	TRANSITIONS[s_find_paths][FAIL] = s_print_error;
-	TRANSITIONS[s_find_paths][SUCCESS] = s_augment_paths;
+	TRANSITIONS[s_find_paths][SUCCESS] = s_label_graph_s_to_t;
+	TRANSITIONS[s_label_graph_s_to_t][SUCCESS] = s_augment_paths;
 	TRANSITIONS[s_augment_paths][FAIL] = s_choose_graph;
 	TRANSITIONS[s_augment_paths][SUCCESS] = s_label_graph;
 	TRANSITIONS[s_choose_graph][FAIL] = s_print_error;
@@ -93,7 +94,7 @@ static t_mconfig	*states(void)
 ** event tables. If this is successful, the run_machine function will loop
 ** through all the states and events which execute the rest of the program.
 */
-
+_LINKS
 int					main(int argc, char **argv)
 {
 	t_machine	*machine;

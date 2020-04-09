@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 16:50:26 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/06 21:12:22 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/08 17:59:18 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,9 @@ int		main(void)
 	store_links(lem_in);
 	label_graph(lem_in);
 	find_paths(lem_in);
+	label_graph_s_to_t(lem_in);
+	augmenting_paths(lem_in);
 
-	// ft_printf("name  source: %s\n", SOURCE->id->name);
-	// TEMP_LINKS = SOURCE->links;
-	// TEMP_LINK_CAPACITY = 4;
-	// ft_printf("name  source: %d\n", TEMP_LINK_CAPACITY);
-	capacity_from_source_augp(lem_in);
-	capacity_away_from_augment_augp(lem_in);
-	// ft_printf("next_room_index %d\n", NEXT_ROOM_INDEX);
-	// TEMP_LINKS = SINK->links;
-	// CURRENT_ROOM = NEXT_ROOM;
-	// ft_printf("next_room_index %d\n", NEXT_ROOM_INDEX);
 
 	return (0);
 }

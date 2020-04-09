@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 13:52:01 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/08 17:58:22 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ enum
 	s_store_links,
 	s_label_graph,
 	s_find_paths,
+	s_label_graph_s_to_t,
 	s_augment_paths,
 	s_choose_graph,
 	s_move_ants,
@@ -197,6 +198,19 @@ enum
 	s_print_tables_bfs,
 	s_uninstall_machine_bfs,
 }	e_state_bfs;
+
+enum
+{
+	s_install_machine_bfs_s_to_t,
+	s_init_bfs_s_to_t,
+	s_que_list_remain_bfs_s_to_t,
+	s_edge_list_remain_bfs_s_to_t,
+	s_vertex_has_level_bfs_s_to_t,
+	s_capacity_available_bfs_s_to_t,
+	s_update_level_and_que_bfs_s_to_t,
+	s_print_tables_bfs_s_to_t,
+	s_uninstall_machine_bfs_s_to_t,
+}	e_state_bfs_s_to_t;
 
 enum
 {
@@ -316,6 +330,7 @@ t_bool							validate_input(t_project *lem_in);
 t_bool							store_rooms(t_project *lem_in);
 t_bool							store_links(t_project *lem_in);
 t_bool							label_graph(t_project *lem_in);
+t_bool								label_graph_s_to_t(t_project *lem_in);
 t_bool							find_paths(t_project *lem_in);
 t_bool							augmenting_paths(t_project *lem_in);
 t_bool							choose_graph(t_project *lem_in);
@@ -370,6 +385,13 @@ t_bool							edge_list_remain_bfs(t_project *lem_in);
 t_bool							capacity_available_bfs(t_project *lem_in);
 t_bool							vertex_has_level_bfs(t_project *lem_in);
 t_bool							update_level_and_que_bfs(t_project *lem_in);
+
+t_bool							init_bfs_s_to_t(t_project *lem_in);
+t_bool							que_list_remain_bfs_s_to_t(t_project *lem_in);
+t_bool							edge_list_remain_bfs_s_to_t(t_project *lem_in);
+t_bool							capacity_available_bfs_s_to_t(t_project *lem_in);
+t_bool							vertex_has_level_bfs_s_to_t(t_project *lem_in);
+t_bool							update_level_and_que_bfs_s_to_t(t_project *lem_in);
 
 t_bool							capacity_from_source_augp(t_project *lem_in);
 t_bool 							capacity_to_lower_level_augp(t_project *lem_in);
