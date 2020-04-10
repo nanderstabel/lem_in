@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 17:31:03 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/07 13:54:03 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/10 17:14:04 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_label_graph][SUCCESS] = s_find_paths;
 	TRANSITIONS[s_label_graph][FAIL] = s_choose_graph;
 	TRANSITIONS[s_find_paths][FAIL] = s_print_error;
-	TRANSITIONS[s_find_paths][SUCCESS] = s_augment_paths;
+	TRANSITIONS[s_find_paths][SUCCESS] = s_label_graph_s_to_t;
+	TRANSITIONS[s_label_graph_s_to_t][SUCCESS] = s_augment_paths;
 	TRANSITIONS[s_augment_paths][FAIL] = s_choose_graph;
 	TRANSITIONS[s_augment_paths][SUCCESS] = s_label_graph;
 	TRANSITIONS[s_choose_graph][FAIL] = s_print_error;
@@ -60,6 +61,7 @@ static void			get_events(t_mconfig **mconfig)
 	EVENTS[s_store_rooms] = store_rooms;
 	EVENTS[s_store_links] = store_links;
 	EVENTS[s_label_graph] = label_graph;
+	EVENTS[s_label_graph_s_to_t] = label_graph_s_to_t;
 	EVENTS[s_find_paths] = find_paths;
 	EVENTS[s_augment_paths] = augmenting_paths;
 	EVENTS[s_choose_graph] = choose_graph;

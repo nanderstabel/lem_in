@@ -16,4 +16,5 @@ PROJECT_OBJ_FILES :=	main.o					\
 						vertex.o				\
 						edge.o					\
 						free_project.o			\
-						print_tables.o
+						print_tables.o			\
+						label_graph_s_to_t.o
