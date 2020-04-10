@@ -137,22 +137,12 @@ t_bool								label_graph_s_to_t(t_project *lem_in)
 {
 	t_machine	*machine;
 
-	// size_t index = 0;
 	if (FLAGS & DEBUG_O)
 		ft_printf("%s\n", __func__);
 	if (install_machine(&machine, states()) == SUCCESS)
+	{
 		run_machine(machine, lem_in);
+	}
 	uninstall_machine(&machine);
-	// while (index < ALL_ROOMS->size)
-	// {
-	// 	ft_printf("name %s - level %d\n", ALL_ROOMS->elem[index]->name, ((t_vertex*)(ALL_ROOMS->elem[index]->content))->level);
-	// 	index++;
-	// }
-	
-	// if (lem_in->level ==  0)
-	// {
-	// 	ft_printf("label = fail");
-	// 	return ((FAIL));
-	// }
 	return (SUCCESS);
 }

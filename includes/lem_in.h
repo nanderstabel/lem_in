@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 17:58:22 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/10 17:09:32 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,7 +330,7 @@ t_bool							validate_input(t_project *lem_in);
 t_bool							store_rooms(t_project *lem_in);
 t_bool							store_links(t_project *lem_in);
 t_bool							label_graph(t_project *lem_in);
-t_bool								label_graph_s_to_t(t_project *lem_in);
+t_bool							label_graph_s_to_t(t_project *lem_in);
 t_bool							find_paths(t_project *lem_in);
 t_bool							augmenting_paths(t_project *lem_in);
 t_bool							choose_graph(t_project *lem_in);
