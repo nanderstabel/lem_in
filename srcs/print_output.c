@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 14:15:16 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/08 14:50:02 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,9 @@ t_bool				move_all_ants(t_project *lem_in)
 		if (QUE->address)
 		{
 			CURRENT_ANT->location = CURRENT_ANT->location->next;
-			ft_printf("%s-%s ", CURRENT_ANT->name, ((t_vertex *)CURRENT_ANT->location->address)->id->name);
+			ft_printf("%s-%s", CURRENT_ANT->name, ((t_vertex *)CURRENT_ANT->location->address)->id->name);
+			if (QUE->next)
+				ft_putchar(' ');
 			if ((t_vertex *)CURRENT_ANT->location->address == SINK){
 				QUE->address = NULL; //fix dit
 				if (QUE == lem_in->all_ants)//fix dit ook
