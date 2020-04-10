@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 16:50:26 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/08 17:59:18 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/10 15:34:30 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int		main(void)
 	close(0);
 	open("../maps/valid_maps/map2.map", O_RDONLY);
 	set_options(lem_in);
+	FLAGS |= ROOMS_O;
+	FLAGS |= DEBUG_O;
 	validate_input(lem_in);
 	store_rooms(lem_in);
 	store_links(lem_in);

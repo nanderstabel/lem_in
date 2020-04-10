@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 17:31:03 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 18:26:15 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/09 14:37:08 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static t_mconfig	*states(void)
 ** event tables. If this is successful, the run_machine function will loop
 ** through all the states and events which execute the rest of the program.
 */
-_LINKS
+
 int					main(int argc, char **argv)
 {
 	t_machine	*machine;

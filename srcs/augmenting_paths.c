@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 13:00:09 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 18:24:17 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/10 15:38:30 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ t_bool				capacity_from_source_augp(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
+	CURRENT_ROOM = SINK;
 	TEMP_LINKS = SINK->links;
+	ft_printf("CURRENT_ROOM SINK %s\n", CURRENT_ROOM);
 	while (TEMP_LINKS)
 	{
 		// hier moet nog iets in voor het voorbeeld sink en source naast elkaar

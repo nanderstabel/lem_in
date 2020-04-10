@@ -15,8 +15,16 @@
 
 t_bool				init_bfs_s_to_t(t_project *lem_in)
 {
+	size_t	index;
+
+	index = 0;
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
+	while (index < ALL_ROOMS->size)
+	{
+		((t_vertex*)(ALL_ROOMS->elem[index]->content))->level = 0;
+		index++;
+	}
 	QUE = ft_addr_lstnew((void*)SOURCE);
 	TEMP_QUE = QUE;
 	SOURCE->level = 0;
