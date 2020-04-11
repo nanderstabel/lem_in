@@ -15,8 +15,16 @@
 
 t_bool				init_bfs(t_project *lem_in)
 {
+	size_t	index;
+
+	index = 0;
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
+	while (index < ALL_ROOMS->size)
+	{
+		((t_vertex*)(ALL_ROOMS->elem[index]->content))->level = 0;
+		index++;
+	}
 	QUE = ft_addr_lstnew((void*)SINK);
 	TEMP_QUE = QUE;
 	return (SUCCESS);
@@ -74,7 +82,8 @@ t_bool				capacity_available_bfs(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	if (TEMP_LINK_CAPACITY == 1)
+	// NEXT_ROOM_TEMP_LINKS = 
+	if (TEMP_LINK_CAPACITY == 1 && !NEXT_ROOM->visited)
 	{
 		lem_in->level++;
 		return (SUCCESS);

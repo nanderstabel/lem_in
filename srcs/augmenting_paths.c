@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 13:00:09 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/11 18:50:52 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/11 20:25:14 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,17 @@ t_bool 				capacity_to_lower_level_augp(t_project *lem_in)
 
 t_bool				capacity_to_higher_level_augp(t_project *lem_in)
 {
+	// t_elem		*temp;
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
+	ft_printf("current room level %d\n", CURRENT_ROOM->level);
 	while (TEMP_LINKS)
 	{
-		// ft_printf("07 -next room: %s visited %d  link visited %d capacity %d\n", NEXT_ROOM->id->name, NEXT_ROOM->visited, TEMP_LINK_VISITED, TEMP_LINK_CAPACITY);
-		if ((TEMP_LINK_CAPACITY == 0 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level + 1 && NEXT_ROOM->visited == 1) || (TEMP_LINK_CAPACITY == 0 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level + 1 && NEXT_ROOM == SINK))
+		ft_printf("07 -next room: %s visited %d level %d] - [link visited %d capacity %d\n", NEXT_ROOM->id->name, NEXT_ROOM->visited, NEXT_ROOM_LEVEL, TEMP_LINK_VISITED, TEMP_LINK_CAPACITY);
+		// temp =  ft_hash_table_get(ALL_ROOMS, NEXT_ROOM->id->name);
+		// ft_printf("name %s - level %d\n", NEXT_ROOM->id->name, temp->)
+		if ((TEMP_LINK_CAPACITY == 0 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level + 1 && NEXT_ROOM->visited == 1) || (TEMP_LINK_CAPACITY == 0 && NEXT_ROOM == SINK))
 		{
 				// ft_printf("06 - room: %s visited %d - next room: %s visited %d functie %s\n", CURRENT_ROOM->id->name, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
 				CURRENT_LINK = ((t_edge*)(TEMP_LINKS->address));
@@ -246,7 +250,7 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_capacity_to_lower_level_augp][FAIL] = s_capacity_to_higher_level_augp;
 	TRANSITIONS[s_current_room_sink_augp][SUCCESS] = s_capacity_from_source_augp;
 	TRANSITIONS[s_current_room_sink_augp][FAIL] = s_capacity_to_lower_level_augp;
-	// TRANSITIONS[s_capacity_to_higher_level_augp][FAIL] = s_capacity_away_from_augment_augp; // <<< volgens mij kan er geen fail zijn
+	TRANSITIONS[s_capacity_to_higher_level_augp][FAIL] = s_clear_capacity_on_graph_augp; // <<< volgens mij kan er geen fail zijn
 	TRANSITIONS[s_capacity_to_higher_level_augp][SUCCESS] = s_get_indexes_edges_augp;
 	TRANSITIONS[s_get_indexes_edges_augp][SUCCESS] = s_clear_capacity_on_graph_augp;
 	TRANSITIONS[s_current_room_source_augp][FAIL] = s_check_capacity_to_lower_level_augp;
