@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 13:00:09 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 13:35:53 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/10 17:50:26 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,17 @@ t_bool				capacity_from_source_augp(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	TEMP_LINKS = SOURCE->links;
+	CURRENT_ROOM = SINK;
+	TEMP_LINKS = SINK->links;
+	// ft_printf("CURRENT_ROOM SINK %s\n", CURRENT_ROOM->id->name);
 	while (TEMP_LINKS)
 	{
 		// hier moet nog iets in voor het voorbeeld sink en source naast elkaar
-		if (TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL != 0)
+		if (TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL != 0 && NEXT_ROOM->visited != 1)
 		{
 			lem_in->level++;
 			TEMP_LINK_CAPACITY = 0;
+			// ft_printf("room: %s visited %d - next room: %s visited %d functie %s\n", CURRENT_ROOM->id->name, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
 			CURRENT_ROOM = NEXT_ROOM;
 			return (SUCCESS);
 		}
@@ -45,15 +48,34 @@ t_bool				capacity_from_source_augp(t_project *lem_in)
 // en er nog 1 doodlopend pat is vanuit source-
 t_bool 				capacity_to_lower_level_augp(t_project *lem_in)
 {
+	t_vertex *test;
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
+	INDEX_COPY = CURRENT_ROOM_INDEX;
+	// ft_printf("room: %s visited %d - next room: %s visited %d functie %s\n", CURRENT_ROOM->id->name, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
 	while (TEMP_LINKS)
 	{
-		if (TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level - 1)
+		// ft_printf("next room: %s visited %d functie %s\n", NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
+		if (CURRENT_ROOM->visited == 1)
+			break;
+		NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_LINKS;
+			test = NEXT_ROOM;
+			(void)test;
+		while (NEXT_ROOM_TEMP_LINKS)
+		{
+			if (NEXT_ROOM_TEMP_LINKS_CAPACITY == 0 && NEXT_ROOM_INDEX_CMP == INDEX_COPY)
+			{
+				// ft_printf("test\n");
+				break ;
+			}
+			NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_TEMP_LINKS->next;
+		}
+		if (NEXT_ROOM_TEMP_LINKS == NULL && TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL == (CURRENT_ROOM->level - 1))
 		{
 			TEMP_LINK_CAPACITY = 0;
 			INDEX_COPY = CURRENT_ROOM_INDEX;
+			// ft_printf("room: %s visited %d - next room: %s visited %d functie %s\n", CURRENT_ROOM->id->name, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
 			CURRENT_ROOM = NEXT_ROOM;
 			return (SUCCESS);
 		}
@@ -67,19 +89,14 @@ t_bool				capacity_to_higher_level_augp(t_project *lem_in)
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
-	while (TEMP_LINKS->next != NULL)
+	while (TEMP_LINKS)
 	{
-		if (TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level + 1 \
-		&& NEXT_ROOM->visited == 1)
+		if (TEMP_LINK_CAPACITY == 0 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level + 1
+		&& NEXT_ROOM->visited == 1 && TEMP_LINK_VISITED)
 		{
-			
-			// NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_LINKS;
-			// while (NEXT_ROOM_TEMP_LINKS)
-			// {
-			// 	if (NEXT_ROOM_TEMP_LINKS_CAPACITY == 0 && )
-			// }
-			CURRENT_LINK = ((t_edge*)(TEMP_LINKS->address));
-			return (SUCCESS);
+				// ft_printf("room: %s visited %d - next room: %s visited %d functie %s\n", CURRENT_ROOM->id->name, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
+				CURRENT_LINK = ((t_edge*)(TEMP_LINKS->address));
+				return (SUCCESS);
 		}
 		TEMP_LINKS = TEMP_LINKS->next;
 	}
@@ -87,34 +104,35 @@ t_bool				capacity_to_higher_level_augp(t_project *lem_in)
 	return (FAIL);
 }
 
-t_bool				capacity_away_from_augment_augp(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
-	TEMP_LINKS = CURRENT_ROOM->links;
-	INDEX_COPY = CURRENT_ROOM_INDEX;
-	while (TEMP_LINKS->next != NULL)
-	{
-		if (TEMP_LINK_CAPACITY == 1)
-		{
-			NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_LINKS;
-			while (NEXT_ROOM_TEMP_LINKS)
-			{
-				if (NEXT_ROOM_TEMP_LINKS_CAPACITY == 0 && NEXT_ROOM_INDEX_CMP == INDEX_COPY)
-					break ;
-				NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_TEMP_LINKS->next;
-			}
-			if (NEXT_ROOM_TEMP_LINKS == NULL)
-			{
-				((t_edge*)(TEMP_LINKS->address))->capacity = 0;// volgens mij is deze overbodig
-				CURRENT_ROOM = NEXT_ROOM;
-				return (SUCCESS);
-			}
-		}
-		TEMP_LINKS = TEMP_LINKS->next;
-	}
-	return (FAIL);
-}
+// t_bool				capacity_away_from_augment_augp(t_project *lem_in)
+// {
+// 	if (FLAGS & DEBUG_O)
+// 		ft_printf("\t%s\n", __func__);
+// 	TEMP_LINKS = CURRENT_ROOM->links;
+// 	INDEX_COPY = CURRENT_ROOM_INDEX;
+// 	while (TEMP_LINKS->next != NULL)
+// 	{
+// 		if (TEMP_LINK_CAPACITY == 1)
+// 		{
+// 			NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_LINKS;
+// 			while (NEXT_ROOM_TEMP_LINKS)
+// 			{
+// 				if (NEXT_ROOM_TEMP_LINKS_CAPACITY == 0 && NEXT_ROOM_INDEX_CMP == INDEX_COPY)
+// 					break ;
+// 				NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_TEMP_LINKS->next;
+// 			}
+// 			if (NEXT_ROOM_TEMP_LINKS == NULL)
+// 			{
+// 				((t_edge*)(TEMP_LINKS->address))->capacity = 0;// volgens mij is deze overbodig
+// 				ft_printf("room: %s visited %d - next room: %s visited %d functie %s\n", CURRENT_ROOM->id->name, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
+// 				CURRENT_ROOM = NEXT_ROOM;
+// 				return (SUCCESS);
+// 			}
+// 		}
+// 		TEMP_LINKS = TEMP_LINKS->next;
+// 	}
+// 	return (FAIL);
+// }
 
 t_bool				get_indexes_edges_augp(t_project *lem_in)
 {
@@ -130,6 +148,7 @@ t_bool				get_indexes_edges_augp(t_project *lem_in)
 	INDEX_COPY = CURRENT_ROOM_INDEX;
 	CURRENT_LINK_CAPACITY = 0;
 	CURRENT_ROOM = CURRENT_LINK->next;
+	ft_printf("room: %s - functie %s\n", CURRENT_ROOM->id->name,  __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
 	while (NEXT_ROOM_INDEX != INDEX_COPY)
 	{
@@ -141,21 +160,21 @@ t_bool				get_indexes_edges_augp(t_project *lem_in)
 }
 
 
-t_bool				check_capacity_to_lower_level_augp(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
-	TEMP_LINKS = CURRENT_ROOM->links;
-	while (TEMP_LINKS)
-	{
-		if (TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level - 1)
-		{
-			return (SUCCESS);
-		}
-		TEMP_LINKS = TEMP_LINKS->next;
-	}
-	return (FAIL);
-}
+// t_bool				check_capacity_to_lower_level_augp(t_project *lem_in)
+// {
+// 	if (FLAGS & DEBUG_O)
+// 		ft_printf("\t%s\n", __func__);
+// 	TEMP_LINKS = CURRENT_ROOM->links;
+// 	while (TEMP_LINKS)
+// 	{
+// 		if (TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level - 1)
+// 		{
+// 			return (SUCCESS);
+// 		}
+// 		TEMP_LINKS = TEMP_LINKS->next;
+// 	}
+// 	return (FAIL);
+// }
 
 t_bool				current_room_sink_augp(t_project *lem_in)
 {
@@ -259,7 +278,7 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_current_room_sink_augp][FAIL] = s_capacity_to_lower_level_augp;
 	// TRANSITIONS[s_capacity_to_higher_level_augp][FAIL] = s_capacity_away_from_augment_augp; // <<< volgens mij kan er geen fail zijn
 	TRANSITIONS[s_capacity_to_higher_level_augp][SUCCESS] = s_get_indexes_edges_augp;
-	TRANSITIONS[s_get_indexes_edges_augp][SUCCESS] = s_current_room_source_augp;
+	TRANSITIONS[s_get_indexes_edges_augp][SUCCESS] = s_clear_capacity_on_graph_augp;
 	TRANSITIONS[s_current_room_source_augp][FAIL] = s_check_capacity_to_lower_level_augp;
 	TRANSITIONS[s_current_room_source_augp][SUCCESS] = s_capacity_from_source_augp;
 	TRANSITIONS[s_check_capacity_to_lower_level_augp][FAIL] = s_capacity_away_from_augment_augp;
@@ -278,8 +297,8 @@ static void			get_events(t_mconfig **mconfig)
 	EVENTS[s_capacity_from_source_augp] = capacity_from_source_augp;
 	EVENTS[s_capacity_to_lower_level_augp] = capacity_to_lower_level_augp;
 	EVENTS[s_capacity_to_higher_level_augp] = capacity_to_higher_level_augp;
-	EVENTS[s_capacity_away_from_augment_augp] = capacity_away_from_augment_augp;
-	EVENTS[s_check_capacity_to_lower_level_augp] = check_capacity_to_lower_level_augp;
+	// EVENTS[s_capacity_away_from_augment_augp] = capacity_away_from_augment_augp;
+	// EVENTS[s_check_capacity_to_lower_level_augp] = check_capacity_to_lower_level_augp;
 	EVENTS[s_get_indexes_edges_augp] = get_indexes_edges_augp;
 	EVENTS[s_current_room_sink_augp] = current_room_sink_augp;
 	EVENTS[s_current_room_source_augp] = current_room_source_augp;
