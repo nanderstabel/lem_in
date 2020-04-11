@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/11 16:34:55 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/11 17:08:32 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,6 +316,7 @@ typedef struct					s_project
 	t_adlist					*current_path;
 
 	size_t						round_nr;
+	size_t						round_temp;
 	t_graph_vars				graph_vars;
 	size_t						index_copy;
 	t_list						*error;

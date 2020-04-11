@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/11 15:44:28 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/11 18:21:30 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_bool				print_input(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	ft_printf("%s\n\n", INPUT);
+	// ft_printf("%s\n\n", INPUT);
 	return (SUCCESS);
 }
 
@@ -155,6 +155,14 @@ static t_mconfig	*states(void)
 	return (mconfig);
 }
 
+static char				*vertex_name(void *item)
+{
+	t_vertex	*vertex;
+
+	vertex = (t_vertex *)item;
+	return (vertex->id->name);
+}
+
 t_bool								print_output(t_project *lem_in)
 {
 	t_machine	*machine;
@@ -164,6 +172,24 @@ t_bool								print_output(t_project *lem_in)
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
+	if (ALL_PATHS)
+	{
+		QUE = ALL_PATHS;
+		ft_printf("\n{underline}Paths:{eoc}\n");
+		INDEX = 0;
+		while (QUE && QUE->address)
+		{
+			if ((size_t)PATH_ROUND != INDEX)
+			{
+				ft_printf("\tRound %i:\n", PATH_ROUND);
+				INDEX = (size_t)PATH_ROUND;
+			}
+			ft_printf("\t\tlength: %i --> ", PATH_LENGTH);
+			ft_putadlst(PATH_START, vertex_name, "->");
+			QUE = QUE->next;
+		}
+		ft_putchar(10);
+	}
 	if (ERROR)
 		return (ERROR_LOG(FAIL));
 	return (SUCCESS);
