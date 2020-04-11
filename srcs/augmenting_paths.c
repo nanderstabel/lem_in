@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 13:00:09 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/10 17:50:26 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/11 16:36:42 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_bool				init_augp(t_project *lem_in)
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	lem_in->level = 0;
-	QUE = NULL;
+	// QUE = NULL;
 	return (SUCCESS);
 
 }
@@ -138,13 +138,13 @@ t_bool				get_indexes_edges_augp(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	if (!QUE)
+	if (!AUGMENT_PATHS)
 	{
-		QUE = ft_addr_lstnew((void*)EDGE_INDEX);
+		AUGMENT_PATHS = ft_addr_lstnew((void*)EDGE_INDEX);
 		ROUND_NR++;
 	}
 	else
-		ft_addr_lstapp(&QUE, ft_addr_lstnew((void*)EDGE_INDEX));
+		ft_addr_lstapp(&AUGMENT_PATHS, ft_addr_lstnew((void*)EDGE_INDEX));
 	INDEX_COPY = CURRENT_ROOM_INDEX;
 	CURRENT_LINK_CAPACITY = 0;
 	CURRENT_ROOM = CURRENT_LINK->next;
@@ -155,7 +155,7 @@ t_bool				get_indexes_edges_augp(t_project *lem_in)
 		TEMP_LINKS = TEMP_LINKS->next;
 	}
 	CURRENT_LINK = ((t_edge*)(TEMP_LINKS->address));
-	ft_addr_lstapp(&QUE, ft_addr_lstnew((void*)EDGE_INDEX));
+	ft_addr_lstapp(&AUGMENT_PATHS, ft_addr_lstnew((void*)EDGE_INDEX));
 	return (SUCCESS);
 }
 
@@ -204,7 +204,7 @@ t_bool				clear_capacity_on_graph_augp(t_project *lem_in)
 {
 	size_t 	index;
 	t_adlist *temp;
-	temp = QUE;
+	temp = AUGMENT_PATHS;
 
 	index = 0;
 	// int num = 0;
@@ -240,7 +240,7 @@ t_bool				clear_capacity_on_graph_augp(t_project *lem_in)
 		{
 			((t_vertex*)(ALL_ROOMS->elem[index]->content))->level = 0;
 			// ft_printf("test1\n");
-			if (QUE)
+			if (AUGMENT_PATHS)
 			{
 				// ft_printf("test2\n");
 				((t_vertex*)(ALL_ROOMS->elem[index]->content))->visited = 0;
@@ -261,7 +261,7 @@ t_bool				clear_capacity_on_graph_augp(t_project *lem_in)
 	// 	ft_printf("level %d\n", ((t_vertex*)(ALL_ROOMS->elem[index]->content))->level);
 	// 	index++;
 	// }
-	ft_addr_lstdel(&QUE);
+	// ft_addr_lstdel(&QUE);
 	return (SUCCESS);
 }
 
