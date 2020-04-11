@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:57:21 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/11 15:30:57 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/11 18:59:45 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ t_bool				delete_path(t_project *lem_in)
 	ft_addr_lstdel(&CURRENT_PATH);
 	if (FLAGS & DFS_O)
 		ft_printf("\t\tDeleted path\n");
-	return (SUCCESS);
+	return (FAIL);//SUCCESS);
 }
 
 t_bool				remove_room(t_project *lem_in)
@@ -178,8 +178,8 @@ t_bool				store_path(t_project *lem_in)
 
 static void			get_transitions(t_mconfig **mconfig)
 {
-	TRANSITIONS[s_install_machine_rms][FAIL] = s_uninstall_machine_dfs;
-	TRANSITIONS[s_install_machine_rms][SUCCESS] = s_sort_links_lists;
+	TRANSITIONS[s_install_machine_dfs][FAIL] = s_uninstall_machine_dfs;
+	TRANSITIONS[s_install_machine_dfs][SUCCESS] = s_sort_links_lists;
 	TRANSITIONS[s_sort_links_lists][FAIL] = s_uninstall_machine_dfs;
 	TRANSITIONS[s_sort_links_lists][SUCCESS] = s_start_path;
 	TRANSITIONS[s_start_path][FAIL] = s_uninstall_machine_dfs;
@@ -197,7 +197,7 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_check_sink][FAIL] = s_find_next_room;
 	TRANSITIONS[s_check_sink][SUCCESS] = s_store_path;
 	TRANSITIONS[s_store_path][FAIL] = s_uninstall_machine_dfs;
-	TRANSITIONS[s_store_path][SUCCESS] = s_start_path;
+	TRANSITIONS[s_store_path][SUCCESS] = s_print_tables_dfs;//s_start_path;
 	TRANSITIONS[s_print_tables_dfs][FAIL] = s_uninstall_machine_dfs;
 	TRANSITIONS[s_print_tables_dfs][SUCCESS] = s_uninstall_machine_dfs;
 }
@@ -237,6 +237,8 @@ t_bool								find_paths(t_project *lem_in)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
 	lem_in->count++;
+	if (!INDEX)//
+		return (FAIL);//
 	if (ERROR)
 		return (ERROR_LOG(FAIL));
 	return (SUCCESS);
