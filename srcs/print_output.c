@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 14:50:02 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/11 15:44:28 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_bool				spawn_ants(t_project *lem_in)
 			lem_in->current_ant = get_ant(INDEX);
 			lem_in->current_ant->location = PATH_START;
 			if (lem_in->all_ants)
-				ft_addr_lstadd(&lem_in->all_ants, ft_addr_lstnew((void *)lem_in->current_ant));
+				ft_addr_lstapp(&lem_in->all_ants, ft_addr_lstnew((void *)lem_in->current_ant));
 			else
 				lem_in->all_ants = ft_addr_lstnew((void *)lem_in->current_ant);
 			++INDEX;
@@ -93,17 +93,18 @@ t_bool				move_all_ants(t_project *lem_in)
 	QUE = lem_in->all_ants;
 	while (QUE)
 	{
-		if (QUE->address)
+		CURRENT_ANT->location = CURRENT_ANT->location->next;
+		ft_printf("%s-%s", CURRENT_ANT->name, ((t_vertex *)CURRENT_ANT->location->address)->id->name);
+		if (QUE->next)
+			ft_putchar(' ');
+		if ((t_vertex *)CURRENT_ANT->location->address == SINK)
 		{
-			CURRENT_ANT->location = CURRENT_ANT->location->next;
-			ft_printf("%s-%s", CURRENT_ANT->name, ((t_vertex *)CURRENT_ANT->location->address)->id->name);
-			if (QUE->next)
-				ft_putchar(' ');
-			if ((t_vertex *)CURRENT_ANT->location->address == SINK){
-				QUE->address = NULL; //fix dit
-				if (QUE == lem_in->all_ants)//fix dit ook
-					lem_in->all_ants = NULL;}
+			if (QUE == lem_in->all_ants)
+				lem_in->all_ants = QUE->next;
+			else
+				TEMP_QUE->next = QUE->next;
 		}
+		TEMP_QUE = QUE;
 		QUE = QUE->next;
 	}
 	--lem_in->nturns;
