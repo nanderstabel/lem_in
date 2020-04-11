@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:57:21 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 14:18:32 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/11 15:30:57 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,8 +236,6 @@ t_bool								find_paths(t_project *lem_in)
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
-	if (lem_in->count == 2)
-		exit(0);
 	lem_in->count++;
 	if (ERROR)
 		return (ERROR_LOG(FAIL));
