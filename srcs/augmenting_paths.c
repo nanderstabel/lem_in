@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 13:00:09 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/11 20:25:14 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/12 15:56:08 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_bool				capacity_from_source_augp(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
+	if (FLAGS & AUGMENT_O)
+		ft_printf("\t\tStart path from Sink\n");
 	CURRENT_ROOM = SINK;
 	TEMP_LINKS = SINK->links;
 	INDEX_COPY = CURRENT_ROOM_INDEX;
@@ -42,6 +44,8 @@ t_bool				capacity_from_source_augp(t_project *lem_in)
 				{
 					lem_in->level++;
 					TEMP_LINK_CAPACITY = 0;
+					if (FLAGS & AUGMENT_O)
+						ft_printf("\t\tTravelled from %s level %d visited %d, to %s level %d visited %d\n", CURRENT_ROOM->id->name, CURRENT_ROOM->level, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->level, NEXT_ROOM->visited);
 					// ft_printf("02 - room: %s visited %d - next room: %s visited %d functie %s\n", CURRENT_ROOM->id->name, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
 					CURRENT_ROOM = NEXT_ROOM;
 					return (SUCCESS);
@@ -67,7 +71,11 @@ t_bool 				capacity_to_lower_level_augp(t_project *lem_in)
 	{
 		// ft_printf("04 - next room: %s visited %d functie %s\n", NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
 		if (CURRENT_ROOM->visited == 1)
+		{
+			if (FLAGS & AUGMENT_O)
+				ft_printf("\n\t\tRoom %s with level %d,  look for augment path\n", CURRENT_ROOM->id->name, CURRENT_ROOM->level);
 			break;
+		}
 		NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_LINKS;
 
 		while (NEXT_ROOM_TEMP_LINKS)
@@ -82,6 +90,8 @@ t_bool 				capacity_to_lower_level_augp(t_project *lem_in)
 		{
 			TEMP_LINK_CAPACITY = 0;
 			INDEX_COPY = CURRENT_ROOM_INDEX;
+			if (FLAGS & AUGMENT_O)
+					ft_printf("\t\tTravelled from %s level %d visited %d, to %s level %d visited %d\n", CURRENT_ROOM->id->name, CURRENT_ROOM->level, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->level, NEXT_ROOM->visited);
 			// ft_printf("05  - room: %s visited %d - next room: %s visited %d functie %s\n", CURRENT_ROOM->id->name, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
 			CURRENT_ROOM = NEXT_ROOM;
 			return (SUCCESS);
@@ -97,10 +107,11 @@ t_bool				capacity_to_higher_level_augp(t_project *lem_in)
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
-	ft_printf("current room level %d\n", CURRENT_ROOM->level);
+	// ft_printf("current room level %d\n", CURRENT_ROOM->level);
 	while (TEMP_LINKS)
 	{
-		ft_printf("07 -next room: %s visited %d level %d] - [link visited %d capacity %d\n", NEXT_ROOM->id->name, NEXT_ROOM->visited, NEXT_ROOM_LEVEL, TEMP_LINK_VISITED, TEMP_LINK_CAPACITY);
+		if (FLAGS & AUGMENT_O)
+			ft_printf("\t\t--Potential next room %s level %d visited %d - link visited %d capacity %d\n", NEXT_ROOM->id->name, NEXT_ROOM_LEVEL, NEXT_ROOM->visited, TEMP_LINK_VISITED, TEMP_LINK_CAPACITY);
 		// temp =  ft_hash_table_get(ALL_ROOMS, NEXT_ROOM->id->name);
 		// ft_printf("name %s - level %d\n", NEXT_ROOM->id->name, temp->)
 		if ((TEMP_LINK_CAPACITY == 0 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level + 1 && NEXT_ROOM->visited == 1) || (TEMP_LINK_CAPACITY == 0 && NEXT_ROOM == SINK))
@@ -113,7 +124,8 @@ t_bool				capacity_to_higher_level_augp(t_project *lem_in)
 		}
 		TEMP_LINKS = TEMP_LINKS->next;
 	}
-	// ft_printf("room name %s\n", CURRENT_ROOM->id->name);
+	if (FLAGS & AUGMENT_O)
+		ft_printf("Failed to augment\n");
 	return (FAIL);
 }
 
@@ -129,6 +141,8 @@ t_bool				get_indexes_edges_augp(t_project *lem_in)
 		ft_addr_lstapp(&AUGMENT_PATHS, ft_addr_lstnew((void*)EDGE_INDEX));
 	INDEX_COPY = CURRENT_ROOM_INDEX;
 	CURRENT_LINK_CAPACITY = 0;
+	if (FLAGS & AUGMENT_O)
+		ft_printf("\t\tAugment path from %s visited %d, to %s visited %d\n", CURRENT_ROOM->id->name, CURRENT_ROOM->level, CURRENT_LINK->next->id->name, CURRENT_LINK->next->level);
 	CURRENT_ROOM = CURRENT_LINK->next;
 	// ft_printf("room: %s - functie %s\n", CURRENT_ROOM->id->name,  __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
@@ -147,7 +161,8 @@ t_bool				current_room_sink_augp(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if (CURRENT_ROOM == SINK)
 	{
-		ft_printf("sink reached\n");
+		if (FLAGS & AUGMENT_O)
+			ft_printf("\t\tSink reached\n");	
 		return (SUCCESS);
 	}
 	return (FAIL);
