@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/11 18:21:30 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/12 11:47:47 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,14 @@ t_bool				move_all_ants(t_project *lem_in)
 			if (QUE == lem_in->all_ants)
 				lem_in->all_ants = QUE->next;
 			else
+			{
 				TEMP_QUE->next = QUE->next;
+				QUE = QUE->next;
+			}
 		}
 		TEMP_QUE = QUE;
-		QUE = QUE->next;
+		if (QUE)
+			QUE = QUE->next;
 	}
 	--lem_in->nturns;
 	ft_putchar(10);
