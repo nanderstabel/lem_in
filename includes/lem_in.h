@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/12 15:14:20 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/12 15:49:03 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include "machine.h"
 
-# define OPTIONS				"acdeglpru"
+# define OPTIONS				"abcdeglpru"
 # define ARGC					lem_in->argc
 # define ARGV					lem_in->argv
 # define FLAGS					lem_in->flags
@@ -93,10 +93,11 @@
 # define PATHS_O				(1 << 7)
 # define AUGMENT_O				(1 << 8)
 # define COUNT_O				(1 << 9)
-# define START					(1 << 10)
-# define END					(1 << 11)
-# define LINK					(1 << 12)
-# define ROOM_LINE				(1 << 13)
+# define BLANK_O				(1 << 10)
+# define START					(1 << 11)
+# define END					(1 << 12)
+# define LINK					(1 << 13)
+# define ROOM_LINE				(1 << 14)
 
 /*
 ** All the possible t_states of the machine.
