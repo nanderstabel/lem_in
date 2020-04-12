@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 13:00:09 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/12 15:56:08 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/12 17:02:52 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_bool				capacity_from_source_augp(t_project *lem_in)
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	if (FLAGS & AUGMENT_O)
-		ft_printf("\t\tStart path from Sink\n");
+		ft_printf("\t\tStart path from Sink (%s) level %d\n", SINK->id->name, SINK->level);
 	CURRENT_ROOM = SINK;
 	TEMP_LINKS = SINK->links;
 	INDEX_COPY = CURRENT_ROOM_INDEX;
@@ -38,23 +38,22 @@ t_bool				capacity_from_source_augp(t_project *lem_in)
 		NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_LINKS;
 		while (NEXT_ROOM_TEMP_LINKS)
 		{
-			if (NEXT_ROOM_TEMP_LINKS_CAPACITY == 1 && NEXT_ROOM_INDEX_CMP == INDEX_COPY)
+			if (NEXT_ROOM_TEMP_LINKS_CAPACITY == 1 && NEXT_ROOM_INDEX_CMP == INDEX_COPY && NEXT_ROOM_LEVEL != 0)
 			{
-				if (TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL != 0)
-				{
-					lem_in->level++;
-					TEMP_LINK_CAPACITY = 0;
-					if (FLAGS & AUGMENT_O)
-						ft_printf("\t\tTravelled from %s level %d visited %d, to %s level %d visited %d\n", CURRENT_ROOM->id->name, CURRENT_ROOM->level, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->level, NEXT_ROOM->visited);
-					// ft_printf("02 - room: %s visited %d - next room: %s visited %d functie %s\n", CURRENT_ROOM->id->name, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
-					CURRENT_ROOM = NEXT_ROOM;
-					return (SUCCESS);
-				}
+				lem_in->level++;
+				TEMP_LINK_CAPACITY = 0;
+				if (FLAGS & AUGMENT_O)
+					ft_printf("\t\tTravelled from %s level %d visited %d, to %s level %d visited %d\n", CURRENT_ROOM->id->name, CURRENT_ROOM->level, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->level, NEXT_ROOM->visited);
+				// ft_printf("02 - room: %s visited %d - next room: %s visited %d functie %s\n", CURRENT_ROOM->id->name, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
+				CURRENT_ROOM = NEXT_ROOM;
+				return (SUCCESS);
 			}
 			NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_TEMP_LINKS->next;
 		}
 		TEMP_LINKS = TEMP_LINKS->next;
 	}
+	if (FLAGS  & AUGMENT_O)
+		ft_printf("\t\tNo capacity avalible from Sink. End algorithm\n");
 	return (FAIL);
 }
 
@@ -73,7 +72,7 @@ t_bool 				capacity_to_lower_level_augp(t_project *lem_in)
 		if (CURRENT_ROOM->visited == 1)
 		{
 			if (FLAGS & AUGMENT_O)
-				ft_printf("\n\t\tRoom %s with level %d,  look for augment path\n", CURRENT_ROOM->id->name, CURRENT_ROOM->level);
+				ft_printf("\n\t\tRoom %s with level %d, look for augment path\n", CURRENT_ROOM->id->name, CURRENT_ROOM->level);
 			break;
 		}
 		NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_LINKS;
@@ -103,18 +102,25 @@ t_bool 				capacity_to_lower_level_augp(t_project *lem_in)
 
 t_bool				capacity_to_higher_level_augp(t_project *lem_in)
 {
-	// t_elem		*temp;
+	t_adlist		*temp;
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
 	// ft_printf("current room level %d\n", CURRENT_ROOM->level);
 	while (TEMP_LINKS)
 	{
+		temp  = AUGMENT_PATHS;
+		while (temp)
+		{
+			if ((size_t)temp->address == ((t_edge*)(TEMP_LINKS->address))->id->index)
+				break  ;
+			temp = temp->next;
+		}
 		if (FLAGS & AUGMENT_O)
 			ft_printf("\t\t--Potential next room %s level %d visited %d - link visited %d capacity %d\n", NEXT_ROOM->id->name, NEXT_ROOM_LEVEL, NEXT_ROOM->visited, TEMP_LINK_VISITED, TEMP_LINK_CAPACITY);
 		// temp =  ft_hash_table_get(ALL_ROOMS, NEXT_ROOM->id->name);
 		// ft_printf("name %s - level %d\n", NEXT_ROOM->id->name, temp->)
-		if ((TEMP_LINK_CAPACITY == 0 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level + 1 && NEXT_ROOM->visited == 1) || (TEMP_LINK_CAPACITY == 0 && NEXT_ROOM == SINK))
+		if (((TEMP_LINK_CAPACITY == 0 && NEXT_ROOM->visited == 1) || (TEMP_LINK_CAPACITY == 0 && NEXT_ROOM == SINK)) && (!temp))
 		{
 				// ft_printf("06 - room: %s visited %d - next room: %s visited %d functie %s\n", CURRENT_ROOM->id->name, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
 				CURRENT_LINK = ((t_edge*)(TEMP_LINKS->address));
@@ -142,7 +148,7 @@ t_bool				get_indexes_edges_augp(t_project *lem_in)
 	INDEX_COPY = CURRENT_ROOM_INDEX;
 	CURRENT_LINK_CAPACITY = 0;
 	if (FLAGS & AUGMENT_O)
-		ft_printf("\t\tAugment path from %s visited %d, to %s visited %d\n", CURRENT_ROOM->id->name, CURRENT_ROOM->level, CURRENT_LINK->next->id->name, CURRENT_LINK->next->level);
+		ft_printf("\t\tAugment path from %s level %d, to %s level %d\n", CURRENT_ROOM->id->name, CURRENT_ROOM->level, CURRENT_LINK->next->id->name, CURRENT_LINK->next->level);
 	CURRENT_ROOM = CURRENT_LINK->next;
 	// ft_printf("room: %s - functie %s\n", CURRENT_ROOM->id->name,  __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
@@ -194,16 +200,14 @@ t_bool				clear_capacity_on_graph_augp(t_project *lem_in)
 	{
 		while (index < ALL_LINKS->size)
 		{
-			if (((t_edge*)(ALL_LINKS->elem[index]->content))->visited == 1 && !lem_in->round_temp)
-			{
-				// num++;
-				((t_edge*)(ALL_LINKS->elem[index]->content))->capacity = 0;
-			}
-			else
-			{
-				((t_edge*)(ALL_LINKS->elem[index]->content))->capacity = 1;
-				((t_edge*)(ALL_LINKS->elem[index]->content))->visited = 0;
-			}
+			// if (((t_edge*)(ALL_LINKS->elem[index]->content))->visited == 1 && !lem_in->round_temp)
+			// {
+			// 	// num++;
+			// 	((t_edge*)(ALL_LINKS->elem[index]->content))->capacity = 0;
+			// }
+
+			((t_edge*)(ALL_LINKS->elem[index]->content))->capacity = 1;
+			((t_edge*)(ALL_LINKS->elem[index]->content))->visited = 0;
 			index++;
 		}
 		while (temp)
@@ -314,7 +318,7 @@ t_bool					augmenting_paths(t_project *lem_in)
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
-	ft_printf("round: %d\n", ROUND_NR);	
+	// ft_printf("round: %d\n", ROUND_NR);	
 	
 	// size_t index = 0;
 
