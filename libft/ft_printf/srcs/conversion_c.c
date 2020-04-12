@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   conversion_c.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mgross <mgross@student.codam.nl>             +#+                     */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/24 12:36:39 by mgross         #+#    #+#                */
-/*   Updated: 2020/01/17 19:36:06 by mgross        ########   odam.nl         */
+/*   Created: 2020/04/12 14:31:38 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/12 14:31:40 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/17 18:39:18 by mgross         #+#    #+#                */
-/*   Updated: 2020/03/31 11:39:22 by nstabel       ########   odam.nl         */
+/*   Created: 2019/01/17 18:39:18 by mgross        #+#    #+#                 */
+/*   Updated: 2020/04/12 14:42:44 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,11 @@ size_t				ft_hash(char *key);
 t_elem				*ft_hash_table_add(t_hash_table *hash_table, char *key, \
 					void *content);
 void				*ft_hash_table_append(t_hash_table *table, \
-    				void *(*columns)(t_hash_table *table));
-void        	    *ft_hash_table_drop(t_hash_table *table, size_t cutoff);
+					void *(*columns)(t_hash_table *table));
+void				*ft_hash_table_drop(t_hash_table *table, size_t cutoff);
 t_elem				*ft_hash_table_get(t_hash_table *hash_table, char *key);
 void				*ft_hash_table_update(t_hash_table *table, \
-   					void *(*columns)(t_hash_table *table));
+					void *(*columns)(t_hash_table *table));
 t_list				**ft_hsh_chain(void **ar, size_t size, \
 					size_t hsh(void *));
 t_list				**ft_hsh_linprob(void **ar, size_t size, \
@@ -118,7 +118,8 @@ void				ft_lstiter(t_list *lst, void(*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
 t_list				*ft_lstrev(t_list *alst);
-t_hash_table		*ft_malloc_hash_table(size_t size, char *title, char *format);
+t_hash_table		*ft_malloc_hash_table(size_t size, char *title, \
+					char *format);
 void				**ft_mem_array_alloc(size_t x_dim, size_t size_x,
 					size_t size_y);
 void				*ft_memalloc(size_t size);
