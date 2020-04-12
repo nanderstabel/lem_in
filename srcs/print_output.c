@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/12 11:47:47 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/12 12:53:46 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,15 @@ t_bool				spawn_ants(t_project *lem_in)
 
 t_bool				move_all_ants(t_project *lem_in)
 {
+	static int count;
+
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	if (!lem_in->all_ants)
 		return (FAIL);
+	if (FLAGS & COUNT_O)
+		ft_printf("Turn %-5i:\t", 1 + count);
+	++count;
 	QUE = lem_in->all_ants;
 	while (QUE)
 	{
