@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 14:50:28 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/12 12:56:48 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/12 15:50:19 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ t_bool				find_option(t_project *lem_in)
 			FLAGS |= AUGMENT_O;
 		else if (**ARGV == 'c')
 			FLAGS |= COUNT_O;
+		else if (**ARGV == 'b')
+			FLAGS |= BLANK_O;
 		++(*ARGV);
 		return (SUCCESS);
 	}
@@ -84,6 +86,7 @@ t_bool				print_usage_message(t_project *lem_in)
 	ft_printf("Pathfinder which moves 'ants' from a start room to an end ");
 	ft_printf("room, using a given map, in the least amount of steps\n");
 	ft_printf("\t-a\t\tprints the steps taken during augmenting\n");
+	ft_printf("\t-b\t\tprevents printing output\n");
 	ft_printf("\t-c\t\tadds a turn counter to the output\n");
 	ft_printf("\t-d\t\tprints the steps taken during pathfinding (dfs)\n");
 	ft_printf("\t-e\t\tshows where an error occured, if there was any\n");

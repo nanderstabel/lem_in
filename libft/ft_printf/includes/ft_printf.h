@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_printf.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mgross <mgross@student.codam.nl>             +#+                     */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/04/11 12:53:48 by mgross         #+#    #+#                */
-/*   Updated: 2020/01/21 10:32:11 by mgross        ########   odam.nl         */
+/*   Created: 2020/04/12 14:24:19 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/12 14:27:40 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,23 @@
 # include <stdlib.h>
 
 # define BUFF_SIZE_PF	4096
-# define FLAG_L			(1 << 0)
-# define FLAG_LL		(1 << 1)
-# define FLAG_H			(1 << 2)
-# define FLAG_HH		(1 << 3)
-# define FLAG_HASH		(1 << 4)
-# define FLAG_MIN		(1 << 5)
-# define FLAG_PLUS		(1 << 6)
-# define FLAG_ZERO		(1 << 7)
-# define FLAG_SPACE		(1 << 8)
-# define FLAG_PSTAR		(1 << 9)
-# define FLAG_WSTAR 	(1 << 10)
-# define FLAG_L_UP		(1 << 11)
-# define FLAG_DOL		(1 << 12)
+
+enum
+{
+	FLAG_L = (1 << 0),
+	FLAG_LL = (1 << 1),
+	FLAG_H = (1 << 2),
+	FLAG_HH = (1 << 3),
+	FLAG_HASH = (1 << 4),
+	FLAG_MIN = (1 << 5),
+	FLAG_PLUS = (1 << 6),
+	FLAG_ZERO = (1 << 7),
+	FLAG_SPACE = (1 << 8),
+	FLAG_PSTAR = (1 << 9),
+	FLAG_WSTAR = (1 << 10),
+	FLAG_L_UP = (1 << 11),
+	FLAG_DOL = (1 << 12)
+};
 
 # define BOLD			"\x1B[1m"
 # define ITALICS		"\x1B[3m"
