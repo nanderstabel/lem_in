@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/19 13:22:02 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/23 21:13:55 by nstabel       ########   odam.nl         */
+/*   Created: 2020/02/19 13:22:02 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/12 14:44:15 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef enum
 ** Prototype for all the 't_event functions'.
 */
 
-typedef t_bool	(*t_event)(t_project *);
+typedef t_bool		(*t_event)(t_project *);
 
 /*
 ** The mconfig struct can be used to send the configuration data of your project
