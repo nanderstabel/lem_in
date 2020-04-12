@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/10 17:09:32 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/11 20:00:28 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@
 # define CURRENT_LINK_CAPACITY	CURRENT_LINK->capacity
 # define NEXT_ROOM_INDEX		((t_edge*)(TEMP_LINKS->address))->next->id->index
 # define INDEX_COPY				lem_in->index_copy
-
+# define AUGMENT_PATHS			lem_in->aug_path_links
 # define PATH_OFFSET			((t_adlist *)((t_adlist *)QUE->address))
 # define PATH_ROUND				PATH_OFFSET->address
 # define PATH_LENGTH			PATH_OFFSET->next->address
@@ -308,6 +308,7 @@ typedef struct					s_project
 	t_adlist					*que_list;
 	t_adlist					*temp_que_list;
 	t_adlist					*temp;
+	t_adlist					*aug_path_links;
 
 	t_adlist					*all_ants;
 	t_ant						*current_ant;
@@ -315,9 +316,11 @@ typedef struct					s_project
 	t_adlist					*current_path;
 
 	size_t						round_nr;
+	size_t						round_temp;
 	t_graph_vars				graph_vars;
 	size_t						index_copy;
 	t_list						*error;
+	int							fd;
 }								t_project;
 
 /*
