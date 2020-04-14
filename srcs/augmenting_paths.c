@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 13:00:09 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/12 17:02:52 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/14 12:31:19 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,8 +330,8 @@ t_bool					augmenting_paths(t_project *lem_in)
 
 
 
-
-	if (lem_in->round_temp == 0)
+	lem_in->loop++;
+	if (lem_in->round_temp == 0 || lem_in->loop == 10)
 	{
 		return (FAIL);
 	}

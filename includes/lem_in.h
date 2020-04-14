@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/12 15:49:03 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/14 12:16:06 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,6 +324,7 @@ typedef struct					s_project
 	size_t						index_copy;
 	t_list						*error;
 	int							fd;
+	size_t						loop;
 }								t_project;
 
 /*
