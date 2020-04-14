@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/14 09:58:14 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/14 10:20:30 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_bool				print_input(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if (FLAGS & BLANK_O)
 		return (FAIL);
-	ft_printf("%s\n\n", INPUT);
+	ft_printf("%s\n", INPUT);
 	return (SUCCESS);
 }
 
