@@ -473,10 +473,14 @@ do
 	ref=$(tail -n 1 test5 | cut -d ' ' -f8)
 	cp out5 output/out5_$i
 	rm out5
+	if [ $res -gt $(($ref + 10)) ]
+	then
+		exit 1
 	rm test5
 	if [ $(echo $res | grep "ERROR" | wc -l) -gt 1 ]
 	then
 		echo "${RED}$(echo $ref | head -n 1)${EOC}"
+	fi
 	else
 		CLR1=$EOC
 		CLR2=$EOC
