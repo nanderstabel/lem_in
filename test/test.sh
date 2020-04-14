@@ -205,7 +205,7 @@ basic_test_1 () {
 
 echo "${HIGH}\nBASIC TEST 1${EOC}"
 
-for i in 0 1 2 3 4 5 6 7 8 9
+for ((i=1;i<=100;i++))
 do
 	sleep 1s
 	./generator --flow-one > test1
@@ -268,7 +268,7 @@ basic_test_2 () {
 
 echo "${HIGH}\nBASIC TEST 2${EOC}"
 
-for i in 0 1 2 3 4 5 6 7 8 9
+for ((i=1;i<=100;i++))
 do
 	sleep 1s
 	./generator --flow-ten > test2
@@ -332,7 +332,7 @@ basic_test_3 () {
 
 echo "${HIGH}\nBASIC TEST 3${EOC}"
 
-for i in 0 1 2 3 4 5 6 7 8 9
+for ((i=1;i<=100;i++))
 do
 	sleep 1s
 	./generator --flow-thousand > test3
@@ -396,7 +396,7 @@ big_test () {
 
 echo "${HIGH}\nMEDIUM TEST${EOC}"
 
-for i in 0 1 2 3 4 5 6 7 8 9
+for ((i=1;i<=100;i++))
 do
 	sleep 1s
 	./generator --big > test4
@@ -460,7 +460,7 @@ super_test () {
 
 echo "${HIGH}\nHARD TEST${EOC}"
 
-for i in 0 1 2 3 4 5 6 7 8 9
+for ((i=1;i<=100;i++))
 do
 	sleep 1s
 	./generator --big-superposition > test5
