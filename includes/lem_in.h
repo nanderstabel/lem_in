@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/14 12:16:06 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/15 15:08:20 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@
 # define ERROR_MSG				RED "An error occurred, machine was not able to: \n"
 # define ERROR					lem_in->error
 # define ERROR_LOG(x)			error_log(lem_in, ft_strjoin("\t- ", __func__), x)
+// error_log(lem_in, ft_strjoin("\t- ", __func__), SUCCESS)
+// error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL)
+
 
 # define TRANSITIONS			(*mconfig)->transitions
 # define EVENTS					(*mconfig)->events
@@ -141,15 +144,15 @@ enum
 	s_first_char_zero_vi,
 	s_first_char_delim_vi,
 	s_first_char_hash_vi,
-	s_second_char_hash_vi,
+	s_sec_char_hash_vi,
 	s_find_hyphen_vi,
 	s_isdigit_to_newline_vi,
 	s_isdigit_to_space_vi,
 	s_isallnum_to_hyphen_vi,
 	s_isallnum_to_space_vi,
 	s_isallnum_to_newline_vi,
-	s_check_if_end_command_line_vi,
-	s_check_if_start_command_line_vi,
+	s_check_end_in_line_vi,
+	s_check_start_in_line_vi,
 	s_switch_start_flag_on_vi,
 	s_switch_end_flag_on_vi,
 	s_switch_link_flag_on_vi,
@@ -351,11 +354,11 @@ t_bool							first_char_newline_vi(t_project *lem_in);
 t_bool							first_char_zero_vi(t_project *lem_in);
 t_bool							first_char_delim_vi(t_project *lem_in);
 t_bool							first_char_hash_vi(t_project *lem_in);
-t_bool							second_char_hash_vi(t_project *lem_in);
+t_bool							sec_char_hash_vi(t_project *lem_in);
 t_bool							isdigit_to_newline_vi(t_project *lem_in);
 t_bool							isdigit_to_space_vi(t_project *lem_in);
-t_bool							check_if_start_command_line_vi(t_project *lem_in);
-t_bool							check_if_end_command_line_vi(t_project *lem_in);
+t_bool							check_start_in_line_vi(t_project *lem_in);
+t_bool							check_end_in_line_vi(t_project *lem_in);
 t_bool							check_link_flag_on_vi(t_project *lem_in);
 t_bool							switch_end_flag_on_vi(t_project *lem_in);
 t_bool							switch_start_flag_on_vi(t_project *lem_in);
