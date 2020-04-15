@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/14 10:20:30 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/15 09:22:34 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,13 +118,6 @@ t_bool				move_all_ants(t_project *lem_in)
 	}
 	--lem_in->nturns;
 	ft_putchar(10);
-	return (SUCCESS);
-}
-
-t_bool				proto(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
 	return (SUCCESS);
 }
 
