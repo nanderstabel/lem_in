@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 17:31:03 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/11 20:07:00 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/15 15:59:59 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void			initialize_project(t_project **lem_in)
 {
 	*lem_in = (t_project *)ft_memalloc(sizeof(t_project));
 	(*lem_in)->round_nr = 1;
-	// lem_in->fd = open("output.txt", O_CREAT, O_RDWR);
 }
 
 /*
@@ -25,51 +24,48 @@ static void			initialize_project(t_project **lem_in)
 
 static void			get_transitions(t_mconfig **mconfig)
 {
-	TRANSITIONS[s_install_machine][FAIL] = s_uninstall_machine;
-	TRANSITIONS[s_install_machine][SUCCESS] = s_set_options;
-	TRANSITIONS[s_set_options][FAIL] = s_print_error;
-	TRANSITIONS[s_set_options][SUCCESS] = s_validate_input;
-	TRANSITIONS[s_validate_input][FAIL] = s_print_error;
-	TRANSITIONS[s_validate_input][SUCCESS] = s_store_rooms;
-	TRANSITIONS[s_store_rooms][FAIL] = s_print_error;
-	TRANSITIONS[s_store_rooms][SUCCESS] = s_store_links;
-	TRANSITIONS[s_store_links][FAIL] = s_print_error;
-	TRANSITIONS[s_store_links][SUCCESS] = s_label_graph;
-	TRANSITIONS[s_label_graph][SUCCESS] = s_find_paths;
-	TRANSITIONS[s_label_graph][FAIL] = s_choose_graph;
-	TRANSITIONS[s_find_paths][FAIL] = s_label_graph_s_to_t;
-	TRANSITIONS[s_find_paths][SUCCESS] = s_label_graph;
-	TRANSITIONS[s_label_graph_s_to_t][SUCCESS] = s_augment_paths;
-	TRANSITIONS[s_augment_paths][FAIL] = s_choose_graph;
-	TRANSITIONS[s_augment_paths][SUCCESS] = s_label_graph;
-	TRANSITIONS[s_choose_graph][FAIL] = s_print_error;
-	TRANSITIONS[s_choose_graph][SUCCESS] = s_move_ants;
-	TRANSITIONS[s_move_ants][FAIL] = s_print_error;
-	TRANSITIONS[s_move_ants][SUCCESS] = s_print_output;
-	TRANSITIONS[s_print_error][FAIL] = s_print_error;
-	TRANSITIONS[s_print_error][SUCCESS] = s_free_project;
-	TRANSITIONS[s_print_output][FAIL] = s_print_error;
-	TRANSITIONS[s_print_output][SUCCESS] = s_free_project;
-	TRANSITIONS[s_free_project][FAIL] = s_print_error;
-	TRANSITIONS[s_free_project][SUCCESS] = s_uninstall_machine;
+	(*mconfig)->transitions[s_install_machine][FAIL] = s_uninstall_machine;
+	(*mconfig)->transitions[s_install_machine][SUCCESS] = s_set_options;
+	(*mconfig)->transitions[s_set_options][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_set_options][SUCCESS] = s_validate_input;
+	(*mconfig)->transitions[s_validate_input][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_validate_input][SUCCESS] = s_store_rooms;
+	(*mconfig)->transitions[s_store_rooms][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_store_rooms][SUCCESS] = s_store_links;
+	(*mconfig)->transitions[s_store_links][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_store_links][SUCCESS] = s_label_graph;
+	(*mconfig)->transitions[s_label_graph][SUCCESS] = s_find_paths;
+	(*mconfig)->transitions[s_label_graph][FAIL] = s_choose_graph;
+	(*mconfig)->transitions[s_find_paths][FAIL] = s_label_graph_s_to_t;
+	(*mconfig)->transitions[s_find_paths][SUCCESS] = s_label_graph;
+	(*mconfig)->transitions[s_label_graph_s_to_t][SUCCESS] = s_augment_paths;
+	(*mconfig)->transitions[s_augment_paths][FAIL] = s_choose_graph;
+	(*mconfig)->transitions[s_augment_paths][SUCCESS] = s_label_graph;
+	(*mconfig)->transitions[s_choose_graph][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_choose_graph][SUCCESS] = s_print_output;
+	(*mconfig)->transitions[s_print_error][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_print_error][SUCCESS] = s_free_project;
+	(*mconfig)->transitions[s_print_output][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_print_output][SUCCESS] = s_free_project;
+	(*mconfig)->transitions[s_free_project][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_free_project][SUCCESS] = s_uninstall_machine;
 }
 
 static void			get_events(t_mconfig **mconfig)
 {
-	EVENTS[s_install_machine] = NULL;
-	EVENTS[s_set_options] = set_options;
-	EVENTS[s_validate_input] = validate_input;
-	EVENTS[s_store_rooms] = store_rooms;
-	EVENTS[s_store_links] = store_links;
-	EVENTS[s_label_graph] = label_graph;
-	EVENTS[s_label_graph_s_to_t] = label_graph_s_to_t;
-	EVENTS[s_find_paths] = find_paths;
-	EVENTS[s_augment_paths] = augmenting_paths;
-	EVENTS[s_choose_graph] = choose_graph;
-	EVENTS[s_move_ants] = move_ants;
-	EVENTS[s_print_error] = print_error;
-	EVENTS[s_print_output] = print_output;
-	EVENTS[s_free_project] = free_project;
+	(*mconfig)->events[s_install_machine] = NULL;
+	(*mconfig)->events[s_set_options] = set_options;
+	(*mconfig)->events[s_validate_input] = validate_input;
+	(*mconfig)->events[s_store_rooms] = store_rooms;
+	(*mconfig)->events[s_store_links] = store_links;
+	(*mconfig)->events[s_label_graph] = label_graph;
+	(*mconfig)->events[s_label_graph_s_to_t] = label_graph_s_to_t;
+	(*mconfig)->events[s_find_paths] = find_paths;
+	(*mconfig)->events[s_augment_paths] = augmenting_paths;
+	(*mconfig)->events[s_choose_graph] = choose_graph;
+	(*mconfig)->events[s_print_error] = print_error;
+	(*mconfig)->events[s_print_output] = print_output;
+	(*mconfig)->events[s_free_project] = free_project;
 }
 
 /*
@@ -103,8 +99,8 @@ int					main(int argc, char **argv)
 	t_project	*lem_in;
 
 	initialize_project(&lem_in);
-	ARGC = argc;
-	ARGV = argv;
+	lem_in->argc = argc;
+	lem_in->argv = argv;
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
