@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/12 15:48:22 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/15 09:22:34 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_bool				print_input(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if (FLAGS & BLANK_O)
 		return (FAIL);
-	ft_printf("%s\n\n", INPUT);
+	ft_printf("%s\n", INPUT);
 	return (SUCCESS);
 }
 
@@ -106,27 +106,18 @@ t_bool				move_all_ants(t_project *lem_in)
 			ft_putchar(' ');
 		if ((t_vertex *)CURRENT_ANT->location->address == SINK)
 		{
+			//delnode
 			if (QUE == lem_in->all_ants)
 				lem_in->all_ants = QUE->next;
 			else
-			{
 				TEMP_QUE->next = QUE->next;
-				QUE = QUE->next;
-			}
 		}
-		TEMP_QUE = QUE;
-		if (QUE)
-			QUE = QUE->next;
+		else
+			TEMP_QUE = QUE;
+		QUE = QUE->next;
 	}
 	--lem_in->nturns;
 	ft_putchar(10);
-	return (SUCCESS);
-}
-
-t_bool				proto(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
 	return (SUCCESS);
 }
 
@@ -175,7 +166,6 @@ t_bool								print_output(t_project *lem_in)
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
-
 	if (ERROR)
 		return (ERROR_LOG(FAIL));
 	return (SUCCESS);

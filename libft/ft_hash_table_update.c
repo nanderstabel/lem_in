@@ -6,14 +6,14 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/18 17:58:21 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/03/18 17:58:21 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/12 15:34:31 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 void		*ft_hash_table_update(t_hash_table *table, \
-    void *(*columns)(t_hash_table *table))
+	void *(*columns)(t_hash_table *table))
 {
 	if (!table || !columns)
 		return (NULL);
