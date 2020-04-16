@@ -6,20 +6,11 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/19 11:08:09 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/15 17:53:47 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/16 10:33:03 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-enum
-{
-	s_install_machine_pt,
-	s_print_rooms,
-	s_print_links,
-	s_print_paths,
-	s_uninstall_machine_pt,
-}	e_state_pt;
 
 void				*print_table(t_hash_table *table, \
 						void *(*columns)(t_hash_table *table))

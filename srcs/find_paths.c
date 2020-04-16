@@ -6,27 +6,11 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:57:21 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/15 18:09:18 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/16 10:30:41 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-enum
-{
-	s_install_machine_dfs,
-	s_sort_links_lists,
-	s_start_path,
-	s_find_next_room,
-	s_backtrack_path,
-	s_remove_room,
-	s_delete_path,
-	s_traverse_path,
-	s_check_sink,
-	s_store_path,
-	s_print_tables_dfs,
-	s_uninstall_machine_dfs,
-}	e_state_dfs;
 
 int					sort_by_level(void *a, void *b)
 {

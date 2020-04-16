@@ -6,22 +6,11 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/15 17:59:39 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/16 10:32:16 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-enum
-{
-	s_install_machine_po,
-	s_print_input,
-	s_sort_paths,
-	s_spawn_ants,
-	s_move_all_ants,
-	s_print_tables_po,
-	s_uninstall_machine_po,
-}	e_state_po;
 
 t_bool				print_input(t_project *lem_in)
 {

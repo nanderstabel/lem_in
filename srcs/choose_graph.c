@@ -6,26 +6,11 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/04 13:57:07 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/15 18:13:40 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/16 10:31:16 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-enum
-{
-	s_install_machine_cg,
-	s_set_global_vars,
-	s_set_graph_vars,
-	s_get_graph,
-	s_delete_excess_paths,
-	s_clean_pathslist,
-	s_finish_graph_calculation,
-	s_calculate_turn,
-	s_update_stored_graph,
-	s_print_tables_cg,
-	s_uninstall_machine_cg,
-}	e_state_cg;
 
 t_bool				set_global_vars(t_project *lem_in)
 {
