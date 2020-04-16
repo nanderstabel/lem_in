@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 14:32:41 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/16 16:54:20 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,18 @@
 # define NEXT_ROOM_LEVEL		((t_edge*)(lem_in->temp->address))->next->level
 # define NEXT_ROOM_LINKS		((t_edge*)(lem_in->temp->address))->next->links
 
-# define NEXT_ROOM_TEMP_LINKS			TEMP_QUE
-# define NEXT_ROOM_TEMP_LINKS_CAPACITY	((t_edge*)(TEMP_QUE->address))->capacity
+# define NEXT_ROOM_TEMP_LINKS			lem_in->temp_que_list
+# define NEXT_ROOM_TEMP_LINKS_CAPACITY	((t_edge*)(lem_in->temp_que_list->address))->capacity
 
-# define NEXT_ROOM_INDEX_CMP	((t_edge*)(NEXT_ROOM_TEMP_LINKS->address))->next->id->index
+# define NEXT_ROOM_INDEX_CMP	((t_edge*)(lem_in->temp_que_list->address))->next->id->index
 # define TEMP_LINK_CAPACITY		((t_edge*)(lem_in->temp->address))->capacity
-# define TEMP_LINK_VISITED		((t_edge*)(TEMP_LINKS->address))->visited
+# define TEMP_LINK_VISITED		((t_edge*)(lem_in->temp->address))->visited
 
 // # define CURRENT_EDGE			CURRENT_LINK
-# define EDGE_INDEX				CURRENT_LINK->id->index
-# define CURRENT_ROOM_INDEX		CURRENT_ROOM->id->index
-# define CURRENT_LINK_CAPACITY	CURRENT_LINK->capacity
-# define NEXT_ROOM_INDEX		((t_edge*)(TEMP_LINKS->address))->next->id->index
+# define EDGE_INDEX				lem_in->current_link->id->index
+# define CURRENT_ROOM_INDEX		lem_in->current_room->id->index
+# define CURRENT_LINK_CAPACITY	lem_in->current_link->capacity
+# define NEXT_ROOM_INDEX		((t_edge*)(lem_in->temp->address))->next->id->index
 # define INDEX_COPY				lem_in->index_copy
 # define AUGMENT_PATHS			lem_in->aug_path_links
 # define PATH_OFFSET			((t_adlist *)((t_adlist *)QUE->address))
@@ -241,9 +241,9 @@ enum
 {
 	s_install_machine_augp,
 	s_init_augp,
-	s_capacity_from_source_augp,
+	s_capacity_from_sink_augp,
 	s_capacity_to_lower_level_augp,
-	s_capacity_to_higher_level_augp,
+	s_check_augment_path_augp,
 	s_capacity_away_from_augment_augp,
 	s_check_capacity_to_lower_level_augp,
 	s_get_indexes_edges_augp,
@@ -456,11 +456,11 @@ t_bool							capacity_available_bfs_st(t_project *lem_in);
 t_bool							vertex_has_level_bfs_st(t_project *lem_in);
 t_bool							update_level_and_que_bfs_st(t_project *lem_in);
 
-t_bool							capacity_from_source_augp(t_project *lem_in);
+t_bool							capacity_from_sink_augp(t_project *lem_in);
 t_bool 							capacity_to_lower_level_augp(t_project *lem_in);
 t_bool							capacity_away_from_augment_augp(t_project *lem_in);
 t_bool							init_augp(t_project *lem_in);
-t_bool							capacity_to_higher_level_augp(t_project *lem_in);
+t_bool							check_augment_path_augp(t_project *lem_in);
 t_bool							get_indexes_edges_augp(t_project *lem_in);
 t_bool							check_capacity_to_lower_level_augp(t_project *lem_in);
 t_bool							current_room_sink_augp(t_project *lem_in);

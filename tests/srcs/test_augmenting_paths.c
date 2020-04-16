@@ -6,13 +6,13 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/06 15:24:24 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/04/06 19:38:10 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/16 16:28:25 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.h"
 
-Test(augmenting_paths_suite, capacity_from_source_augp_test)
+Test(augmenting_paths_suite, capacity_from_sink_augp_test)
 {
 	t_project		*lem_in;
 	t_bool			boolean;
@@ -27,7 +27,7 @@ Test(augmenting_paths_suite, capacity_from_source_augp_test)
 	label_graph(lem_in);
 	find_paths(lem_in);
 
-	boolean = capacity_from_source_augp(lem_in);
+	boolean = capacity_from_sink_augp(lem_in);
 	cr_assert(boolean == FAIL, "boolean  = %d",  boolean);
 	free(lem_in);
 	lem_in = NULL;
@@ -42,7 +42,7 @@ Test(augmenting_paths_suite, capacity_from_source_augp_test)
 	label_graph(lem_in);
 	find_paths(lem_in);
 
-	boolean = capacity_from_source_augp(lem_in);
+	boolean = capacity_from_sink_augp(lem_in);
 	cr_assert(boolean == SUCCESS, "boolean  = %d",  boolean);
 
 }

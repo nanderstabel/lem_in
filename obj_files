@@ -32,4 +32,7 @@ PROJECT_OBJ_FILES :=	main.o						\
 						bfs_main.o					\
 						init_bfs_st.o				\
 						check_and_update_bfs_st.o	\
-						bfs_st_main.o
+						bfs_st_main.o				\
+						clear_rooms_links_augp.o	\
+						check_augment_path_augp.o	\
+						capacity_from_sink_augp.o
