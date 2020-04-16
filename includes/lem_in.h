@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 14:12:53 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/16 14:32:41 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,7 +249,8 @@ enum
 	s_get_indexes_edges_augp,
 	s_current_room_sink_augp,
 	s_current_room_source_augp,
-	s_clear_capacity_on_graph_augp,
+	s_clear_rooms_on_graph_augp,
+	s_clear_links_on_graph_augp,
 	s_print_tables_augp,
 	s_uninstall_machine_augp,
 }	e_state_augp;
@@ -464,7 +465,8 @@ t_bool							get_indexes_edges_augp(t_project *lem_in);
 t_bool							check_capacity_to_lower_level_augp(t_project *lem_in);
 t_bool							current_room_sink_augp(t_project *lem_in);
 t_bool							current_room_source_augp(t_project *lem_in);
-t_bool							clear_capacity_on_graph_augp(t_project *lem_in);
+t_bool							clear_rooms_on_graph_augp(t_project *lem_in);
+t_bool							clear_links_on_graph_augp(t_project *lem_in);
 
 
 
