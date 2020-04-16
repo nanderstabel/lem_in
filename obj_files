@@ -1,29 +1,35 @@
-PROJECT_OBJ_FILES :=	main.o					\
-						augmenting_paths.o		\
-						choose_graph.o			\
-						print_error.o			\
-						find_paths.o			\
-						label_graph.o			\
-						print_output.o			\
-						set_options.o			\
-						store_links.o			\
-						store_rooms.o			\
-						validate_input_machine.o\
-						get_input.o				\
-						read_input.o			\
-						error_log.o				\
-						vertex.o				\
-						edge.o					\
-						free_project.o			\
-						print_tables.o			\
-						label_graph_s_to_t.o	\
-						vertex_columns.o		\
-						switch_flag_on_vi.o		\
-						read_stdin_vi.o			\
-						check_line_vi.o			\
-						check_char_vi.o			\
-						check_flag_on_vi.o		\
-						is_allnum_to_vi.o		\
-						is_digit_to_vi.o		\
-						skip_command_line_vi.o	\
-						input_file_done_vi.o	
+PROJECT_OBJ_FILES :=	main.o						\
+						augmenting_paths.o			\
+						choose_graph.o				\
+						print_error.o				\
+						find_paths.o				\
+						label_graph_machine.o		\
+						print_output.o				\
+						set_options.o				\
+						store_links.o				\
+						store_rooms.o				\
+						validate_input_machine.o	\
+						get_input.o					\
+						read_input.o				\
+						error_log.o					\
+						vertex.o					\
+						edge.o						\
+						free_project.o				\
+						print_tables.o				\
+						label_graph_st_machine.o	\
+						vertex_columns.o			\
+						switch_flag_on_vi.o			\
+						read_stdin_vi.o				\
+						check_line_vi.o				\
+						check_char_vi.o				\
+						check_flag_on_vi.o			\
+						is_allnum_to_vi.o			\
+						is_digit_to_vi.o			\
+						skip_command_line_vi.o		\
+						input_file_done_vi.o		\
+						init_bfs.o					\
+						check_and_update_bfs.o		\
+						bfs_main.o					\
+						init_bfs_st.o				\
+						check_and_update_bfs_st.o	\
+						bfs_st_main.o
