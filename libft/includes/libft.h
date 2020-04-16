@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/12 14:42:44 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/16 19:58:48 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void				*ft_hash_table_append(t_hash_table *table, \
 					void *(*columns)(t_hash_table *table));
 void				*ft_hash_table_drop(t_hash_table *table, size_t cutoff);
 t_elem				*ft_hash_table_get(t_hash_table *hash_table, char *key);
+void				*ft_hash_table_print(t_hash_table *table, \
+					void *(*columns)(t_hash_table *table));
 void				*ft_hash_table_update(t_hash_table *table, \
 					void *(*columns)(t_hash_table *table));
 t_list				**ft_hsh_chain(void **ar, size_t size, \

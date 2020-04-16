@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 16:54:20 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/16 20:17:06 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,41 +17,41 @@
 # include "machine.h"
 
 # define OPTIONS				"abcdeglpru"
-# define ARGC					lem_in->argc
-# define ARGV					lem_in->argv
-# define FLAGS					lem_in->flags
-# define INDEX					lem_in->index
-# define STRING					lem_in->string
-# define INPUT					lem_in->input_string
-# define INPUT_CPY				lem_in->input_string_copy
+// # define ARGC					lem_in->argc
+// # define ARGV					lem_in->argv
+// # define FLAGS					lem_in->flags
+// # define INDEX					lem_in->index
+// # define STRING					lem_in->string
+// # define INPUT					lem_in->input_string
+// # define INPUT_CPY				lem_in->input_string_copy
 # define NANTS					lem_in->nants
 # define NROOMS					lem_in->nrooms
 # define NLINKS					lem_in->nlinks
-# define ALL_ROOMS				lem_in->all_rooms
-# define ALL_LINKS				lem_in->all_links
-# define ROOM_TYPE				lem_in->room_type
+// # define ALL_ROOMS				lem_in->all_rooms
+// # define ALL_LINKS				lem_in->all_links
+// # define ROOM_TYPE				lem_in->room_type
 # define CURRENT_ROOM			lem_in->current_room
-# define CURRENT_LINK			lem_in->current_link
+// # define CURRENT_LINK			lem_in->current_link
 # define CURRENT_ROOM_LINKS		CURRENT_ROOM->links
 
-# define ROOM_POINTERS			lem_in->room_pointers
-# define ROOM_POINTER(x)		ROOM_POINTERS[x]
-# define ROOM_ELEM(x)			((t_elem *)(ROOM_POINTER(x)))
-# define ROOM_CONTENT(x)		((t_vertex *)ROOM_ELEM(x)->content)
-# define LINK_POINTER			lem_in->link_pointer
-# define LINK_ELEM				((t_elem *)LINK_POINTER)
-# define LINK_CONTENT			((t_edge *)LINK_ELEM->content)
+// # define ROOM_POINTERS			lem_in->room_pointers
+// # define ROOM_POINTER(x)		ROOM_POINTERS[x]
+// # define ROOM_ELEM(x)			((t_elem *)(ROOM_POINTER(x)))
+// # define ROOM_CONTENT(x)		((t_vertex *)ROOM_ELEM(x)->content)
+// # define LINK_POINTER			lem_in->link_pointer
+// # define LINK_ELEM				((t_elem *)LINK_POINTER)
+// # define LINK_CONTENT			((t_edge *)LINK_ELEM->content)
 
-# define SOURCE					lem_in->source
-# define SINK					lem_in->sink
-# define ROUND_NR				lem_in->round_nr
-# define ALL_PATHS				lem_in->all_paths
-# define CURRENT_PATH			lem_in->current_path
-# define SELECTED				CURRENT_ROOM->selected
+// # define SOURCE					lem_in->source
+// # define SINK					lem_in->sink
+// # define ROUND_NR				lem_in->round_nr
+// # define ALL_PATHS				lem_in->all_paths
+// # define CURRENT_PATH			lem_in->current_path
+// # define SELECTED				CURRENT_ROOM->selected
 
 # define ERROR_MSG				RED "An error occurred, machine was not able to: \n"
 # define ERROR					lem_in->error
-# define ERROR_LOG(x)			error_log(lem_in, ft_strjoin("\t- ", __func__), x)
+// # define ERROR_LOG(x)			error_log(lem_in, ft_strjoin("\t- ", __func__), x)
 // error_log(lem_in, ft_strjoin("\t- ", __func__), SUCCESS)
 // error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL)
 
@@ -84,27 +84,30 @@
 # define NEXT_ROOM_INDEX		((t_edge*)(lem_in->temp->address))->next->id->index
 # define INDEX_COPY				lem_in->index_copy
 # define AUGMENT_PATHS			lem_in->aug_path_links
-# define PATH_OFFSET			((t_adlist *)((t_adlist *)QUE->address))
-# define PATH_ROUND				PATH_OFFSET->address
-# define PATH_LENGTH			PATH_OFFSET->next->address
-# define PATH_START				PATH_OFFSET->next->next	
+// # define PATH_OFFSET			((t_adlist *)((t_adlist *)QUE->address))
+// # define PATH_ROUND				PATH_OFFSET->address
+// # define PATH_LENGTH			PATH_OFFSET->next->address
+// # define PATH_START				PATH_OFFSET->next->next	
 
-# define CURRENT_ANT			((t_ant *)QUE->address)
+// # define CURRENT_ANT			((t_ant *)QUE->address)
 
-# define DEBUG_O				(1 << 0)
-# define ERROR_O				(1 << 2)
-# define ROOMS_O				(1 << 3)
-# define LINKS_O				(1 << 4)
-# define DFS_O					(1 << 5)
-# define USAGE_O				(1 << 6)
-# define PATHS_O				(1 << 7)
-# define AUGMENT_O				(1 << 8)
-# define COUNT_O				(1 << 9)
-# define BLANK_O				(1 << 10)
-# define START					(1 << 11)
-# define END					(1 << 12)
-# define LINK					(1 << 13)
-# define ROOM_LINE				(1 << 14)
+enum
+{
+	DEBUG_O = (1 << 0),
+	ERROR_O = (1 << 2),
+	ROOMS_O = (1 << 3),
+	LINKS_O = (1 << 4),
+	DFS_O = (1 << 5),
+	USAGE_O = (1 << 6),
+	PATHS_O = (1 << 7),
+	AUGMENT_O = (1 << 8),
+	COUNT_O = (1 << 9),
+	BLANK_O = (1 << 10),
+	START = (1 << 11),
+	END = (1 << 12),
+	LINK = (1 << 13),
+	ROOM_LINE = (1 << 14)
+}	e_flags;
 
 /*
 ** All the possible t_states of the machine.
@@ -435,12 +438,14 @@ t_bool							find_option(t_project *lem_in);
 t_bool							validate_argument(t_project *lem_in);
 t_bool							error_log(t_project *lem_in, char *str, t_bool ret);
 
+char							*vertex_name(void *item);
 t_vertex						*get_vertex(void);
 void							*vertex_columns(t_hash_table *table);
 void							free_vertex(void *content);
 void							*get_edge(void);
 void							*edge_columns(t_hash_table *table);
 void							free_edge(void *content);
+t_ant							*get_ant(size_t nbr);
 
 t_bool							init_bfs(t_project *lem_in);
 t_bool							que_list_remain_bfs(t_project *lem_in);
@@ -468,8 +473,61 @@ t_bool							current_room_source_augp(t_project *lem_in);
 t_bool							clear_rooms_on_graph_augp(t_project *lem_in);
 t_bool							clear_links_on_graph_augp(t_project *lem_in);
 
+t_bool							read_argument(t_project *lem_in);
+t_bool							find_dash(t_project *lem_in);
+t_bool							find_option(t_project *lem_in);
+t_bool							validate_argument(t_project *lem_in);
+t_bool							print_usage_message(t_project *lem_in);
+
+t_bool							initialize_table_rms(t_project *lem_in);
+t_bool							set_line_rms(t_project *lem_in);
+t_bool							get_type(t_project *lem_in);
+t_bool							store_room(t_project *lem_in);
+
+t_bool							initialize_table_lks(t_project *lem_in);
+t_bool							save_roomnames(t_project *lem_in);
+t_bool							find_first_room(t_project *lem_in);
+t_bool							find_second_room(t_project *lem_in);
+t_bool							store_link(t_project *lem_in);
+t_bool							add_room_to_link(t_project *lem_in);
+t_bool							add_link_to_room(t_project *lem_in);
+t_bool							swap_rooms(t_project *lem_in);
+t_bool							set_line(t_project *lem_in);
+
+t_bool							sort_links_lists(t_project *lem_in);
+t_bool							start_path(t_project *lem_in);
+t_bool							find_next_room(t_project *lem_in);
+t_bool							backtrack_path(t_project *lem_in);
+t_bool							delete_path(t_project *lem_in);
+t_bool							remove_room(t_project *lem_in);
+t_bool							traverse_path(t_project *lem_in);
+t_bool							check_sink(t_project *lem_in);
+t_bool							store_path(t_project *lem_in);
+
+t_bool							print_input(t_project *lem_in);
+t_bool							sort_paths(t_project *lem_in);
+t_bool							spawn_ants(t_project *lem_in);
+t_bool							move_all_ants(t_project *lem_in);
+
+t_bool							set_global_vars(t_project *lem_in);
+t_bool							set_graph_vars(t_project *lem_in);
+t_bool							get_graph(t_project *lem_in);
+t_bool							delete_excess_paths(t_project *lem_in);
+t_bool							clean_pathslist(t_project *lem_in);
+t_bool							finish_graph_calculation(t_project *lem_in);
+t_bool							calculate_turn(t_project *lem_in);
+t_bool							update_stored_graph(t_project *lem_in);
+
+t_bool							print_rooms(t_project *lem_in);
+t_bool							print_links(t_project *lem_in);
+t_bool							print_paths(t_project *lem_in);
+
+
 
 
 t_bool							print_tables(t_project *lem_in);
+int								sort_by_level(void *a, void *b);
+int								sort_by_length(void *a, void *b);
+
 
 #endif
