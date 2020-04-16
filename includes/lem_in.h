@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 12:09:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/15 15:08:20 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include "machine.h"
 
-# define OPTIONS				"deglpru"
+# define OPTIONS				"abcdeglpru"
 # define ARGC					lem_in->argc
 # define ARGV					lem_in->argv
 # define FLAGS					lem_in->flags
@@ -52,6 +52,9 @@
 # define ERROR_MSG				RED "An error occurred, machine was not able to: \n"
 # define ERROR					lem_in->error
 # define ERROR_LOG(x)			error_log(lem_in, ft_strjoin("\t- ", __func__), x)
+// error_log(lem_in, ft_strjoin("\t- ", __func__), SUCCESS)
+// error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL)
+
 
 # define TRANSITIONS			(*mconfig)->transitions
 # define EVENTS					(*mconfig)->events
@@ -76,7 +79,7 @@
 # define CURRENT_LINK_CAPACITY	CURRENT_LINK->capacity
 # define NEXT_ROOM_INDEX		((t_edge*)(TEMP_LINKS->address))->next->id->index
 # define INDEX_COPY				lem_in->index_copy
-
+# define AUGMENT_PATHS			lem_in->aug_path_links
 # define PATH_OFFSET			((t_adlist *)((t_adlist *)QUE->address))
 # define PATH_ROUND				PATH_OFFSET->address
 # define PATH_LENGTH			PATH_OFFSET->next->address
@@ -91,10 +94,13 @@
 # define DFS_O					(1 << 5)
 # define USAGE_O				(1 << 6)
 # define PATHS_O				(1 << 7)
-# define START					(1 << 8)
-# define END					(1 << 9)
-# define LINK					(1 << 10)
-# define ROOM_LINE				(1 << 11)
+# define AUGMENT_O				(1 << 8)
+# define COUNT_O				(1 << 9)
+# define BLANK_O				(1 << 10)
+# define START					(1 << 11)
+# define END					(1 << 12)
+# define LINK					(1 << 13)
+# define ROOM_LINE				(1 << 14)
 
 /*
 ** All the possible t_states of the machine.
@@ -109,6 +115,7 @@ enum
 	s_store_links,
 	s_label_graph,
 	s_find_paths,
+	s_label_graph_s_to_t,
 	s_augment_paths,
 	s_choose_graph,
 	s_move_ants,
@@ -137,15 +144,15 @@ enum
 	s_first_char_zero_vi,
 	s_first_char_delim_vi,
 	s_first_char_hash_vi,
-	s_second_char_hash_vi,
+	s_sec_char_hash_vi,
 	s_find_hyphen_vi,
 	s_isdigit_to_newline_vi,
 	s_isdigit_to_space_vi,
 	s_isallnum_to_hyphen_vi,
 	s_isallnum_to_space_vi,
 	s_isallnum_to_newline_vi,
-	s_check_if_end_command_line_vi,
-	s_check_if_start_command_line_vi,
+	s_check_end_in_line_vi,
+	s_check_start_in_line_vi,
 	s_switch_start_flag_on_vi,
 	s_switch_end_flag_on_vi,
 	s_switch_link_flag_on_vi,
@@ -197,6 +204,19 @@ enum
 	s_print_tables_bfs,
 	s_uninstall_machine_bfs,
 }	e_state_bfs;
+
+enum
+{
+	s_install_machine_bfs_s_to_t,
+	s_init_bfs_s_to_t,
+	s_que_list_remain_bfs_s_to_t,
+	s_edge_list_remain_bfs_s_to_t,
+	s_vertex_has_level_bfs_s_to_t,
+	s_capacity_available_bfs_s_to_t,
+	s_update_level_and_que_bfs_s_to_t,
+	s_print_tables_bfs_s_to_t,
+	s_uninstall_machine_bfs_s_to_t,
+}	e_state_bfs_s_to_t;
 
 enum
 {
@@ -266,6 +286,9 @@ typedef struct					s_graph_vars
 
 typedef struct					s_project
 {
+	int							count;//temp
+
+
 	int							argc;
 	char						**argv;
 	int							flags;
@@ -291,6 +314,7 @@ typedef struct					s_project
 	t_adlist					*que_list;
 	t_adlist					*temp_que_list;
 	t_adlist					*temp;
+	t_adlist					*aug_path_links;
 
 	t_adlist					*all_ants;
 	t_ant						*current_ant;
@@ -298,9 +322,12 @@ typedef struct					s_project
 	t_adlist					*current_path;
 
 	size_t						round_nr;
+	size_t						round_temp;
 	t_graph_vars				graph_vars;
 	size_t						index_copy;
 	t_list						*error;
+	int							fd;
+	size_t						loop;
 }								t_project;
 
 /*
@@ -313,6 +340,7 @@ t_bool							validate_input(t_project *lem_in);
 t_bool							store_rooms(t_project *lem_in);
 t_bool							store_links(t_project *lem_in);
 t_bool							label_graph(t_project *lem_in);
+t_bool							label_graph_s_to_t(t_project *lem_in);
 t_bool							find_paths(t_project *lem_in);
 t_bool							augmenting_paths(t_project *lem_in);
 t_bool							choose_graph(t_project *lem_in);
@@ -326,11 +354,11 @@ t_bool							first_char_newline_vi(t_project *lem_in);
 t_bool							first_char_zero_vi(t_project *lem_in);
 t_bool							first_char_delim_vi(t_project *lem_in);
 t_bool							first_char_hash_vi(t_project *lem_in);
-t_bool							second_char_hash_vi(t_project *lem_in);
+t_bool							sec_char_hash_vi(t_project *lem_in);
 t_bool							isdigit_to_newline_vi(t_project *lem_in);
 t_bool							isdigit_to_space_vi(t_project *lem_in);
-t_bool							check_if_start_command_line_vi(t_project *lem_in);
-t_bool							check_if_end_command_line_vi(t_project *lem_in);
+t_bool							check_start_in_line_vi(t_project *lem_in);
+t_bool							check_end_in_line_vi(t_project *lem_in);
 t_bool							check_link_flag_on_vi(t_project *lem_in);
 t_bool							switch_end_flag_on_vi(t_project *lem_in);
 t_bool							switch_start_flag_on_vi(t_project *lem_in);
@@ -367,6 +395,13 @@ t_bool							edge_list_remain_bfs(t_project *lem_in);
 t_bool							capacity_available_bfs(t_project *lem_in);
 t_bool							vertex_has_level_bfs(t_project *lem_in);
 t_bool							update_level_and_que_bfs(t_project *lem_in);
+
+t_bool							init_bfs_s_to_t(t_project *lem_in);
+t_bool							que_list_remain_bfs_s_to_t(t_project *lem_in);
+t_bool							edge_list_remain_bfs_s_to_t(t_project *lem_in);
+t_bool							capacity_available_bfs_s_to_t(t_project *lem_in);
+t_bool							vertex_has_level_bfs_s_to_t(t_project *lem_in);
+t_bool							update_level_and_que_bfs_s_to_t(t_project *lem_in);
 
 t_bool							capacity_from_source_augp(t_project *lem_in);
 t_bool 							capacity_to_lower_level_augp(t_project *lem_in);

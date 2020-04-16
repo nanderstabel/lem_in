@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/02 16:21:24 by nstabel        #+#    #+#                */
-/*   Updated: 2020/03/03 18:40:05 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/02 16:21:24 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/14 11:22:32 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ t_elem	*ft_hash_table_get(t_hash_table *hash_table, char *key)
 		i = (hash + probe) % hash_table->size;
 		if (hash_table->elem[i])
 			if (hash_table->elem[i]->hash == hash)
-				return (hash_table->elem[i]);
+				if (ft_strequ(hash_table->elem[i]->name, key))
+					return (hash_table->elem[i]);
 		++probe;
 	}
 	return (NULL);

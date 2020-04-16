@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 13:00:09 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 13:35:53 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/15 09:20:17 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ t_bool				init_augp(t_project *lem_in)
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	lem_in->level = 0;
-	QUE = NULL;
+	lem_in->round_temp =  0;
+	// QUE = NULL;
 	return (SUCCESS);
 
 }
@@ -25,19 +26,34 @@ t_bool				capacity_from_source_augp(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	TEMP_LINKS = SOURCE->links;
+	if (FLAGS & AUGMENT_O)
+		ft_printf("\t\tStart path from Sink (%s) level %d\n", SINK->id->name, SINK->level);
+	CURRENT_ROOM = SINK;
+	TEMP_LINKS = SINK->links;
+	INDEX_COPY = CURRENT_ROOM_INDEX;
+	// ft_printf("01 - CURRENT_ROOM SINK %s\n", CURRENT_ROOM->id->name);
 	while (TEMP_LINKS)
 	{
 		// hier moet nog iets in voor het voorbeeld sink en source naast elkaar
-		if (TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL != 0)
+		NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_LINKS;
+		while (NEXT_ROOM_TEMP_LINKS)
 		{
-			lem_in->level++;
-			TEMP_LINK_CAPACITY = 0;
-			CURRENT_ROOM = NEXT_ROOM;
-			return (SUCCESS);
+			if (NEXT_ROOM_TEMP_LINKS_CAPACITY == 1 && NEXT_ROOM_INDEX_CMP == INDEX_COPY && NEXT_ROOM_LEVEL != 0)
+			{
+				lem_in->level++;
+				TEMP_LINK_CAPACITY = 0;
+				if (FLAGS & AUGMENT_O)
+					ft_printf("\t\tTravelled from %s level %d visited %d, to %s level %d visited %d\n", CURRENT_ROOM->id->name, CURRENT_ROOM->level, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->level, NEXT_ROOM->visited);
+				// ft_printf("02 - room: %s visited %d - next room: %s visited %d functie %s\n", CURRENT_ROOM->id->name, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
+				CURRENT_ROOM = NEXT_ROOM;
+				return (SUCCESS);
+			}
+			NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_TEMP_LINKS->next;
 		}
 		TEMP_LINKS = TEMP_LINKS->next;
 	}
+	if (FLAGS  & AUGMENT_O)
+		ft_printf("\t\tNo capacity avalible from Sink. End algorithm\n");
 	return (FAIL);
 }
 
@@ -48,12 +64,34 @@ t_bool 				capacity_to_lower_level_augp(t_project *lem_in)
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
+	INDEX_COPY = CURRENT_ROOM_INDEX;
+	// ft_printf("03 - room: %s visited %d - next room: %s visited %d functie %s\n", CURRENT_ROOM->id->name, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
 	while (TEMP_LINKS)
 	{
-		if (TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level - 1)
+		// ft_printf("04 - next room: %s visited %d functie %s\n", NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
+		if (CURRENT_ROOM->visited == 1)
+		{
+			if (FLAGS & AUGMENT_O)
+				ft_printf("\n\t\tRoom %s with level %d, look for augment path\n", CURRENT_ROOM->id->name, CURRENT_ROOM->level);
+			break;
+		}
+		NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_LINKS;
+
+		while (NEXT_ROOM_TEMP_LINKS)
+		{
+			if (NEXT_ROOM_TEMP_LINKS_CAPACITY == 0 && NEXT_ROOM_INDEX_CMP == INDEX_COPY)
+			{
+				break ;
+			}
+			NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_TEMP_LINKS->next;
+		}
+		if (NEXT_ROOM_TEMP_LINKS == NULL && TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL == (CURRENT_ROOM->level - 1))
 		{
 			TEMP_LINK_CAPACITY = 0;
 			INDEX_COPY = CURRENT_ROOM_INDEX;
+			if (FLAGS & AUGMENT_O)
+					ft_printf("\t\tTravelled from %s level %d visited %d, to %s level %d visited %d\n", CURRENT_ROOM->id->name, CURRENT_ROOM->level, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->level, NEXT_ROOM->visited);
+			// ft_printf("05  - room: %s visited %d - next room: %s visited %d functie %s\n", CURRENT_ROOM->id->name, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
 			CURRENT_ROOM = NEXT_ROOM;
 			return (SUCCESS);
 		}
@@ -64,55 +102,36 @@ t_bool 				capacity_to_lower_level_augp(t_project *lem_in)
 
 t_bool				capacity_to_higher_level_augp(t_project *lem_in)
 {
+	t_adlist		*temp;
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
-	while (TEMP_LINKS->next != NULL)
+	// ft_printf("current room level %d\n", CURRENT_ROOM->level);
+	while (TEMP_LINKS)
 	{
-		if (TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level + 1 \
-		&& NEXT_ROOM->visited == 1)
+		temp  = AUGMENT_PATHS;
+		while (temp)
 		{
-			
-			// NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_LINKS;
-			// while (NEXT_ROOM_TEMP_LINKS)
-			// {
-			// 	if (NEXT_ROOM_TEMP_LINKS_CAPACITY == 0 && )
-			// }
-			CURRENT_LINK = ((t_edge*)(TEMP_LINKS->address));
-			return (SUCCESS);
+			if ((size_t)temp->address == ((t_edge*)(TEMP_LINKS->address))->id->index)
+				break  ;
+			temp = temp->next;
 		}
-		TEMP_LINKS = TEMP_LINKS->next;
-	}
-	// ft_printf("room name %s\n", CURRENT_ROOM->id->name);
-	return (FAIL);
-}
-
-t_bool				capacity_away_from_augment_augp(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
-	TEMP_LINKS = CURRENT_ROOM->links;
-	INDEX_COPY = CURRENT_ROOM_INDEX;
-	while (TEMP_LINKS->next != NULL)
-	{
-		if (TEMP_LINK_CAPACITY == 1)
+		if (FLAGS & AUGMENT_O)
+			ft_printf("\t\t--Potential next room %s level %d visited %d - link visited %d capacity %d\n", NEXT_ROOM->id->name, NEXT_ROOM_LEVEL, NEXT_ROOM->visited, TEMP_LINK_VISITED, TEMP_LINK_CAPACITY);
+		// temp =  ft_hash_table_get(ALL_ROOMS, NEXT_ROOM->id->name);
+		// ft_printf("name %s - level %d\n", NEXT_ROOM->id->name, temp->)
+		if (((TEMP_LINK_CAPACITY == 0 && NEXT_ROOM->visited == 1) || (TEMP_LINK_CAPACITY == 0 && NEXT_ROOM == SINK)) && (!temp))
 		{
-			NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_LINKS;
-			while (NEXT_ROOM_TEMP_LINKS)
-			{
-				if (NEXT_ROOM_TEMP_LINKS_CAPACITY == 0 && NEXT_ROOM_INDEX_CMP == INDEX_COPY)
-					break ;
-				NEXT_ROOM_TEMP_LINKS = NEXT_ROOM_TEMP_LINKS->next;
-			}
-			if (NEXT_ROOM_TEMP_LINKS == NULL)
-			{
-				((t_edge*)(TEMP_LINKS->address))->capacity = 0;// volgens mij is deze overbodig
-				CURRENT_ROOM = NEXT_ROOM;
+				// ft_printf("06 - room: %s visited %d - next room: %s visited %d functie %s\n", CURRENT_ROOM->id->name, CURRENT_ROOM->visited, NEXT_ROOM->id->name, NEXT_ROOM->visited, __func__);
+				CURRENT_LINK = ((t_edge*)(TEMP_LINKS->address));
+				ROUND_NR++;
+				lem_in->round_temp++;
 				return (SUCCESS);
-			}
 		}
 		TEMP_LINKS = TEMP_LINKS->next;
 	}
+	if (FLAGS & AUGMENT_O)
+		ft_printf("Failed to augment\n");
 	return (FAIL);
 }
 
@@ -120,41 +139,26 @@ t_bool				get_indexes_edges_augp(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	if (!QUE)
+	if (!AUGMENT_PATHS)
 	{
-		QUE = ft_addr_lstnew((void*)EDGE_INDEX);
-		ROUND_NR++;
+		AUGMENT_PATHS = ft_addr_lstnew((void*)EDGE_INDEX);
 	}
 	else
-		ft_addr_lstapp(&QUE, ft_addr_lstnew((void*)EDGE_INDEX));
+		ft_addr_lstapp(&AUGMENT_PATHS, ft_addr_lstnew((void*)EDGE_INDEX));
 	INDEX_COPY = CURRENT_ROOM_INDEX;
 	CURRENT_LINK_CAPACITY = 0;
+	if (FLAGS & AUGMENT_O)
+		ft_printf("\t\tAugment path from %s level %d, to %s level %d\n", CURRENT_ROOM->id->name, CURRENT_ROOM->level, CURRENT_LINK->next->id->name, CURRENT_LINK->next->level);
 	CURRENT_ROOM = CURRENT_LINK->next;
+	// ft_printf("room: %s - functie %s\n", CURRENT_ROOM->id->name,  __func__);
 	TEMP_LINKS = CURRENT_ROOM->links;
 	while (NEXT_ROOM_INDEX != INDEX_COPY)
 	{
 		TEMP_LINKS = TEMP_LINKS->next;
 	}
 	CURRENT_LINK = ((t_edge*)(TEMP_LINKS->address));
-	ft_addr_lstapp(&QUE, ft_addr_lstnew((void*)EDGE_INDEX));
+	ft_addr_lstapp(&AUGMENT_PATHS, ft_addr_lstnew((void*)EDGE_INDEX));
 	return (SUCCESS);
-}
-
-
-t_bool				check_capacity_to_lower_level_augp(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
-	TEMP_LINKS = CURRENT_ROOM->links;
-	while (TEMP_LINKS)
-	{
-		if (TEMP_LINK_CAPACITY == 1 && NEXT_ROOM_LEVEL == CURRENT_ROOM->level - 1)
-		{
-			return (SUCCESS);
-		}
-		TEMP_LINKS = TEMP_LINKS->next;
-	}
-	return (FAIL);
 }
 
 t_bool				current_room_sink_augp(t_project *lem_in)
@@ -163,7 +167,8 @@ t_bool				current_room_sink_augp(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if (CURRENT_ROOM == SINK)
 	{
-		ft_printf("sink reached\n");
+		if (FLAGS & AUGMENT_O)
+			ft_printf("\t\tSink reached\n");	
 		return (SUCCESS);
 	}
 	return (FAIL);
@@ -185,7 +190,7 @@ t_bool				clear_capacity_on_graph_augp(t_project *lem_in)
 {
 	size_t 	index;
 	t_adlist *temp;
-	temp = QUE;
+	temp = AUGMENT_PATHS;
 
 	index = 0;
 	// int num = 0;
@@ -195,22 +200,22 @@ t_bool				clear_capacity_on_graph_augp(t_project *lem_in)
 	{
 		while (index < ALL_LINKS->size)
 		{
-			if (((t_edge*)(ALL_LINKS->elem[index]->content))->visited == 1 && !temp)
-			{
-				// num++;
-				((t_edge*)(ALL_LINKS->elem[index]->content))->capacity = 0;
-			}
-			else
-			{
-				((t_edge*)(ALL_LINKS->elem[index]->content))->capacity = 1;
-				((t_edge*)(ALL_LINKS->elem[index]->content))->visited = 0;
-			}
+			// if (((t_edge*)(ALL_LINKS->elem[index]->content))->visited == 1 && !lem_in->round_temp)
+			// {
+			// 	// num++;
+			// 	((t_edge*)(ALL_LINKS->elem[index]->content))->capacity = 0;
+			// }
+
+			((t_edge*)(ALL_LINKS->elem[index]->content))->capacity = 1;
+			((t_edge*)(ALL_LINKS->elem[index]->content))->visited = 0;
 			index++;
 		}
 		while (temp)
 		{
 			// ft_printf("test1\n");
 			((t_edge*)(ALL_LINKS->elem[((long long)(temp->address))]->content))->capacity = 0;
+			// ((t_edge*)(ALL_LINKS->elem[((long long)(temp->address))]->content))->visited = 1;
+
 			temp = temp->next;
 		}
 	}
@@ -221,7 +226,7 @@ t_bool				clear_capacity_on_graph_augp(t_project *lem_in)
 		{
 			((t_vertex*)(ALL_ROOMS->elem[index]->content))->level = 0;
 			// ft_printf("test1\n");
-			if (QUE)
+			if (lem_in->round_temp)
 			{
 				// ft_printf("test2\n");
 				((t_vertex*)(ALL_ROOMS->elem[index]->content))->visited = 0;
@@ -231,6 +236,12 @@ t_bool				clear_capacity_on_graph_augp(t_project *lem_in)
 		
 	}
 	index = 0;
+	// temp = AUGMENT_PATHS;
+	// while (temp)
+	// {
+	// 	ft_printf("index %d\n", ((long long)(temp->address)));
+	// 	temp = temp->next;
+	// }
 	// ft_printf("num of links %d\n", num);
 	// while (index < ALL_LINKS->size)
 	// {
@@ -242,7 +253,8 @@ t_bool				clear_capacity_on_graph_augp(t_project *lem_in)
 	// 	ft_printf("level %d\n", ((t_vertex*)(ALL_ROOMS->elem[index]->content))->level);
 	// 	index++;
 	// }
-	ft_addr_lstdel(&QUE);
+	// ft_addr_lstdel(&QUE);
+	// exit(1);
 	return (SUCCESS);
 }
 
@@ -257,9 +269,9 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_capacity_to_lower_level_augp][FAIL] = s_capacity_to_higher_level_augp;
 	TRANSITIONS[s_current_room_sink_augp][SUCCESS] = s_capacity_from_source_augp;
 	TRANSITIONS[s_current_room_sink_augp][FAIL] = s_capacity_to_lower_level_augp;
-	// TRANSITIONS[s_capacity_to_higher_level_augp][FAIL] = s_capacity_away_from_augment_augp; // <<< volgens mij kan er geen fail zijn
+	TRANSITIONS[s_capacity_to_higher_level_augp][FAIL] = s_clear_capacity_on_graph_augp; // <<< volgens mij kan er geen fail zijn
 	TRANSITIONS[s_capacity_to_higher_level_augp][SUCCESS] = s_get_indexes_edges_augp;
-	TRANSITIONS[s_get_indexes_edges_augp][SUCCESS] = s_current_room_source_augp;
+	TRANSITIONS[s_get_indexes_edges_augp][SUCCESS] = s_clear_capacity_on_graph_augp;
 	TRANSITIONS[s_current_room_source_augp][FAIL] = s_check_capacity_to_lower_level_augp;
 	TRANSITIONS[s_current_room_source_augp][SUCCESS] = s_capacity_from_source_augp;
 	TRANSITIONS[s_check_capacity_to_lower_level_augp][FAIL] = s_capacity_away_from_augment_augp;
@@ -278,8 +290,8 @@ static void			get_events(t_mconfig **mconfig)
 	EVENTS[s_capacity_from_source_augp] = capacity_from_source_augp;
 	EVENTS[s_capacity_to_lower_level_augp] = capacity_to_lower_level_augp;
 	EVENTS[s_capacity_to_higher_level_augp] = capacity_to_higher_level_augp;
-	EVENTS[s_capacity_away_from_augment_augp] = capacity_away_from_augment_augp;
-	EVENTS[s_check_capacity_to_lower_level_augp] = check_capacity_to_lower_level_augp;
+	// EVENTS[s_capacity_away_from_augment_augp] = capacity_away_from_augment_augp;
+	// EVENTS[s_check_capacity_to_lower_level_augp] = check_capacity_to_lower_level_augp;
 	EVENTS[s_get_indexes_edges_augp] = get_indexes_edges_augp;
 	EVENTS[s_current_room_sink_augp] = current_room_sink_augp;
 	EVENTS[s_current_room_source_augp] = current_room_source_augp;
@@ -306,7 +318,7 @@ t_bool					augmenting_paths(t_project *lem_in)
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
-	ft_printf("round: %d\n", ROUND_NR);	
+	// ft_printf("round: %d\n", ROUND_NR);	
 	
 	// size_t index = 0;
 
@@ -318,8 +330,8 @@ t_bool					augmenting_paths(t_project *lem_in)
 
 
 
-
-	if (lem_in->level == 0)
+	lem_in->loop++;//Added this to experiment with breaking out of the loop...
+	if (lem_in->round_temp == 0 || lem_in->loop == 12)// ...after n times
 	{
 		return (FAIL);
 	}

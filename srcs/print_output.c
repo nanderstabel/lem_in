@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/08 01:19:06 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/15 09:22:34 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ t_bool				print_input(t_project *lem_in)
 {
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	ft_printf("%s\n\n", INPUT);
+	if (FLAGS & BLANK_O)
+		return (FAIL);
+	ft_printf("%s\n", INPUT);
 	return (SUCCESS);
 }
 
@@ -74,7 +76,7 @@ t_bool				spawn_ants(t_project *lem_in)
 			lem_in->current_ant = get_ant(INDEX);
 			lem_in->current_ant->location = PATH_START;
 			if (lem_in->all_ants)
-				ft_addr_lstadd(&lem_in->all_ants, ft_addr_lstnew((void *)lem_in->current_ant));
+				ft_addr_lstapp(&lem_in->all_ants, ft_addr_lstnew((void *)lem_in->current_ant));
 			else
 				lem_in->all_ants = ft_addr_lstnew((void *)lem_in->current_ant);
 			++INDEX;
@@ -86,22 +88,32 @@ t_bool				spawn_ants(t_project *lem_in)
 
 t_bool				move_all_ants(t_project *lem_in)
 {
+	static int count;
+
 	if (FLAGS & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	if (!lem_in->all_ants)
 		return (FAIL);
+	if (FLAGS & COUNT_O)
+		ft_printf("Turn %-5i:\t", 1 + count);
+	++count;
 	QUE = lem_in->all_ants;
 	while (QUE)
 	{
-		if (QUE->address)
+		CURRENT_ANT->location = CURRENT_ANT->location->next;
+		ft_printf("%s-%s", CURRENT_ANT->name, ((t_vertex *)CURRENT_ANT->location->address)->id->name);
+		if (QUE->next)
+			ft_putchar(' ');
+		if ((t_vertex *)CURRENT_ANT->location->address == SINK)
 		{
-			CURRENT_ANT->location = CURRENT_ANT->location->next;
-			ft_printf("%s-%s ", CURRENT_ANT->name, ((t_vertex *)CURRENT_ANT->location->address)->id->name);
-			if ((t_vertex *)CURRENT_ANT->location->address == SINK){
-				QUE->address = NULL; //fix dit
-				if (QUE == lem_in->all_ants)//fix dit ook
-					lem_in->all_ants = NULL;}
+			//delnode
+			if (QUE == lem_in->all_ants)
+				lem_in->all_ants = QUE->next;
+			else
+				TEMP_QUE->next = QUE->next;
 		}
+		else
+			TEMP_QUE = QUE;
 		QUE = QUE->next;
 	}
 	--lem_in->nturns;
@@ -109,18 +121,11 @@ t_bool				move_all_ants(t_project *lem_in)
 	return (SUCCESS);
 }
 
-t_bool				proto(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
-	return (SUCCESS);
-}
-
 static void			get_transitions(t_mconfig **mconfig)
 {
 	TRANSITIONS[s_install_machine_rms][FAIL] = s_uninstall_machine_po;
 	TRANSITIONS[s_install_machine_rms][SUCCESS] = s_print_input;
-	TRANSITIONS[s_print_input][FAIL] = s_uninstall_machine_po;
+	TRANSITIONS[s_print_input][FAIL] = s_print_tables_po;
 	TRANSITIONS[s_print_input][SUCCESS] = s_sort_paths;
 	TRANSITIONS[s_sort_paths][FAIL] = s_uninstall_machine_po;
 	TRANSITIONS[s_sort_paths][SUCCESS] = s_spawn_ants;
