@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 10:32:16 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/16 17:14:48 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ t_bool				sort_paths(t_project *lem_in)
 {
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	INDEX = 1;
-	ft_addr_lstsrt(&ALL_PATHS, sort_by_length);
+	lem_in->index = 1;
+	ft_addr_lstsrt(&lem_in->all_paths, sort_by_length);
 	return (SUCCESS);
 }
 
@@ -57,13 +57,13 @@ t_bool				spawn_ants(t_project *lem_in)
 {
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	lem_in->que_list = ALL_PATHS;
-	while (lem_in->que_list && INDEX <= NANTS)
+	lem_in->que_list = lem_in->all_paths;
+	while (lem_in->que_list && lem_in->index <= lem_in->nants)
 	{
 		if ((size_t)((t_adlist *)((t_adlist *)\
 			lem_in->que_list->address))->next->address <= lem_in->nturns)
 		{
-			lem_in->current_ant = get_ant(INDEX);
+			lem_in->current_ant = get_ant(lem_in->index);
 			lem_in->current_ant->location = ((t_adlist *)((t_adlist *)\
 				lem_in->que_list->address))->next->next;
 			if (lem_in->all_ants)
@@ -71,7 +71,7 @@ t_bool				spawn_ants(t_project *lem_in)
 					ft_addr_lstnew((void *)lem_in->current_ant));
 			else
 				lem_in->all_ants = ft_addr_lstnew((void *)lem_in->current_ant);
-			++INDEX;
+			++lem_in->index;
 		}
 		lem_in->que_list = lem_in->que_list->next;
 	}
@@ -83,14 +83,17 @@ static void			loop_paths(t_project *lem_in)
 	lem_in->que_list = lem_in->all_ants;
 	while (lem_in->que_list)
 	{
-		CURRENT_ANT->location = CURRENT_ANT->location->next;
-		ft_printf("%s-%s", CURRENT_ANT->name, \
-			((t_vertex *)CURRENT_ANT->location->address)->id->name);
+		((t_ant *)lem_in->que_list->address)->location = \
+			((t_ant *)lem_in->que_list->address)->location->next;
+		ft_printf("%s-%s", ((t_ant *)lem_in->que_list->address)->name, \
+			((t_vertex *)((t_ant *)lem_in->que_list->address)\
+			->location->address)->id->name);
 		if (lem_in->que_list->next)
 			ft_putchar(' ');
-		if ((t_vertex *)CURRENT_ANT->location->address == lem_in->sink)
+		if ((t_vertex *)((t_ant *)\
+			lem_in->que_list->address)->location->address == lem_in->sink)
 		{
-			free(CURRENT_ANT);
+			free(((t_ant *)lem_in->que_list->address));
 			if (lem_in->que_list == lem_in->all_ants)
 				lem_in->all_ants = lem_in->que_list->next;
 			else

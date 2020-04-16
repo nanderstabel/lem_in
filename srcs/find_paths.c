@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:57:21 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 10:30:41 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/16 17:02:24 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ t_bool				find_next_room(t_project *lem_in)
 	while (lem_in->current_room->selected)
 	{
 		lem_in->temp = lem_in->current_room->selected;
-		if (TEMP_LINK_CAPACITY && NEXT_ROOM_LEVEL < lem_in->current_room->level)
-			if (!NEXT_ROOM->visited)
+		if (((t_edge*)(lem_in->temp->address))->capacity && ((t_edge*)\
+			(lem_in->temp->address))->next->level < lem_in->current_room->level)
+			if (!((t_edge*)(lem_in->temp->address))->next->visited)
 				return (SUCCESS);
 		lem_in->current_room->selected = lem_in->current_room->selected->next;
 	}
@@ -101,8 +102,8 @@ t_bool				remove_room(t_project *lem_in)
 	if (!lem_in->current_room || !lem_in->current_path)
 		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
 	lem_in->temp = lem_in->current_room->selected;
-	TEMP_LINK_CAPACITY = 1;
-	TEMP_LINK_VISITED = 0;
+	((t_edge*)(lem_in->temp->address))->capacity = 1;
+	((t_edge*)(lem_in->temp->address))->visited = 0;
 	lem_in->que_list = lem_in->current_path;
 	lem_in->current_path = lem_in->current_path->next;
 	ft_addr_lstdelone(&lem_in->que_list);
@@ -117,13 +118,13 @@ t_bool				traverse_path(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if (lem_in->flags & DFS_O)
 		ft_printf("\t\tTravelled from %s, to ", lem_in->current_room->id->name);
-	if (!NEXT_ROOM || !lem_in->current_path)
+	if (!((t_edge*)(lem_in->temp->address))->next || !lem_in->current_path)
 		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
-	lem_in->current_room = NEXT_ROOM;
+	lem_in->current_room = ((t_edge*)(lem_in->temp->address))->next;
 	if (lem_in->flags & DFS_O)
 		ft_printf("%s\n", lem_in->current_room->id->name);
-	TEMP_LINK_CAPACITY = 0;
-	TEMP_LINK_VISITED = 1;
+	((t_edge*)(lem_in->temp->address))->capacity = 0;
+	((t_edge*)(lem_in->temp->address))->visited = 1;
 	ft_addr_lstadd(&lem_in->current_path, \
 		ft_addr_lstnew((void *)lem_in->current_room));
 	++lem_in->index;
@@ -217,7 +218,7 @@ static t_mconfig	*states(void)
 	return (mconfig);
 }
 
-t_bool								find_paths(t_project *lem_in)
+t_bool				find_paths(t_project *lem_in)
 {
 	t_machine	*machine;
 

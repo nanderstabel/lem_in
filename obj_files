@@ -5,7 +5,7 @@ PROJECT_OBJ_FILES :=	main.o						\
 						find_paths.o				\
 						label_graph_machine.o		\
 						print_output.o				\
-						set_options.o				\
+						set_options.o		\
 						store_links.o				\
 						store_rooms.o				\
 						validate_input_machine.o	\

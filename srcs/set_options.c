@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 14:50:28 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/15 17:48:27 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/16 15:53:00 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ static t_mconfig	*states(void)
 	return (mconfig);
 }
 
-t_bool								set_options(t_project *lem_in)
+t_bool				set_options(t_project *lem_in)
 {
 	t_machine	*machine;
 

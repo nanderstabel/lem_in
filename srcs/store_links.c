@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:56:15 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/15 17:40:26 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/16 15:59:41 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,17 @@ t_bool				store_link(t_project *lem_in)
 {
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	lem_in->link_pointer = (void *)ft_strjoin(ROOM_ELEM(first_room)->name, "-");
+	lem_in->link_pointer = (void *)ft_strjoin(((t_elem *)\
+		(lem_in->room_pointers[first_room]))->name, "-");
 	lem_in->link_pointer = (void *)ft_append((char **)&lem_in->link_pointer, \
-		ROOM_ELEM(second_room)->name);
+		((t_elem *)(lem_in->room_pointers[second_room]))->name);
 	lem_in->link_pointer = (void *)ft_hash_table_add(lem_in->all_links, \
 		(char *)lem_in->link_pointer, \
 		get_edge());
 	if (lem_in->link_pointer)
 	{
-		LINK_CONTENT->id = LINK_ELEM;
+		((t_edge *)((t_elem *)lem_in->link_pointer)->content)->id = \
+			((t_elem *)lem_in->link_pointer);
 		return (SUCCESS);
 	}
 	return (FAIL);
@@ -94,10 +96,13 @@ t_bool				add_room_to_link(t_project *lem_in)
 {
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	if (!LINK_CONTENT || !ROOM_CONTENT(first_room) || \
-		!ROOM_CONTENT(second_room))
+	if (!((t_edge *)((t_elem *)lem_in->link_pointer)->content) || \
+		!((t_vertex *)((t_elem *)(lem_in->room_pointers[first_room]))->content)\
+		|| !((t_vertex *)((t_elem *)\
+		(lem_in->room_pointers[second_room]))->content))
 		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
-	LINK_CONTENT->next = ROOM_CONTENT(second_room);
+	((t_edge *)((t_elem *)lem_in->link_pointer)->content)->next = \
+		((t_vertex *)((t_elem *)(lem_in->room_pointers[second_room]))->content);
 	return (SUCCESS);
 }
 
@@ -105,11 +110,16 @@ t_bool				add_link_to_room(t_project *lem_in)
 {
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	if (ROOM_CONTENT(first_room)->links)
-		ft_addr_lstadd(&ROOM_CONTENT(first_room)->links, \
-			ft_addr_lstnew(LINK_CONTENT));
+	if (((t_vertex *)((t_elem *)(lem_in->room_pointers[first_room]))->content)\
+		->links)
+		ft_addr_lstadd(&((t_vertex *)((t_elem *)\
+			(lem_in->room_pointers[first_room]))->content)->links, \
+			ft_addr_lstnew(((t_edge *)((t_elem *)lem_in->link_pointer)\
+			->content)));
 	else
-		ROOM_CONTENT(first_room)->links = ft_addr_lstnew(LINK_CONTENT);
+		((t_vertex *)((t_elem *)(lem_in->room_pointers[first_room]))->content)\
+			->links = ft_addr_lstnew(((t_edge *)((t_elem *)\
+			lem_in->link_pointer)->content));
 	return (SUCCESS);
 }
 
@@ -194,7 +204,7 @@ static t_mconfig	*states(void)
 	return (mconfig);
 }
 
-t_bool								store_links(t_project *lem_in)
+t_bool				store_links(t_project *lem_in)
 {
 	t_machine	*machine;
 

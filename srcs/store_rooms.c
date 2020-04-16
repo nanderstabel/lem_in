@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/24 17:21:47 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/15 17:37:43 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/16 15:55:07 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,16 @@ t_bool				store_room(t_project *lem_in)
 		ft_nchar(lem_in->input_string_copy, ' ') - 1), get_vertex());
 	if (lem_in->room_pointers[first_room])
 	{
-		ROOM_CONTENT(first_room)->id = ROOM_ELEM(first_room);
+		((t_vertex *)((t_elem *)(lem_in->room_pointers[first_room]))\
+			->content)->id = ((t_elem *)(lem_in->room_pointers[first_room]));
 		if (lem_in->room_type == source)
-			lem_in->source = ROOM_CONTENT(first_room);
+			lem_in->source = ((t_vertex *)((t_elem *)\
+				(lem_in->room_pointers[first_room]))->content);
 		else if (lem_in->room_type == sink)
-			lem_in->sink = ROOM_CONTENT(first_room);
-		ROOM_CONTENT(first_room)->type = lem_in->room_type;
+			lem_in->sink = ((t_vertex *)((t_elem *)\
+				(lem_in->room_pointers[first_room]))->content);
+		((t_vertex *)((t_elem *)(lem_in->room_pointers[first_room]))\
+			->content)->type = lem_in->room_type;
 		ft_skip_line(&lem_in->input_string_copy);
 		return (SUCCESS);
 	}
@@ -123,7 +127,7 @@ static t_mconfig	*states(void)
 	return (mconfig);
 }
 
-t_bool								store_rooms(t_project *lem_in)
+t_bool				store_rooms(t_project *lem_in)
 {
 	t_machine	*machine;
 
