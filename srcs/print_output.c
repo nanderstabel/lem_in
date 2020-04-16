@@ -6,30 +6,19 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/15 09:22:34 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/16 10:32:16 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-enum
-{
-	s_install_machine_po,
-	s_print_input,
-	s_sort_paths,
-	s_spawn_ants,
-	s_move_all_ants,
-	s_print_tables_po,
-	s_uninstall_machine_po,
-}	e_state_po;
-
 t_bool				print_input(t_project *lem_in)
 {
-	if (FLAGS & DEBUG_O)
+	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	if (FLAGS & BLANK_O)
+	if (lem_in->flags & BLANK_O)
 		return (FAIL);
-	ft_printf("%s\n", INPUT);
+	ft_printf("%s\n", lem_in->input_string);
 	return (SUCCESS);
 }
 
@@ -57,7 +46,7 @@ t_ant			*get_ant(size_t nbr)
 
 t_bool				sort_paths(t_project *lem_in)
 {
-	if (FLAGS & DEBUG_O)
+	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	INDEX = 1;
 	ft_addr_lstsrt(&ALL_PATHS, sort_by_length);
@@ -66,56 +55,65 @@ t_bool				sort_paths(t_project *lem_in)
 
 t_bool				spawn_ants(t_project *lem_in)
 {
-	if (FLAGS & DEBUG_O)
+	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	QUE = ALL_PATHS;
-	while (QUE && INDEX <= NANTS)
+	lem_in->que_list = ALL_PATHS;
+	while (lem_in->que_list && INDEX <= NANTS)
 	{
-		if ((size_t)PATH_LENGTH <= lem_in->nturns)
+		if ((size_t)((t_adlist *)((t_adlist *)\
+			lem_in->que_list->address))->next->address <= lem_in->nturns)
 		{
 			lem_in->current_ant = get_ant(INDEX);
-			lem_in->current_ant->location = PATH_START;
+			lem_in->current_ant->location = ((t_adlist *)((t_adlist *)\
+				lem_in->que_list->address))->next->next;
 			if (lem_in->all_ants)
-				ft_addr_lstapp(&lem_in->all_ants, ft_addr_lstnew((void *)lem_in->current_ant));
+				ft_addr_lstapp(&lem_in->all_ants, \
+					ft_addr_lstnew((void *)lem_in->current_ant));
 			else
 				lem_in->all_ants = ft_addr_lstnew((void *)lem_in->current_ant);
 			++INDEX;
 		}
-		QUE = QUE->next;
+		lem_in->que_list = lem_in->que_list->next;
 	}
 	return (SUCCESS);
+}
+
+static void			loop_paths(t_project *lem_in)
+{
+	lem_in->que_list = lem_in->all_ants;
+	while (lem_in->que_list)
+	{
+		CURRENT_ANT->location = CURRENT_ANT->location->next;
+		ft_printf("%s-%s", CURRENT_ANT->name, \
+			((t_vertex *)CURRENT_ANT->location->address)->id->name);
+		if (lem_in->que_list->next)
+			ft_putchar(' ');
+		if ((t_vertex *)CURRENT_ANT->location->address == lem_in->sink)
+		{
+			free(CURRENT_ANT);
+			if (lem_in->que_list == lem_in->all_ants)
+				lem_in->all_ants = lem_in->que_list->next;
+			else
+				lem_in->temp_que_list->next = lem_in->que_list->next;
+		}
+		else
+			lem_in->temp_que_list = lem_in->que_list;
+		lem_in->que_list = lem_in->que_list->next;
+	}
 }
 
 t_bool				move_all_ants(t_project *lem_in)
 {
 	static int count;
 
-	if (FLAGS & DEBUG_O)
+	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	if (!lem_in->all_ants)
 		return (FAIL);
-	if (FLAGS & COUNT_O)
+	if (lem_in->flags & COUNT_O)
 		ft_printf("Turn %-5i:\t", 1 + count);
 	++count;
-	QUE = lem_in->all_ants;
-	while (QUE)
-	{
-		CURRENT_ANT->location = CURRENT_ANT->location->next;
-		ft_printf("%s-%s", CURRENT_ANT->name, ((t_vertex *)CURRENT_ANT->location->address)->id->name);
-		if (QUE->next)
-			ft_putchar(' ');
-		if ((t_vertex *)CURRENT_ANT->location->address == SINK)
-		{
-			//delnode
-			if (QUE == lem_in->all_ants)
-				lem_in->all_ants = QUE->next;
-			else
-				TEMP_QUE->next = QUE->next;
-		}
-		else
-			TEMP_QUE = QUE;
-		QUE = QUE->next;
-	}
+	loop_paths(lem_in);
 	--lem_in->nturns;
 	ft_putchar(10);
 	return (SUCCESS);
@@ -123,28 +121,30 @@ t_bool				move_all_ants(t_project *lem_in)
 
 static void			get_transitions(t_mconfig **mconfig)
 {
-	TRANSITIONS[s_install_machine_rms][FAIL] = s_uninstall_machine_po;
-	TRANSITIONS[s_install_machine_rms][SUCCESS] = s_print_input;
-	TRANSITIONS[s_print_input][FAIL] = s_print_tables_po;
-	TRANSITIONS[s_print_input][SUCCESS] = s_sort_paths;
-	TRANSITIONS[s_sort_paths][FAIL] = s_uninstall_machine_po;
-	TRANSITIONS[s_sort_paths][SUCCESS] = s_spawn_ants;
-	TRANSITIONS[s_spawn_ants][FAIL] = s_uninstall_machine_po;
-	TRANSITIONS[s_spawn_ants][SUCCESS] = s_move_all_ants;
-	TRANSITIONS[s_move_all_ants][FAIL] = s_print_tables_po;
-	TRANSITIONS[s_move_all_ants][SUCCESS] = s_spawn_ants;
-	TRANSITIONS[s_print_tables_po][FAIL] = s_uninstall_machine_po;
-	TRANSITIONS[s_print_tables_po][SUCCESS] = s_uninstall_machine_po;
+	(*mconfig)->transitions[s_install_machine_rms][FAIL] = \
+		s_uninstall_machine_po;
+	(*mconfig)->transitions[s_install_machine_rms][SUCCESS] = s_print_input;
+	(*mconfig)->transitions[s_print_input][FAIL] = s_print_tables_po;
+	(*mconfig)->transitions[s_print_input][SUCCESS] = s_sort_paths;
+	(*mconfig)->transitions[s_sort_paths][FAIL] = s_uninstall_machine_po;
+	(*mconfig)->transitions[s_sort_paths][SUCCESS] = s_spawn_ants;
+	(*mconfig)->transitions[s_spawn_ants][FAIL] = s_uninstall_machine_po;
+	(*mconfig)->transitions[s_spawn_ants][SUCCESS] = s_move_all_ants;
+	(*mconfig)->transitions[s_move_all_ants][FAIL] = s_print_tables_po;
+	(*mconfig)->transitions[s_move_all_ants][SUCCESS] = s_spawn_ants;
+	(*mconfig)->transitions[s_print_tables_po][FAIL] = s_uninstall_machine_po;
+	(*mconfig)->transitions[s_print_tables_po][SUCCESS] = \
+		s_uninstall_machine_po;
 }
 
 static void			get_events(t_mconfig **mconfig)
 {
-	EVENTS[s_install_machine_po] = NULL;
-	EVENTS[s_print_input] = print_input;
-	EVENTS[s_sort_paths] = sort_paths;
-	EVENTS[s_spawn_ants] = spawn_ants;
-	EVENTS[s_move_all_ants] = move_all_ants;
-	EVENTS[s_print_tables_po] = print_tables;
+	(*mconfig)->events[s_install_machine_po] = NULL;
+	(*mconfig)->events[s_print_input] = print_input;
+	(*mconfig)->events[s_sort_paths] = sort_paths;
+	(*mconfig)->events[s_spawn_ants] = spawn_ants;
+	(*mconfig)->events[s_move_all_ants] = move_all_ants;
+	(*mconfig)->events[s_print_tables_po] = print_tables;
 }
 
 static t_mconfig	*states(void)
@@ -161,12 +161,12 @@ t_bool								print_output(t_project *lem_in)
 {
 	t_machine	*machine;
 
-	if (FLAGS & DEBUG_O)
+	if (lem_in->flags & DEBUG_O)
 		ft_printf("%s\n", __func__);
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
-	if (ERROR)
-		return (ERROR_LOG(FAIL));
+	if (lem_in->error)
+		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
 	return (SUCCESS);
 }

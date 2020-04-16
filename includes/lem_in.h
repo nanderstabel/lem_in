@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/15 15:08:20 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/16 10:43:24 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ enum
 	s_label_graph_s_to_t,
 	s_augment_paths,
 	s_choose_graph,
-	s_move_ants,
 	s_print_error,
 	s_print_output,
 	s_free_project,
@@ -136,6 +135,7 @@ enum
 	s_uninstall_machine_opt,
 }	e_state_opt;
 
+//OUDE VERSIE
 enum
 {
 	s_install_machine_vi,
@@ -144,15 +144,15 @@ enum
 	s_first_char_zero_vi,
 	s_first_char_delim_vi,
 	s_first_char_hash_vi,
-	s_sec_char_hash_vi,
+	s_second_char_hash_vi,
 	s_find_hyphen_vi,
 	s_isdigit_to_newline_vi,
 	s_isdigit_to_space_vi,
 	s_isallnum_to_hyphen_vi,
 	s_isallnum_to_space_vi,
 	s_isallnum_to_newline_vi,
-	s_check_end_in_line_vi,
-	s_check_start_in_line_vi,
+	s_check_if_end_command_line_vi,
+	s_check_if_start_command_line_vi,
 	s_switch_start_flag_on_vi,
 	s_switch_end_flag_on_vi,
 	s_switch_link_flag_on_vi,
@@ -164,6 +164,36 @@ enum
 	s_input_file_done_vi,
 	s_uninstall_machine_vi,
 }	e_state_vi;
+
+//NIEUWE VERSIE
+// enum
+// {
+// 	s_install_machine_vi,
+// 	s_read_stdin_vi,
+// 	s_first_char_newline_vi,
+// 	s_first_char_zero_vi,
+// 	s_first_char_delim_vi,
+// 	s_first_char_hash_vi,
+// 	s_sec_char_hash_vi,
+// 	s_find_hyphen_vi,
+// 	s_isdigit_to_newline_vi,
+// 	s_isdigit_to_space_vi,
+// 	s_isallnum_to_hyphen_vi,
+// 	s_isallnum_to_space_vi,
+// 	s_isallnum_to_newline_vi,
+// 	s_check_end_in_line_vi,
+// 	s_check_start_in_line_vi,
+// 	s_switch_start_flag_on_vi,
+// 	s_switch_end_flag_on_vi,
+// 	s_switch_link_flag_on_vi,
+// 	s_skip_command_line_vi,
+// 	s_next_line_room_hash_vi,
+// 	s_next_line_room_link_vi,
+// 	s_check_link_flag_on_vi,
+// 	s_all_flags_on_vi,
+// 	s_input_file_done_vi,
+// 	s_uninstall_machine_vi,
+// }	e_state_vi;
 
 enum
 {
@@ -207,6 +237,22 @@ enum
 
 enum
 {
+	s_install_machine_dfs,
+	s_sort_links_lists,
+	s_start_path,
+	s_find_next_room,
+	s_backtrack_path,
+	s_remove_room,
+	s_delete_path,
+	s_traverse_path,
+	s_check_sink,
+	s_store_path,
+	s_print_tables_dfs,
+	s_uninstall_machine_dfs,
+}	e_state_dfs;
+
+enum
+{
 	s_install_machine_bfs_s_to_t,
 	s_init_bfs_s_to_t,
 	s_que_list_remain_bfs_s_to_t,
@@ -234,6 +280,41 @@ enum
 	s_print_tables_augp,
 	s_uninstall_machine_augp,
 }	e_state_augp;
+
+enum
+{
+	s_install_machine_cg,
+	s_set_global_vars,
+	s_set_graph_vars,
+	s_get_graph,
+	s_delete_excess_paths,
+	s_clean_pathslist,
+	s_finish_graph_calculation,
+	s_calculate_turn,
+	s_update_stored_graph,
+	s_print_tables_cg,
+	s_uninstall_machine_cg,
+}	e_state_cg;
+
+enum
+{
+	s_install_machine_po,
+	s_print_input,
+	s_sort_paths,
+	s_spawn_ants,
+	s_move_all_ants,
+	s_print_tables_po,
+	s_uninstall_machine_po,
+}	e_state_po;
+
+enum
+{
+	s_install_machine_pt,
+	s_print_rooms,
+	s_print_links,
+	s_print_paths,
+	s_uninstall_machine_pt,
+}	e_state_pt;
 
 enum
 {
@@ -344,9 +425,8 @@ t_bool							label_graph_s_to_t(t_project *lem_in);
 t_bool							find_paths(t_project *lem_in);
 t_bool							augmenting_paths(t_project *lem_in);
 t_bool							choose_graph(t_project *lem_in);
-t_bool							move_ants(t_project *lem_in);
 t_bool							print_error(t_project *lem_in);
-t_bool							printing_output(t_project *lem_in);
+t_bool							print_output(t_project *lem_in);
 t_bool							free_project(t_project *lem_in);
 t_bool							read_stdin_vi(t_project *lem_in);
 
@@ -368,7 +448,6 @@ t_bool							find_hyphen_vi(t_project *lem_in);
 t_bool							switch_link_flag_on_vi(t_project *lem_in);
 t_bool							isallnum_to_space_vi(t_project *lem_in);
 t_bool							print_error(t_project *lem_in);
-t_bool							print_output(t_project *lem_in);
 t_bool							input_file_done_vi(t_project *lem_in);
 t_bool							all_flags_on_vi(t_project *lem_in);
 t_bool							read_stdin(char **input_string);

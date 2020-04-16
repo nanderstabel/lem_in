@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   print_error.c                                       :+:    :+:            */
+/*   print_error.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/13 13:01:21 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/03/02 14:48:00 by nstabel       ########   odam.nl         */
+/*   Created: 2020/04/16 10:41:21 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/16 10:41:24 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 t_bool								print_error(t_project *lem_in)
 {
-	if (FLAGS & DEBUG_O)
+	if (lem_in->flags & DEBUG_O)
 		ft_printf("%s\n", __func__);
-	if (FLAGS & ERROR_O)
+	if (lem_in->flags & ERROR_O)
 	{
 		ft_printf(ERROR_MSG);
 		ft_putlst(ERROR, "\n");
 		ft_printf(EOC);
 	}
 	ft_lstdel(&ERROR, ft_freezero);
-	if (FLAGS & ROOMS_O)
+	if (lem_in->flags & ROOMS_O)
 		ft_puttbl(ALL_ROOMS);
-	if (FLAGS & LINKS_O)
+	if (lem_in->flags & LINKS_O)
 		ft_puttbl(ALL_LINKS);
-	if (FLAGS & ERROR_O)
+	if (lem_in->flags & ERROR_O)
 		ft_putendl("Ending program");
 	return (SUCCESS);
 }

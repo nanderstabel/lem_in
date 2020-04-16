@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/12 15:31:46 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/12 15:33:34 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/15 17:22:43 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,16 @@ static void		cut_adlist(t_adlist *row, size_t cutoff)
 	row->next = NULL;
 }
 
+static void		shift(t_hash_table *table)
+{
+	t_adlist	*last_width;
+
+	last_width = table->width;
+	while (last_width->next)
+		last_width = last_width->next;
+	last_width->address -= 2;
+}
+
 void			*ft_hash_table_drop(t_hash_table *table, size_t cutoff)
 {
 	size_t		index;
@@ -63,5 +73,6 @@ void			*ft_hash_table_drop(t_hash_table *table, size_t cutoff)
 	}
 	if (cutoff == 4)
 		table->mounted = 0;
+	shift(table);
 	return (table);
 }
