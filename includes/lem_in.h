@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 13:00:42 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/16 14:12:53 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,18 @@
 # define TEMP_QUE				lem_in->temp_que_list
 # define VERTEX_IN_LIST			((t_vertex *)(lem_in->temp_que_list->address))
 # define TEMP_LINKS				lem_in->temp
-# define NEXT_ROOM				((t_edge*)(TEMP_LINKS->address))->next
-# define NEXT_ROOM_LEVEL		((t_edge*)(TEMP_LINKS->address))->next->level
-# define NEXT_ROOM_LINKS		((t_edge*)(TEMP_LINKS->address))->next->links
+
+# define NEXT_ROOM				((t_edge*)(lem_in->temp->address))->next
+// ((t_edge*)(lem_in->temp->address))->next
+
+# define NEXT_ROOM_LEVEL		((t_edge*)(lem_in->temp->address))->next->level
+# define NEXT_ROOM_LINKS		((t_edge*)(lem_in->temp->address))->next->links
+
 # define NEXT_ROOM_TEMP_LINKS			TEMP_QUE
 # define NEXT_ROOM_TEMP_LINKS_CAPACITY	((t_edge*)(TEMP_QUE->address))->capacity
 
 # define NEXT_ROOM_INDEX_CMP	((t_edge*)(NEXT_ROOM_TEMP_LINKS->address))->next->id->index
-# define TEMP_LINK_CAPACITY		((t_edge*)(TEMP_LINKS->address))->capacity
+# define TEMP_LINK_CAPACITY		((t_edge*)(lem_in->temp->address))->capacity
 # define TEMP_LINK_VISITED		((t_edge*)(TEMP_LINKS->address))->visited
 
 // # define CURRENT_EDGE			CURRENT_LINK
@@ -222,16 +226,16 @@ enum
 
 enum
 {
-	s_install_machine_bfs_s_to_t,
-	s_init_bfs_s_to_t,
-	s_que_list_remain_bfs_s_to_t,
-	s_edge_list_remain_bfs_s_to_t,
-	s_vertex_has_level_bfs_s_to_t,
-	s_capacity_available_bfs_s_to_t,
-	s_update_level_and_que_bfs_s_to_t,
-	s_print_tables_bfs_s_to_t,
-	s_uninstall_machine_bfs_s_to_t,
-}	e_state_bfs_s_to_t;
+	s_install_machine_bfs_st,
+	s_init_bfs_st,
+	s_que_list_remain_bfs_st,
+	s_edge_list_remain_bfs_st,
+	s_vertex_has_level_bfs_st,
+	s_capacity_available_bfs_st,
+	s_update_level_and_que_bfs_st,
+	s_print_tables_bfs_st,
+	s_uninstall_machine_bfs_st,
+}	e_state_bfs_st;
 
 enum
 {
@@ -444,12 +448,12 @@ t_bool							capacity_available_bfs(t_project *lem_in);
 t_bool							vertex_has_level_bfs(t_project *lem_in);
 t_bool							update_level_and_que_bfs(t_project *lem_in);
 
-t_bool							init_bfs_s_to_t(t_project *lem_in);
-t_bool							que_list_remain_bfs_s_to_t(t_project *lem_in);
-t_bool							edge_list_remain_bfs_s_to_t(t_project *lem_in);
-t_bool							capacity_available_bfs_s_to_t(t_project *lem_in);
-t_bool							vertex_has_level_bfs_s_to_t(t_project *lem_in);
-t_bool							update_level_and_que_bfs_s_to_t(t_project *lem_in);
+t_bool							init_bfs_st(t_project *lem_in);
+t_bool							que_list_remain_bfs_st(t_project *lem_in);
+t_bool							edge_list_remain_bfs_st(t_project *lem_in);
+t_bool							capacity_available_bfs_st(t_project *lem_in);
+t_bool							vertex_has_level_bfs_st(t_project *lem_in);
+t_bool							update_level_and_que_bfs_st(t_project *lem_in);
 
 t_bool							capacity_from_source_augp(t_project *lem_in);
 t_bool 							capacity_to_lower_level_augp(t_project *lem_in);

@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
@@ -7,97 +6,18 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:56:49 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/03/10 18:09:09 by mgross        ########   odam.nl         */
+/*   Updated: 2020/04/16 14:02:38 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-t_bool				init_bfs(t_project *lem_in)
-{
-	size_t	index;
-
-	index = 0;
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
-	while (index < ALL_ROOMS->size)
-	{
-		((t_vertex*)(ALL_ROOMS->elem[index]->content))->level = 0;
-		index++;
-	}
-	QUE = ft_addr_lstnew((void*)SINK);
-	TEMP_QUE = QUE;
-	return (SUCCESS);
-}
-
-t_bool				que_list_remain_bfs(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
-	if (TEMP_QUE)
-	{
-		CURRENT_ROOM = VERTEX_IN_LIST;
-		TEMP_LINKS = CURRENT_ROOM_LINKS;
-		return (SUCCESS);
-	}
-	ft_addr_lstdel(&QUE);
-	return (FAIL);
-}
-
-t_bool				edge_list_remain_bfs(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
-	if (TEMP_LINKS)
-		return (SUCCESS);
-	TEMP_QUE = TEMP_QUE->next;
-	return (FAIL);
-}
-
-t_bool				update_level_and_que_bfs(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
-	if (NEXT_ROOM != SINK)
-	{
-		NEXT_ROOM_LEVEL = CURRENT_ROOM->level + 1;
-	}
-	if (NEXT_ROOM != SOURCE)
-		ft_addr_lstapp(&QUE, ft_addr_lstnew((void*)NEXT_ROOM));
-	TEMP_LINKS = TEMP_LINKS->next;
-	return (SUCCESS);
-}
-
-t_bool				vertex_has_level_bfs(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
-	if (NEXT_ROOM_LEVEL == 0)
-		return (FAIL);
-	TEMP_LINKS = TEMP_LINKS->next;
-	return (SUCCESS);
-}
-
-t_bool				capacity_available_bfs(t_project *lem_in)
-{
-	if (FLAGS & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
-	// NEXT_ROOM_TEMP_LINKS = 
-	if (TEMP_LINK_CAPACITY == 1 && !NEXT_ROOM->visited)
-	{
-		lem_in->level++;
-		return (SUCCESS);
-	}
-	TEMP_LINKS = TEMP_LINKS->next;
-	return (FAIL);
-}
 
 static void			get_transitions(t_mconfig **mconfig)
 {
 	TRANSITIONS[s_install_machine_bfs][FAIL] = s_uninstall_machine_bfs;
 	TRANSITIONS[s_install_machine_bfs][SUCCESS] = s_init_bfs;
 	TRANSITIONS[s_init_bfs][SUCCESS] = s_que_list_remain_bfs;
-	TRANSITIONS[s_que_list_remain_bfs][FAIL] = s_print_tables_bfs; // EINDE
+	TRANSITIONS[s_que_list_remain_bfs][FAIL] = s_print_tables_bfs;
 	TRANSITIONS[s_que_list_remain_bfs][SUCCESS] = s_edge_list_remain_bfs;
 	TRANSITIONS[s_edge_list_remain_bfs][SUCCESS] = s_capacity_available_bfs;
 	TRANSITIONS[s_edge_list_remain_bfs][FAIL] = s_que_list_remain_bfs;
@@ -108,7 +28,6 @@ static void			get_transitions(t_mconfig **mconfig)
 	TRANSITIONS[s_update_level_and_que_bfs][SUCCESS] = s_edge_list_remain_bfs;
 	TRANSITIONS[s_print_tables_bfs][FAIL] = s_uninstall_machine_bfs;
 	TRANSITIONS[s_print_tables_bfs][SUCCESS] = s_uninstall_machine_bfs;
-
 }
 
 static void			get_events(t_mconfig **mconfig)
@@ -133,26 +52,14 @@ static t_mconfig	*states(void)
 	return (mconfig);
 }
 
-t_bool								label_graph(t_project *lem_in)
+t_bool				label_graph(t_project *lem_in)
 {
 	t_machine	*machine;
 
-	// size_t index = 0;
-	if (FLAGS & DEBUG_O)
+	if (lem_in->flags & DEBUG_O)
 		ft_printf("%s\n", __func__);
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
-	// while (index < ALL_ROOMS->size)
-	// {
-	// 	ft_printf("name %s - level %d\n", ALL_ROOMS->elem[index]->name, ((t_vertex*)(ALL_ROOMS->elem[index]->content))->level);
-	// 	index++;
-	// }
-	
-	// if (lem_in->level ==  0)
-	// {
-	// 	ft_printf("label = fail");
-	// 	return ((FAIL));
-	// }
 	return (SUCCESS);
 }
