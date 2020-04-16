@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error_log.c                                        :+:    :+:            */
+/*   ant.c                                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mgross <mgross@student.codam.nl>             +#+                     */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/26 14:21:44 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/16 20:10:05 by nstabel       ########   odam.nl         */
+/*   Created: 2020/04/16 19:33:36 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/16 19:33:36 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_bool			error_log(t_project *lem_in, char *str, t_bool ret)
+t_ant			*get_ant(size_t nbr)
 {
-	t_list		*temp;
+	t_ant		*ant;
 
-	temp = ft_lstnew(str, ft_strlen(str));
-	if (lem_in->error == NULL)
-	{
-		lem_in->error = temp;
-	}
-	else
-	{
-		ft_lstadd(&lem_in->error, temp);
-	}
-	free(str);
-	return (ret);
+	ant = (t_ant *)ft_memalloc(sizeof(t_ant));
+	ant->name = ft_itoa((int)nbr);
+	ant->name = ft_insert(&ant->name, "L", 0);
+	return (ant);
 }

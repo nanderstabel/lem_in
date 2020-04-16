@@ -1,23 +1,35 @@
 PROJECT_OBJ_FILES :=	main.o						\
 						augmenting_paths.o			\
-						choose_graph.o				\
+						choose_graph_machine.o		\
+						prepare_graph_cg.o			\
+						get_graph_cg.o				\
 						print_error.o				\
-						find_paths.o				\
+						find_paths_machine.o		\
+						begin_path_dfs.o			\
+						end_path_dfs.o				\
 						label_graph_machine.o		\
-						print_output.o				\
-						set_options.o				\
-						store_links.o				\
-						store_rooms.o				\
+						print_output_machine.o		\
+						print_output_po.o			\
+						set_options_machine.o		\
+						set_options_so.o			\
+						store_links_machine.o		\
+						validate_rooms_lks.o		\
+						config_link_lks.o			\
+						store_rooms_machine.o		\
+						store_rooms_rms.o			\
 						validate_input_machine.o	\
 						get_input.o					\
 						read_input.o				\
 						error_log.o					\
 						vertex.o					\
 						edge.o						\
+						ant.o						\
 						free_project.o				\
-						print_tables.o				\
+						print_tables_machine.o		\
+						print_tables_pt.o			\
 						label_graph_st_machine.o	\
 						vertex_columns.o			\
+						sort_methods.o				\
 						switch_flag_on_vi.o			\
 						read_stdin_vi.o				\
 						check_line_vi.o				\

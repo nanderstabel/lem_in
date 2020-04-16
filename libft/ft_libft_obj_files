@@ -21,6 +21,7 @@ LIBFT_OBJ_FILES := 	ft_abs.o \
 					ft_hash_table_append.o \
 					ft_hash_table_drop.o \
 					ft_hash_table_get.o \
+					ft_hash_table_print.o \
 					ft_hash_table_update.o \
 					ft_hsh_chain.o \
 					ft_hsh_linprob.o \
