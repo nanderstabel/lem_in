@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 13:00:09 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 14:37:04 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/16 14:39:13 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,12 +170,13 @@ t_bool				clear_rooms_on_graph_augp(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if (lem_in->level)
 	{
-		while (index < ALL_ROOMS->size)
+		while (index < lem_in->all_rooms->size)
 		{
-			((t_vertex*)(ALL_ROOMS->elem[index]->content))->level = 0;
+			((t_vertex*)(lem_in->all_rooms->elem[index]->content))->level = 0;
 			if (lem_in->round_temp)
 			{
-				((t_vertex*)(ALL_ROOMS->elem[index]->content))->visited = 0;
+				((t_vertex*)(lem_in->all_rooms->elem[index]->content))\
+				->visited = 0;
 			}
 			index++;
 		}
@@ -187,23 +188,23 @@ t_bool				clear_links_on_graph_augp(t_project *lem_in)
 {
 	size_t 	index;
 	t_adlist *temp;
-	temp = AUGMENT_PATHS;
+	temp = lem_in->aug_path_links;
 
 	index = 0;
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	if (lem_in->level)
 	{
-		while (index < ALL_LINKS->size)
+		while (index < lem_in->all_links->size)
 		{
-			((t_edge*)(ALL_LINKS->elem[index]->content))->capacity = 1;
-			((t_edge*)(ALL_LINKS->elem[index]->content))->visited = 0;
+			((t_edge*)(lem_in->all_links->elem[index]->content))->capacity = 1;
+			((t_edge*)(lem_in->all_links->elem[index]->content))->visited = 0;
 			index++;
 		}
 		while (temp)
 		{
-			((t_edge*)(ALL_LINKS->elem[((long long)(temp->address))]->content))\
-			->capacity = 0;
+			((t_edge*)(lem_in->all_links->elem[((long long)(temp->address))]\
+			->content))->capacity = 0;
 			temp = temp->next;
 		}
 	}
