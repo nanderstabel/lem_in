@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 10:43:24 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/16 13:00:42 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ enum
 	s_uninstall_machine_opt,
 }	e_state_opt;
 
-//OUDE VERSIE
 enum
 {
 	s_install_machine_vi,
@@ -144,15 +143,15 @@ enum
 	s_first_char_zero_vi,
 	s_first_char_delim_vi,
 	s_first_char_hash_vi,
-	s_second_char_hash_vi,
+	s_sec_char_hash_vi,
 	s_find_hyphen_vi,
 	s_isdigit_to_newline_vi,
 	s_isdigit_to_space_vi,
 	s_isallnum_to_hyphen_vi,
 	s_isallnum_to_space_vi,
 	s_isallnum_to_newline_vi,
-	s_check_if_end_command_line_vi,
-	s_check_if_start_command_line_vi,
+	s_check_end_in_line_vi,
+	s_check_start_in_line_vi,
 	s_switch_start_flag_on_vi,
 	s_switch_end_flag_on_vi,
 	s_switch_link_flag_on_vi,
@@ -164,36 +163,6 @@ enum
 	s_input_file_done_vi,
 	s_uninstall_machine_vi,
 }	e_state_vi;
-
-//NIEUWE VERSIE
-// enum
-// {
-// 	s_install_machine_vi,
-// 	s_read_stdin_vi,
-// 	s_first_char_newline_vi,
-// 	s_first_char_zero_vi,
-// 	s_first_char_delim_vi,
-// 	s_first_char_hash_vi,
-// 	s_sec_char_hash_vi,
-// 	s_find_hyphen_vi,
-// 	s_isdigit_to_newline_vi,
-// 	s_isdigit_to_space_vi,
-// 	s_isallnum_to_hyphen_vi,
-// 	s_isallnum_to_space_vi,
-// 	s_isallnum_to_newline_vi,
-// 	s_check_end_in_line_vi,
-// 	s_check_start_in_line_vi,
-// 	s_switch_start_flag_on_vi,
-// 	s_switch_end_flag_on_vi,
-// 	s_switch_link_flag_on_vi,
-// 	s_skip_command_line_vi,
-// 	s_next_line_room_hash_vi,
-// 	s_next_line_room_link_vi,
-// 	s_check_link_flag_on_vi,
-// 	s_all_flags_on_vi,
-// 	s_input_file_done_vi,
-// 	s_uninstall_machine_vi,
-// }	e_state_vi;
 
 enum
 {
