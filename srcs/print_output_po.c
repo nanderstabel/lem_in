@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 19:36:08 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/17 12:19:31 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/17 14:57:11 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ static void			free_ant(t_project *lem_in)
 		lem_in->all_ants = lem_in->que_list->next;
 	}
 	else
+	{
 		lem_in->temp_que_list->next = lem_in->que_list->next;
+		free(lem_in->que_list);
+	}
 }
 
 static void			loop_paths(t_project *lem_in)
