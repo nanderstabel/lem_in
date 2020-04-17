@@ -41,7 +41,7 @@ Test(test_label_graph, init_bfs_test)
 	cr_assert_str_eq(((t_vertex *)(TEMP_QUE->address))->id->name,"Gll7", "The result was %s, expected %s\n", ((t_vertex *)(TEMP_QUE->address))->id->name, "Gll7");
 }
 
-Test(test_label_graph, que_list_remain_bfs_test)
+Test(test_label_graph, que_remain_bfs_test)
 {
 	t_project		*lem_in;
 	t_bool			boolean;
@@ -55,13 +55,13 @@ Test(test_label_graph, que_list_remain_bfs_test)
 	store_links(lem_in);
 	init_bfs(lem_in);
 
-	boolean = que_list_remain_bfs(lem_in);
+	boolean = que_remain_bfs(lem_in);
 	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	cr_assert_str_eq(CURRENT_ROOM->id->name, VERTEX_IN_LIST->id->name, "The result was %s, expected %s\n", CURRENT_ROOM->id->name, VERTEX_IN_LIST->id->name);
 
 	TEMP_QUE = NULL;
 	// ft_printf("Pointer 1 = %p", QUE);
-	boolean = que_list_remain_bfs(lem_in);
+	boolean = que_remain_bfs(lem_in);
 	// ft_printf("Pointer 2 = %p", QUE);
 	cr_assert(boolean == FAIL,  "The result was %d, expected %d\n", boolean, FAIL);
 	cr_assert(QUE == NULL);
@@ -80,7 +80,7 @@ Test(test_label_graph, edge_list_remain_bfs_test)
 	store_rooms(lem_in);
 	store_links(lem_in);
 	init_bfs(lem_in);
-	que_list_remain_bfs(lem_in);
+	que_remain_bfs(lem_in);
 
 	boolean = edge_list_remain_bfs(lem_in);
 	cr_assert(boolean == SUCCESS,  "The result was %d, expected %d\n", boolean, SUCCESS);
@@ -106,7 +106,7 @@ Test(test_label_graph, capacity_available_bfs_test)
 	store_rooms(lem_in);
 	store_links(lem_in);
 	init_bfs(lem_in);
-	que_list_remain_bfs(lem_in);
+	que_remain_bfs(lem_in);
 	edge_list_remain_bfs(lem_in);
 
 	boolean = capacity_available_bfs(lem_in);
@@ -132,7 +132,7 @@ Test(test_label_graph, vertex_has_level_bfs_test)
 	store_rooms(lem_in);
 	store_links(lem_in);
 	init_bfs(lem_in);
-	que_list_remain_bfs(lem_in);
+	que_remain_bfs(lem_in);
 	edge_list_remain_bfs(lem_in);
 	capacity_available_bfs(lem_in);
 
@@ -141,7 +141,7 @@ Test(test_label_graph, vertex_has_level_bfs_test)
 	// ------------------- Hier is nog niet de fail getest ---------------
 }
 
-Test(test_label_graph, update_level_and_que_bfs_test)
+Test(test_label_graph, update_level_que_bfs_test)
 {
 	t_project		*lem_in;
 	t_bool			boolean;
@@ -154,12 +154,12 @@ Test(test_label_graph, update_level_and_que_bfs_test)
 	store_rooms(lem_in);
 	store_links(lem_in);
 	init_bfs(lem_in);
-	que_list_remain_bfs(lem_in);
+	que_remain_bfs(lem_in);
 	edge_list_remain_bfs(lem_in);
 	capacity_available_bfs(lem_in);
 	vertex_has_level_bfs(lem_in);
 
-	boolean = update_level_and_que_bfs(lem_in);
+	boolean = update_level_que_bfs(lem_in);
 	cr_assert(boolean == SUCCESS);
 }
 

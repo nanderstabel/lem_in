@@ -6,13 +6,13 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 13:14:07 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/17 11:30:30 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/17 15:00:18 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_bool						isallnum_to_newline_vi(t_project *lem_in)
+t_bool						isallnum_nline_vi(t_project *lem_in)
 {
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
@@ -35,7 +35,7 @@ t_bool						isallnum_to_newline_vi(t_project *lem_in)
 	return (SUCCESS);
 }
 
-t_bool						isallnum_to_space_vi(t_project *lem_in)
+t_bool						isallnum_space_vi(t_project *lem_in)
 {
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
@@ -47,12 +47,12 @@ t_bool						isallnum_to_space_vi(t_project *lem_in)
 			return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
 		lem_in->input_string_copy++;
 	}
-	NROOMS++;
+	lem_in->nrooms++;
 	lem_in->input_string_copy++;
 	return (SUCCESS);
 }
 
-t_bool						isallnum_to_hyphen_vi(t_project *lem_in)
+t_bool						isallnum_hyph_vi(t_project *lem_in)
 {
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
@@ -62,7 +62,7 @@ t_bool						isallnum_to_hyphen_vi(t_project *lem_in)
 			return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
 		lem_in->input_string_copy++;
 	}
-	NLINKS++;
+	lem_in->nlinks++;
 	lem_in->input_string_copy++;
 	return (SUCCESS);
 }

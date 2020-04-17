@@ -6,13 +6,13 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/15 15:23:51 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/17 11:30:30 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/17 14:50:09 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_bool						check_start_in_line_vi(t_project *lem_in)
+t_bool						start_in_line_vi(t_project *lem_in)
 {
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
@@ -29,7 +29,7 @@ t_bool						check_start_in_line_vi(t_project *lem_in)
 		return (FAIL);
 }
 
-t_bool						check_end_in_line_vi(t_project *lem_in)
+t_bool						end_in_line_vi(t_project *lem_in)
 {
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);

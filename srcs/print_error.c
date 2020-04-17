@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 10:41:21 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 20:09:09 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/17 15:15:41 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_bool								print_error(t_project *lem_in)
 		ft_printf("%s\n", __func__);
 	if (lem_in->flags & ERROR_O)
 	{
-		ft_printf(ERROR_MSG);
+		ft_printf(RED "An error occurred, machine was not able to: \n");
 		ft_putlst(lem_in->error, "\n");
 		ft_printf(EOC);
 	}

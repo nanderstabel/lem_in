@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/17 11:30:30 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/17 15:23:54 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,79 +17,6 @@
 # include "machine.h"
 
 # define OPTIONS				"abcdeglpru"
-// # define ARGC					lem_in->argc
-// # define ARGV					lem_in->argv
-// # define FLAGS					lem_in->flags
-// # define INDEX					lem_in->index
-// # define STRING					lem_in->string
-// # define INPUT					lem_in->input_string
-// # define INPUT_CPY				lem_in->input_string_copy
-# define NANTS					lem_in->nants
-# define NROOMS					lem_in->nrooms
-# define NLINKS					lem_in->nlinks
-// # define ALL_ROOMS				lem_in->all_rooms
-// # define ALL_LINKS				lem_in->all_links
-// # define ROOM_TYPE				lem_in->room_type
-# define CURRENT_ROOM			lem_in->current_room
-// # define CURRENT_LINK			lem_in->current_link
-# define CURRENT_ROOM_LINKS		CURRENT_ROOM->links
-
-// # define ROOM_POINTERS			lem_in->room_pointers
-// # define ROOM_POINTER(x)		ROOM_POINTERS[x]
-// # define ROOM_ELEM(x)			((t_elem *)(ROOM_POINTER(x)))
-// # define ROOM_CONTENT(x)		((t_vertex *)ROOM_ELEM(x)->content)
-// # define LINK_POINTER			lem_in->link_pointer
-// # define LINK_ELEM				((t_elem *)LINK_POINTER)
-// # define LINK_CONTENT			((t_edge *)LINK_ELEM->content)
-
-// # define SOURCE					lem_in->source
-// # define SINK					lem_in->sink
-// # define ROUND_NR				lem_in->round_nr
-// # define ALL_PATHS				lem_in->all_paths
-// # define CURRENT_PATH			lem_in->current_path
-// # define SELECTED				CURRENT_ROOM->selected
-
-# define ERROR_MSG				RED "An error occurred, machine was not able to: \n"
-# define ERROR					lem_in->error
-// # define ERROR_LOG(x)			error_log(lem_in, ft_strjoin("\t- ", __func__), x)
-// error_log(lem_in, ft_strjoin("\t- ", __func__), SUCCESS)
-// error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL)
-
-
-# define TRANSITIONS			(*mconfig)->transitions
-# define EVENTS					(*mconfig)->events
-
-# define QUE					lem_in->que_list
-# define TEMP_QUE				lem_in->temp_que_list
-# define VERTEX_IN_LIST			((t_vertex *)(lem_in->temp_que_list->address))
-# define TEMP_LINKS				lem_in->temp
-
-# define NEXT_ROOM				((t_edge*)(lem_in->temp->address))->next
-// ((t_edge*)(lem_in->temp->address))->next
-
-# define NEXT_ROOM_LEVEL		((t_edge*)(lem_in->temp->address))->next->level
-# define NEXT_ROOM_LINKS		((t_edge*)(lem_in->temp->address))->next->links
-
-# define NEXT_ROOM_TEMP_LINKS			lem_in->temp_que_list
-# define NEXT_ROOM_TEMP_LINKS_CAPACITY	((t_edge*)(lem_in->temp_que_list->address))->capacity
-
-# define NEXT_ROOM_INDEX_CMP	((t_edge*)(lem_in->temp_que_list->address))->next->id->index
-# define TEMP_LINK_CAPACITY		((t_edge*)(lem_in->temp->address))->capacity
-# define TEMP_LINK_VISITED		((t_edge*)(lem_in->temp->address))->visited
-
-// # define CURRENT_EDGE			CURRENT_LINK
-# define EDGE_INDEX				lem_in->current_link->id->index
-# define CURRENT_ROOM_INDEX		lem_in->current_room->id->index
-# define CURRENT_LINK_CAPACITY	lem_in->current_link->capacity
-# define NEXT_ROOM_INDEX		((t_edge*)(lem_in->temp->address))->next->id->index
-# define INDEX_COPY				lem_in->index_copy
-# define AUGMENT_PATHS			lem_in->aug_path_links
-// # define PATH_OFFSET			((t_adlist *)((t_adlist *)QUE->address))
-// # define PATH_ROUND				PATH_OFFSET->address
-// # define PATH_LENGTH			PATH_OFFSET->next->address
-// # define PATH_START				PATH_OFFSET->next->next	
-
-// # define CURRENT_ANT			((t_ant *)QUE->address)
 
 enum
 {
@@ -146,28 +73,28 @@ enum
 {
 	s_install_machine_vi,
 	s_read_stdin_vi,
-	s_first_char_newline_vi,
-	s_first_char_zero_vi,
-	s_first_char_delim_vi,
-	s_first_char_hash_vi,
+	s_ischar_nlne_vi,
+	s_ischar_zero_vi,
+	s_ischar_del_vi,
+	s_ischar_hash_vi,
 	s_sec_char_hash_vi,
 	s_find_hyphen_vi,
-	s_isdigit_to_newline_vi,
-	s_isdigit_to_space_vi,
-	s_isallnum_to_hyphen_vi,
-	s_isallnum_to_space_vi,
-	s_isallnum_to_newline_vi,
-	s_check_end_in_line_vi,
-	s_check_start_in_line_vi,
-	s_switch_start_flag_on_vi,
-	s_switch_end_flag_on_vi,
+	s_isdigit_nline_vi,
+	s_isdigit_space_vi,
+	s_isallnum_hyph_vi,
+	s_isallnum_space_vi,
+	s_isallnum_nline_vi,
+	s_end_in_line_vi,
+	s_start_in_line_vi,
+	s_set_start_flag_vi,
+	s_set_end_flag_vi,
 	s_switch_link_flag_on_vi,
-	s_skip_command_line_vi,
-	s_next_line_room_hash_vi,
-	s_next_line_room_link_vi,
-	s_check_link_flag_on_vi,
-	s_all_flags_on_vi,
-	s_input_file_done_vi,
+	s_skip_comm_line_vi,
+	s_line_room_hash_vi,
+	s_next_line_room_vi,
+	s_link_flag_on_vi,
+	s_allflags_on_vi,
+	s_input_done_vi,
 	s_uninstall_machine_vi,
 }	e_state_vi;
 
@@ -202,11 +129,11 @@ enum
 {
 	s_install_machine_bfs,
 	s_init_bfs,
-	s_que_list_remain_bfs,
+	s_que_remain_bfs,
 	s_edge_list_remain_bfs,
 	s_vertex_has_level_bfs,
 	s_capacity_available_bfs,
-	s_update_level_and_que_bfs,
+	s_update_level_que_bfs,
 	s_print_tables_bfs,
 	s_uninstall_machine_bfs,
 }	e_state_bfs;
@@ -231,11 +158,11 @@ enum
 {
 	s_install_machine_bfs_st,
 	s_init_bfs_st,
-	s_que_list_remain_bfs_st,
+	s_que_remain_bfs_st,
 	s_edge_list_remain_bfs_st,
 	s_vertex_has_level_bfs_st,
 	s_capacity_available_bfs_st,
-	s_update_level_and_que_bfs_st,
+	s_update_level_que_bfs_st,
 	s_print_tables_bfs_st,
 	s_uninstall_machine_bfs_st,
 }	e_state_bfs_st;
@@ -344,9 +271,7 @@ typedef struct					s_graph_vars
 
 typedef struct					s_project
 {
-	int							count;//temp
-
-
+	int							count;
 	int							argc;
 	char						**argv;
 	int							flags;
@@ -406,38 +331,36 @@ t_bool							print_error(t_project *lem_in);
 t_bool							print_output(t_project *lem_in);
 t_bool							free_project(t_project *lem_in);
 t_bool							read_stdin_vi(t_project *lem_in);
-
-t_bool							first_char_newline_vi(t_project *lem_in);
-t_bool							first_char_zero_vi(t_project *lem_in);
-t_bool							first_char_delim_vi(t_project *lem_in);
-t_bool							first_char_hash_vi(t_project *lem_in);
+t_bool							ischar_nlne_vi(t_project *lem_in);
+t_bool							ischar_zero_vi(t_project *lem_in);
+t_bool							ischar_del_vi(t_project *lem_in);
+t_bool							ischar_hash_vi(t_project *lem_in);
 t_bool							sec_char_hash_vi(t_project *lem_in);
-t_bool							isdigit_to_newline_vi(t_project *lem_in);
-t_bool							isdigit_to_space_vi(t_project *lem_in);
-t_bool							check_start_in_line_vi(t_project *lem_in);
-t_bool							check_end_in_line_vi(t_project *lem_in);
-t_bool							check_link_flag_on_vi(t_project *lem_in);
-t_bool							switch_end_flag_on_vi(t_project *lem_in);
-t_bool							switch_start_flag_on_vi(t_project *lem_in);
-t_bool							isallnum_to_newline_vi(t_project *lem_in);
-t_bool							isallnum_to_hyphen_vi(t_project *lem_in);
+t_bool							isdigit_nline_vi(t_project *lem_in);
+t_bool							isdigit_space_vi(t_project *lem_in);
+t_bool							start_in_line_vi(t_project *lem_in);
+t_bool							end_in_line_vi(t_project *lem_in);
+t_bool							link_flag_on_vi(t_project *lem_in);
+t_bool							set_end_flag_vi(t_project *lem_in);
+t_bool							set_start_flag_vi(t_project *lem_in);
+t_bool							isallnum_nline_vi(t_project *lem_in);
+t_bool							isallnum_hyph_vi(t_project *lem_in);
 t_bool							find_hyphen_vi(t_project *lem_in);
 t_bool							switch_link_flag_on_vi(t_project *lem_in);
-t_bool							isallnum_to_space_vi(t_project *lem_in);
+t_bool							isallnum_space_vi(t_project *lem_in);
 t_bool							print_error(t_project *lem_in);
-t_bool							input_file_done_vi(t_project *lem_in);
-t_bool							all_flags_on_vi(t_project *lem_in);
+t_bool							input_done_vi(t_project *lem_in);
+t_bool							allflags_on_vi(t_project *lem_in);
 t_bool							read_stdin(char **input_string);
-t_bool							skip_command_line_vi(t_project *lem_in);
-t_bool							next_line_room_link_vi(t_project *lem_in);
-t_bool							next_line_room_hash_vi(t_project *lem_in);
-
+t_bool							skip_comm_line_vi(t_project *lem_in);
+t_bool							next_line_room_vi(t_project *lem_in);
+t_bool							line_room_hash_vi(t_project *lem_in);
 t_bool							read_argument(t_project *lem_in);
 t_bool							find_dash(t_project *lem_in);
 t_bool							find_option(t_project *lem_in);
 t_bool							validate_argument(t_project *lem_in);
-t_bool							error_log(t_project *lem_in, char *str, t_bool ret);
-
+t_bool							error_log(t_project *lem_in, char *str,
+								t_bool ret);
 char							*vertex_name(void *item);
 t_vertex						*get_vertex(void);
 void							*vertex_columns(t_hash_table *table);
@@ -446,44 +369,35 @@ void							*get_edge(void);
 void							*edge_columns(t_hash_table *table);
 void							free_edge(void *content);
 t_ant							*get_ant(size_t nbr);
-
 t_bool							init_bfs(t_project *lem_in);
-t_bool							que_list_remain_bfs(t_project *lem_in);
+t_bool							que_remain_bfs(t_project *lem_in);
 t_bool							edge_list_remain_bfs(t_project *lem_in);
 t_bool							capacity_available_bfs(t_project *lem_in);
 t_bool							vertex_has_level_bfs(t_project *lem_in);
-t_bool							update_level_and_que_bfs(t_project *lem_in);
-
+t_bool							update_level_que_bfs(t_project *lem_in);
 t_bool							init_bfs_st(t_project *lem_in);
-t_bool							que_list_remain_bfs_st(t_project *lem_in);
+t_bool							que_remain_bfs_st(t_project *lem_in);
 t_bool							edge_list_remain_bfs_st(t_project *lem_in);
 t_bool							capacity_available_bfs_st(t_project *lem_in);
 t_bool							vertex_has_level_bfs_st(t_project *lem_in);
-t_bool							update_level_and_que_bfs_st(t_project *lem_in);
-
+t_bool							update_level_que_bfs_st(t_project *lem_in);
 t_bool							capacity_from_sink_augp(t_project *lem_in);
-t_bool 							move_lower_level_augp(t_project *lem_in);
-t_bool							capacity_away_from_augment_augp(t_project *lem_in);
+t_bool							move_lower_level_augp(t_project *lem_in);
 t_bool							init_augp(t_project *lem_in);
 t_bool							check_augment_path_augp(t_project *lem_in);
 t_bool							get_indexes_edges_augp(t_project *lem_in);
-t_bool							check_move_lower_level_augp(t_project *lem_in);
 t_bool							current_room_sink_augp(t_project *lem_in);
-t_bool							current_room_source_augp(t_project *lem_in);
 t_bool							clear_rooms_on_graph_augp(t_project *lem_in);
 t_bool							clear_links_on_graph_augp(t_project *lem_in);
-
 t_bool							read_argument(t_project *lem_in);
 t_bool							find_dash(t_project *lem_in);
 t_bool							find_option(t_project *lem_in);
 t_bool							validate_argument(t_project *lem_in);
 t_bool							print_usage_message(t_project *lem_in);
-
 t_bool							initialize_table_rms(t_project *lem_in);
 t_bool							set_line_rms(t_project *lem_in);
 t_bool							get_type(t_project *lem_in);
 t_bool							store_room(t_project *lem_in);
-
 t_bool							initialize_table_lks(t_project *lem_in);
 t_bool							save_roomnames(t_project *lem_in);
 t_bool							find_first_room(t_project *lem_in);
@@ -493,7 +407,6 @@ t_bool							add_room_to_link(t_project *lem_in);
 t_bool							add_link_to_room(t_project *lem_in);
 t_bool							swap_rooms(t_project *lem_in);
 t_bool							set_line(t_project *lem_in);
-
 t_bool							sort_links_lists(t_project *lem_in);
 t_bool							start_path(t_project *lem_in);
 t_bool							find_next_room(t_project *lem_in);
@@ -503,12 +416,10 @@ t_bool							remove_room(t_project *lem_in);
 t_bool							traverse_path(t_project *lem_in);
 t_bool							check_sink(t_project *lem_in);
 t_bool							store_path(t_project *lem_in);
-
 t_bool							print_input(t_project *lem_in);
 t_bool							sort_paths(t_project *lem_in);
 t_bool							spawn_ants(t_project *lem_in);
 t_bool							move_all_ants(t_project *lem_in);
-
 t_bool							set_global_vars(t_project *lem_in);
 t_bool							set_graph_vars(t_project *lem_in);
 t_bool							get_graph(t_project *lem_in);
@@ -517,17 +428,11 @@ t_bool							clean_pathslist(t_project *lem_in);
 t_bool							finish_graph_calculation(t_project *lem_in);
 t_bool							calculate_turn(t_project *lem_in);
 t_bool							update_stored_graph(t_project *lem_in);
-
 t_bool							print_rooms(t_project *lem_in);
 t_bool							print_links(t_project *lem_in);
 t_bool							print_paths(t_project *lem_in);
-
-
-
-
 t_bool							print_tables(t_project *lem_in);
 int								sort_by_level(void *a, void *b);
 int								sort_by_length(void *a, void *b);
-
 
 #endif
