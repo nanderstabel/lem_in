@@ -1,5 +1,5 @@
 PROJECT_OBJ_FILES :=	main.o						\
-						augmenting_paths.o			\
+						augment_path_machine.o	\
 						choose_graph_machine.o		\
 						prepare_graph_cg.o			\
 						get_graph_cg.o				\
@@ -47,4 +47,6 @@ PROJECT_OBJ_FILES :=	main.o						\
 						bfs_st_main.o				\
 						clear_rooms_links_augp.o	\
 						check_augment_path_augp.o	\
-						capacity_from_sink_augp.o
+						capacity_from_sink_augp.o	\
+						move_lower_level_augp.o		\
+						get_indexes_edges_augp.o

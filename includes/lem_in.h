@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 20:17:06 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/17 11:30:30 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,10 +245,10 @@ enum
 	s_install_machine_augp,
 	s_init_augp,
 	s_capacity_from_sink_augp,
-	s_capacity_to_lower_level_augp,
+	s_move_lower_level_augp,
 	s_check_augment_path_augp,
 	s_capacity_away_from_augment_augp,
-	s_check_capacity_to_lower_level_augp,
+	s_check_move_lower_level_augp,
 	s_get_indexes_edges_augp,
 	s_current_room_sink_augp,
 	s_current_room_source_augp,
@@ -462,12 +462,12 @@ t_bool							vertex_has_level_bfs_st(t_project *lem_in);
 t_bool							update_level_and_que_bfs_st(t_project *lem_in);
 
 t_bool							capacity_from_sink_augp(t_project *lem_in);
-t_bool 							capacity_to_lower_level_augp(t_project *lem_in);
+t_bool 							move_lower_level_augp(t_project *lem_in);
 t_bool							capacity_away_from_augment_augp(t_project *lem_in);
 t_bool							init_augp(t_project *lem_in);
 t_bool							check_augment_path_augp(t_project *lem_in);
 t_bool							get_indexes_edges_augp(t_project *lem_in);
-t_bool							check_capacity_to_lower_level_augp(t_project *lem_in);
+t_bool							check_move_lower_level_augp(t_project *lem_in);
 t_bool							current_room_sink_augp(t_project *lem_in);
 t_bool							current_room_source_augp(t_project *lem_in);
 t_bool							clear_rooms_on_graph_augp(t_project *lem_in);

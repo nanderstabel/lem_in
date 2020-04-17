@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   init_bfs_st.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
+/*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/16 14:15:54 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/04/16 14:16:17 by zitzak        ########   odam.nl         */
+/*   Created: 2020/04/16 14:15:54 by mgross        #+#    #+#                 */
+/*   Updated: 2020/04/17 11:30:30 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   input_file_done_vi.c                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
+/*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/16 13:17:15 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/04/16 13:18:01 by zitzak        ########   odam.nl         */
+/*   Created: 2020/04/16 13:17:15 by mgross        #+#    #+#                 */
+/*   Updated: 2020/04/17 11:30:30 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   check_and_update_bfs.c                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
+/*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/16 13:53:19 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/04/16 14:05:50 by zitzak        ########   odam.nl         */
+/*   Created: 2020/04/16 13:53:19 by mgross        #+#    #+#                 */
+/*   Updated: 2020/04/17 11:30:30 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

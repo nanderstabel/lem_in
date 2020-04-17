@@ -3,14 +3,23 @@
 /*                                                        ::::::::            */
 /*   capacity_from_sink_augp.c                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
+/*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/16 16:27:36 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/04/16 16:56:41 by zitzak        ########   odam.nl         */
+/*   Created: 2020/04/16 16:27:36 by mgross        #+#    #+#                 */
+/*   Updated: 2020/04/17 11:30:30 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+t_bool				init_augp(t_project *lem_in)
+{
+	if (lem_in->flags & DEBUG_O)
+		ft_printf("\t%s\n", __func__);
+	lem_in->level = 0;
+	lem_in->round_temp = 0;
+	return (SUCCESS);
+}
 
 static void			print_debug(t_project *lem_in)
 {
