@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/04 13:57:07 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/17 12:58:16 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/17 17:22:46 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_bool				choose_graph(t_project *lem_in)
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("%s\n", __func__);
 	if (!lem_in->all_paths)
-		return (FAIL);
+		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
