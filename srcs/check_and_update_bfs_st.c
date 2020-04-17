@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 14:17:02 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/17 11:30:30 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/17 15:06:50 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_bool				edge_list_remain_bfs_st(t_project *lem_in)
 	return (FAIL);
 }
 
-t_bool				update_level_and_que_bfs_st(t_project *lem_in)
+t_bool				update_level_que_bfs_st(t_project *lem_in)
 {
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
@@ -54,7 +54,7 @@ t_bool				capacity_available_bfs_st(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if ((((t_edge*)(lem_in->temp->address))->capacity == 1) ||
 	(((t_edge*)(lem_in->temp->address))->capacity == 0 &&
-	((t_edge*)(TEMP_LINKS->address))->visited == 1))
+	((t_edge*)(lem_in->temp->address))->visited == 1))
 	{
 		lem_in->level++;
 		return (SUCCESS);

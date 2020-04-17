@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 15:25:00 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/17 11:30:30 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/17 15:19:27 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static t_adlist			*check(t_project *lem_in, size_t index)
 {
 	t_adlist		*temp;
 
-	temp = AUGMENT_PATHS;
+	temp = lem_in->aug_path_links;
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	while (temp)
