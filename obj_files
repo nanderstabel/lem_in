@@ -1,5 +1,5 @@
 PROJECT_OBJ_FILES :=	main.o						\
-						augment_path_machine.o	\
+						augment_path_machine.o		\
 						choose_graph_machine.o		\
 						prepare_graph_cg.o			\
 						get_graph_cg.o				\
@@ -18,8 +18,6 @@ PROJECT_OBJ_FILES :=	main.o						\
 						store_rooms_machine.o		\
 						store_rooms_rms.o			\
 						validate_input_machine.o	\
-						get_input.o					\
-						read_input.o				\
 						error_log.o					\
 						vertex.o					\
 						edge.o						\
