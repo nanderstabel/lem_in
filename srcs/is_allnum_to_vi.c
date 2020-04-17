@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   is_allnum_to_vi.c                                  :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
+/*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/16 13:14:07 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/04/16 13:22:07 by zitzak        ########   odam.nl         */
+/*   Created: 2020/04/16 13:14:07 by mgross        #+#    #+#                 */
+/*   Updated: 2020/04/17 11:30:30 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

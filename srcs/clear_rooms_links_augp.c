@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   clear_rooms_links_augp.c                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
+/*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/16 15:18:25 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/04/16 16:26:14 by zitzak        ########   odam.nl         */
+/*   Created: 2020/04/16 15:18:25 by mgross        #+#    #+#                 */
+/*   Updated: 2020/04/17 11:30:30 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

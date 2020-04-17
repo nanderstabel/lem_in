@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   check_flag_on_vi.c                                 :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
+/*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/15 15:29:08 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/04/16 13:26:27 by zitzak        ########   odam.nl         */
+/*   Created: 2020/04/15 15:29:08 by mgross        #+#    #+#                 */
+/*   Updated: 2020/04/17 11:30:30 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
