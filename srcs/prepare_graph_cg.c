@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 19:43:20 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/17 12:44:42 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/17 17:52:23 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_bool				set_global_vars(t_project *lem_in)
 {
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
+	if (!lem_in->all_paths)
+		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
 	lem_in->index = 0;
 	lem_in->temp_que_list = lem_in->all_paths;
 	lem_in->nturns = __INT_MAX__;
