@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 17:35:37 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/17 11:30:30 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/17 15:03:11 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ Test(input_validation, num_of_ants_links_rooms_test)
 
 }
 
-Test(input_validation, first_char_delim_vi_test)
+Test(input_validation, ischar_del_vi_test)
 {
 	t_project 		*lem_in;
 	t_bool			boolean;
@@ -206,7 +206,7 @@ Test(input_validation, first_char_delim_vi_test)
 	ERROR = NULL;
 	
 	INPUT_CPY = ft_strdup("\0");
-	boolean = first_char_delim_vi(lem_in);
+	boolean = ischar_del_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	
 	fd = open("../maps/invalid_maps/map_empty.map", O_RDONLY);
@@ -227,27 +227,27 @@ Test(input_validation, first_char_delim_vi_test)
 	else
 	{
 		INPUT_CPY = new;
-		boolean = first_char_delim_vi(lem_in);
+		boolean = ischar_del_vi(lem_in);
 		cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	}
 	close(fd);
 	
 	INPUT_CPY = ft_strdup("");
-	boolean = first_char_delim_vi(lem_in);
+	boolean = ischar_del_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	
 	INPUT_CPY = ft_strdup(" ");
-	boolean = first_char_delim_vi(lem_in);
+	boolean = ischar_del_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
 	INPUT_CPY = ft_strdup("\n");
-	boolean = first_char_delim_vi(lem_in);
+	boolean = ischar_del_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
 	INPUT_CPY = ft_strdup("hallo");
 	while (1)
 	{
-		boolean = first_char_delim_vi(lem_in);
+		boolean = ischar_del_vi(lem_in);
 		if (boolean == 1)
 			break;
 		index++;
@@ -260,7 +260,7 @@ Test(input_validation, first_char_delim_vi_test)
 	free(lem_in);
 }
 
-Test(input_validation, first_char_newline_vi_test)
+Test(input_validation, ischar_nlne_vi_test)
 {
 	t_project 		*lem_in;
 	t_bool			boolean;
@@ -272,21 +272,21 @@ Test(input_validation, first_char_newline_vi_test)
 	ERROR = NULL;
 
 	INPUT_CPY = ft_strdup("\n");
-	boolean = first_char_newline_vi(lem_in);
+	boolean = ischar_nlne_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 
 	INPUT_CPY = ft_strdup("d");
-	boolean = first_char_newline_vi(lem_in);
+	boolean = ischar_nlne_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
 	INPUT_CPY = ft_strdup("");
-	boolean = first_char_newline_vi(lem_in);
+	boolean = ischar_nlne_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
 	INPUT_CPY = ft_strdup("hallo\n");
 	while (1)
 	{
-		boolean = first_char_newline_vi(lem_in);
+		boolean = ischar_nlne_vi(lem_in);
 		if (boolean == 1)
 			break;
 		index++;
@@ -299,7 +299,7 @@ Test(input_validation, first_char_newline_vi_test)
 	free(lem_in);
 }
 
-Test(input_validation, first_char_zero_vi_test)
+Test(input_validation, ischar_zero_vi_test)
 {
 	t_project 		*lem_in;
 	t_bool			boolean;
@@ -311,21 +311,21 @@ Test(input_validation, first_char_zero_vi_test)
 	ERROR = NULL;
 
 	INPUT_CPY = ft_strdup("0");
-	boolean = first_char_zero_vi(lem_in);
+	boolean = ischar_zero_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 
 	INPUT_CPY = ft_strdup("d");
-	boolean = first_char_zero_vi(lem_in);
+	boolean = ischar_zero_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
 	INPUT_CPY = ft_strdup("");
-	boolean = first_char_zero_vi(lem_in);
+	boolean = ischar_zero_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
 	INPUT_CPY = ft_strdup("hallo0");
 	while (1)
 	{
-		boolean = first_char_zero_vi(lem_in);
+		boolean = ischar_zero_vi(lem_in);
 		if (boolean == 1)
 			break;
 		index++;
@@ -338,7 +338,7 @@ Test(input_validation, first_char_zero_vi_test)
 	free(lem_in);
 }
 
-Test(input_validation, first_char_hash_vi_test)
+Test(input_validation, ischar_hash_vi_test)
 {
 	t_project 		*lem_in;
 	t_bool			boolean;
@@ -350,25 +350,25 @@ Test(input_validation, first_char_hash_vi_test)
 	ERROR = NULL;
 
 	INPUT_CPY = ft_strdup("#");
-	boolean = first_char_hash_vi(lem_in);
+	boolean = ischar_hash_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 
 	INPUT_CPY = ft_strdup("d");
-	boolean = first_char_hash_vi(lem_in);
+	boolean = ischar_hash_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
 	INPUT_CPY = ft_strdup("\n");
-	boolean = first_char_hash_vi(lem_in);
+	boolean = ischar_hash_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
 	INPUT_CPY = ft_strdup("");
-	boolean = first_char_hash_vi(lem_in);
+	boolean = ischar_hash_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
 	INPUT_CPY = ft_strdup("hallo#");
 	while (1)
 	{
-		boolean = first_char_hash_vi(lem_in);
+		boolean = ischar_hash_vi(lem_in);
 		if (boolean == 1)
 			break;
 		index++;
@@ -418,7 +418,7 @@ Test(input_validation, sec_char_hash_vi_test)
 	free(lem_in);
 }
 
-Test(input_validation, isdigit_to_newline_vi_test)
+Test(input_validation, isdigit_nline_vi_test)
 {
 	t_project		*lem_in;
 	t_bool			boolean;
@@ -430,32 +430,32 @@ Test(input_validation, isdigit_to_newline_vi_test)
 	
 	INPUT_CPY = ft_strdup("7478489\n234558");
 	temp = INPUT_CPY;
-	boolean = isdigit_to_newline_vi(lem_in);
+	boolean = isdigit_nline_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	free(temp);
 
 	INPUT_CPY = ft_strdup("7478489234558");
 	temp = INPUT_CPY;
-	boolean = isdigit_to_newline_vi(lem_in);
+	boolean = isdigit_nline_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	free(temp);
 	
 	INPUT_CPY = ft_strdup("747848h9234558");
 	temp = INPUT_CPY;
-	boolean = isdigit_to_newline_vi(lem_in);
+	boolean = isdigit_nline_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	free(temp);
 	
 	INPUT_CPY = ft_strdup("747848h92\n34558");
 	temp = INPUT_CPY;
-	boolean = isdigit_to_newline_vi(lem_in);
+	boolean = isdigit_nline_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	free(temp);
 	
 	free(lem_in);
 }
 
-Test(input_validation, isdigit_to_space_vi_test)
+Test(input_validation, isdigit_space_vi_test)
 {
 	t_project		*lem_in;
 	t_bool			boolean;
@@ -467,32 +467,32 @@ Test(input_validation, isdigit_to_space_vi_test)
 	
 	INPUT_CPY = ft_strdup("7478489 234558\n");
 	temp = INPUT_CPY;
-	boolean = isdigit_to_space_vi(lem_in);
+	boolean = isdigit_space_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	free(temp);
 
 	INPUT_CPY = ft_strdup("7478489234558");
 	temp = INPUT_CPY;
-	boolean = isdigit_to_space_vi(lem_in);
+	boolean = isdigit_space_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	free(temp);
 	
 	INPUT_CPY = ft_strdup("fsd");
 	temp = INPUT_CPY;
-	boolean = isdigit_to_space_vi(lem_in);
+	boolean = isdigit_space_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	free(temp);
 	
 	INPUT_CPY = ft_strdup("747848h92\n34558");
 	temp = INPUT_CPY;
-	boolean = isdigit_to_space_vi(lem_in);
+	boolean = isdigit_space_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	free(temp);
 	
 	free(lem_in);
 }
 
-Test(input_validation, isallnum_to_hyphen_vi_test)
+Test(input_validation, isallnum_hyph_vi_test)
 {
 	t_project		*lem_in;
 	t_bool			boolean;
@@ -502,24 +502,24 @@ Test(input_validation, isallnum_to_hyphen_vi_test)
 	FLAGS = 0;
 
 	INPUT_CPY = ft_strdup("hD6*&23734-38djkUI\n");
-	boolean = isallnum_to_hyphen_vi(lem_in);
+	boolean = isallnum_hyph_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	// ft_printf("string: %s\n", INPUT_CPY);
 
 	INPUT_CPY = ft_strdup("hD6&7343-8djkUI");
-	boolean = isallnum_to_hyphen_vi(lem_in);
+	boolean = isallnum_hyph_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	// ft_printf("string: %s\n", INPUT_CPY);
 
 	INPUT_CPY = ft_strdup("hD673438djkUI");
-	boolean = isallnum_to_hyphen_vi(lem_in);
+	boolean = isallnum_hyph_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	// ft_printf("string: %s\n", INPUT_CPY);
 
 	free(lem_in);
 }
 
-Test(input_validation, isallnum_to_newline_vi_test)
+Test(input_validation, isallnum_nline_vi_test)
 {
 	t_project		*lem_in;
 	t_bool			boolean;
@@ -529,29 +529,29 @@ Test(input_validation, isallnum_to_newline_vi_test)
 	ERROR = NULL;
 
 	INPUT_CPY = ft_strdup("38d(@jkUI\nsdjhfkjsdh-jshdfkjs");
-	boolean = isallnum_to_newline_vi(lem_in);
+	boolean = isallnum_nline_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	// ft_printf("string: %s\n", INPUT_CPY);
 
 	INPUT_CPY = ft_strdup("hD6&7343\n8djkUI");
-	boolean = isallnum_to_newline_vi(lem_in);
+	boolean = isallnum_nline_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	// ft_printf("string: %s\n", INPUT_CPY);
 	
 	INPUT_CPY = ft_strdup("LD6&7343\n8djkUI");
-	boolean = isallnum_to_newline_vi(lem_in);
+	boolean = isallnum_nline_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	// ft_printf("string: %s\n", INPUT_CPY);
 
 	INPUT_CPY = ft_strdup("hD6734-38djkUI");
-	boolean = isallnum_to_newline_vi(lem_in);
+	boolean = isallnum_nline_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	// ft_printf("string: %s\n", INPUT_CPY);
 
 	free(lem_in);
 }
 
-Test(input_validation, isallnum_to_space_vi_test)
+Test(input_validation, isallnum_space_vi_test)
 {
 	t_project		*lem_in;
 	t_bool			boolean;
@@ -561,17 +561,17 @@ Test(input_validation, isallnum_to_space_vi_test)
 	ERROR = NULL;
 
 	INPUT_CPY = ft_strdup("38&3+djkUI 383 45");
-	boolean = isallnum_to_space_vi(lem_in);
+	boolean = isallnum_space_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	// ft_printf("string: %s\n", INPUT_CPY);
 
 	INPUT_CPY = ft_strdup("hD6&7343 49 893");
-	boolean = isallnum_to_space_vi(lem_in);
+	boolean = isallnum_space_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	// ft_printf("string: %s\n", INPUT_CPY);
 
 	INPUT_CPY = ft_strdup("hD673438djkUI");
-	boolean = isallnum_to_space_vi(lem_in);
+	boolean = isallnum_space_vi(lem_in);
 	cr_expect(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	// ft_printf("string: %s\n", INPUT_CPY);
 
@@ -579,7 +579,7 @@ Test(input_validation, isallnum_to_space_vi_test)
 }
 
 
-Test(input_validation, all_flags_on_vi_test)
+Test(input_validation, allflags_on_vi_test)
 {
 	t_project	*lem_in;
 	t_bool	boolean;
@@ -591,32 +591,32 @@ Test(input_validation, all_flags_on_vi_test)
 	FLAGS |= START;
 	FLAGS |= END;
 	FLAGS |= LINK;
-	boolean = all_flags_on_vi(lem_in);
+	boolean = allflags_on_vi(lem_in);
 	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 
 	FLAGS = 0;
 	FLAGS |= END;
-	boolean = all_flags_on_vi(lem_in);
+	boolean = allflags_on_vi(lem_in);
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
 	FLAGS = 0;
 	FLAGS |= START;
-	boolean = all_flags_on_vi(lem_in);
+	boolean = allflags_on_vi(lem_in);
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
 	FLAGS = 0;
 	FLAGS |= LINK;
-	boolean = all_flags_on_vi(lem_in);
+	boolean = allflags_on_vi(lem_in);
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
 	FLAGS = 0;
-	boolean = all_flags_on_vi(lem_in);
+	boolean = allflags_on_vi(lem_in);
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 	
 	free(lem_in);
 }
 
-Test(input_validation, input_file_done_vi_test)
+Test(input_validation, input_done_vi_test)
 {
 	t_project	*lem_in;
 	t_bool		boolean;
@@ -626,17 +626,17 @@ Test(input_validation, input_file_done_vi_test)
 	ERROR = NULL;
 
 	INPUT_CPY = ft_strdup("6");
-	boolean = input_file_done_vi(lem_in);
+	boolean = input_done_vi(lem_in);
 	cr_assert(boolean == FAIL,  "The result was %d, expected %d\n", boolean, FAIL);
 
 	INPUT_CPY++;
-	boolean = input_file_done_vi(lem_in);
+	boolean = input_done_vi(lem_in);
 	cr_assert(boolean == SUCCESS,  "The result was %d, expected %d\n", boolean, SUCCESS);
 	
 	free(lem_in);
 }
 
-Test(input_validation, check_start_in_line_vi_test)
+Test(input_validation, start_in_line_vi_test)
 {
 	t_project	*lem_in;
 	t_bool		boolean;
@@ -646,22 +646,22 @@ Test(input_validation, check_start_in_line_vi_test)
 	ERROR = NULL;
 
 	INPUT_CPY = ft_strdup("##start\nkjsdhfksfj");
-	boolean = check_start_in_line_vi(lem_in);	
+	boolean = start_in_line_vi(lem_in);	
 	cr_assert(boolean == SUCCESS,  "The result was %d, expected %d\n", boolean, SUCCESS);
 	// ft_printf("string: %s\n", INPUT_CPY);
 
 	INPUT_CPY = ft_strdup("##stsdfart\nkjsdhfksfj");
-	boolean = check_start_in_line_vi(lem_in);	
+	boolean = start_in_line_vi(lem_in);	
 	cr_assert(boolean == FAIL,  "The result was %d, expected %d\n", boolean, FAIL);
 
 	INPUT_CPY = ft_strdup("##startk\njsdhfksfj");
-	boolean = check_start_in_line_vi(lem_in);	
+	boolean = start_in_line_vi(lem_in);	
 	cr_assert(boolean == FAIL,  "The result was %d, expected %d\n", boolean, FAIL);
 	
 	free(lem_in);
 }
 
-Test(input_validation, check_end_in_line_vi_test)
+Test(input_validation, end_in_line_vi_test)
 {
 	t_project	*lem_in;
 	t_bool	boolean;
@@ -671,21 +671,21 @@ Test(input_validation, check_end_in_line_vi_test)
 	ERROR = NULL;
 
 	INPUT_CPY = ft_strdup("##end\nkjsdhfksfj");
-	boolean = check_end_in_line_vi(lem_in);	
+	boolean = end_in_line_vi(lem_in);	
 	cr_assert(boolean == SUCCESS,  "The result was %d, expected %d\n", boolean, SUCCESS);
 
 	INPUT_CPY = ft_strdup("##stsdfart\nkjsdhfksfj");
-	boolean = check_end_in_line_vi(lem_in);	
+	boolean = end_in_line_vi(lem_in);	
 	cr_assert(boolean == FAIL,  "The result was %d, expected %d\n", boolean, FAIL);
 
 	INPUT_CPY = ft_strdup("##endf\njsdhfksfj");
-	boolean = check_end_in_line_vi(lem_in);	
+	boolean = end_in_line_vi(lem_in);	
 	cr_assert(boolean == FAIL,  "The result was %d, expected %d\n", boolean, FAIL);
 
 	free(INPUT_CPY);
 }
 
-Test(input_validation, switch_start_flag_on_vi_test)
+Test(input_validation, set_start_flag_vi_test)
 {
 	t_project		*lem_in;
 	t_bool			boolean;
@@ -694,18 +694,18 @@ Test(input_validation, switch_start_flag_on_vi_test)
 	ERROR = NULL;
 
 	FLAGS = 0;
-	boolean = switch_start_flag_on_vi(lem_in);
+	boolean = set_start_flag_vi(lem_in);
 	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 
 	FLAGS = 0;
 	FLAGS |= START;
-	boolean = switch_start_flag_on_vi(lem_in);
+	boolean = set_start_flag_vi(lem_in);
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
 	free(lem_in);
 }
 
-Test(input_validation, switch_end_flag_on_vi_test)
+Test(input_validation, set_end_flag_vi_test)
 {
 	t_project		*lem_in;
 	t_bool			boolean;
@@ -714,19 +714,19 @@ Test(input_validation, switch_end_flag_on_vi_test)
 	ERROR = NULL;
 
 	FLAGS = 0;
-	boolean = switch_end_flag_on_vi(lem_in);
+	boolean = set_end_flag_vi(lem_in);
 	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	// ft_printf("FLAG: %d\n", FLAGS);
 
 	FLAGS = 0;
 	FLAGS |= END;
-	boolean = switch_end_flag_on_vi(lem_in);
+	boolean = set_end_flag_vi(lem_in);
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
 	free(lem_in);
 }
 
-Test(input_validation, check_link_flag_on_vi_test)
+Test(input_validation, link_flag_on_vi_test)
 {
 	t_project		*lem_in;
 	t_bool			boolean;
@@ -736,12 +736,12 @@ Test(input_validation, check_link_flag_on_vi_test)
 
 	FLAGS = 0;
 	FLAGS |= LINK;
-	boolean = check_link_flag_on_vi(lem_in);
+	boolean = link_flag_on_vi(lem_in);
 	
 	cr_assert(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
 	
 	FLAGS = 0;
-	boolean = check_link_flag_on_vi(lem_in);
+	boolean = link_flag_on_vi(lem_in);
 	cr_assert(boolean == FAIL, "The result was %d, expected %d\n", boolean, FAIL);
 
 	free(lem_in);
