@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 19:36:08 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 19:36:08 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/17 12:19:31 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,19 @@ t_bool				spawn_ants(t_project *lem_in)
 	return (SUCCESS);
 }
 
+static void			free_ant(t_project *lem_in)
+{
+	free(((t_ant *)lem_in->que_list->address)->name);
+	free(((t_ant *)lem_in->que_list->address));
+	if (lem_in->que_list == lem_in->all_ants)
+	{
+		free(lem_in->all_ants);
+		lem_in->all_ants = lem_in->que_list->next;
+	}
+	else
+		lem_in->temp_que_list->next = lem_in->que_list->next;
+}
+
 static void			loop_paths(t_project *lem_in)
 {
 	lem_in->que_list = lem_in->all_ants;
@@ -70,13 +83,7 @@ static void			loop_paths(t_project *lem_in)
 			ft_putchar(' ');
 		if ((t_vertex *)((t_ant *)\
 			lem_in->que_list->address)->location->address == lem_in->sink)
-		{
-			free(((t_ant *)lem_in->que_list->address));
-			if (lem_in->que_list == lem_in->all_ants)
-				lem_in->all_ants = lem_in->que_list->next;
-			else
-				lem_in->temp_que_list->next = lem_in->que_list->next;
-		}
+			free_ant(lem_in);
 		else
 			lem_in->temp_que_list = lem_in->que_list;
 		lem_in->que_list = lem_in->que_list->next;
