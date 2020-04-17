@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 10:41:21 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 20:09:09 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/17 12:51:09 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ t_bool								print_error(t_project *lem_in)
 		ft_putlst(lem_in->error, "\n");
 		ft_printf(EOC);
 	}
-	ft_lstdel(&lem_in->error, ft_freezero);
+	if (lem_in->error)
+		ft_lstdel(&lem_in->error, ft_freezero);
+	else
+		ft_putendl("ERROR");
 	if (lem_in->flags & ROOMS_O)
 		ft_puttbl(lem_in->all_rooms);
 	if (lem_in->flags & LINKS_O)
