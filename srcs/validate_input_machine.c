@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 12:54:14 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/17 15:16:20 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/04/17 17:17:22 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ t_bool				validate_input(t_project *lem_in)
 	uninstall_machine(&machine);
 	if (lem_in->error)
 	{
-		ft_printf("ERROR\n");
 		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
 	}
 	return (SUCCESS);
