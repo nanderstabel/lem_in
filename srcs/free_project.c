@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/07 09:33:47 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 20:10:59 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/17 14:55:31 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void								free_all_paths(t_adlist *all_paths)
 {
 	t_adlist *tmp;
 
+	if (!all_paths)
+		return ;
 	tmp = all_paths;
 	while (tmp)
 	{
@@ -35,6 +37,8 @@ t_bool								free_project(t_project *lem_in)
 	free(lem_in->room_pointers);
 	free(lem_in->link_pointer);
 	free_all_paths(lem_in->all_paths);
+	if (lem_in->all_ants)
+		ft_addr_lstdel(&lem_in->all_ants);
 	free(lem_in);
 	return (SUCCESS);
 }
