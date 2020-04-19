@@ -6,11 +6,21 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 19:35:44 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/19 10:24:12 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+t_bool				print_input(t_project *lem_in)
+{
+	if (lem_in->flags & DEBUG_O)
+		ft_printf("\t%s\n", __func__);
+	if (lem_in->flags & BLANK_O)
+		return (FAIL);
+	ft_printf("%s\n", lem_in->input_string);
+	return (SUCCESS);
+}
 
 static void			get_transitions(t_mconfig **mconfig)
 {

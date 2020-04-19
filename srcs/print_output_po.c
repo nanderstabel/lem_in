@@ -6,21 +6,11 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 19:36:08 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/17 14:57:11 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/19 10:24:01 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-t_bool				print_input(t_project *lem_in)
-{
-	if (lem_in->flags & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
-	if (lem_in->flags & BLANK_O)
-		return (FAIL);
-	ft_printf("%s\n", lem_in->input_string);
-	return (SUCCESS);
-}
 
 t_bool				sort_paths(t_project *lem_in)
 {
