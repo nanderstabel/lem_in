@@ -5,8 +5,8 @@
 #                                                      +:+                     #
 #    By: nstabel <nstabel@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
-#    Created: 2020/02/19 13:26:04 by nstabel        #+#    #+#                 #
-#    Updated: 2020/02/19 13:28:13 by nstabel       ########   odam.nl          #
+#    Created: 2020/02/19 13:26:04 by nstabel       #+#    #+#                  #
+#    Updated: 2020/04/19 13:51:27 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,9 +32,12 @@ CFLAGS = -Wall -Wextra -Werror -I
 
 all: $(NAME)
 
-$(NAME): $(OBJ_FILES)
-	@ar rcs $@ $^
+$(NAME):
+	@$(MAKE) objects
 	@echo $(NAME) "compiled."
+
+objects: $(OBJ_FILES)
+	@ar rcs $(HOME) $^
 
 %.o: %.c $(HEADER_FILES)
 	@$(CC) -c $(CFLAGS)$(INCL_DIR) -o $@ $<
