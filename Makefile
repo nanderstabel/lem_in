@@ -5,8 +5,8 @@
 #                                                      +:+                     #
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
-#    Created: 2019/08/08 10:14:38 by mgross         #+#    #+#                 #
-#    Updated: 2020/03/19 12:11:10 by nstabel       ########   odam.nl          #
+#    Created: 2019/08/08 10:14:38 by mgross        #+#    #+#                  #
+#    Updated: 2020/04/19 13:56:46 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,10 +59,14 @@ endif
 
 all: $(NAME)
 
-$(NAME): $(OBJ_FILES) $(LIBFT_OBJ_FILES)
-	@make -C ./libft
-	@$(CC) -o $@ $^ $(LIB) $(CFLAGS)
+$(NAME):
+	@$(MAKE) objects
 	@echo $(NAME) "compiled."
+
+objects: $(OBJ_FILES) $(LIBFT_OBJ_FILES)
+	@$(MAKE) -C ./libft
+	@$(CC) -o $(NAME) $^ $(LIB) $(CFLAGS)
+
 
 %.o: %.c $(HEADER_FILES) $(LIBFT_HEADER_FILES)
 	@$(CC) -c $(CFLAGS) $(DEPS) -o $@ $<

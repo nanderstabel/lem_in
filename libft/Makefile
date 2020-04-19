@@ -5,8 +5,8 @@
 #                                                      +:+                     #
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
-#    Created: 2019/01/28 13:12:07 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/19 13:36:14 by nstabel       ########   odam.nl          #
+#    Created: 2019/01/28 13:12:07 by mgross        #+#    #+#                  #
+#    Updated: 2020/04/19 13:51:54 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,12 @@ CFLAGS = -Wall -Wextra -Werror -I
 
 all: $(NAME)
 
-$(NAME): $(LIBFT_OBJ_FILES) $(FT_PRINTF_OBJECT_FILES) $(MACHINE_OBJECT_FILES)
-	@ar rcs $@ $^
+$(NAME):
+	@$(MAKE) objects
 	@echo $(NAME) "compiled."
+
+objects: $(LIBFT_OBJ_FILES) $(FT_PRINTF_OBJECT_FILES) $(MACHINE_OBJECT_FILES)
+	@ar rcs $(NAME) $^
 
 %.o: %.c $(HEADER_FILES)
 	@$(CC) -c $(CFLAGS)$(INCL_DIR) -o $@ $<
@@ -62,4 +65,4 @@ re:
 	$(MAKE) fclean
 	$(MAKE) all
 
-.PHONY: all norm clean fclean re
+.PHONY: all norm clean fclean re objects
