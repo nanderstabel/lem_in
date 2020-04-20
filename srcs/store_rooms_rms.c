@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 18:54:45 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 18:54:45 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/04/19 14:59:42 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,12 @@ t_bool				get_type(t_project *lem_in)
 		else if (ft_strnstr(lem_in->input_string_copy, "##end\n", 7))
 			lem_in->room_type = sink;
 		ft_skip_line(&lem_in->input_string_copy);
+		if (ft_isprior(lem_in->input_string_copy, '-', '\n'))
+		{
+			free(lem_in->room_pointers);
+			lem_in->room_pointers = NULL;
+			return (FAIL);
+		}
 	}
 	return (SUCCESS);
 }
