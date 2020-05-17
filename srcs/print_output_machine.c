@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 19:10:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/19 10:24:12 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/18 01:32:08 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,14 @@ t_bool				print_output(t_project *lem_in)
 {
 	t_machine	*machine;
 
+
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("%s\n", __func__);
+	// lem_in->flags += PATHS_O;
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
+	lem_in->flags = 0;
 	if (lem_in->error)
 		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
 	return (SUCCESS);

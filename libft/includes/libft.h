@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross        #+#    #+#                 */
-/*   Updated: 2020/05/17 23:35:07 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/18 00:53:37 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ void				ft_putnchar(char const *c, size_t len);
 void				ft_putnchar_fd(const int fd, char const *c, size_t len);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putendl(char const *s);
-void				ft_putlst(t_list *lst, char *str);
+void				ft_putlst(t_list *lst, char *(*content)(void *item), char *str);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putnbr(int n);
 void				ft_putnstr(char const *str, size_t len);

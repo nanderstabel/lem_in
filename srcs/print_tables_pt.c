@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 20:00:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/17 23:41:09 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/18 00:55:42 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void			loop_paths(t_project *lem_in)
 		}
 		ft_printf("\t\tlength: %i --> ", ((t_list *)((t_list *)\
 			lem_in->que_list->content))->next->content);
-		// ft_putadlst(((t_list *)((t_list *)\lem_in->que_list->content))->next->next, vertex_name, "->");
+		ft_putlst(((t_list *)((t_list *)lem_in->que_list->content))->next->next, vertex_name, "->");
 		lem_in->que_list = lem_in->que_list->next;
 	}
 }
