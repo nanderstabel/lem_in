@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 20:00:56 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 20:00:56 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 23:41:09 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,19 @@ t_bool				print_links(t_project *lem_in)
 static void			loop_paths(t_project *lem_in)
 {
 	lem_in->index = 0;
-	while (lem_in->que_list && lem_in->que_list->address)
+	while (lem_in->que_list && lem_in->que_list->content)
 	{
-		if ((size_t)((t_adlist *)((t_adlist *)\
-			lem_in->que_list->address))->address != lem_in->index)
+		if ((size_t)((t_list *)((t_list *)\
+			lem_in->que_list->content))->content != lem_in->index)
 		{
-			ft_printf("\tRound %i:\n", ((t_adlist *)((t_adlist *)\
-				lem_in->que_list->address))->address);
-			lem_in->index = (size_t)((t_adlist *)((t_adlist *)\
-				lem_in->que_list->address))->address;
+			ft_printf("\tRound %i:\n", ((t_list *)((t_list *)\
+				lem_in->que_list->content))->content);
+			lem_in->index = (size_t)((t_list *)((t_list *)\
+				lem_in->que_list->content))->content;
 		}
-		ft_printf("\t\tlength: %i --> ", ((t_adlist *)((t_adlist *)\
-			lem_in->que_list->address))->next->address);
-		ft_putadlst(((t_adlist *)((t_adlist *)\
-			lem_in->que_list->address))->next->next, vertex_name, "->");
+		ft_printf("\t\tlength: %i --> ", ((t_list *)((t_list *)\
+			lem_in->que_list->content))->next->content);
+		// ft_putadlst(((t_list *)((t_list *)\lem_in->que_list->content))->next->next, vertex_name, "->");
 		lem_in->que_list = lem_in->que_list->next;
 	}
 }

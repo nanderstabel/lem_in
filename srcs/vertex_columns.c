@@ -6,13 +6,13 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/15 17:27:12 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/15 17:33:06 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 23:44:43 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void			add_body_content3(t_elem *elem, t_adlist *links, \
+static void			add_body_content3(t_elem *elem, t_list *links, \
 	size_t links_width)
 {
 	char		*links_str;
@@ -22,7 +22,7 @@ static void			add_body_content3(t_elem *elem, t_adlist *links, \
 	while (links)
 	{
 		links_str = ft_append(&links_str, \
-			((t_edge *)(links->address))->id->name);
+			((t_edge *)(links->content))->id->name);
 		links_str = ft_append(&links_str, ", ");
 		links = links->next;
 	}
@@ -59,7 +59,7 @@ static void			add_body_content2(t_elem *elem)
 	ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(elem->misc->content));
 }
 
-static void			add_body_content(t_hash_table *table, t_adlist *links, \
+static void			add_body_content(t_hash_table *table, t_list *links, \
 	size_t links_width)
 {
 	t_elem		*elem;
@@ -81,7 +81,7 @@ static void			add_body_content(t_hash_table *table, t_adlist *links, \
 void				*vertex_columns(t_hash_table *table)
 {
 	size_t		links_width;
-	t_adlist	*links;
+	t_list		*links;
 
 	links = NULL;
 	if (table == NULL)

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/19 09:44:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 23:36:23 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,8 +239,8 @@ typedef struct					s_vertex
 	t_type						type;
 	size_t						level;
 	size_t						visited;
-	t_adlist					*selected;
-	t_adlist					*links;
+	t_list						*selected;
+	t_list						*links;
 }								t_vertex;
 
 typedef struct					s_edge
@@ -254,7 +254,7 @@ typedef struct					s_edge
 typedef struct					s_ant
 {
 	char						*name;
-	t_adlist					*location;
+	t_list						*location;
 }								t_ant;
 
 typedef struct					s_graph_vars
@@ -294,15 +294,15 @@ typedef struct					s_project
 	t_vertex					*sink;
 
 	size_t						level;
-	t_adlist					*que_list;
-	t_adlist					*temp_que_list;
-	t_adlist					*temp;
-	t_adlist					*aug_path_links;
+	t_list						*que_list;
+	t_list						*temp_que_list;
+	t_list						*temp;
+	t_list						*aug_path_links;
 
-	t_adlist					*all_ants;
+	t_list					*all_ants;
 	t_ant						*current_ant;
-	t_adlist					*all_paths;
-	t_adlist					*current_path;
+	t_list						*all_paths;
+	t_list						*current_path;
 
 	size_t						round_nr;
 	size_t						round_temp;

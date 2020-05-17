@@ -6,18 +6,18 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/17 10:53:18 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/19 09:44:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 23:33:28 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static t_adlist		*check_next_room_links(t_project *lem_in)
+static t_list		*check_next_room_links(t_project *lem_in)
 {
 	while (lem_in->temp_que_list)
 	{
-		if (((t_edge*)(lem_in->temp_que_list->address))->capacity == 0 &&
-		((t_edge*)(lem_in->temp_que_list->address))->next->id->index ==
+		if (((t_edge*)(lem_in->temp_que_list->content))->capacity == 0 &&
+		((t_edge*)(lem_in->temp_que_list->content))->next->id->index ==
 		lem_in->current_room->id->index)
 		{
 			break ;
@@ -29,15 +29,15 @@ static t_adlist		*check_next_room_links(t_project *lem_in)
 
 static void			assign_vars(t_project *lem_in)
 {
-	((t_edge*)(lem_in->temp->address))->capacity = 0;
+	((t_edge*)(lem_in->temp->content))->capacity = 0;
 	lem_in->index_copy = lem_in->current_room->id->index;
 	if (lem_in->flags & AUGMENT_O)
 		ft_printf("\t\tTravelled from %s level %d visited %d, to %s level \
 %d visited %d\n", lem_in->current_room->id->name, lem_in->current_room->level,
-			lem_in->current_room->visited, ((t_edge*)(lem_in->temp->address))
-			->next->id->name, ((t_edge*)(lem_in->temp->address))->next->level,
-			((t_edge*)(lem_in->temp->address))->next->visited);
-	lem_in->current_room = ((t_edge*)(lem_in->temp->address))->next;
+			lem_in->current_room->visited, ((t_edge*)(lem_in->temp->content))
+			->next->id->name, ((t_edge*)(lem_in->temp->content))->next->level,
+			((t_edge*)(lem_in->temp->content))->next->visited);
+	lem_in->current_room = ((t_edge*)(lem_in->temp->content))->next;
 }
 
 t_bool				move_lower_level_augp(t_project *lem_in)
@@ -54,11 +54,11 @@ t_bool				move_lower_level_augp(t_project *lem_in)
 path\n", lem_in->current_room->id->name, lem_in->current_room->level);
 			break ;
 		}
-		lem_in->temp_que_list = ((t_edge*)(lem_in->temp->address))->next->links;
+		lem_in->temp_que_list = ((t_edge*)(lem_in->temp->content))->next->links;
 		check_next_room_links(lem_in);
 		if (lem_in->temp_que_list == NULL &&
-		((t_edge*)(lem_in->temp->address))->capacity == 1 &&
-		((t_edge*)(lem_in->temp->address))->next->level ==
+		((t_edge*)(lem_in->temp->content))->capacity == 1 &&
+		((t_edge*)(lem_in->temp->content))->next->level ==
 		(lem_in->current_room->level - 1))
 		{
 			assign_vars(lem_in);

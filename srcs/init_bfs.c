@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 13:50:27 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/19 09:44:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 23:41:36 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_bool				init_bfs(t_project *lem_in)
 		((t_vertex*)(lem_in->all_rooms->elem[index]->content))->level = 0;
 		index++;
 	}
-	lem_in->que_list = ft_addr_lstnew((void*)lem_in->sink);
+	lem_in->que_list = ft_lstnew_ptr((void*)lem_in->sink, 0);
 	lem_in->temp_que_list = lem_in->que_list;
 	return (SUCCESS);
 }

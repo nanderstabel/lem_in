@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 19:45:27 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 19:45:27 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 23:31:12 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_bool				delete_excess_paths(t_project *lem_in)
 	lem_in->que_list = lem_in->all_paths;
 	while (lem_in->que_list)
 	{
-		if ((size_t)((t_adlist *)((t_adlist *)\
-			lem_in->que_list->address))->address != lem_in->round_nr)
-			ft_addr_lstdel((t_adlist **)&lem_in->que_list->address);
+		if ((size_t)((t_list *)((t_list *)\
+			lem_in->que_list->content))->content != lem_in->round_nr)
+			ft_lstdel((t_list **)&lem_in->que_list->content, 0);
 		lem_in->que_list = lem_in->que_list->next;
 	}
 	return (SUCCESS);
@@ -31,18 +31,18 @@ t_bool				clean_pathslist(t_project *lem_in)
 {
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
-	while (!lem_in->all_paths->address)
+	while (!lem_in->all_paths->content)
 	{
 		lem_in->que_list = lem_in->all_paths;
 		lem_in->all_paths = lem_in->all_paths->next;
-		ft_addr_lstdelone(&lem_in->que_list);
+		ft_lstdelone(&lem_in->que_list, 0);
 	}
 	lem_in->que_list = lem_in->all_paths;
 	while (lem_in->que_list->next)
 	{
-		if (!lem_in->que_list->next->address)
+		if (!lem_in->que_list->next->content)
 		{
-			ft_addr_lstdel(&lem_in->que_list->next);
+			ft_lstdel(&lem_in->que_list->next, 0);
 			break ;
 		}
 		lem_in->que_list = lem_in->que_list->next;
@@ -66,11 +66,11 @@ t_bool				calculate_turn(t_project *lem_in)
 	lem_in->que_list = lem_in->temp_que_list;
 	while (lem_in->que_list)
 	{
-		if ((size_t)((t_adlist *)((t_adlist *)\
-			lem_in->que_list->address))->address != lem_in->index)
+		if ((size_t)((t_list *)((t_list *)\
+			lem_in->que_list->content))->content != lem_in->index)
 			break ;
-		if (lem_in->graph_vars.turns + 1 < (size_t)((t_adlist *)((t_adlist *)\
-			lem_in->que_list->address))->next->address)
+		if (lem_in->graph_vars.turns + 1 < (size_t)((t_list *)((t_list *)\
+			lem_in->que_list->content))->next->content)
 			--(lem_in->graph_vars.source_ants);
 		else
 			++(lem_in->graph_vars.sink_ants);

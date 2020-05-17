@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 19:02:46 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 19:02:46 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 23:38:26 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ t_bool				add_link_to_room(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if (((t_vertex *)((t_elem *)(lem_in->room_pointers[first_room]))->content)\
 		->links)
-		ft_addr_lstadd(&((t_vertex *)((t_elem *)\
+		ft_lstadd(&((t_vertex *)((t_elem *)\
 			(lem_in->room_pointers[first_room]))->content)->links, \
-			ft_addr_lstnew(((t_edge *)((t_elem *)lem_in->link_pointer)\
-			->content)));
+			ft_lstnew_ptr(((t_edge *)((t_elem *)lem_in->link_pointer)\
+			->content), 0));
 	else
 		((t_vertex *)((t_elem *)(lem_in->room_pointers[first_room]))->content)\
-			->links = ft_addr_lstnew(((t_edge *)((t_elem *)\
-			lem_in->link_pointer)->content));
+			->links = ft_lstnew_ptr(((t_edge *)((t_elem *)\
+			lem_in->link_pointer)->content), 0);
 	return (SUCCESS);
 }
 

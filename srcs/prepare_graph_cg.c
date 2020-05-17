@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 19:43:20 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/17 17:52:23 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 23:33:28 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ t_bool				get_graph(t_project *lem_in)
 	lem_in->que_list = lem_in->temp_que_list;
 	while (lem_in->que_list)
 	{
-		if ((size_t)((t_adlist *)((t_adlist *)\
-			lem_in->que_list->address))->address != lem_in->index)
+		if ((size_t)((t_list *)((t_list *)\
+			lem_in->que_list->content))->content != lem_in->index)
 		{
 			lem_in->temp_que_list = lem_in->que_list;
-			lem_in->index = (size_t)((t_adlist *)((t_adlist *)\
-				lem_in->que_list->address))->address;
+			lem_in->index = (size_t)((t_list *)((t_list *)\
+				lem_in->que_list->content))->content;
 			return (SUCCESS);
 		}
 		lem_in->que_list = lem_in->que_list->next;

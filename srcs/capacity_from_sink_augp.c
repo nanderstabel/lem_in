@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 16:27:36 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/19 09:44:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 23:26:04 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,25 @@ static void			print_debug(t_project *lem_in)
 {
 	ft_printf("\t\tTravelled from %s level %d visited %d, to %s level %d \
 visited %d\n", lem_in->current_room->id->name, lem_in->current_room->level,
-	lem_in->current_room->visited, ((t_edge*)(lem_in->temp->address))
-	->next->id->name, ((t_edge*)(lem_in->temp->address))->next->level,
-	((t_edge*)(lem_in->temp->address))->next->visited);
+	lem_in->current_room->visited, ((t_edge*)(lem_in->temp->content))
+	->next->id->name, ((t_edge*)(lem_in->temp->content))->next->level,
+	((t_edge*)(lem_in->temp->content))->next->visited);
 }
 
 static int			check_next_room_links(t_project *lem_in)
 {
 	while (lem_in->temp_que_list)
 	{
-		if (((t_edge*)(lem_in->temp_que_list->address))->capacity == 1 &&
-		((t_edge*)(lem_in->temp_que_list->address))->next->id->index ==
+		if (((t_edge*)(lem_in->temp_que_list->content))->capacity == 1 &&
+		((t_edge*)(lem_in->temp_que_list->content))->next->id->index ==
 		lem_in->current_room->id->index &&
-		((t_edge*)(lem_in->temp->address))->next->level != 0)
+		((t_edge*)(lem_in->temp->content))->next->level != 0)
 		{
 			lem_in->level++;
-			((t_edge*)(lem_in->temp->address))->capacity = 0;
+			((t_edge*)(lem_in->temp->content))->capacity = 0;
 			if (lem_in->flags & AUGMENT_O)
 				print_debug(lem_in);
-			lem_in->current_room = ((t_edge*)(lem_in->temp->address))->next;
+			lem_in->current_room = ((t_edge*)(lem_in->temp->content))->next;
 			return (SUCCESS);
 		}
 		lem_in->temp_que_list = lem_in->temp_que_list->next;
@@ -62,7 +62,7 @@ t_bool				capacity_from_sink_augp(t_project *lem_in)
 	lem_in->temp = lem_in->sink->links;
 	while (lem_in->temp)
 	{
-		lem_in->temp_que_list = ((t_edge*)(lem_in->temp->address))->next->links;
+		lem_in->temp_que_list = ((t_edge*)(lem_in->temp->content))->next->links;
 		if (check_next_room_links(lem_in))
 			return (SUCCESS);
 		lem_in->temp = lem_in->temp->next;

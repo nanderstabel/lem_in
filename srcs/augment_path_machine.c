@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 13:00:09 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/19 09:44:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 23:20:35 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_bool				augmenting_paths(t_project *lem_in)
 	lem_in->loop++;
 	if (lem_in->round_temp == 0 || lem_in->loop == 12)
 	{
-		ft_addr_lstdel(&lem_in->aug_path_links);
+		ft_lstdel(&lem_in->aug_path_links, NULL);
 		return (FAIL);
 	}
 	return (SUCCESS);

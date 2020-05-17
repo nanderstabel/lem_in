@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstdelone.c                                     :+:    :+:            */
+/*   ft_lstnew_ptr.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mgross <mgross@student.codam.nl>             +#+                     */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/02/04 15:58:09 by mgross        #+#    #+#                 */
-/*   Updated: 2020/05/17 23:50:08 by nstabel       ########   odam.nl         */
+/*   Created: 2020/05/17 23:03:38 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/05/17 23:10:22 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
+t_list	*ft_lstnew_ptr(void const *content, size_t content_size)
 {
-	t_list	*temp;
+	t_list	*list;
 
-	temp = *alst;
-	if (del)
-		del(temp->content, temp->content_size);
-	free(temp);
-	*alst = NULL;
+	list = (t_list *)ft_memalloc(sizeof(t_list));
+	if (list == NULL)
+		return (NULL);
+	list->content = (void *)content;
+	list->content_size = content_size;
+	list->next = NULL;
+	return (list);
 }

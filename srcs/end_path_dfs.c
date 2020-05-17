@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 19:29:06 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 19:29:06 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 23:37:48 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_bool				delete_path(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if (!lem_in->current_path)
 		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
-	ft_addr_lstdel(&lem_in->current_path);
+	ft_lstdel(&lem_in->current_path, NULL);
 	if (lem_in->flags & DFS_O)
 		ft_printf("\t\tDeleted path\n");
 	return (FAIL);
@@ -31,11 +31,11 @@ t_bool				remove_room(t_project *lem_in)
 	if (!lem_in->current_room || !lem_in->current_path)
 		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
 	lem_in->temp = lem_in->current_room->selected;
-	((t_edge*)(lem_in->temp->address))->capacity = 1;
-	((t_edge*)(lem_in->temp->address))->visited = 0;
+	((t_edge*)(lem_in->temp->content))->capacity = 1;
+	((t_edge*)(lem_in->temp->content))->visited = 0;
 	lem_in->que_list = lem_in->current_path;
 	lem_in->current_path = lem_in->current_path->next;
-	ft_addr_lstdelone(&lem_in->que_list);
+	ft_lstdelone(&lem_in->que_list, NULL);
 	--lem_in->index;
 	lem_in->current_room->selected = lem_in->current_room->selected->next;
 	return (SUCCESS);
@@ -47,15 +47,15 @@ t_bool				traverse_path(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if (lem_in->flags & DFS_O)
 		ft_printf("\t\tTravelled from %s, to ", lem_in->current_room->id->name);
-	if (!((t_edge*)(lem_in->temp->address))->next || !lem_in->current_path)
+	if (!((t_edge*)(lem_in->temp->content))->next || !lem_in->current_path)
 		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
-	lem_in->current_room = ((t_edge*)(lem_in->temp->address))->next;
+	lem_in->current_room = ((t_edge*)(lem_in->temp->content))->next;
 	if (lem_in->flags & DFS_O)
 		ft_printf("%s\n", lem_in->current_room->id->name);
-	((t_edge*)(lem_in->temp->address))->capacity = 0;
-	((t_edge*)(lem_in->temp->address))->visited = 1;
-	ft_addr_lstadd(&lem_in->current_path, \
-		ft_addr_lstnew((void *)lem_in->current_room));
+	((t_edge*)(lem_in->temp->content))->capacity = 0;
+	((t_edge*)(lem_in->temp->content))->visited = 1;
+	ft_lstadd(&lem_in->current_path, \
+		ft_lstnew_ptr((void *)lem_in->current_room, 0));
 	++lem_in->index;
 	return (SUCCESS);
 }
@@ -80,15 +80,15 @@ t_bool				store_path(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if (!lem_in->current_path)
 		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
-	lem_in->current_path = ft_addr_lstrev(lem_in->current_path);
-	ft_addr_lstadd(&lem_in->current_path, \
-		ft_addr_lstnew((void *)lem_in->index));
-	ft_addr_lstadd(&lem_in->current_path, \
-		ft_addr_lstnew((void *)lem_in->round_nr));
+	lem_in->current_path = ft_lstrev(lem_in->current_path);
+	ft_lstadd(&lem_in->current_path, \
+		ft_lstnew_ptr((void *)lem_in->index, 0));
+	ft_lstadd(&lem_in->current_path, \
+		ft_lstnew_ptr((void *)lem_in->round_nr, 0));
 	if (lem_in->all_paths)
-		ft_addr_lstadd(&lem_in->all_paths, \
-			ft_addr_lstnew(lem_in->current_path));
+		ft_lstadd(&lem_in->all_paths, \
+			ft_lstnew_ptr(lem_in->current_path, 0));
 	else
-		lem_in->all_paths = ft_addr_lstnew(lem_in->current_path);
+		lem_in->all_paths = ft_lstnew_ptr(lem_in->current_path, 0);
 	return (SUCCESS);
 }

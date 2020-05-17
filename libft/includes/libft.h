@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/16 19:58:48 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 23:35:07 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,9 @@ t_list				*ft_lstfind_size(t_list *head, size_t size);
 void				ft_lstiter(t_list *lst, void(*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
+t_list				*ft_lstnew_ptr(void const* content, size_t content_size);
 t_list				*ft_lstrev(t_list *alst);
+void				ft_lstsrt(t_list **alst, int (*method)(void *, void *));
 t_hash_table		*ft_malloc_hash_table(size_t size, char *title, \
 					char *format);
 void				**ft_mem_array_alloc(size_t x_dim, size_t size_x,
