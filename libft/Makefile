@@ -5,12 +5,13 @@
 #                                                      +:+                     #
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
-#    Created: 2019/01/28 13:12:07 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/07 20:19:50 by mgross        ########   odam.nl          #
+#    Created: 2019/01/28 13:12:07 by mgross        #+#    #+#                  #
+#    Updated: 2020/04/20 12:05:51 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 include ./ft_printf/ft_printf_obj_files
+include ./machine/machine_obj_files
 include ft_libft_obj_files
 
 # Usage
@@ -26,15 +27,18 @@ NAME = libft.a
 FT_PRINTF_OBJECT_FILES := $(addprefix ./ft_printf/srcs/, \
 $(FT_PRINTF_OBJ_FILES))
 
+MACHINE_OBJECT_FILES := $(addprefix ./machine/srcs/, \
+$(MACHINE_OBJ_FILES))
+
 INCL_DIR = includes/
 
-HEADER_FILES = $(INCL_DIR)libft.h $(INCL_DIR)ft_printf.h
+HEADER_FILES = $(INCL_DIR)libft.h $(INCL_DIR)ft_printf.h $(INCL_DIR)machine.h
 
 CFLAGS = -Wall -Wextra -Werror -I
 
 all: $(NAME)
 
-$(NAME): $(LIBFT_OBJ_FILES) $(FT_PRINTF_OBJECT_FILES)
+$(NAME): $(LIBFT_OBJ_FILES) $(FT_PRINTF_OBJECT_FILES) $(MACHINE_OBJECT_FILES)
 	@ar rcs $@ $^
 	@echo $(NAME) "compiled."
 
@@ -44,10 +48,10 @@ $(NAME): $(LIBFT_OBJ_FILES) $(FT_PRINTF_OBJECT_FILES)
 norm:
 	@echo "----libft files:----"
 	@norminette $(LIBFT_OBJ_FILES:%.o=%.c) $(FT_PRINTF_OBJECT_FILES:%.o=%.c) \
-	$(INCL_DIR)
+	$(MACHINE_OBJECT_FILES:%.o=%.c) $(INCL_DIR)
 	
 clean:
-	@rm -f $(LIBFT_OBJ_FILES) $(FT_PRINTF_OBJECT_FILES)
+	@rm -f $(LIBFT_OBJ_FILES) $(FT_PRINTF_OBJECT_FILES) $(MACHINE_OBJECT_FILES)
 	@echo "libft clean succes."
 
 fclean: clean
@@ -58,4 +62,4 @@ re:
 	$(MAKE) fclean
 	$(MAKE) all
 
-.PHONY: all norm clean fclean re
+.PHONY: all norm clean fclean re objects

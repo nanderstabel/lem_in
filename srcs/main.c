@@ -5,170 +5,104 @@
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/04 17:31:03 by nstabel        #+#    #+#                */
-/*   Updated: 2020/02/13 19:44:20 by nstabel       ########   odam.nl         */
+/*   Created: 2020/02/04 17:31:03 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/17 12:49:14 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-/*
-** In the next three functions a two-dimensional array is installed which will
-** be used to update to state of the machine everytime an event returns a
-** transition value.
-*/
-
-void			malloc_transition_table(t_machine **machine)
+static void			initialize_project(t_project **lem_in)
 {
-	t_state		proxy;
-
-	proxy = 0;
-	(*machine)->transition_table = \
-		(t_state **)malloc(sizeof(t_state *) * (*machine)->size);
-	while (proxy < (*machine)->size)
-	{
-		(*machine)->transition_table[proxy] = \
-			(t_state *)malloc(sizeof(t_state) * 2);
-		++proxy;
-	}
-}
-
-void			fill_transition_table(t_machine **machine)
-{
-	(*machine)->transition_table[install_machine][FAIL] = idle;
-	(*machine)->transition_table[install_machine][SUCCESS] = set_options;
-	(*machine)->transition_table[set_options][FAIL] = find_error;
-	(*machine)->transition_table[set_options][SUCCESS] = validate_input;
-	(*machine)->transition_table[validate_input][FAIL] = find_error;
-	(*machine)->transition_table[validate_input][SUCCESS] = store_rooms;
-	(*machine)->transition_table[store_rooms][FAIL] = find_error;
-	(*machine)->transition_table[store_rooms][SUCCESS] = store_links;
-	(*machine)->transition_table[store_links][FAIL] = find_error;
-	(*machine)->transition_table[store_links][SUCCESS] = label_graph;
-	(*machine)->transition_table[label_graph][FAIL] = find_paths;
-	(*machine)->transition_table[label_graph][SUCCESS] = move_ants;
-	(*machine)->transition_table[find_paths][FAIL] = find_error;
-	(*machine)->transition_table[find_paths][SUCCESS] = augment_paths;
-	(*machine)->transition_table[augment_paths][FAIL] = find_error;
-	(*machine)->transition_table[augment_paths][SUCCESS] = label_graph;
-	(*machine)->transition_table[move_ants][FAIL] = find_error;
-	(*machine)->transition_table[move_ants][SUCCESS] = print_output;
-	(*machine)->transition_table[find_error][FAIL] = find_error;
-	(*machine)->transition_table[find_error][SUCCESS] = print_output;
-	(*machine)->transition_table[print_output][FAIL] = find_error;
-	(*machine)->transition_table[print_output][SUCCESS] = uninstall_machine;
-	(*machine)->transition_table[uninstall_machine][FAIL] = find_error;
-	(*machine)->transition_table[uninstall_machine][SUCCESS] = idle;
-}
-
-void			install_transitions(t_machine **machine)
-{
-	malloc_transition_table(machine);
-	fill_transition_table(machine);
+	*lem_in = (t_project *)ft_memalloc(sizeof(t_project));
+	(*lem_in)->round_nr = 1;
 }
 
 /*
-** In the next three functions an array of function pointers is installed which
-** links the possible states of the machine to the corresponding events that
-** are associated with those states.
+** The next three functions together form the framework of the lem_in project.
 */
 
-void			malloc_event_table(t_machine **machine)
+static void			get_transitions(t_mconfig **mconfig)
 {
-	(*machine)->event = \
-		(t_event *)malloc(sizeof(t_event) * (*machine)->size);
+	(*mconfig)->transitions[s_install_machine][FAIL] = s_uninstall_machine;
+	(*mconfig)->transitions[s_install_machine][SUCCESS] = s_set_options;
+	(*mconfig)->transitions[s_set_options][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_set_options][SUCCESS] = s_validate_input;
+	(*mconfig)->transitions[s_validate_input][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_validate_input][SUCCESS] = s_store_rooms;
+	(*mconfig)->transitions[s_store_rooms][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_store_rooms][SUCCESS] = s_store_links;
+	(*mconfig)->transitions[s_store_links][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_store_links][SUCCESS] = s_label_graph;
+	(*mconfig)->transitions[s_label_graph][SUCCESS] = s_find_paths;
+	(*mconfig)->transitions[s_label_graph][FAIL] = s_choose_graph;
+	(*mconfig)->transitions[s_find_paths][FAIL] = s_label_graph_s_to_t;
+	(*mconfig)->transitions[s_find_paths][SUCCESS] = s_label_graph;
+	(*mconfig)->transitions[s_label_graph_s_to_t][SUCCESS] = s_augment_paths;
+	(*mconfig)->transitions[s_augment_paths][FAIL] = s_choose_graph;
+	(*mconfig)->transitions[s_augment_paths][SUCCESS] = s_label_graph;
+	(*mconfig)->transitions[s_choose_graph][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_choose_graph][SUCCESS] = s_print_output;
+	(*mconfig)->transitions[s_print_error][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_print_error][SUCCESS] = s_free_project;
+	(*mconfig)->transitions[s_print_output][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_print_output][SUCCESS] = s_free_project;
+	(*mconfig)->transitions[s_free_project][FAIL] = s_print_error;
+	(*mconfig)->transitions[s_free_project][SUCCESS] = s_uninstall_machine;
 }
 
-void			fill_event_table(t_machine **machine)
+static void			get_events(t_mconfig **mconfig)
 {
-	(*machine)->event[install_machine] = NULL;
-	(*machine)->event[set_options] = setting_options;
-	(*machine)->event[validate_input] = validating_input;
-	(*machine)->event[store_rooms] = storing_rooms;
-	(*machine)->event[store_links] = storing_links;
-	(*machine)->event[label_graph] = labeling_graph;
-	(*machine)->event[find_paths] = finding_paths;
-	(*machine)->event[augment_paths] = augmenting_paths;
-	(*machine)->event[move_ants] = moving_ants;
-	(*machine)->event[find_error] = finding_error;
-	(*machine)->event[print_output] = printing_output;
-	(*machine)->event[uninstall_machine] = uninstalling_machine;
-}
-
-void			install_events(t_machine **machine)
-{
-	malloc_event_table(machine);
-	fill_event_table(machine);
+	(*mconfig)->events[s_install_machine] = NULL;
+	(*mconfig)->events[s_set_options] = set_options;
+	(*mconfig)->events[s_validate_input] = validate_input;
+	(*mconfig)->events[s_store_rooms] = store_rooms;
+	(*mconfig)->events[s_store_links] = store_links;
+	(*mconfig)->events[s_label_graph] = label_graph;
+	(*mconfig)->events[s_label_graph_s_to_t] = label_graph_s_to_t;
+	(*mconfig)->events[s_find_paths] = find_paths;
+	(*mconfig)->events[s_augment_paths] = augmenting_paths;
+	(*mconfig)->events[s_choose_graph] = choose_graph;
+	(*mconfig)->events[s_print_error] = print_error;
+	(*mconfig)->events[s_print_output] = print_output;
+	(*mconfig)->events[s_free_project] = free_project;
 }
 
 /*
-** 'Installing' the machine means to allocate sufficient memory for the machine
-** variable. At the end of this function, the transition- and event tables are
-** installed.
+** Returns the configurated mconfig struct. Important to note here is that
+** the size you give to malloc_mconfig sould be the state with the highest
+** value in the corresponding enum.
 */
 
-void			install(t_machine **machine, t_state size)
+static t_mconfig	*states(void)
 {
-	*machine = (t_machine *)malloc(sizeof(t_machine));
-	(*machine)->current_state = 0;
-	(*machine)->size = size;
-	install_transitions(machine);
-	install_events(machine);
-	(*machine)->transition = SUCCESS;
-}
+	t_mconfig		*mconfig;
 
-/*
-** For the program to be able to continue, it needs to update it's current
-** state. To do this, it needs a transition value ('FAIL' or 'SUCCES') provided
-** by an event. Both the current state and the transition value are used as
-** indices in the transition table to find the new state of the machine.
-*/
-
-void			update_current_state(t_machine *machine)
-{
-	machine->current_state = \
-		machine->transition_table[machine->current_state][machine->transition];
-}
-
-/*
-** Depending on the current state, a corresponding event is executed. In this
-** function the current state is used as an index for the array of function
-** pointers ('machine->event'). Everytime an event occurs, it returns a
-** transition ('FAIL' or 'SUCCES').
-*/
-
-void			execute_event(t_machine *machine, t_project *lem_in)
-{
-	machine->transition = machine->event[machine->current_state](lem_in);
+	mconfig = malloc_mconfig(s_uninstall_machine);
+	get_transitions(&mconfig);
+	get_events(&mconfig);
+	return (mconfig);
 }
 
 /*
 ** The main function is the entry point where the first instructions of the
 ** program are executed. A "machine" variable is declared and next, all the
 ** necessary structures for the program get installed as well as the command-
-** line arguments. The while loop loops through all the events that combined
-** will solve the lem_in project. In every loop, first the current state of the
-** machine is updated. Second (unless the current state is 'idle') the event
-** that corresponds to the current state is executed.
+** line arguments. Next, the machine get's installed using the transition- and
+** event tables. If this is successful, the run_machine function will loop
+** through all the states and events which execute the rest of the program.
 */
 
-int				main(int argc, char **argv)
+int					main(int argc, char **argv)
 {
 	t_machine	*machine;
 	t_project	*lem_in;
 
-	install(&machine, idle);
-	lem_in = (t_project *)ft_memalloc(sizeof(t_project));
+	initialize_project(&lem_in);
 	lem_in->argc = argc;
 	lem_in->argv = argv;
-	while (SUCCESS)
-	{
-		update_current_state(machine);
-		if (machine->current_state == idle)
-			break ;
-		execute_event(machine, lem_in);
-	}
-	free(machine);
-	machine = NULL;
+	if (install_machine(&machine, states()) == SUCCESS)
+		run_machine(machine, lem_in);
+	uninstall_machine(&machine);
 	return (0);
 }

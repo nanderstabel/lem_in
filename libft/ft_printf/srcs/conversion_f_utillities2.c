@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/05/13 11:10:08 by nstabel        #+#    #+#                */
-/*   Updated: 2020/01/17 13:56:42 by mgross        ########   odam.nl         */
+/*   Created: 2019/05/13 11:10:08 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/12 14:34:32 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ void			conversion_f_redirect(t_flags *conv, t_float *dbl)
 
 void			conversion_f_infnan(t_flags *conv, t_float *dbl)
 {
-	int	i;
-
-	i = 0;
 	conv->width = (conv->width == -1) ? 0 : (conv->width - \
 		ft_strlen(dbl->output));
 	if ((conv->flag & FLAG_MIN) == FLAG_MIN)

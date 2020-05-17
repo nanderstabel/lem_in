@@ -5,14 +5,15 @@
 #                                                      +:+                     #
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
-#    Created: 2019/08/08 10:14:38 by mgross         #+#    #+#                 #
-#    Updated: 2020/02/13 15:53:56 by mgross        ########   odam.nl          #
+#    Created: 2019/08/08 10:14:38 by mgross        #+#    #+#                  #
+#    Updated: 2020/04/20 12:00:23 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 include ./obj_files
 include ./libft/ft_libft_obj_files
 include ./libft/ft_printf/ft_printf_obj_files
+include ./libft/machine/machine_obj_files
 -include ./bonus/obj_files
 -include ./tests/test_obj_files
 
@@ -20,7 +21,7 @@ include ./libft/ft_printf/ft_printf_obj_files
 
 NAME = lem-in
 
-HEADER_FILES = $(INC_DIR)lem_in.h 
+HEADER_FILES = $(INC_DIR)lem_in.h
 
 #### End project specific section. ####
 
@@ -29,17 +30,19 @@ REG_BONUS_FILES := $(addprefix ./srcs/bonus/, $(BONUS_OBJ_FILES))
 REG_OBJ_FILES := $(addprefix ./srcs/, $(PROJECT_OBJ_FILES))
 
 LIBFT_OBJ_FILES := $(addprefix ./libft/, $(LIBFT_OBJ_FILES)) \
-$(addprefix ./libft/ft_printf/srcs/, $(FT_PRINTF_OBJ_FILES))
+$(addprefix ./libft/ft_printf/srcs/, $(FT_PRINTF_OBJ_FILES)) \
+$(addprefix ./libft/machine/srcs/, $(MACHINE_OBJ_FILES))
 
 INC_DIR = includes/
 
 LIBFT_INC_DIR = libft/includes/
 
-LIBFT_HEADER_FILES = ./libft/includes/libft.h ./libft/includes/ft_printf.h 
+LIBFT_HEADER_FILES = ./libft/includes/libft.h ./libft/includes/ft_printf.h \
+./libft/includes/machine.h 
 
 LIB = -L ./libft/ -lft
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 DEPS = -I$(INC_DIR) -I$(LIBFT_INC_DIR)
 
@@ -57,8 +60,8 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES) $(LIBFT_OBJ_FILES)
-	@make -C ./libft
-	@$(CC) -o $@ $^ $(LIB)
+	@$(MAKE) -C ./libft
+	@$(CC) -o $@ $^ $(LIB) $(CFLAGS)
 	@echo $(NAME) "compiled."
 
 %.o: %.c $(HEADER_FILES) $(LIBFT_HEADER_FILES)
@@ -72,6 +75,9 @@ multi:
 
 test:
 	@$(MAKE) -C tests/
+
+run:
+	@./lem-in
 
 run_test:
 	@$(MAKE) run -C tests/
@@ -95,5 +101,5 @@ re:
 	@$(MAKE) fclean
 	@$(MAKE) all
 
-.PHONY: all bonus multi libft norm clean fclean re test run_test
+.PHONY: all bonus multi libft norm clean fclean re test run_test run
  
