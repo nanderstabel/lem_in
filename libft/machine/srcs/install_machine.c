@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/18 14:08:27 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/12 14:45:03 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 21:36:02 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 t_bool			install_machine(t_machine **machine, t_mconfig *mconfig)
 {
-	*machine = (t_machine *)malloc(sizeof(t_machine));
+	*machine = (t_machine *)ft_memalloc(sizeof(t_machine));
 	if (*machine == NULL || mconfig == NULL)
 		return (FAIL);
 	if (mconfig->transitions == NULL || mconfig->events == NULL)

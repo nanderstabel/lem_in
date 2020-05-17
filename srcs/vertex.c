@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 13:58:36 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 19:51:18 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 21:26:54 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void				free_vertex(void *content)
 	t_vertex	*vertex;
 	t_adlist	*clean;
 
-	vertex = (t_vertex *)content;
-	if (!vertex)
+	if (!content)
 		return ;
+	vertex = (t_vertex *)content;
 	while (vertex->links)
 	{
 		clean = vertex->links;

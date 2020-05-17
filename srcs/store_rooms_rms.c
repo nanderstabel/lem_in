@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 18:54:45 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 18:54:45 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 21:37:17 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_bool				initialize_table_rms(t_project *lem_in)
 			"Rooms", FORMAT_LEFT);
 	else
 		lem_in->all_rooms = ft_malloc_hash_table(lem_in->nrooms, "Rooms", NULL);
-	lem_in->room_pointers = (void **)malloc(sizeof(void *));
+	lem_in->room_pointers = (void **)ft_memalloc(sizeof(void *));
 	if (lem_in->all_rooms && lem_in->room_pointers)
 		return (SUCCESS);
 	return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));

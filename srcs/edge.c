@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 14:00:18 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/15 18:11:08 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 21:26:35 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void					free_edge(void *content)
 {
 	t_edge	*edge;
 
-	edge = (t_edge *)content;
-	if (!edge)
+	if (!content)
 		return ;
+	edge = (t_edge *)content;
 	free(edge);
 }
