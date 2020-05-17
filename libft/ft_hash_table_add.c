@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/29 16:05:24 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/12 14:34:32 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 22:13:46 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static t_elem	*get_elem(char *name, size_t index, size_t hash, void *content)
 {
 	t_elem		*elem;
 
-	elem = (t_elem *)ft_memalloc(sizeof(t_elem));
+	elem = (t_elem *)ft_memalloc(sizeof(t_elem) + 1);
+	// ft_printf("name: %s, add: %p\n", name, elem);
 	elem->index = index;
 	elem->hash = hash;
 	elem->name = name;

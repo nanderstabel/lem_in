@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 13:40:07 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/12 14:34:32 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/17 22:04:03 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void			ft_free_hash_table(t_hash_table **table,
 		free_formats(*table);
 	ft_strdel(&(*table)->title);
 	free((*table)->elem);
+	(*table)->elem = NULL;
 	free(*table);
 	*table = NULL;
 }
