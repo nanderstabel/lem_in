@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 19:45:27 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/17 23:31:12 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/18 00:34:28 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_bool				delete_excess_paths(t_project *lem_in)
 	{
 		if ((size_t)((t_list *)((t_list *)\
 			lem_in->que_list->content))->content != lem_in->round_nr)
-			ft_lstdel((t_list **)&lem_in->que_list->content, 0);
+			ft_lstdel((t_list **)&lem_in->que_list->content, NULL);
 		lem_in->que_list = lem_in->que_list->next;
 	}
 	return (SUCCESS);
@@ -35,14 +35,14 @@ t_bool				clean_pathslist(t_project *lem_in)
 	{
 		lem_in->que_list = lem_in->all_paths;
 		lem_in->all_paths = lem_in->all_paths->next;
-		ft_lstdelone(&lem_in->que_list, 0);
+		ft_lstdelone(&lem_in->que_list, NULL);
 	}
 	lem_in->que_list = lem_in->all_paths;
 	while (lem_in->que_list->next)
 	{
 		if (!lem_in->que_list->next->content)
 		{
-			ft_lstdel(&lem_in->que_list->next, 0);
+			ft_lstdel(&lem_in->que_list->next, NULL);
 			break ;
 		}
 		lem_in->que_list = lem_in->que_list->next;
