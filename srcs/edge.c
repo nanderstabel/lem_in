@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 14:00:18 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/17 21:26:35 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/19 14:41:40 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static void				add_body_content(t_hash_table *table)
 		if (table->elem[i])
 		{
 			elem = table->elem[i];
-			ft_addr_lstapp(&elem->body_content, \
-				ft_addr_lstnew(ft_itoa(((t_edge *)elem->content)->capacity)));
-			ft_addr_lstapp(&elem->body_content, \
-				ft_addr_lstnew(ft_strdup(((t_edge *)\
-					(elem->content))->next->id->name)));
+			ft_lstapp(&elem->body_content, \
+				ft_lstnew_ptr(ft_itoa(((t_edge *)elem->content)->capacity), 0));
+			ft_lstapp(&elem->body_content, \
+				ft_lstnew_ptr(ft_strdup(((t_edge *)\
+					(elem->content))->next->id->name), 0));
 		}
 		++i;
 	}
@@ -53,8 +53,8 @@ void					*edge_columns(t_hash_table *table)
 	ft_lstapp(&table->body_format, ft_lstnew(table->format, 4));
 	ft_lstapp(&table->body_format, ft_lstnew(table->format, 4));
 	add_body_content(table);
-	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)10));
-	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)10));
+	ft_lstapp(&table->width, ft_lstnew_ptr((void *)10, 0));
+	ft_lstapp(&table->width, ft_lstnew_ptr((void *)10, 0));
 	return (table);
 }
 

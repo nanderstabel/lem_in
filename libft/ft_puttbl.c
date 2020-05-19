@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 19:37:04 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/12 16:12:50 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/16 15:40:18 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void			header(t_hash_table *table)
 {
 	t_list		*h_format;
 	t_list		*h_content;
-	t_adlist	*width;
+	t_list	*width;
 
 	h_format = table->header_format;
 	h_content = table->header_content;
@@ -24,7 +24,7 @@ static void			header(t_hash_table *table)
 	write(1, UNDERLINE, 5);
 	while (h_format && h_content && width)
 	{
-		ft_printf(h_format->content, width->address, h_content->content);
+		ft_printf(h_format->content, width->content, h_content->content);
 		h_format = h_format->next;
 		h_content = h_content->next;
 		width = width->next;
@@ -34,13 +34,13 @@ static void			header(t_hash_table *table)
 }
 
 static void			each_elem(t_hash_table *table, t_list *b_format, \
-	t_adlist *width, size_t i)
+	t_list *width, size_t i)
 {
-	t_adlist	*b_content;
+	t_list	*b_content;
 
 	if (i + 1 == table->size)
 		write(1, UNDERLINE, 5);
-	ft_printf(b_format->content, width->address, i);
+	ft_printf(b_format->content, width->content, i);
 	b_format = b_format->next;
 	width = width->next;
 	if (table->elem[i])
@@ -48,7 +48,7 @@ static void			each_elem(t_hash_table *table, t_list *b_format, \
 		b_content = table->elem[i]->body_content;
 		while (b_format && width)
 		{
-			ft_printf(b_format->content, width->address, (b_content->address));
+			ft_printf(b_format->content, width->content, (b_content->content));
 			b_format = b_format->next;
 			width = width->next;
 			b_content = b_content->next;
@@ -56,7 +56,7 @@ static void			each_elem(t_hash_table *table, t_list *b_format, \
 	}
 	else
 		ft_printf(table->body_format->next->next->content, \
-			table->width->next->address, "0x0  ");
+			table->width->next->content, "0x0  ");
 	b_format = table->body_format;
 	width = table->width;
 	ft_putchar(10);
@@ -65,12 +65,12 @@ static void			each_elem(t_hash_table *table, t_list *b_format, \
 static void			body(t_hash_table *table)
 {
 	t_list		*b_format;
-	t_adlist	*width;
+	t_list	*width;
 	size_t		i;
 
 	i = 0;
 	width = table->width;
-	table->width->address -= 7;
+	table->width->content -= 7;
 	b_format = table->body_format;
 	while (i < table->size)
 	{
@@ -78,7 +78,7 @@ static void			body(t_hash_table *table)
 		++i;
 	}
 	ft_putendl(EOC);
-	table->width->address += 7;
+	table->width->content += 7;
 }
 
 void				ft_puttbl(t_hash_table *table)

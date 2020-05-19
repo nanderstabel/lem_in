@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/15 17:27:12 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/17 23:44:43 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/19 14:43:56 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void			add_body_content3(t_elem *elem, t_list *links, \
 	}
 	ft_lstadd(&elem->misc, ft_lstnew(links_str, ft_strlen(links_str)));
 	free(links_str);
-	ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(elem->misc->content));
+	ft_lstapp(&elem->body_content, ft_lstnew_ptr(elem->misc->content, 0));
 	if (links_width < ft_strlen(links_str))
 		links_width = ft_strlen(links_str);
 }
@@ -45,18 +45,18 @@ static void			add_body_content2(t_elem *elem)
 		type_str = ft_strdup("0");
 	ft_lstadd(&elem->misc, ft_lstnew(type_str, ft_strlen(type_str)));
 	free(type_str);
-	ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(elem->misc->content));
+	ft_lstapp(&elem->body_content, ft_lstnew_ptr(elem->misc->content, 0));
 	type_str = ft_itoa(((t_vertex *)(elem->content))->level);
 	ft_lstadd(&elem->misc, ft_lstnew(type_str, ft_strlen(type_str)));
 	free(type_str);
-	ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(elem->misc->content));
+	ft_lstapp(&elem->body_content, ft_lstnew_ptr(elem->misc->content, 0));
 	if (((t_vertex *)(elem->content))->visited)
 		type_str = ft_strdup("Yes");
 	else
 		type_str = ft_strdup("No");
 	ft_lstadd(&elem->misc, ft_lstnew(type_str, ft_strlen(type_str)));
 	free(type_str);
-	ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(elem->misc->content));
+	ft_lstapp(&elem->body_content, ft_lstnew_ptr(elem->misc->content, 0));
 }
 
 static void			add_body_content(t_hash_table *table, t_list *links, \
@@ -100,9 +100,9 @@ void				*vertex_columns(t_hash_table *table)
 	ft_lstapp(&table->body_format, ft_lstnew(table->format, 4));
 	links_width = 5;
 	add_body_content(table, links, links_width);
-	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)8));
-	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)7));
-	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)9));
-	ft_addr_lstapp(&table->width, ft_addr_lstnew((void *)(links_width)));
+	ft_lstapp(&table->width, ft_lstnew_ptr((void *)8, 0));
+	ft_lstapp(&table->width, ft_lstnew_ptr((void *)7, 0));
+	ft_lstapp(&table->width, ft_lstnew_ptr((void *)9, 0));
+	ft_lstapp(&table->width, ft_lstnew_ptr((void *)(links_width), 0));
 	return (table);
 }

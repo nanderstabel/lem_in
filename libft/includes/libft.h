@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross        #+#    #+#                 */
-/*   Updated: 2020/05/18 00:53:37 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/19 14:38:06 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct		s_elem
 	size_t			index;
 	char			*name;
 	size_t			hash;
-	t_adlist		*body_content;
+	t_list			*body_content;
 	t_list			*misc;
 	void			*content;
 }					t_elem;
@@ -54,7 +54,7 @@ typedef struct		s_hash_table
 	t_list			*header_format;
 	t_list			*header_content;
 	t_list			*body_format;
-	t_adlist		*width;
+	t_list			*width;
 	size_t			size;
 	char			mounted;
 	t_elem			**elem;

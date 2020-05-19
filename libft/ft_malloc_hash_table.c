@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/29 16:07:55 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/17 22:19:06 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/16 15:30:46 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ static void		add_width(t_hash_table **hash_table)
 	size_t		len;
 
 	len = ft_ndigits((*hash_table)->size - 1) + 7;
-	(*hash_table)->width = ft_addr_lstnew((void *)4);
-	ft_addr_lstadd(&(*hash_table)->width, ft_addr_lstnew((void *)8));
-	ft_addr_lstadd(&(*hash_table)->width, ft_addr_lstnew((void *)16));
-	ft_addr_lstadd(&(*hash_table)->width, ft_addr_lstnew((void *)len));
+	(*hash_table)->width = ft_lstnew_ptr((void *)4, 0);
+	ft_lstadd(&(*hash_table)->width, ft_lstnew_ptr((void *)8, 0));
+	ft_lstadd(&(*hash_table)->width, ft_lstnew_ptr((void *)16, 0));
+	ft_lstadd(&(*hash_table)->width, ft_lstnew_ptr((void *)len, 0));
 }
 
 static void		add_formats(t_hash_table **hash_table, char *format)
@@ -61,7 +61,6 @@ static void		add_formats(t_hash_table **hash_table, char *format)
 t_hash_table	*ft_malloc_hash_table(size_t size, char *title, char *format)
 {
 	t_hash_table	*hash_table;
-	size_t			index;
 
 	if (!size)
 		return (NULL);
@@ -71,12 +70,6 @@ t_hash_table	*ft_malloc_hash_table(size_t size, char *title, char *format)
 	hash_table->elem = (t_elem **)ft_memalloc(sizeof(t_elem *) * size);
 	if (hash_table->elem == NULL)
 		return (NULL);
-	index = 0;
-	while (index < size)
-	{
-		hash_table->elem[index] = NULL;
-		++index;
-	}
 	hash_table->title = ft_strdup(title);
 	if (format)
 		hash_table->format = ft_strdup(format);

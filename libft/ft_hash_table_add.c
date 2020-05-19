@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/29 16:05:24 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/17 22:13:46 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/16 15:37:17 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ static t_elem	*get_elem(char *name, size_t index, size_t hash, void *content)
 {
 	t_elem		*elem;
 
-	elem = (t_elem *)ft_memalloc(sizeof(t_elem) + 1);
-	// ft_printf("name: %s, add: %p\n", name, elem);
+	elem = (t_elem *)ft_memalloc(sizeof(t_elem));
 	elem->index = index;
 	elem->hash = hash;
 	elem->name = name;
@@ -32,19 +31,19 @@ static void		update_format(t_hash_table *hash_table, t_elem *elem)
 	size_t		*hash_width;
 	size_t		hash_len;
 
-	name_width = (size_t *)&(hash_table->width->next->next->address);
-	hash_width = (size_t *)&(hash_table->width->next->next->next->address);
+	name_width = (size_t *)&(hash_table->width->next->next->content);
+	hash_width = (size_t *)&(hash_table->width->next->next->next->content);
 	hash = ft_itoa_base(elem->hash, 16);
 	hash_len = ft_strlen(hash);
 	elem->misc = ft_lstnew(hash, hash_len);
 	free(hash);
-	elem->body_content = ft_addr_lstnew(elem);
+	elem->body_content = ft_lstnew_ptr(elem, 0);
 	if (ft_strlen(elem->name) + 4 > *name_width)
 		*name_width = (size_t)ft_strlen(elem->name) + 4;
-	ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(elem->name));
+	ft_lstapp(&elem->body_content, ft_lstnew_ptr(elem->name, 0));
 	if (hash_len > *hash_width)
 		*hash_width = hash_len;
-	ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(elem->misc->content));
+	ft_lstapp(&elem->body_content, ft_lstnew_ptr(elem->misc->content, 0));
 }
 
 static t_elem	*add_elem(t_hash_table *hash_table, t_elem *elem, size_t i)
