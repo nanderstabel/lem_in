@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 17:31:03 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/17 23:48:22 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/19 17:01:40 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void			get_transitions(t_mconfig **mconfig)
 	(*mconfig)->transitions[s_label_graph][SUCCESS] = s_find_paths;
 	(*mconfig)->transitions[s_label_graph][FAIL] = s_choose_graph;
 	(*mconfig)->transitions[s_find_paths][FAIL] = s_label_graph_s_to_t;
-	(*mconfig)->transitions[s_find_paths][SUCCESS] = s_label_graph;//s_free_project;//s_label_graph;
+	(*mconfig)->transitions[s_find_paths][SUCCESS] = s_label_graph;
 	(*mconfig)->transitions[s_label_graph_s_to_t][SUCCESS] = s_augment_paths;
 	(*mconfig)->transitions[s_augment_paths][FAIL] = s_choose_graph;
 	(*mconfig)->transitions[s_augment_paths][SUCCESS] = s_label_graph;
