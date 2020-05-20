@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/07 09:33:47 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/19 17:13:05 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/20 13:34:11 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_bool								free_project(t_project *lem_in)
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("%s\n", __func__);
 	free(lem_in->input_string);
-	ft_free_hash_table(&lem_in->all_links, free_edge);
 	ft_free_hash_table(&lem_in->all_rooms, free_vertex);
+	ft_free_hash_table(&lem_in->all_links, free_edge);
 	free(lem_in->room_pointers);
 	free(lem_in->link_pointer);
 	free_all_paths(lem_in->all_paths);
