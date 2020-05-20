@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 19:37:04 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/16 15:40:18 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/20 13:00:30 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void			header(t_hash_table *table)
 {
 	t_list		*h_format;
 	t_list		*h_content;
-	t_list	*width;
+	t_list		*width;
 
 	h_format = table->header_format;
 	h_content = table->header_content;
@@ -65,7 +65,7 @@ static void			each_elem(t_hash_table *table, t_list *b_format, \
 static void			body(t_hash_table *table)
 {
 	t_list		*b_format;
-	t_list	*width;
+	t_list		*width;
 	size_t		i;
 
 	i = 0;

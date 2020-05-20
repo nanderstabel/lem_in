@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross        #+#    #+#                 */
-/*   Updated: 2020/05/19 14:38:06 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/20 13:01:55 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ t_list				*ft_lstfind_size(t_list *head, size_t size);
 void				ft_lstiter(t_list *lst, void(*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
-t_list				*ft_lstnew_ptr(void const* content, size_t content_size);
+t_list				*ft_lstnew_ptr(void const *content, size_t content_size);
 t_list				*ft_lstrev(t_list *alst);
 void				ft_lstsrt(t_list **alst, int (*method)(void *, void *));
 t_hash_table		*ft_malloc_hash_table(size_t size, char *title, \
@@ -149,7 +149,8 @@ void				ft_putnchar(char const *c, size_t len);
 void				ft_putnchar_fd(const int fd, char const *c, size_t len);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putendl(char const *s);
-void				ft_putlst(t_list *lst, char *(*content)(void *item), char *str);
+void				ft_putlst(t_list *lst, char *(*content)(void *item), \
+					char *str);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putnbr(int n);
 void				ft_putnstr(char const *str, size_t len);

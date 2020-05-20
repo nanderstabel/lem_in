@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 19:36:08 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/17 23:35:55 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/20 12:57:54 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ t_bool				spawn_ants(t_project *lem_in)
 				ft_lstapp(&lem_in->all_ants, \
 					ft_lstnew_ptr((void *)lem_in->current_ant, 0));
 			else
-				lem_in->all_ants = ft_lstnew_ptr((void *)lem_in->current_ant, 0);
+				lem_in->all_ants = \
+					ft_lstnew_ptr((void *)lem_in->current_ant, 0);
 			++lem_in->index;
 		}
 		lem_in->que_list = lem_in->que_list->next;

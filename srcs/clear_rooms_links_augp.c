@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 15:18:25 by mgross        #+#    #+#                 */
-/*   Updated: 2020/05/17 23:33:28 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/20 12:59:25 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_bool				clear_rooms_on_graph_augp(t_project *lem_in)
 t_bool				clear_links_on_graph_augp(t_project *lem_in)
 {
 	size_t		index;
-	t_list	*temp;
+	t_list		*temp;
 
 	temp = lem_in->aug_path_links;
 	index = 0;

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/17 23:36:23 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/20 13:00:48 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,7 +299,7 @@ typedef struct					s_project
 	t_list						*temp;
 	t_list						*aug_path_links;
 
-	t_list					*all_ants;
+	t_list						*all_ants;
 	t_ant						*current_ant;
 	t_list						*all_paths;
 	t_list						*current_path;
