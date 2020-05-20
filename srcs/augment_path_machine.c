@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/13 13:00:09 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/19 09:44:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/20 14:54:11 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,11 @@ t_bool				augmenting_paths(t_project *lem_in)
 	if (install_machine(&machine, states()) == SUCCESS)
 		run_machine(machine, lem_in);
 	uninstall_machine(&machine);
-	lem_in->loop++;//Added this to experiment with breaking out of the loop...
-	if (lem_in->round_temp == 0 || lem_in->loop == 12)// ...after n times
+	lem_in->loop++;
+	if (lem_in->round_temp == 0 || lem_in->loop == 12)
 	{
-		ft_addr_lstdel(&lem_in->aug_path_links);
+		if (lem_in->aug_path_links)
+			ft_addr_lstdel(&lem_in->aug_path_links);
 		return (FAIL);
 	}
 	return (SUCCESS);
