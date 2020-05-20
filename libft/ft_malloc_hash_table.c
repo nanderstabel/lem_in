@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/29 16:07:55 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/12 14:34:32 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/20 15:02:41 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_hash_table	*ft_malloc_hash_table(size_t size, char *title, char *format)
 	}
 	hash_table->title = ft_strdup(title);
 	if (format)
-		hash_table->format = strdup(format);
+		hash_table->format = ft_strdup(format);
 	hash_table->size = size;
 	add_formats(&hash_table, format);
 	return (hash_table);
