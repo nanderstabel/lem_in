@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 14:00:18 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/20 14:13:43 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/20 14:40:59 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ static void				add_body_content(t_hash_table *table)
 		{
 			elem = table->elem[i];
 			str = ft_itoa(((t_edge *)elem->content)->capacity);
-			ft_addr_lstapp(&elem->body_content, \
-				ft_addr_lstnew(str));
 			ft_lstadd(&elem->misc, ft_lstnew(str, ft_strlen(str)));
+			ft_addr_lstapp(&elem->body_content, \
+				ft_addr_lstnew(elem->misc->content));
 			free(str);
 			str = ft_strdup(((t_edge *)(elem->content))->next->id->name);
 			ft_lstadd(&elem->misc, ft_lstnew(str, ft_strlen(str)));
-			free(str);
 			ft_addr_lstapp(&elem->body_content, \
-				ft_addr_lstnew(str));
+				ft_addr_lstnew(elem->misc->content));
+			free(str);
 		}
 		++i;
 	}
