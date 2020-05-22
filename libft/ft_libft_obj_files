@@ -132,4 +132,5 @@ LIBFT_OBJ_FILES := 	ft_abs.o \
 					ft_strval.o \
 					ft_swap.o \
 					ft_tolower.o \
-					ft_toupper.o
+					ft_toupper.o \
+					ft_putlst_fd.o

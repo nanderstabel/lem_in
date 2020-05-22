@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/16 19:58:48 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/22 20:14:44 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,4 +206,5 @@ void				ft_swap(void **ptr1, void **ptr2);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 int					ft_strcmp_delim(const char *s1, const char *s2, int c);
+void				ft_putlst_fd(t_list *lst, char *str, int fd);
 #endif
