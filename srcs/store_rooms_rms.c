@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 18:54:45 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/19 14:59:42 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/22 20:23:14 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ t_bool				set_line_rms(t_project *lem_in)
 	lem_in->input_string_copy = lem_in->input_string;
 	if (lem_in->input_string_copy == NULL)
 		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
+	while (*lem_in->input_string_copy == '#')
+		ft_skip_line(&lem_in->input_string_copy);
 	ft_skip_line(&lem_in->input_string_copy);
 	return (SUCCESS);
 }

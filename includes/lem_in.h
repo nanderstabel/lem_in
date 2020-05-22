@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 16:05:13 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/19 09:44:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/22 20:34:31 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ enum
 	s_ischar_zero_vi,
 	s_ischar_del_vi,
 	s_ischar_hash_vi,
+	s_ischar_hash_b_vi,
 	s_sec_char_hash_vi,
+	s_sec_char_hash_b_vi,
 	s_find_hyphen_vi,
 	s_isdigit_nline_vi,
 	s_isdigit_space_vi,
@@ -90,6 +92,7 @@ enum
 	s_set_end_flag_vi,
 	s_switch_link_flag_on_vi,
 	s_skip_comm_line_vi,
+	s_skip_comm_line_b_vi,
 	s_line_room_hash_vi,
 	s_next_line_room_vi,
 	s_link_flag_on_vi,
@@ -434,5 +437,12 @@ t_bool							print_paths(t_project *lem_in);
 t_bool							print_tables(t_project *lem_in);
 int								sort_by_level(void *a, void *b);
 int								sort_by_length(void *a, void *b);
-
+t_bool							ischar_hash_b_vi(t_project *lem_in);
+t_bool							sec_char_hash_b_vi(t_project *lem_in);
+t_bool							skip_comm_line_b_vi(t_project *lem_in);
+void							get_transitions3_vi(t_mconfig **mconfig);
+void							get_transitions2_vi(t_mconfig **mconfig);
+void							get_transitions_vi(t_mconfig **mconfig);
+void							get_events2_vi(t_mconfig **mconfig);
+void							get_events_vi(t_mconfig **mconfig);
 #endif
