@@ -47,4 +47,6 @@ PROJECT_OBJ_FILES :=	main.o						\
 						check_augment_path_augp.o	\
 						capacity_from_sink_augp.o	\
 						move_lower_level_augp.o		\
-						get_indexes_edges_augp.o
+						get_indexes_edges_augp.o	\
+						is_comment_begin.o			\
+						transitions_events_vi.o
