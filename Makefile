@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/08 10:14:38 by mgross        #+#    #+#                  #
-#    Updated: 2020/05/20 13:57:00 by nstabel       ########   odam.nl          #
+#    Updated: 2020/06/09 16:29:07 by zitzak        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@ include ./obj_files
 include ./libft/ft_libft_obj_files
 include ./libft/ft_printf/ft_printf_obj_files
 include ./libft/machine/machine_obj_files
--include ./bonus/obj_files
 -include ./tests/test_obj_files
 
 #### Start of project specific section. ####
@@ -48,15 +47,6 @@ DEPS = -I$(INC_DIR) -I$(LIBFT_INC_DIR)
 
 MAX_PARALLEL = 6
 
-ifdef WITH_BONUS
-ifeq (, $(shell cat $(REG_BONUS_FILE_TXT)))
-$(error "Path to bonus obj_files.txt not specified.")
-endif
-OBJ_FILES = $(REG_OBJ_FILES) $(REG_BONUS_FILES)
-else
-OBJ_FILES = $(REG_OBJ_FILES)
-endif
-
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES) $(LIBFT_OBJ_FILES)
@@ -67,9 +57,6 @@ $(NAME): $(OBJ_FILES) $(LIBFT_OBJ_FILES)
 %.o: %.c $(HEADER_FILES) $(LIBFT_HEADER_FILES)
 	@$(CC) -c $(CFLAGS) $(DEPS) -o $@ $<
 
-bonus:
-	@$(MAKE) WITH_BONUS=1 all
-
 multi:
 	@$(MAKE) -j$(MAX_PARALLEL) all
 
@@ -78,9 +65,6 @@ test:
 
 run:
 	@./lem-in
-
-run_test:
-	@$(MAKE) run -C tests/
 	
 norm:
 	@echo "----project files----"
@@ -101,5 +85,5 @@ re:
 	@$(MAKE) fclean
 	@$(MAKE) all
 
-.PHONY: all bonus multi libft norm clean fclean re test run_test run
+.PHONY: all multi libft norm clean fclean re test run_test run
  
