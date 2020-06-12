@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 14:50:28 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/06/12 15:48:26 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/06/12 16:01:41 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_bool				print_usage_message(t_project *lem_in)
 	ft_printf("\t-p\t\tshows all paths ordered by round number\n");
 	ft_printf("\t-r\t\tprints hashtables containing all rooms\n");
 	ft_printf("\t-u\t\tshows usage message\n");
+	**lem_in->argv = -1;
 	return (SUCCESS);
 }
 
