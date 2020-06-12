@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/01/28 13:12:07 by mgross        #+#    #+#                  #
-#    Updated: 2020/05/20 13:54:54 by nstabel       ########   odam.nl          #
+#    Updated: 2020/06/12 15:20:43 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ CFLAGS = -Wall -Wextra -Werror -I
 
 all: $(NAME)
 
-$(NAME): $(LIBFT_OBJ_FILES) $(FT_PRINTF_OBJECT_FILES)
+$(NAME): $(LIBFT_OBJ_FILES) $(FT_PRINTF_OBJECT_FILES) $(MACHINE_OBJECT_FILES)
 	@ar rcs $@ $^
 	@echo $(NAME) "compiled."
 
