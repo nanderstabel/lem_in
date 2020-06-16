@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 13:14:07 by mgross        #+#    #+#                 */
-/*   Updated: 2020/06/16 17:09:53 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/06/16 16:51:26 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 t_bool						isallnum_nline_vi(t_project *lem_in)
 {
-	int				count;
-
-	count = 0;
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	if (*lem_in->input_string_copy == 'L')
@@ -33,10 +30,7 @@ t_bool						isallnum_nline_vi(t_project *lem_in)
 		if (*lem_in->input_string_copy == '-')
 			return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
 		lem_in->input_string_copy++;
-		count++;
 	}
-	if (!count)
-		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
 	lem_in->input_string_copy++;
 	return (SUCCESS);
 }
