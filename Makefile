@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/08 10:14:38 by mgross        #+#    #+#                  #
-#    Updated: 2020/05/20 13:57:00 by nstabel       ########   odam.nl          #
+#    Updated: 2020/06/12 15:26:31 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,6 @@ NAME = lem-in
 HEADER_FILES = $(INC_DIR)lem_in.h
 
 #### End project specific section. ####
-
-REG_BONUS_FILES := $(addprefix ./srcs/bonus/, $(BONUS_OBJ_FILES))
 
 REG_OBJ_FILES := $(addprefix ./srcs/, $(PROJECT_OBJ_FILES))
 
@@ -59,7 +57,7 @@ endif
 
 all: $(NAME)
 
-$(NAME): $(OBJ_FILES) $(LIBFT_OBJ_FILES)
+$(NAME): $(REG_OBJ_FILES) $(LIBFT_OBJ_FILES)
 	@make -C ./libft
 	@$(CC) -o $@ $^ $(LIB)
 	@echo $(NAME) "compiled."
@@ -84,7 +82,7 @@ run_test:
 	
 norm:
 	@echo "----project files----"
-	@norminette $(OBJ_FILES:%.o=%.c) $(INC_DIR)
+	@norminette $(REG_OBJ_FILES:%.o=%.c) $(INC_DIR)
 	@make norm -C ./libft
 
 clean:
