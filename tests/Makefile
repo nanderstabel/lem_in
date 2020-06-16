@@ -5,8 +5,8 @@
 #                                                      +:+                     #
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
-#    Created: 2020/02/06 08:47:04 by mgross         #+#    #+#                 #
-#    Updated: 2020/03/12 11:35:30 by mgross        ########   odam.nl          #
+#    Created: 2020/02/06 08:47:04 by mgross        #+#    #+#                  #
+#    Updated: 2020/06/09 14:38:26 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ LIB = -L ../libft/ -lft
 all: $(NAME)
 
 $(NAME): $(ALL_TEST_OBJ_FILES) $(PROJECT_OBJ_FILES)
-	@$(CC) -o $@ $^ -I$(INC_DIR) -lcriterion $(LIB) $(CFLAGS)
+	$(CC) -o $@ $^ -I$(INC_DIR) -lcriterion $(LIB) $(CFLAGS)
 	@echo "Unit test compiled."
 
 run:
@@ -53,7 +53,7 @@ run:
 	@echo "\n"
 
 %.o: %.c $(HEADER_FILES)
-	@$(CC) -c $(CFLAGS) $(DEPS) -o $@ $<
+	$(CC) -c $(CFLAGS) $(DEPS) -o $@ $<
 
 test_main: $(TEST_MAIN_OBJ) $(PROJECT_OBJ_FILES)
 	@$(CC) -o $(TEST_MAIN) $^ -I$(INC_DIR) $(LIB) $(CFLAGS)

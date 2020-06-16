@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 18:39:18 by mgross        #+#    #+#                 */
-/*   Updated: 2020/05/22 20:14:44 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/06/09 14:31:24 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include "ft_printf.h"
+# include "machine.h"
 
 # define BUFF_SIZE			1000
 # define MAX_MALLOC_SIZE	2147483424
