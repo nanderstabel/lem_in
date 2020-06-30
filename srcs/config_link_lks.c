@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 19:02:46 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 19:02:46 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/06/30 12:41:00 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ t_bool				store_link(t_project *lem_in)
 {
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
+	if (((t_elem *)(lem_in->room_pointers[first_room]))->index == \
+		((t_elem *)(lem_in->room_pointers[second_room]))->index)
+		return (FAIL);
 	lem_in->link_pointer = (void *)ft_strjoin(((t_elem *)\
 		(lem_in->room_pointers[first_room]))->name, "-");
 	lem_in->link_pointer = (void *)ft_append((char **)&lem_in->link_pointer, \

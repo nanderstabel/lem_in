@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 15:18:25 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/19 09:44:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/06/30 12:35:02 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ t_bool				clear_rooms_on_graph_augp(t_project *lem_in)
 	return (SUCCESS);
 }
 
+static t_bool		reset_vars(t_project *lem_in, size_t index)
+{
+	((t_edge*)(lem_in->all_links->elem[index]->content))->capacity = 1;
+	((t_edge*)(lem_in->all_links->elem[index]->content))->visited = 0;
+	return (SUCCESS);
+}
+
 t_bool				clear_links_on_graph_augp(t_project *lem_in)
 {
 	size_t		index;
@@ -48,8 +55,8 @@ t_bool				clear_links_on_graph_augp(t_project *lem_in)
 	{
 		while (index < lem_in->all_links->size)
 		{
-			((t_edge*)(lem_in->all_links->elem[index]->content))->capacity = 1;
-			((t_edge*)(lem_in->all_links->elem[index]->content))->visited = 0;
+			if (lem_in->all_links->elem[index])
+				reset_vars(lem_in, index);
 			index++;
 		}
 		while (temp)
