@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 18:50:42 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/16 18:50:42 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/06/30 14:37:13 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_bool				find_dash(t_project *lem_in)
 		++(*lem_in->argv);
 		return (SUCCESS);
 	}
-	return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
+	return (FAIL);
 }
 
 static void			check_options(t_project *lem_in)
@@ -80,5 +80,5 @@ t_bool				validate_argument(t_project *lem_in)
 		ft_printf("\t%s\n", __func__);
 	if (**lem_in->argv == 0 && *(*lem_in->argv - 1) != '-')
 		return (SUCCESS);
-	return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
+	return (FAIL);
 }
