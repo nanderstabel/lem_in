@@ -1,0 +1,6 @@
+ALL_TESTS :=	test_validate_input.o	\
+				test_read_input.o		\
+				test_error_log.o		\
+				test_store_rooms.o		\
+				test_label_graph.o		\
+				test_augmenting_paths.o
