@@ -12,25 +12,25 @@ In the ```maps/valid_maps``` folder you can find a list of files containing vali
 ```
 cat maps/valid_maps/map2.map
 4
-3 2 2
+a 2 2
 ##start
 start 4 0
 ##end
 end 4 6
-4 0 4
-1 4 2
-2 4 4
-5 8 2
-6 8 4
-start-1
-3-4
-2-4
-1-5
-6-5
-end-6
-1-2
-2-end
-3-start
+d 0 4
+b 4 2
+e 4 4
+c 8 2
+f 8 4
+start-b
+a-d
+e-d
+b-c
+f-c
+end-f
+b-e
+e-end
+a-start
 ```
 
 Which corresponds to the following representation:
@@ -38,9 +38,9 @@ Which corresponds to the following representation:
 ```
   [start]
    /  |
- [3] [1]--[5]
+ [a] [b]--[c]
  /    |    |
-[4]--[2]  [6]
+[d]--[e]  [f]
       |   /
      [end]
 ```
@@ -72,10 +72,10 @@ Pathfinder which moves 'ants' from a start room to an end room, using a given ma
 The goal of this project is to find the quickest way to get ***n*** ants across the farm, this means that the program's solution must be given in the least amount of lines. Below is our solution to ```maps/valid_maps/map2.map```.
 
 ```
-L1-1 L2-3
-L1-5 L2-4 L3-1 L4-3
-L1-6 L2-2 L3-5 L4-4
-L1-end L2-end L3-6 L4-2
+L1-b L2-a
+L1-c L2-d L3-b L4-a
+L1-f L2-e L3-c L4-d
+L1-end L2-end L3-f L4-e
 L3-end L4-end
 ```
 
