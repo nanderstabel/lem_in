@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/15 15:29:08 by mgross        #+#    #+#                 */
-/*   Updated: 2020/06/30 15:02:47 by mgross        ########   odam.nl         */
+/*   Updated: 2020/06/30 15:04:51 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_bool						allflags_on_vi(t_project *lem_in)
 	if (lem_in->flags & DEBUG_O)
 		ft_printf("\t%s\n", __func__);
 	if (lem_in->nlinks > 10000 || lem_in->nrooms > 10000)
-			return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
+		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
 	else if ((lem_in->flags & START) && (lem_in->flags & END) &&
 		(lem_in->flags & LINK))
 		return (SUCCESS);
