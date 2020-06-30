@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 17:35:37 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/17 15:03:11 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/06/30 16:31:16 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -428,7 +428,7 @@ Test(input_validation, isdigit_nline_vi_test)
 	FLAGS = 0;
 	ERROR = NULL;
 	
-	INPUT_CPY = ft_strdup("7478489\n234558");
+	INPUT_CPY = ft_strdup("747\n234558");
 	temp = INPUT_CPY;
 	boolean = isdigit_nline_vi(lem_in);
 	cr_expect(boolean == SUCCESS, "The result was %d, expected %d\n", boolean, SUCCESS);
