@@ -82,7 +82,8 @@ L3-end L4-end
 Each line counts as 1 turn, so our program needs 5 turns to get all 4 ants to the end. An antname starts with ```L``` followed by a number. ```L1-1``` means that in this turn the ```L1``` ant travels to room ```1```. Why does our program only move 2 ants in the first turn? According to the rules of the project ants can only travel over one link per turn and there can only be one ant in each room (the vertex capacity and edge capacity are both 1). 
 
 So how do we arrive at this solution? After validating and saving the input data in a graph and two hashtables, the first step of the algorithm is to do a ***breadth-first search*** (BFS) starting at the end room (sink) like so:
-![ezgif com-resize](https://user-images.githubusercontent.com/43185740/86123653-2d11ce80-bada-11ea-831f-9f535b3d72b4.gif)
+
+![ezgif com-resize (1)](https://user-images.githubusercontent.com/43185740/86123770-57fc2280-bada-11ea-8124-7233ec038dae.gif)
 
 
 
