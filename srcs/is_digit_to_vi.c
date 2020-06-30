@@ -6,7 +6,7 @@
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/16 13:11:28 by mgross        #+#    #+#                 */
-/*   Updated: 2020/04/19 09:44:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/06/30 14:08:17 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_bool						isdigit_nline_vi(t_project *lem_in)
 	}
 	if (lem_in->nants == 0)
 		lem_in->nants = ft_atoi(temp);
+	if (lem_in->nants > 100000)
+		return (error_log(lem_in, ft_strjoin("\t- ", __func__), FAIL));
 	if (lem_in->flags & ROOM_LINE)
 		lem_in->flags ^= ROOM_LINE;
 	lem_in->input_string_copy++;
