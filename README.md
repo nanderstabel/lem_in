@@ -90,5 +90,6 @@ So how do we arrive at this solution? After validating and saving the input data
 ## Challenge
 Allowed functions for the mandatory part are ```exit```, ```open```, ```close```, ```write```, ```read```, ```malloc``` and ```free```.
 
-## Takeaways
+All further information can be found in the subject.
+
 
